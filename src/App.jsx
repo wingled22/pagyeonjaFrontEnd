@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState } from 'react'
 import HomePage from "./routes/HomePage";
+import CardTotalRider from './CardTotalRider'
+
 function App() {
   return (
     <>
       <HomePage />
+      <CardTotalRider />
     </>
   );
 }
