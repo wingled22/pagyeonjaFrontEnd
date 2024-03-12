@@ -1,15 +1,14 @@
 import { useState } from 'react'
+import HomePage from "./routes/HomePage";
 import CardTotalRider from './CardTotalRider'
-function App() {
-  const [count, setCount] = useState(0)
 
+function App() {
   return (
     <>
-       <div>
+      <HomePage />
       <CardTotalRider />
-    </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
