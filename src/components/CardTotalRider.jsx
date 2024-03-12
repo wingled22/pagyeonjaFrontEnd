@@ -1,5 +1,5 @@
 import React from 'react';
-import "./assets/CardTotalRider.css";
+import "../assets/css/CardTotalRider.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBicycle,faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 

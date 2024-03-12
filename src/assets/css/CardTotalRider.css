@@ -5,9 +5,9 @@
   
   .box .total-riders {
     height: 274px;
-    left: 0;
+    left: 7%;
     position: fixed;
-    top: 0;
+    top: 112px;
     width: 273px;
   }
   
@@ -15,11 +15,10 @@
     background-color: #ffffff;
     border-radius: 35px;
     box-shadow: 0px 4px 15.4px 2px #00000040;
-    height: 254px;
+    height: 244px;
     position: relative;
-    width: 249px;
-    left: 181px;
-    bottom: -57px;
+    width: 239px;
+    /* left: 121px; */
 
   }
   
@@ -66,8 +65,8 @@
   .box .menu {
     height: 34px;
     left: 0;
-    position: fixed;
-    top: 85px;
+    position: absolute;
+    top: 28px;
     width: 7px;
-    left: 393px;
+    left: 203px;
   }
