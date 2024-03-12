@@ -2,6 +2,7 @@ import { useState } from "react";
 import HomePage from "./routes/HomePage";
 import { Row, Col } from "reactstrap";
 import NavigationBar from "./components/NavigationBar";
+import CommuterPage from './routes/CommuterPage'
 
 function App() {
   return (
@@ -13,7 +14,12 @@ function App() {
 
         {/* routing */}
         <Col>
-          <HomePage />
+          <Row>
+            <HomePage />
+          </Row>
+          <Row>
+            <CommuterPage />
+          </Row>
         </Col>
       </Row>
     </>
