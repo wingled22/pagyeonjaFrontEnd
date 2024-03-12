@@ -1,0 +1,41 @@
+.CommuterTableContainer
+{
+    height: 600px;
+    width: 100%;
+    background-color: #eceaea;
+    border-radius: 20px;
+
+    margin-left: 20px;
+
+    box-shadow: 0px 4px 14.1px -1px #00000080;
+}
+
+.tableCommuterTable
+{
+    margin: auto;
+
+    width: 100%;
+    background: white;
+}
+
+.trCommuterTable
+{
+    background-color:  #52459F !important;
+    color: white;
+    height: 50px;
+}
+
+.rowCommuterTable
+{
+    border: 1px;
+}
+
+.btn
+{
+    margin-left: 10px;
+}
+
+#colContainerTable
+{
+    width: 55%;
+}
