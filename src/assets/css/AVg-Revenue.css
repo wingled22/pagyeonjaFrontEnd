@@ -1,0 +1,57 @@
+.box {
+  height: 274px;
+  width: 269px;
+}
+
+.box .avg-Revenue {
+    height: 274px;
+    left: 43%;
+    position: fixed;
+    top: 112px;
+    width: 273px;
+  }
+  
+  .box .overlap-group-avgre {
+    background-color: #ffffff;
+    border-radius: 35px;
+    box-shadow: 0px 4px 15.4px 2px #00000040;
+    height: 274px;
+    position: relative;
+    /* width: 269px; */
+    width: 239px;
+    height: 244px;
+  
+  
+  }
+  
+  
+  .box .div {
+    color: #737277;
+    font-family: "Poppins-Regular", Helvetica;
+    font-size: 17px;
+    font-weight: 400;
+    height: 28px;
+    left: 25px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 205px;
+    width: 218px;
+  }
+  
+  .box .dollar {
+    height: 55px;
+    left: 26px;
+    position: absolute;
+    top: 28px;
+    width: 46px;
+    color: #E38071;
+  }
+  .box .menu-avgr {
+    height: 34px;
+    /* left: 0; */
+    position: absolute;
+    top: 28px;
+    width: 7px;
+    left: 203px;
+  }

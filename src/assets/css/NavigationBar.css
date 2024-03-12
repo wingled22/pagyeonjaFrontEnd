@@ -1,0 +1,30 @@
+.navigation-bar {
+  background: #52459f;
+  min-width: 5rem;
+  max-width: 5.5%;
+  height: 96.5vh;
+  border-radius: 25px;
+}
+
+img {
+  width: 70%;
+}
+
+.large-icon {
+  font-size: 1.3rem;
+  margin: 2rem 0 2rem 0;
+  cursor: pointer;
+}
+
+.logout-btn {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.logout {
+  margin-top: auto;
+}
+
+.arrow {
+  transition: top 0.3s ease-out;
+}
