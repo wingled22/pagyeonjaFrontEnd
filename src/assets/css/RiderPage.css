@@ -1,84 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /* Rider Profile CSS */
 
 .rectangle-header {
-    background-color: #52459F;
-    border-radius: 30px;
-    height: 50px;
-    left: 0;
-    width: 100%;
-    padding: 6px;
+  background-color: #52459f;
+  border-radius: 30px;
+  height: 50px;
+  left: 0;
+  width: 100%;
+  padding: 6px;
 }
 
 .box-header .label {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .box-header .label .text-wrapper {
-    color: #e1dff3;
-    font-size: 27px;
-    font-weight: 600;
+  color: #e1dff3;
+  font-size: 27px;
+  font-weight: 600;
 }
 
 .rect-profile {
-    margin: auto;
-    background-color: #fdfdfd;
-    border-radius: 30px;
-    box-shadow: 0px 2px 4px 1.5px #00000080;
-    height: 180px;
-    width: 100%;
-    left: 0;
-    margin-top: 20px;
-
+  margin: auto;
+  background-color: #fdfdfd;
+  border-radius: 30px;
+  box-shadow: 0px 2px 4px 1.5px #00000080;
+  height: 180px;
+  width: 100%;
+  left: 0;
+  margin-top: 20px;
 }
 
 .profile-img {
-    position: relative;
-    margin-left: 40px;
-    margin-top: 15px;
+  position: relative;
+  margin-left: 40px;
+  margin-top: 15px;
 }
 
-
 .text-name {
-    color: #52459F;
-    font-weight: 700 !important;
-    line-height: normal;
+  color: #52459f;
+  font-weight: 700 !important;
+  line-height: normal;
 }
 
 .text-details {
-    font-size: 17px;
-    font-weight: 400;
-    color: #504b4b;
+  font-size: 17px;
+  font-weight: 400;
+  color: #504b4b;
 }
 
 .name-row {
-    margin-top: 30px !important;
+  margin-top: 10px !important;
 }
 
 .details-row {
-    margin-top: 10px !important;
-    margin-left: 35px !important;
+  margin-top: 10px !important;
+  margin-left: 35px !important;
 }
 
 /* Search CSS */
 .search-box {
-    margin-left: 20px;
-    margin-top: 20px !important;
-    width: 70% !important;
-
+  margin-left: 20px;
+  margin-top: 20px !important;
+  width: 70% !important;
 }
 
 .search-box Input {
-    font-weight: 600;
-    font-size: 15px;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #d1c7c7;
-    border-radius: 30px;
-    outline: none;
-    background-color: #d1d1d1;
-    color: rgb(68, 66, 66);
+  font-weight: 600;
+  font-size: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1c7c7;
+  border-radius: 30px;
+  outline: none;
+  background-color: #d1d1d1;
+  color: rgb(68, 66, 66);
 }
 
 /* Rider Table CSS */
@@ -94,42 +91,47 @@
 } */
 
 .table-container {
-    margin: 0 auto;
-    margin-top: 20px !important;
-    max-height: 45vh;
-    overflow-y: auto;
+  margin: 0 auto;
+  margin-top: 20px !important;
+  max-height: 45vh;
+  overflow-y: auto;
+  border-radius: 25px;
+}
+
+.table {
+  box-shadow: 0 0 10px rgba(0, 0, 12, 0.1);
+  border-radius: 20px;
 }
 
 .table-container::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 .table-container::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 4px;
+  background-color: #888;
+  border-radius: 4px;
 }
 
 .table-container::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+  background-color: #555;
 }
 
 th {
-    background-color: #52459F !important;
-    color: white !important;
-    padding: 18px !important;
-    position: sticky;
-    top: 0;
+  background-color: #52459f !important;
+  color: white !important;
+  padding: 18px !important;
+  position: sticky;
+  top: 0;
 }
 
-
 .id-header {
-    border-top-left-radius: 20px;
+  border-top-left-radius: 20px;
 }
 
 .act-header {
-    border-top-right-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 td {
-   margin-left: 30px !important;
+  margin-left: 30px !important;
 }

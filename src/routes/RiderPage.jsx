@@ -1,7 +1,7 @@
 import "../assets/css/RiderPage.css";
-import RiderTable from "../components/RiderTable.jsx";
-import RiderProfile from "../components/RiderProfile.jsx";
-import { Row } from 'reactstrap';
+import RiderTable from "../components/Rider/RiderTable.jsx";
+import RiderProfile from "../components/Rider/RiderProfile.jsx";
+import { Row } from "reactstrap";
 const RiderPage = () => {
   return (
     <>
@@ -11,9 +11,8 @@ const RiderPage = () => {
       <Row>
         <RiderTable />
       </Row>
-
     </>
   );
-}
+};
 
 export default RiderPage;
