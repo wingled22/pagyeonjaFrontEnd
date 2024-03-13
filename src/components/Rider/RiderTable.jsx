@@ -10,21 +10,48 @@ import { Table } from "reactstrap";
 
 const RiderTable = () => {
   const data = [
-    { id: 1, riderId: "123123", name: "Mark Zuckerberg", status: "active" },
-    { id: 2, riderId: "456456", name: "Jacob Wikowski", status: "inactive" },
-    { id: 3, riderId: "789789", name: "Larry Myersekerist", status: "pending" },
+    { id: 1, riderId: "123123", name: "Mark Zuckerberg", status: "suspended" },
+    { id: 2, riderId: "456456", name: "Jacob Wikowski", status: "active" },
+    {
+      id: 3,
+      riderId: "789789",
+      name: "Larry Myersekerist",
+      status: "suspended",
+    },
+    { id: 4, riderId: "123123", name: "Mark Zuckerberg", status: "suspended" },
+    { id: 5, riderId: "456456", name: "Jacob Wikowski", status: "active" },
+    {
+      id: 6,
+      riderId: "789789",
+      name: "Larry Myersekerist",
+      status: "suspended",
+    },
   ];
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "active":
+        return "#38A843";
+      case "suspended":
+        return "#EA5943";
+      default:
+        return "transparent";
+    }
+  };
 
   return (
     <>
-      <div className="rider-container">
+      <div className="search-box">
+        <input type="text" placeholder="Search for rider" />
+      </div>
+      <div className="table-container">
         <Table>
           <thead>
             <tr>
-              <th>Rider ID No.</th>
+              <th className="id-header">Rider ID No.</th>
               <th>Name</th>
               <th>Status</th>
-              <th>Action</th>
+              <th className="act-header">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -32,7 +59,24 @@ const RiderTable = () => {
               <tr key={rider.id}>
                 <td>{rider.riderId}</td>
                 <td>{rider.name}</td>
-                <td>{rider.status}</td>
+                <td>
+                  <p
+                    className="status-circle"
+                    style={{
+                      backgroundColor: getStatusColor(rider.status),
+                      borderRadius: "20px",
+                      width: "100px",
+                      height: "30px",
+                      padding: "3px",
+                      textAlign: "center",
+                      fontWeight: "500",
+                      fontSize: "15px",
+                      color: "white",
+                    }}
+                  >
+                    {rider.status}
+                  </p>
+                </td>
                 <td>
                   <button className="btn btn-primary">
                     <Icon icon={faCircleInfo} color="white" />
