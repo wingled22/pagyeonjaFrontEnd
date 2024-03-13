@@ -4,11 +4,8 @@ import RiderProfile from "../components/RiderProfile.jsx";
 const RiderPage = () => {
   return (
     <>
-      <div className="container">
-        <RiderTable />
-        <RiderProfile />
-      </div>
-
+      <RiderProfile />
+      <RiderTable />
     </>
   );
 }

@@ -1,45 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-
 /* Rider Profile CSS */
-.box-header {
-    height: 73px;
-    width: 1064px;
-}
 
-.box-header .rectangle-header {
-    position: relative;
+.rectangle-header {
     background-color: #52459F;
     border-radius: 30px;
     height: 50px;
     left: 0;
-    margin-top: 20px;
-    width: 1046px;
-    padding: 10px;
-    height: 60px;
+    width: 100%;
+    padding: 6px;
+  
 }
 
 .box-header .label {
-    height: 65px;
-    width: 259px;
     margin-left: 20px;
 }
 
 .box-header .label .text-wrapper {
-    position: relative;
     color: #e1dff3;
-    font-family: "Poppins-SemiBold", Helvetica;
-    font-size: 30px;
+    font-size: 27px;
     font-weight: 600;
-    line-height: normal;
-
 }
 
 .rect-profile {
@@ -49,7 +29,7 @@
     border-radius: 30px;
     box-shadow: 0px 2px 4px 1.5px #00000080;
     height: 180px;
-    width: 900px;
+    width: 90%;
     left: 0;
     margin-top: 20px;
 
@@ -58,45 +38,40 @@
 .profile-img {
     position: relative;
     margin-left: 40px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 
 .text-name {
-    position: relative;
     color: #52459F;
-    font-family: "Poppins-Bold", Helvetica !important;
-    font-size: 36px;
     font-weight: 700 !important;
     line-height: normal;
-    width: 308px;
 }
 
-.text-details{
-    font-family: "Poppins-Medium", Helvetica !important;
-    font-size: 18px;
+.text-details {
+    font-size: 17px;
     font-weight: 400;
+    color: #504b4b;
 }
+
 .name-row {
-    position: relative;
     margin-top: 30px !important;
-
 }
 
-.details-row{
-    position: relative;
+.details-row {
     margin-top: 10px !important;
+    margin-left: 35px !important;
 }
 
 /* Search CSS */
 .search-box {
-    position: relative;
-    width: 80%;
+    margin-left: 60px;
     margin-top: 20px;
-  }
-  
-  .search-box Input {
-    font-family: "Poppins-Bold", Helvetica;
+    width: 70%;
+    
+}
+
+.search-box Input {
     font-weight: 600;
     font-size: 15px;
     width: 100%;
@@ -105,33 +80,36 @@
     border-radius: 30px;
     outline: none;
     background-color: #d1d1d1;
-  }
-  
+    color: rgb(68, 66, 66);
+}
 
-  
 /* Rider Table CSS */
 
 .rider-container {
-    position: fixed;
-    top: 340px;
-    margin: 20px;
-    padding: 20px;
+    margin: 0 auto;
+    margin-top: 20px;
     border: 1px solid #ddd;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 80%;
+    width: 90%;
 }
 
 th {
     background-color: #52459F !important;
     color: white !important;
-    padding: 15px !important;
+    padding: 18px !important;
+
+}
+
+.id-header {
+    border-top-left-radius: 20px;
+}
+
+.act-header {
+    border-top-right-radius: 20px;
 }
 
 td {
-    height: 50px;
-}
-
-.btn {
-    margin-left: 10px;
+    padding: 12px !important;
+    margin-left: 100px !important;
 }
