@@ -44,3 +44,9 @@ thead
 {
     margin-left: 10px;
 }
+
+tbody
+{
+    overflow: auto !important;
+    max-height: 86vh;
+}
