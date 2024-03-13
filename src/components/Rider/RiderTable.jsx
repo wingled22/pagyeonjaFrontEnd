@@ -26,6 +26,12 @@ const RiderTable = () => {
       name: "Larry Myersekerist",
       status: "suspended",
     },
+    {
+      id: 7,
+      riderId: "789789",
+      name: "Larry Myersekerist",
+      status: "suspended",
+    },
   ];
 
   const getStatusColor = (status) => {
@@ -54,7 +60,7 @@ const RiderTable = () => {
               <th className="act-header">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="rider-body">
             {data.map((rider) => (
               <tr key={rider.id}>
                 <td>{rider.riderId}</td>
