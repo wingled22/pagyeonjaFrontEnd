@@ -1,7 +1,6 @@
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
-    faCircleUser,
-    faSearch
+    faCircleUser
 } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Input } from 'reactstrap';
 const RiderProfile = () => {
@@ -16,7 +15,7 @@ const RiderProfile = () => {
 
                 <div className="rect-profile">
                     <Row>
-                        <Col md={3}>
+                        <Col md={2}>
                             <Icon className="profile-img" icon={faCircleUser} color='black' style={{ fontSize: "150px" }} />
                         </Col>
                         <Col md={9}>
@@ -31,7 +30,7 @@ const RiderProfile = () => {
                                     Age:20
                                     &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                     Vehicle No: 47548
                                     <br></br>
                                     Contact Number: 09564457889
@@ -42,12 +41,6 @@ const RiderProfile = () => {
                         </Col>
                     </Row>
                 </div>
-
-
-                <div className="search-box">
-                    <input type="text" placeholder="Search for rider" />
-                </div>
-
             </div>
         </>
     );

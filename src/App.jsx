@@ -11,9 +11,9 @@ function App() {
     <>
        
       <Row>
-        {/* <Col md={1}>
+        <Col md={1}>
           <NavigationBar />
-        </Col> */}
+        </Col>
 
         {/* routing */}
         {/* <Col>
