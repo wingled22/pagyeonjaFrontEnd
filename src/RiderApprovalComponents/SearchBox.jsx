@@ -12,7 +12,7 @@ const StyledInput = styled.input`
   margin-left: 20px;
   margin-top: 5px;
   width: 300px;
-  height: 20px;
+  height:39px;
 
   
 `;

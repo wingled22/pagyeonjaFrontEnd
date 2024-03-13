@@ -35,8 +35,10 @@ const Rider_Approval_TablePage = ({text, color}) => {
     maxWidth: '500px',
     maxHeight: '500px',
     overflowY: 'auto',
-    marginLeft: '20px',
-    padding: '10px',
+    marginLeft: '30px',
+    padding: '50px',
+    backgroundColor: "#F0F0F0",
+    borderRadius: "10px",
   };
   
   const tableStyles = {
@@ -47,15 +49,18 @@ const Rider_Approval_TablePage = ({text, color}) => {
   };
   
   const tdStyle = {
-    padding: '10px',
-    borderBottom: '1px solid #ddd',
+    padding: '50px 0px 10px 0px',
+    borderBottom: '5px solid #52459F',
+  
 
   };
 
   const tdNAME   = {
-    padding: '10px',
-    borderBottom: '1px solid #ddd',
-    fontSize: '20px'
+    // padding: '10px',
+    padding: '50px 0px 10px 0px',
+    borderBottom: '5px solid #52459F',
+    fontSize: '20px',
+   
   };
   
  
@@ -63,10 +68,17 @@ const Rider_Approval_TablePage = ({text, color}) => {
   return (
     <div style={tableContainerStyles}>
       <table style={tableStyles}>
-        
+
         <tbody>
+
+       
           {data.map((item) => (
+
+
+
             <tr key={item.id}>
+
+              
              
               <td style={tdStyle}>
               <img src={item.imageSrc}  style={{ maxWidth: '80px', maxHeight: '80px' ,borderRadius: '50px'}} />
