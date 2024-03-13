@@ -8,18 +8,11 @@ function App() {
   return (
     <>
       <Row>
-        <Col md={1}>
+        <Col md={1} sm={1}>
           <NavigationBar />
         </Col>
-
-        {/* routing */}
-        <Col>
-          <Row>
-            <HomePage />
-          </Row>
-          <Row>
-            <CommuterPage />
-          </Row>
+        <Col >
+          <CommuterPage />
         </Col>
       </Row>
     </>

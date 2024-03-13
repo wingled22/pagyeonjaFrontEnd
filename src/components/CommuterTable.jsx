@@ -12,17 +12,22 @@ const CommuterTable = () => {
         { id: 1, name: 'John Doe', status: 'Active' },
         { id: 2, name: 'Jane Doe', status: 'Inactive' },
         { id: 3, name: 'Bob Smith', status: 'Active' },
+        { id: 4, name: 'Bob Smith', status: 'Active' },
+        { id: 5, name: 'Bob Smith', status: 'Active' },
+        { id: 6, name: 'Bob Smith', status: 'Active' },
+        { id: 7, name: 'Bob Smith', status: 'Active' },
+        { id: 8, name: 'Bob Smith', status: 'Active' },
     ];
 
     return (
         <>
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
-                    <thead>
+                    <thead className='theadCommuterTable'>
                         <tr className='trCommuterTable'>
-                            <th style={{ width: '45%', paddingLeft: '20px', borderRadius: '20px 0 0 0', marginBottom: '10px' }}>Name</th>
-                            <th style={{ width: '25%', padding: '20px' }}>Status</th>
-                            <th style={{ width: '30%', padding: '20px', paddingLeft: '50px', borderRadius: '0 20px 0 0' }}>Action</th>
+                            <th className='thCommuterTable' style={{ width: '45%', paddingLeft: '20px', borderRadius: '20px 0 0 0', marginBottom: '10px' }}>Name</th>
+                            <th className='thCommuterTable' style={{ width: '25%', padding: '20px' }}>Status</th>
+                            <th className='thCommuterTable' style={{ width: '30%', padding: '20px', paddingLeft: '50px', borderRadius: '0 20px 0 0' }}>Action</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -7,6 +7,8 @@ import {
 
 import { Row, Col } from 'reactstrap';
 
+import CommuterAccordion from '../components/CommuterAccordion.jsx'
+
 const CommuterDetails = () => {
     return (<>
 
@@ -25,12 +27,12 @@ const CommuterDetails = () => {
                 </Col>
                 <Col md="4">
                     <div className="btn btn-warning btnViewDocuments">
-                        View Documents
+                        Documents
                     </div>
                 </Col>
             </Row>
             <Row>
-                <div className="containerCommuterDetails">
+                <Col className="containerCommuterDetails" md={11}>
                     <span className="labelInfo">Address: <span className="textInfo">Barangay Maya, Biringan City, Samar</span></span>
                     <div className="labelInfo">Contact Number: <span className="textInfo">09163345411</span></div>
                     <div className="labelInfo">Email Address: <span className="textInfo">andrewwalker@gmail.com</span></div>
@@ -38,11 +40,13 @@ const CommuterDetails = () => {
                     <div className="labelInfo">Date Registered: <span className="textInfo">March 06, 2024</span></div>
                     <div className="labelInfo">Status: <span className="textInfo">Suspended</span></div>
                     <div className="labelInfo">Duration: <span className="textInfo">1D : 06hrs: 32m: 06s</span></div>
-                </div>
+                </Col>
             </Row>
-            <br /><br />
             <Row>
-                <div className="labelRideHistory">Ride History</div>
+                <span className="labelRideHistory">Ride History</span> 
+                <Col className="containerRideHistory" md={11}>
+                <CommuterAccordion/>
+                </Col>
             </Row>
         </div>
 

@@ -9,15 +9,15 @@ const CommuterPage = () => {
         <>
             <div>
                 <Row>
-                    <Col md={4}>
+                    <Col md={5} sm={12}>
                         <CommuterSearch/>
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs="6" id='colContainerTable'>
+                    <Col md={6} sm={12} id='colContainerTable'>
                         <CommuterTable />
                     </Col>
-                    <Col  id='colContainerDetails'>
+                    <Col md={6} id='colContainerDetails'>
                         <CommuterDetails/>
                     </Col>
                 </Row>
