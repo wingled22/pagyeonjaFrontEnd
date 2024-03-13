@@ -44,9 +44,7 @@ const RiderProfile = () => {
                 </div>
 
 
-                <div className="search-box">
-                    <input type="text" placeholder="Search for rider" />
-                </div>
+               
 
             </div>
         </>
