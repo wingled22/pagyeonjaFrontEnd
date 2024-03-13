@@ -1,8 +1,6 @@
-import { useState } from "react";
-import HomePage from "./routes/HomePage";
 import { Row, Col } from "reactstrap";
 import NavigationBar from "./components/NavigationBar";
-import CommuterPage from './routes/CommuterPage'
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
@@ -11,8 +9,8 @@ function App() {
         <Col md={1} sm={1}>
           <NavigationBar />
         </Col>
-        <Col >
-          <CommuterPage />
+        <Col md={11}>
+          <Outlet />
         </Col>
       </Row>
     </>

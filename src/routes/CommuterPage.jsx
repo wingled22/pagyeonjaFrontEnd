@@ -1,7 +1,7 @@
-import CommuterTable from '../components/CommuterTable.jsx'
-import CommuterDetails from '../components/CommuterDetails.jsx'
-import CommuterSearch from '../components/CommuterSearch.jsx'
-import { Row, Col } from 'reactstrap';
+import CommuterTable from "../components/Commuter/CommuterTable.jsx";
+import CommuterDetails from "../components/Commuter/CommuterDetails.jsx";
+import CommuterSearch from "../components/Commuter/CommuterSearch.jsx";
+import { Row, Col } from "reactstrap";
 
 const CommuterPage = () => {
 
