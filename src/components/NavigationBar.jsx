@@ -26,16 +26,16 @@ const NavigationBar = () => {
         ref={arrow}
         alt="arrow"
         style={{
-          position: "absolute",
+          // position: "absolute",
           top: position,
-          bottom: 0,
-          width: 49.6,
-          left: -6.5,
+          // bottom: 0,
+          // width: 49.6,
+          // left: -6.5,
         }}
         className="arrow"
       />
       <div className="navigation-bar d-flex flex-column align-items-center">
-        <img src={HitchLogo} alt="mylogo" className="mt-4" />
+        <img src={HitchLogo} alt="mylogo" className="mt-4 logo" />
         <div className="d-flex flex-column align-items-center mt-4">
           <Icon
             icon={faHouse}

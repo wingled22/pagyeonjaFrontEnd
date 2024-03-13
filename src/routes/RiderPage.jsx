@@ -1,6 +1,6 @@
 import "../assets/css/RiderPage.css";
-import RiderTable from "../components/RiderTable.jsx";
-import RiderProfile from "../components/RiderProfile.jsx";
+import RiderTable from "../components/Rider/RiderTable.jsx";
+import RiderProfile from "../components/Rider/RiderProfile.jsx";
 const RiderPage = () => {
   return (
     <>
@@ -8,9 +8,8 @@ const RiderPage = () => {
         <RiderTable />
         <RiderProfile />
       </div>
-
     </>
   );
-}
+};
 
 export default RiderPage;
