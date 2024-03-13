@@ -1,14 +1,23 @@
 .CommuterTableContainer
 {
-    height: 600px;
+    height: 86vh;
     width: 100%;
     background-color: #eceaea;
     border-radius: 20px;
 
-    margin-left: 20px;
+    max-height: 86vh;
+    overflow: auto;
+
+    /* margin-left: 20px; */
 
     box-shadow: 0px 4px 14.1px -1px #00000080;
 }
+ 
+thead
+{
+    position: sticky !important;
+}
+
 
 .tableCommuterTable
 {
@@ -20,6 +29,7 @@
 
 .trCommuterTable
 {
+
     background-color:  #52459F !important;
     color: white;
     height: 50px;
@@ -35,7 +45,8 @@
     margin-left: 10px;
 }
 
-#colContainerTable
+tbody
 {
-    width: 55%;
+    overflow: auto !important;
+    max-height: 86vh;
 }
