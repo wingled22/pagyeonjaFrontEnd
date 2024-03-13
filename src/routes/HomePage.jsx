@@ -8,9 +8,9 @@ const HomePage = () => {
   return (
     <>
       <h1 className="greatings">Good Afternoon, Admin</h1>
-      {/* <CardTotalRider />
+      <CardTotalRider />
       <AVGCommuters />
-      <AVGrevenue /> */}
+      <AVGrevenue />
     </>
   );
 };

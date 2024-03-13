@@ -26,8 +26,7 @@
 }
 
 .arrow {
-  transition: top 0.3s ease-out;
-  transition: left 0.3s ease;
+  transition: top 0.3s ease-out, left 0.3s ease;
   position: absolute;
   bottom: 0;
   width: 49.6px;

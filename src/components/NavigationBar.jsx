@@ -2,6 +2,7 @@ import "../assets/css/NavigationBar.css";
 import HitchLogo from "../assets/img/logo.svg";
 import CurrentPage from "../assets/img/CurrentPageArrow.svg";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { NavLink } from "react-router-dom";
 import {
   faHouse,
   faBicycle,
@@ -37,24 +38,30 @@ const NavigationBar = () => {
       <div className="navigation-bar d-flex flex-column align-items-center">
         <img src={HitchLogo} alt="mylogo" className="mt-4 logo" />
         <div className="d-flex flex-column align-items-center mt-4">
-          <Icon
-            icon={faHouse}
-            color="white"
-            className="large-icon"
-            onClick={() => SetCurrentPosition("home", "6.5rem")}
-          />
-          <Icon
-            icon={faBicycle}
-            color="white"
-            className="large-icon"
-            onClick={() => SetCurrentPosition("rider", "12rem")}
-          />
-          <Icon
-            icon={faPerson}
-            color="white"
-            className="large-icon"
-            onClick={() => SetCurrentPosition("rider", "17rem")}
-          />
+          <NavLink to={"/home"}>
+            <Icon
+              icon={faHouse}
+              color="white"
+              className="large-icon"
+              onClick={() => SetCurrentPosition("home", "6.5rem")}
+            />
+          </NavLink>
+          <NavLink to={"/rider"}>
+            <Icon
+              icon={faBicycle}
+              color="white"
+              className="large-icon"
+              onClick={() => SetCurrentPosition("rider", "12rem")}
+            />
+          </NavLink>
+          <NavLink to={"/commuter"}>
+            <Icon
+              icon={faPerson}
+              color="white"
+              className="large-icon"
+              onClick={() => SetCurrentPosition("rider", "17rem")}
+            />
+          </NavLink>
           <Icon
             icon={faCertificate}
             color="white"
