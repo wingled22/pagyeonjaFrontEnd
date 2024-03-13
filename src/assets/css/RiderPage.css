@@ -9,7 +9,6 @@
     left: 0;
     width: 100%;
     padding: 6px;
-
 }
 
 .box-header .label {
@@ -95,6 +94,7 @@
 } */
 
 .table-container {
+    margin: 0 auto;
     margin-top: 20px !important;
     max-height: 45vh;
     overflow-y: auto;
@@ -113,7 +113,6 @@
     background-color: #555;
 }
 
-
 th {
     background-color: #52459F !important;
     color: white !important;
@@ -131,4 +130,6 @@ th {
     border-top-right-radius: 20px;
 }
 
-td {}
+td {
+   margin-left: 30px !important;
+}
