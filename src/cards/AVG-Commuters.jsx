@@ -6,12 +6,15 @@ import { faBicycle,faEllipsisV, faUser } from '@fortawesome/free-solid-svg-icons
 const AVGCommuters = ({}) => {
   return (
     <div className="box">
-      <div className="avg-commuters">
-        <div className="overlap-group-avg">
+      <div className="avg-commuters"style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="overlap-group-avg" style={{ marginBottom: '20px' }}>
         <FontAwesomeIcon icon={faEllipsisV} className='menu-avg'/>
-          <div className="text-wrapper">12k</div>
-          <div className="div">AVG. Commuters / month</div>
-          {/* <img className="user" alt="User" src="user-2.svg" /> */}
+        <div className='wrapper-text'>
+        <div className="text-wrapper-number">12k</div>
+        </div>
+        <div className='div-user'>
+          <div className="div-usr">AVG. Commuters / month</div>
+        </div>
           <FontAwesomeIcon icon={faUser} className='user'/>
         </div>
       </div>
