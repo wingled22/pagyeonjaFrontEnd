@@ -16,40 +16,29 @@ const NavigationBar = () => {
   const [position, setPosition] = useState("6.5rem");
   const SetCurrentPosition = (position) => {
     // const position = arrow.current.getBoundingClientRect();
-
     setPosition(position);
   };
 
   return (
     <>
-      <img
-        src={CurrentPage}
-        ref={arrow}
-        alt="arrow"
-        style={{
-          top: position,
-        }}
-        className="arrow"
-      />
       <div className="navigation-bar d-flex flex-column align-items-center">
         <img src={HitchLogo} alt="mylogo" className="mt-4 logo" />
         <div className="d-flex flex-column align-items-center mt-4">
-          <NavLink to={"/home"} onClick={() => SetCurrentPosition("6.5rem")}>
+          <NavLink className="nav-link" activeClassName="active" to={"/home"}>
             <Icon icon={faHouse} color="white" className="large-icon" />
           </NavLink>
-          <NavLink to={"/rider"} onClick={() => SetCurrentPosition("12rem")}>
+          <NavLink className="nav-link" activeClassName="active" to={"/rider"}>
             <Icon icon={faBicycle} color="white" className="large-icon" />
           </NavLink>
-          <NavLink to={"/commuter"} onClick={() => SetCurrentPosition("17rem")}>
+          <NavLink
+            className="nav-link"
+            activeClassName="active"
+            to={"/commuter"}
+          >
             <Icon icon={faPerson} color="white" className="large-icon" />
           </NavLink>
 
-          <Icon
-            icon={faCertificate}
-            color="white"
-            className="large-icon"
-            // onClick={() => SetCurrentPosition("rider", "22.25rem")}
-          />
+          <Icon icon={faCertificate} color="white" className="large-icon" />
         </div>
         <div className="logout">
           <Icon icon={faPowerOff} color="#e38071" className="logout-btn mb-4" />

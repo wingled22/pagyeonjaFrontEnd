@@ -25,29 +25,28 @@
   margin-top: auto;
 }
 
-.arrow {
-  transition: top 0.3s ease-out, left 0.3s ease;
+.nav-link.active::before {
+  content: url("../img/CurrentPageArrow.svg");
+  transition: all 0.2s ease-in-out;
   position: absolute;
-  bottom: 0;
-  width: 49.6px;
-  left: -6.5px;
-  top: 6.5rem;
+  left: -20px;
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 600px) {
-  .arrow {
-    left: -14.5px;
+  .nav-link.active::before {
+    left: -3.1%;
   }
 }
 
 @media screen and (min-width: 601px) and (max-width: 1024px) {
-  .arrow {
-    left: -13.5px;
+  .nav-link.active::before {
+    left: -2%;
   }
 }
 
 @media screen and (min-width: 1025px) {
-  .arrow {
-    left: -6.5px;
+  .nav-link.active::before {
+    left: -0.48%;
   }
 }
