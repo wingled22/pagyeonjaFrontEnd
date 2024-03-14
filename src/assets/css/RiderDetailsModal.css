@@ -1,0 +1,39 @@
+
+.modal-header {
+    background-color: #52459F;
+    color: white;
+  }
+  
+  .modal-footer {
+    background-color: #52459F; 
+    height: 60px;
+  }
+
+  .modal-dialog {
+    max-width: 1100px; 
+    margin: 1.75rem auto; 
+    max-height: 1500px;
+  }
+  
+  .box-profile{
+    margin: 0 auto;
+    width: 50%;
+    height: 140px;
+    background-color: #52459F;
+    border-radius: 30px;
+    box-shadow: 0px 2px 4px 1.5px #00000080;
+  }
+  
+  .profile-img {
+    margin-left: 90px;
+    margin-top: 20px;
+  }
+
+  .accordion-button{
+
+    height: 60px;
+  }
+  
+  .accordion-button.collapsed{
+    height: 60px;
+  }

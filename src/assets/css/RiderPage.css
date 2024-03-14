@@ -39,9 +39,9 @@
 }
 
 .text-name {
+  font-size: 36px;
   color: #52459f;
-  font-weight: 700 !important;
-  line-height: normal;
+  font-weight: 700 ;
 }
 
 .text-details {

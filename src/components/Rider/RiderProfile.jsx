@@ -23,10 +23,10 @@ const RiderProfile = () => {
             </Col>
             <Col md={9}>
               <Row className="name-row">
-                <div className="text-name">Juan Dela Cruz</div>
+                <h3 className="text-name">Juan Dela Cruz</h3>
               </Row>
               <Row className="details-row">
-                <div className="text-details">
+                <p className="text-details">
                   Address: Sudlonon Bogo City, Cebu &nbsp; &nbsp; &nbsp; &nbsp;
                   &nbsp; &nbsp; Position : Cab Rider
                   <br></br>
@@ -38,7 +38,7 @@ const RiderProfile = () => {
                   <br></br>
                   Contact Number: 09564457889
                   <br></br>
-                </div>
+                </p>
               </Row>
             </Col>
           </Row>
