@@ -30,7 +30,7 @@ thead
 .trCommuterTable
 {
 
-    background-color:  #52459F !important;
+    /* background-color:  #52459F !important; */
     color: white;
     height: 50px;
 }
@@ -49,4 +49,18 @@ tbody
 {
     overflow: auto !important;
     max-height: 86vh;
+}
+
+.badgeStatusCommuter
+{
+    width: 100%;
+    margin: 0 auto;
+
+    border-radius: 20px;
+    height: 30px;
+
+    text-align: center;
+    justify-content: center;
+
+    padding: 10px;
 }
