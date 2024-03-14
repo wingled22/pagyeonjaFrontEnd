@@ -9,7 +9,7 @@
 .label {
     height: 38px;
     width: 231px;
-    margin-left: 15px;
+    margin-left: 19px;
   }
   
   .label .text-wrapper {
@@ -41,8 +41,50 @@
     
   }
 
- 
 
+  
+
+  /* Text requiements styling */
+ .TextReq{
+   font-weight: 600;
+   color: #d9d9d9;
+   margin: -45px 0px -100px 105px !important;
+ }
+
+
+ /* circle styling */
+ .Ellipse1{
+  margin-top: 50px;
+ }
+
+
+ /* icon styling */
+ .icon{
+  margin-top: 10px;
+ }
+
+ .Uploadtext{
+ 
+   margin-left: 3px;
+   font-size: 10px !important;
+   color: #d9d9d9;
+   font-weight: lighter;
+  
+   
+ }
+
+ .btnAppRej{
+  margin-top: 140px;
+  margin-left: 30px;
+  
+  
+ }
+
+ .btn{
+  width: 145px;
+  height: 45px;
+ 
+ }
  
  
 

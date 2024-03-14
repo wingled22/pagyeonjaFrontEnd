@@ -10,10 +10,10 @@ import images3 from '../assets/image/cs3.png';
 
 const Rider_Approval_TablePage = ({text, color}) => {
   const data = [
-    { id: 111, imageSrc: images1, name: "Carlo", status: "Approved" },
-    { id: 22, imageSrc: images2, name: "Cliff", status: "Approved" },
-    { id: 333, imageSrc: images3, name: "Axle", status: "Approved" },
-    { id: 32, imageSrc: images1,name: "Charls", status: "Rejected" },
+    { id: 111, imageSrc: images1, name: "Carlo M. Gesta", status: "Approved" },
+    { id: 22, imageSrc: images2, name: "Cliff Richard N. Languido", status: "Approved" },
+    { id: 333, imageSrc: images3, name: "Axle Deimitry Adolfo", status: "Approved" },
+    { id: 32, imageSrc: images1,name: "Charls Jay C. Magdalaga", status: "Rejected" },
     { id: 34, imageSrc: images2,name: "Client", status: "Approved" },
     { id: 35,imageSrc: images3, name: "Dawn Keith", status: "Approved" },
     { id: 14, imageSrc: images1,name: "John", status: "Pending" },
@@ -32,25 +32,30 @@ const Rider_Approval_TablePage = ({text, color}) => {
   ];
 
   const tableContainerStyles = {
-    maxWidth: '500px',
-    maxHeight: '500px',
+    maxWidth: '660px',
+    maxHeight: '530px',
     overflowY: 'auto',
     marginLeft: '30px',
+    marginTop: '-30px',
     padding: '50px',
     backgroundColor: "#F0F0F0",
-    borderRadius: "10px",
+    borderRadius: "20px",
+    boxShadow: '0px 4px 14.1px -1px #00000080',
+    fontSize: '1.2vw',
+    fontWeight: 'bold',
+    // color: '#6F6868',
   };
   
   const tableStyles = {
     width: "100%",
     backgroundColor: "#F0F0F0",
     borderRadius: "10px",
-    padding: '30px',
+   
   };
   
   const tdStyle = {
     padding: '50px 0px 10px 0px',
-    borderBottom: '5px solid #52459F',
+    borderBottom: '3px solid #52459F',
   
 
   };
@@ -58,7 +63,7 @@ const Rider_Approval_TablePage = ({text, color}) => {
   const tdNAME   = {
     // padding: '10px',
     padding: '50px 0px 10px 0px',
-    borderBottom: '5px solid #52459F',
+    borderBottom: '3px solid #52459F',
     fontSize: '20px',
    
   };

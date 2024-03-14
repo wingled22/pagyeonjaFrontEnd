@@ -16,6 +16,8 @@ import "../assets/css/RiderApprovalDashboard.css";
 import SearchBar from "./SearchBox";
 import FilterStatus from "./FilterStatus";
 import Rider_Approval_TablePage from "./Rider_Approval_Table";
+import Requirements from "./Requirements";
+
 
 
 const RiderApprovalDashboard = () => {
@@ -24,6 +26,8 @@ const RiderApprovalDashboard = () => {
     /* top right bottom left */
    margin: "0px 0px 30px 0px",
   };
+
+  
 
   return (
     <>
@@ -38,7 +42,8 @@ const RiderApprovalDashboard = () => {
         <FilterStatus />
       </Row>
       <Row>
-        <Rider_Approval_TablePage />
+        <Rider_Approval_TablePage  />
+        <Requirements />
       </Row>
       
     </>

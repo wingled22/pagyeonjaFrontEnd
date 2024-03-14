@@ -23,7 +23,7 @@ const Badge = ({ text }) => {
     color: '#fff',
     borderRadius: '50px',
     display: 'inline-block',
-    width: '100px',
+    width: '120px',
     textAlign: 'center',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)' // Adjust shadow values as needed
   };

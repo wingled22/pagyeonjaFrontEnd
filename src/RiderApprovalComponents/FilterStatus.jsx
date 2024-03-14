@@ -10,7 +10,7 @@ const FilterStatus = () => {
     
      /* top right bottom left */
     margin: "5px 0px 0px 20px",
-    height: "40px",
+    height: "45px",
     width: "150px",
     backgroundColor: "#52459F",
     border: "1px solid #ccc",
