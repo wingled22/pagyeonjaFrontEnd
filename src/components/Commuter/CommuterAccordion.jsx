@@ -12,7 +12,7 @@ import { Row, Col } from 'reactstrap';
 
 const CommuterAccordion = () => {
 
-    const [open, setOpen] = useState('');
+    const [open, setOpen] = useState('0');
     const toggle = (id) => {
         if (open === id) {
             setOpen();
@@ -23,8 +23,8 @@ const CommuterAccordion = () => {
 
     const data = [
         { id: 1, name: 'John Doe', status: 'Active', dropOffDate: 'March 11, 2024', dropOFfTime: '07: 00 PM', startingPoint: 'Dela Vina St., Bogo City, Cebu', endDestination: 'San Vicente St., Bogo City, Cebu', riderName: 'Juan Parat', riderID: '00445', vehicleType: 'Tricycle', vehiclePlate: '06X77V', startingTime: '06: 00PM', fare: '₱15.00'  },
-        { id: 2, name: 'Jane Doe', status: 'Inactive', dropOffDate: 'March 12, 2024', dropOFfTime: '01: 37 PM', startingPoint: 'Dela Vina St., Bogo City, Cebu', endDestination: 'San Vicente St., Bogo City, Cebu', riderName: 'Juan Parat', riderID: '00669', vehicleType: 'Tricycle', vehiclePlate: '06X77V'  },
-        { id: 3, name: 'Bob Smith', status: 'Active', dropOffDate: 'March 13, 2024', dropOFfTime: '08: 54 AM', startingPoint: 'Dela Vina St., Bogo City, Cebu', endDestination: 'San Vicente St., Bogo City, Cebu', riderName: 'Juan Parat', riderID: '00669', vehicleType: 'Tricycle', vehiclePlate: '06X77V'  },
+        { id: 2, name: 'Jane Doe', status: 'Inactive', dropOffDate: 'March 12, 2024', dropOFfTime: '01: 37 PM', startingPoint: 'Dela Vina St., Bogo City, Cebu', endDestination: 'San Vicente St., Bogo City, Cebu', riderName: 'Juan Parat', riderID: '00669', vehicleType: 'Tricycle', vehiclePlate: '06X77V', startingTime: '06: 00PM', fare: '₱15.00'  },
+        { id: 3, name: 'Bob Smith', status: 'Active', dropOffDate: 'March 13, 2024', dropOFfTime: '08: 54 AM', startingPoint: 'Dela Vina St., Bogo City, Cebu', endDestination: 'San Vicente St., Bogo City, Cebu', riderName: 'Juan Parat', riderID: '00669', vehicleType: 'Tricycle', vehiclePlate: '06X77V', startingTime: '06: 00PM', fare: '₱15.00'  },
     ];
 
     return (
@@ -98,7 +98,7 @@ const CommuterAccordion = () => {
                                     <span className='riderHistoryLabelInfo'>Fare</span>
                                 </Col>
                                 <Col md={3}>
-                                    <span className='riderHistoryTextInfo'> : &emsp;{item.fare}</span>
+                                    <span className='riderHistoryTextInfo text-success'> : &emsp;{item.fare}</span>
                                 </Col>
                             </Row>
                             <Row>
@@ -112,7 +112,7 @@ const CommuterAccordion = () => {
                                     <span className='riderHistoryLabelInfo'>Rate</span>
                                 </Col>
                                 <Col md={3}>
-                                    <span className='riderHistoryTextInfo'> : &emsp;3.7</span>
+                                    <span className={`riderHistoryTextInfo ${2.7 >= 1.0 && 2.7 <= 2.9 ? 'text-danger' : 2.7 >= 3.0  && 2.7 <= 3.9? 'text-warning' : 'text-success'}`}> : &emsp;2.7</span>
                                 </Col>
                             </Row>
                         </AccordionBody>

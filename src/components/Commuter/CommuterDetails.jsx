@@ -38,14 +38,16 @@ const CommuterDetails = () => {
                     <div className="labelInfo">Email Address: <span className="textInfo">andrewwalker@gmail.com</span></div>
                     <br />
                     <div className="labelInfo">Date Registered: <span className="textInfo">March 06, 2024</span></div>
-                    <div className="labelInfo">Status: <span className="textInfo">Suspended</span></div>
-                    <div className="labelInfo">Duration: <span className="textInfo">1D : 06hrs: 32m: 06s</span></div>
+                    <div className="labelInfo">Status: <span className={`textInfo ${'Suspended' === 'Suspended' ? 'text-danger' : 'text-success'}`}>Suspended</span></div>
+                    <div style={{ display: 'Suspended' === 'Suspended' ? 'block' : 'none' }} className="labelInfo">
+                        Duration: <span className={`textInfo ${'Suspended' === 'Suspended' ? 'text-danger' : 'text-success'}`}>1D : 06hrs: 32m: 06s</span>
+                    </div>
                 </Col>
             </Row>
             <Row>
-                <span className="labelRideHistory">Ride History</span> 
+                <span className="labelRideHistory">Ride History</span>
                 <Col className="containerRideHistory" md={11}>
-                <CommuterAccordion/>
+                    <CommuterAccordion />
                 </Col>
             </Row>
         </div>
