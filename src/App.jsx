@@ -9,8 +9,10 @@ function App() {
         <Col md={1}>
           <NavigationBar />
         </Col>
-        <Col md={11}>
-          <Outlet />
+        <Col md={11} className="outlet">
+          <div className="outlet">
+            <Outlet />
+          </div>
         </Col>
       </Row>
     </>

@@ -1,76 +1,60 @@
-.commuterDetailsContainer
-{
-    background: #d9d9d9;
-    height: 700px;
-    width: 575px;
+.commuterDetailsContainer {
+  background: #d9d9d9;
+  height: 700px;
+  width: 575px;
 
-    border-radius: 20px;
-    margin-left: 10px;
+  border-radius: 20px;
+  margin-left: 10px;
 
-    box-shadow: 0px 2px 18.3px #00000080;
+  box-shadow: 0px 2px 18.3px #00000080;
 }
 
-#colContainerDetails
-{
-    width: 40%;
+#colContainerDetails {
+  width: 40%;
 }
 
-.imageContainer
-{
-    width: 105px;
-    height: 105px;
+.imageContainer {
+  width: 105px;
+  height: 105px;
 
-    margin: 25px;
+  margin: 25px;
 }
 
-.text-name
-{
-    margin-top: 20px;
-    margin-left: 45px;
+.text-name {
+  margin-top: 20px;
+  margin-left: 45px;
 
-    font-size: 27px;
-    font-weight: bold;
+  font-size: 27px;
+  font-weight: bold;
 }
 
-.labelInfoPositioning
-{
-    margin-left: 45px;
+.labelInfoPositioning {
+  margin-left: 45px;
 }
 
-.labelInfo
-{
-    font-weight: 500;
+.labelInfo {
+  font-weight: 500;
 }
 
-.textInfo
-{
-    font-weight: normal;
+.textInfo {
+  font-weight: normal;
 }
 
-.btnViewDocuments
-{
-    margin-top: 20px;
-
-    border-radius: 50px !important; 
-
-    font-weight: lighter !important;
+.btnViewDocuments {
+  margin-top: 20px;
+  border-radius: 50px !important;
+  font-weight: lighter !important;
 }
 
-.containerCommuterDetails
-{
-    width: 530px !important;
-    height: 190px;
-
-    margin: 0 auto;
-
-    border-radius: 20px;
-
-    background-color: #f8f8f8;
-
-    padding: 10px;
+.containerCommuterDetails {
+  width: 530px !important;
+  height: 190px;
+  margin: 0 auto;
+  border-radius: 20px;
+  background-color: #f8f8f8;
+  padding: 10px;
 }
 
-.labelRideHistory
-{
-    margin: 25px;
+.labelRideHistory {
+  margin: 25px;
 }
