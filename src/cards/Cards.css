@@ -1,0 +1,7 @@
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(4,0fr); /* This creates three columns */
+    gap: 2px; /* This adds space between the cards */
+    
+}
+

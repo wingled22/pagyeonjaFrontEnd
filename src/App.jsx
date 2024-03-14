@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <Row>
-        <Col md={1}>
+        <Col md={1} sm={1}>
           <NavigationBar />
         </Col>
         <Col md={11} className="outlet">

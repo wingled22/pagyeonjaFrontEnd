@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .CommuterTableContainer {
   height: 600px;
   width: 100%;
@@ -5,9 +6,28 @@
   border-radius: 20px;
 
   margin-left: 20px;
+=======
+.CommuterTableContainer
+{
+    height: 86vh;
+    width: 100%;
+    background-color: #eceaea;
+    border-radius: 20px;
+
+    max-height: 86vh;
+    overflow: auto;
+
+    /* margin-left: 20px; */
+>>>>>>> facfa97f5d1509874448f57cc951ec840eb513ef
 
   box-shadow: 0px 4px 14.1px -1px #00000080;
 }
+ 
+thead
+{
+    position: sticky !important;
+}
+
 
 .tableCommuterTable {
   margin: auto;
@@ -16,10 +36,19 @@
   background: white;
 }
 
+<<<<<<< HEAD
 .trCommuterTable {
   background-color: #52459f !important;
   color: white;
   height: 50px;
+=======
+.trCommuterTable
+{
+
+    background-color:  #52459F !important;
+    color: white;
+    height: 50px;
+>>>>>>> facfa97f5d1509874448f57cc951ec840eb513ef
 }
 
 .rowCommuterTable {
@@ -30,6 +59,14 @@
   margin-left: 10px;
 }
 
+<<<<<<< HEAD
 #colContainerTable {
   width: 55%;
 }
+=======
+tbody
+{
+    overflow: auto !important;
+    max-height: 86vh;
+}
+>>>>>>> facfa97f5d1509874448f57cc951ec840eb513ef
