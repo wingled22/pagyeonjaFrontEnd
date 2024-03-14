@@ -10,8 +10,8 @@ const HomePage = () => {
   return (
     <>
       <h1 className="greatings">Good Afternoon, Admin</h1>
+        <Cards/>
         <Charts/>
-        {/* <Cards/> */}
         
 
     </>

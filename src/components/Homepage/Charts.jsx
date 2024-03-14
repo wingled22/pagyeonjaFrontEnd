@@ -69,17 +69,35 @@ const revenueData = [
 
 const sourceData = [
   {
-    label: "Ads",
-    value: 32,
+    label: "Mon",
+    value: 36500,
   },
   {
-    label: "Subscriptions",
-    value: 45,
+    label: "Tue",
+    value: 38945,
   },
   {
-    label: "Sponsorships",
-    value: 23,
+    label: "Wed",
+    value: 29345,
   },
+  {
+    label: "Thu",
+    value: 23245,
+  },
+  {
+    label: "Fri",
+    value: 24945,
+  },
+  {
+    label: "Sat",
+    value: 28945,
+  },
+  {
+    label: "Sun",
+    value: 18945,
+  },
+
+ 
 ];
 
 defaults.maintainAspectRatio = false;
@@ -90,9 +108,9 @@ defaults.plugins.title.align = "start";
 defaults.plugins.title.font.size = 20;
 defaults.plugins.title.color = "black";
 
-export const Charts = () => {
+ const Charts = () => {
   return (
-    <div className="App">
+    <div className="Chartm">
       <div className="dataCard revenueCard">
         <Line
           data={{
@@ -120,7 +138,7 @@ export const Charts = () => {
             },
             plugins: {
               title: {
-                text: "Monthly Revenue & Cost",
+                text: "Avg. rides Per Week",
               },
             },
           }}
@@ -147,7 +165,7 @@ export const Charts = () => {
           options={{
             plugins: {
               title: {
-                text: "Revenue Source",
+                text: "Rides Revenue/Day",
               },
             },
           }}
@@ -156,3 +174,4 @@ export const Charts = () => {
     </div>
   );
 };
+export default Charts;
