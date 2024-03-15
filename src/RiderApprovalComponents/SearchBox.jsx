@@ -1,24 +1,14 @@
 import React from "react";
+import "../assets/css/RiderApprovalDashboard.css";
 
-
-const StyledInput = {
-backgroundColor: '#d1d1d1',
-height: '45px' ,
-marginLeft: '15px' ,
-marginTop:' 5px',
-marginBottom: '10px',
-width: '500px',
-borderRadius: '130px',
-
-paddingLeft: '25px',
-}
 
 const SearchBar = () => {
   return (
     <>
-      <input style={StyledInput}
+      <input
+       
         type="text"
-        className="form-control"
+        className="form-control search-field  "
         placeholder="Search name"
       />
     </>

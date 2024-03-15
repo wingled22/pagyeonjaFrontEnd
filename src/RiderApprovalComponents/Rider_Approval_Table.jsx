@@ -31,35 +31,7 @@ const Rider_Approval_TablePage = ({text, color}) => {
     
   ];
 
-  const tableContainerStyles = {
-    maxWidth: '660px',
-    maxHeight: '530px',
-    overflowY: 'auto',
-    marginLeft: '30px',
-    marginTop: '-30px',
-    padding: '50px',
-    backgroundColor: "#F0F0F0",
-    borderRadius: "20px",
-    boxShadow: '0px 4px 14.1px -1px #00000080',
-    fontSize: '1.2vw',
-    fontWeight: 'bold',
-    // color: '#6F6868',
-  };
   
-  const tableStyles = {
-    width: "100%",
-    backgroundColor: "#F0F0F0",
-    borderRadius: "10px",
-   
-  };
-  
-  const tdStyle = {
-    padding: '50px 0px 10px 0px',
-    borderBottom: '3px solid #52459F',
-  
-
-  };
-
   const tdNAME   = {
     // padding: '10px',
     padding: '50px 0px 10px 0px',
@@ -71,8 +43,8 @@ const Rider_Approval_TablePage = ({text, color}) => {
  
   
   return (
-    <div style={tableContainerStyles}>
-      <table style={tableStyles}>
+    <div className="table-container">
+      <table className="table-in">
 
         <tbody>
 
@@ -85,11 +57,11 @@ const Rider_Approval_TablePage = ({text, color}) => {
 
               
              
-              <td style={tdStyle}>
-              <img src={item.imageSrc}  style={{ maxWidth: '80px', maxHeight: '80px' ,borderRadius: '50px'}} />
+              <td className="td-style">
+              <img src={item.imageSrc}  className="rider-table-image"/>
               </td>
-              <td style={tdNAME}>{item.name}</td>
-              <td style={tdStyle}>
+              <td className="td-style">{item.name}</td>
+              <td className="td-style">
                 <Badge text={item.status} />
               </td>
             </tr>

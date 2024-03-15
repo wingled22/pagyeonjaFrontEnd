@@ -28,7 +28,7 @@ const ViewNBIClearance = () => {
 
   return (
     <>
-      <div className="boxReq" style={BoxReq}>
+      <div className="box-requiremnets-nbi-clearance" >
         
       </div>
 
@@ -39,7 +39,7 @@ const ViewNBIClearance = () => {
       <p className="TextReq">
       View NBI Clearance file
         
-        <p className="Uploadtext">Select and upload the files of your choice</p>
+        <h6 className="Uploadtext">Select and upload the files of your choice</h6>
       </p>
     </>
   );

@@ -9,7 +9,7 @@ import {
   Label,
   Input,
   Row,
- 
+  Col,
 } from "reactstrap";
 import { useState } from "react";
 import "../assets/css/RiderApprovalDashboard.css";
@@ -18,34 +18,39 @@ import FilterStatus from "./FilterStatus";
 import Rider_Approval_TablePage from "./Rider_Approval_Table";
 import Requirements from "./Requirements";
 
-
-
 const RiderApprovalDashboard = () => {
-
-  const RowStyle = {
-    /* top right bottom left */
-   margin: "0px 0px 30px 0px",
-  };
-
-  
-
+ 
   return (
     <>
-      <Row>
-        <div className="label">
-          <div className="text-wrapper">Approval List</div>
-        </div>
+      
+
+      <Row className="me-md-5">
+
+     
+        <div className="text-wrapper">Approval List</div>
+      
+
+
+        <Col  xs={8} sm={7} md={5} lg={4} xl={4} className="ms-md-2 ">
+          <SearchBar />
+        </Col>
+
+        <Col xs={4} sm={5} md={6} lg={4} xl={4} className="ms-md-4">
+          <FilterStatus />
+        </Col>
+
       </Row>
 
-      <Row style={RowStyle}>
-        <SearchBar />
-        <FilterStatus />
+      <Row className="mt-xs-2 mt-lg-4 mt-sm-4 mt-md-4 mt-xl-4" xs={1}  sm={6} md={12} lg={2} xl={2}>
+
+      <Col   className="mt-xs-5 " xs={12} sm={12} md={8} lg={6} xl={6}>
+          <Rider_Approval_TablePage />
+        </Col>
+
+        <Col>
+          <Requirements />
+        </Col>
       </Row>
-      <Row>
-        <Rider_Approval_TablePage  />
-        <Requirements />
-      </Row>
-      
     </>
   );
 };

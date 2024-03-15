@@ -15,44 +15,29 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 
 const Requirements = () => {
-  const rectStyle = {
-    width: "400px",
-    height: "530px",
-    backgroundColor: "#F0F0F0",
-    borderRadius: "20px",
-    boxShadow: "0px 4px 14.1px -1px #00000080",
-    marginLeft: "50px",
-    marginTop: "-30px",
-  };
-  const Profile = {
-    maxWidth: "100px",
-    maxHeight: "100px",
-    borderRadius: "50%",
-    marginTop: "30px",
-    marginLeft: "150px",
-  };
-  const Line = {
-    width: "300px",
-    height: "3px",
-    backgroundColor: "#52459F",
-    margin: "0 auto",
-  };
+ 
+
+ 
 
   return (
     <>
-      <div className="rectangle" style={rectStyle}>
+      <div className="rectangle-requiment" >
+
         <Row>
-          <img className="centered" src={images1} style={Profile} />
+          <img className="centered rider-profile" src={images1}  />
           <h5 style={{ textAlign: "center", marginTop: "10px" }}>
-            {" "}
+            
             Carlo M. Gesta
           </h5>
-          <div className="profileLine" style={Line}></div>
+          <div className="profile-line"></div>
+        
         </Row>
-
         <ViewORCR />
-        <ViewDriversLicense />
+        
+        {/* <ViewDriversLicense />
         <ViewNBIClearance/>
+        */}
+
         <div className="btnAppRej">
         <Button className="btn" color="success" style={{borderRadius:50 , fontWeight: "bold"}}> <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve</Button>
         <Button className="btn" color="danger" style={{borderRadius:50 , fontWeight: "bold"}}><FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject</Button>

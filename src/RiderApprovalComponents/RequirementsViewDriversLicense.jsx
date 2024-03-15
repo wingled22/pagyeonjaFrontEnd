@@ -4,15 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const ViewDriversLicense = () => {
-  const BoxReq = {
-    width: "300px",
-    height: "70px",
-    backgroundColor: "#52459F",
-    margin: "0 auto",
-    marginTop: "130px",
-    borderRadius: "10px",
-    marginLeft: "40px",
-  };
+ 
 
   const Elipse = {
     width: 46.96,
@@ -28,7 +20,7 @@ const ViewDriversLicense = () => {
 
   return (
     <>
-      <div className="boxReq" style={BoxReq}></div>
+      <div className="box-requiremnets-driver-license"></div>
 
       <div className="Ellipse1" style={Elipse}>
         <FontAwesomeIcon icon={faCloudArrowUp} className="icon" />
@@ -36,7 +28,7 @@ const ViewDriversLicense = () => {
 
       <p className="TextReq">
         View Drivers License file
-        <p className="Uploadtext">Select and view the files of your choice</p>
+        <h6 className="Uploadtext">Select and view the files of your choice</h6>
       </p>
     </>
   );
