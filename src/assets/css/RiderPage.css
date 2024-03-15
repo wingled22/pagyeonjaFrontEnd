@@ -11,16 +11,14 @@
     top: 0;
 }
 
-
-
 .box-header .label {
     margin-left: 20px;
 }
 
 .text-wrapper {
     color: #e1dff3;
-    font-size: 27px;
-    font-weight: 600;
+    font-size: 2vw;
+    font-weight: 500;
 }
 
 .rect-profile {
