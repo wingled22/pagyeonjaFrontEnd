@@ -1,5 +1,6 @@
 import "../assets/css/HomePage.css";
 import Cards from "../components/Homepage/cards/Cards";
+import Charts from "../components/Homepage/Charts.jsx";
 
 const HomePage = () => {
   return (
@@ -8,6 +9,7 @@ const HomePage = () => {
         Good Afternoon, Admin
       </h1>
       <Cards />
+      <Charts/>
     </>
   );
 };
