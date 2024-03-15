@@ -1,72 +1,40 @@
 .box {
-    height: 164px;
-    width: 159px;
-  }
-  
-  /* .box .total-riders {
-    height: 274px;
-    left: 7%;
-    position: fixed;
-    top: 112px;
-    width: 273px;
-  } */
-  
-  .box .overlap-group {
-    background-color: #ffffff;
-    border-radius: 35px;
-    box-shadow: 0px 4px 15.4px 2px #00000040;
-    height: 244px;
-    /* position: relative; */
-    width: 239px;
-    /* left: 121px; */
+  max-height: 164px;
+  min-height: 50%;
+  max-width: 120px;
+  min-width: 50%;
+}
+.text-wrapper-Rider {
+  background: linear-gradient(
+    to right,
+    rgb(82, 69, 159) 0%,
+    rgb(227, 128, 113) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 5vw;
+}
 
-  }
-  .wrapper-rider{
-    position: relative;
-  }
-  .wrapper-rider .text-wrapper-Rider {
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent;
-    background: linear-gradient(180deg, rgb(82, 69, 159) 0%, rgb(227, 128, 113) 100%);
-    background-clip: text;
-    color: transparent;
-    font-family: "Poppins-Medium", Helvetica;
-    font-size: 73px;
-    font-weight: 500;
-     margin-left: -2px; 
-    /* letter-spacing: 0;
-    line-height: normal; */
-    position: absolute;
-    text-align: center;
-    /* text-fill-color: transparent; */
-    margin-top: 38px;
-    width: 189px;
-  }
-  
-  .bicycle {
-    height: 50px;
-    margin-left: 26px;
-    /* position: absolute; */
-    margin-top: 5px;
-    width: 60px;
-    color: #E38071;
-  }
-  
-  .div-total {
-    color: #737277;
-    font-family: "Poppins-Regular", Helvetica;
-    font-size: 24px;
-    font-weight: 400;
-    margin-left: 25px;
-    letter-spacing: 0;
-    line-height: normal;
-    /* position: absolute; */
-    margin-top: 85px;
-    width: 178px;
-  }
-  .menu {
-    height: 34px;
-    margin-bottom: -52px;
-    width: 7px;
-    margin-left: 198px;
-  }
+.card-icon {
+  width: 3rem;
+  height: 3rem;
+  color: #e38071;
+}
+
+.div-total {
+  color: #737277;
+  font-family: "Poppins-Regular", Helvetica;
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 25px;
+  letter-spacing: 0;
+  line-height: normal;
+  /* position: absolute; */
+  margin-top: 85px;
+  width: 178px;
+}
+.menu {
+  /* margin-bottom: -52px; */
+  font-size: 1.5rem;
+  /* margin-left: 198px; */
+}

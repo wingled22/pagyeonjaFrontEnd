@@ -10,19 +10,23 @@
   top: 112px;
   width: 273px;
 }
-.wrapper-text{
+.wrapper-text {
   position: relative;
 }
 .wrapper-text .text-wrapper-number {
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent;
-  background: linear-gradient(180deg, rgb(82, 69, 159) 0%, rgb(227, 128, 113) 100%);
+  background: linear-gradient(
+    180deg,
+    rgb(82, 69, 159) 0%,
+    rgb(227, 128, 113) 100%
+  );
   background-clip: text;
   color: transparent;
   font-family: "Poppins-Medium", Helvetica;
   font-size: 72px;
   font-weight: 500;
-   margin-left: -23px; 
+  margin-left: -23px;
   /* letter-spacing: 0;
   line-height: normal; */
   position: absolute;
@@ -31,7 +35,6 @@
   margin-top: 48px;
   width: 189px;
 }
-
 
 .box .overlap-group-avg {
   background-color: #ffffff;
@@ -44,13 +47,13 @@
 
 .box .vuesax-bold-menu {
   height: 34px;
-  left: 227px;
+  /* left: 227px; */
   /* position: absolute; */
-  top: 37px;
+  /* top: 37px; */
   width: 7px;
 }
 
-.div-user{
+.div-user {
   position: relative;
 }
 .div-user .div-usr {
@@ -73,11 +76,11 @@
   /* position: absolute; */
   margin-top: 7px;
   width: 36px;
-  color: #E38071;
+  color: #e38071;
 }
 .menu-avg {
   height: 34px;
-    margin-bottom: -52px;
-    width: 7px;
-    margin-left: 198px;
+  margin-bottom: -52px;
+  width: 7px;
+  margin-left: 198px;
 }

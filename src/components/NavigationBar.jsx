@@ -1,6 +1,5 @@
 import "../assets/css/NavigationBar.css";
 import HitchLogo from "../assets/img/logo.svg";
-import CurrentPage from "../assets/img/CurrentPageArrow.svg";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
 import {
@@ -10,15 +9,7 @@ import {
   faCertificate,
   faPowerOff,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState } from "react";
 const NavigationBar = () => {
-  const arrow = useRef();
-  const [position, setPosition] = useState("6.5rem");
-  const SetCurrentPosition = (position) => {
-    // const position = arrow.current.getBoundingClientRect();
-    setPosition(position);
-  };
-
   return (
     <>
       <div className="navigation-bar d-flex flex-column align-items-center">
