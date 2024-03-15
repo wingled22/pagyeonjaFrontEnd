@@ -1,17 +1,15 @@
 import "../assets/css/HomePage.css";
-import { Row, Col } from "reactstrap";
-import NavigationBar from "../components/NavigationBar";
-import CardTotalRider from "../components/CardTotalRider";
-import AVGCommuters from "../components/AVG-Commuters";
-import AVGrevenue from "../components/AVG-Revenue";
+import Cards from "../components/Homepage/cards/Cards";
+import Charts from "../components/Homepage/Charts.jsx";
+
 const HomePage = () => {
   return (
     <>
-      <h1 className="greatings">Good Afternoon, Admin</h1>
-      {/* <NavigationBar /> */}
-      <CardTotalRider/>
-      <AVGCommuters/>
-      <AVGrevenue/>
+      <h1 className="greatings fs-1 fs-md-2 fs-sm-3 fs-xs-5">
+        Good Afternoon, Admin
+      </h1>
+      <Cards />
+      <Charts/>
     </>
   );
 };

@@ -21,6 +21,6 @@ const RiderPage = () => {
 
     </>
   );
-}
+};
 
 export default RiderPage;
