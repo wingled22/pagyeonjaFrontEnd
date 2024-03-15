@@ -10,10 +10,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Row, Col } from "reactstrap";
 
-const CardTotalRider = ({ cardIcon, text, numericText }) => {
+const CardItem = ({ cardIcon, text, numericText }) => {
   return (
     <>
-      <Row className="shadow-sm rounded justify-content-center align-items-center p-2">
+      <Row className="shadow-sm rounded justify-content-center align-items-center py-3 w-100 w-md-75">
         <Row className="w-100">
           <Col className="text-left">
             <Icon
@@ -44,4 +44,4 @@ const CardTotalRider = ({ cardIcon, text, numericText }) => {
   );
 };
 
-export default CardTotalRider;
+export default CardItem;
