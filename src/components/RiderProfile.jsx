@@ -14,40 +14,34 @@ const RiderProfile = () => {
                 </div>
 
                 <div className="rect-profile">
-                    <Container>
+             
                         <Row>
-                            <Col md={2} className="prof-col">
+                            <Col md={2} lg={2} sm={2} xs={2}  className="prof-col">
                                 <Icon className="profile-img" icon={faCircleUser} color='black' />
                             </Col>
 
-                            <Col md={9}>
-                                <Container className="text-containers">
-                                    <Row className="name-row">
-                                        <p className="text-ridername">Juan Dela Cruz</p>
-                                    </Row>
-                                    <Row className="details-row">
-                                        <p className="text-detailsrider">Address: Sudlonon Bogo City, Cebu
-                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                            Position : Cab Rider
-                                            <br></br>
-                                            Age:20
-                                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                            Vehicle No: 47548
-                                            <br></br>
-                                            Contact Number: 09564457889
-                                            <br></br>
+                            <Col md={8} lg={7} sm={8} xs={8} style={{marginLeft: "60px", marginTop: "40px"}}>
+                                <Row className="name-row">
+                                    <p className="text-ridername">Juan Dela Cruz</p>
+                                </Row>
+                                <Row className="details-row" >
+                                    <p className="text-detailsrider">
+                                        <span className="mr-4" >Address: Sudlonon Bogo City, Cebu</span>
+                                  
+                                        <span style={{marginLeft: "50px"}} className="mr-4">Position: Cab Rider</span>
+                                        <br />
+                                        <span className="mr-4">Age: 20</span>
 
-                                        </p>
-                                    </Row>
-                                </Container>
-
+                                        <span style={{marginLeft: "330px"}} className="mr-4">Vehicle No: 47548</span>
+                                        <br />
+                                        <span>Contact Number: 09564457889</span>
+                                    </p>
+                                </Row>
                             </Col>
 
 
                         </Row>
-                    </Container>
+             
 
                 </div>
             </div>
