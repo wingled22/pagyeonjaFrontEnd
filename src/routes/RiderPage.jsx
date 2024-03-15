@@ -1,16 +1,24 @@
 import "../assets/css/RiderPage.css";
 import RiderTable from "../components/Rider/RiderTable.jsx";
-import RiderProfile from "../components/Rider/RiderProfile.jsx";
-import { Row } from "reactstrap";
+import RiderProfile from "../components/RiderProfile.jsx";
+import { Row, Col, Container} from 'reactstrap';
 const RiderPage = () => {
   return (
     <>
-      <Row>
-        <RiderProfile />
-      </Row>
-      <Row>
-        <RiderTable />
-      </Row>
+      <Container>
+      
+          <Row className="Row1">
+            <RiderProfile />
+          </Row>
+  
+
+          <Row className="Row2">
+            <RiderTable />
+          </Row>
+ 
+      </Container>
+
+
     </>
   );
 };
