@@ -32,11 +32,11 @@ const Requirements = () => {
           <div className="profile-line"></div>
         
         </Row>
-        <ViewORCR />
         
-        {/* <ViewDriversLicense />
+        <ViewORCR />
+        <ViewDriversLicense />
         <ViewNBIClearance/>
-        */}
+       
 
         <div className="btnAppRej">
         <Button className="btn" color="success" style={{borderRadius:50 , fontWeight: "bold"}}> <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve</Button>

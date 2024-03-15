@@ -5,7 +5,7 @@
 }
 
 
-/* approval text  */
+/******************* approval text  ***************/
 .text-wrapper {
   color: #000000;
   font-family: "Poppins-SemiBold", Helvetica;
@@ -19,23 +19,19 @@
   margin-left: 30px;
 }
 
-
-
-
+/********************* button approve and reject****************** */
 .btnAppRej {
-  margin-top: 140px;
-  margin-left: 30px;
-
-
+  margin-top: 30px;
+  margin-left: 40px;
 }
 
 .btn {
   width: 145px;
   height: 45px;
-
 }
 
-/* search box */
+
+/* ******************************search box ***************************/
 .search-field {
   background-color: #d1d1d1 !important;
   height: 45px !important;
@@ -48,7 +44,7 @@
 
 }
 
-/* filter status */
+/********************************** filter status ******************************/
 .filter-status {
 
   /* top right bottom left */
@@ -127,30 +123,40 @@
 
 }
 
-/*** subcomponents of requirements  drive license****/
+/*************** subcomponents of requirements  drive license********************/
 
-.box-requiremnets-driver-license {
+.box-requirements-drivers-license {
   width: 300px !important;
   height: 70px !important;
   background-color: #52459F !important;
-  margin: 0 auto !important;
-  margin-top: 130px !important;
+  margin-top: 20px !important;
   border-radius: 10px !important;
   margin-left: 50px !important;
-
 }
 
-/*** subcomponents of requirements  OR/CR****/
+/********************* subcomponents of requirements  OR/CR****************/
 .box-requiremnets-orcr {
   width: 300px !important;
   height: 70px !important;
   background-color: #52459F !important;
-
-  margin-top: 40px !important;
+  margin-top: 20px !important;
   border-radius: 10px !important;
   margin-left: 50px !important;
 
 }
+
+/*** subcomponents of requirements  nb clearance****/
+.box-requiremnets-nbi-clearance {
+  width: 300px !important;
+  height: 70px !important;
+  background-color: #52459F !important;
+  margin: 0 auto !important;
+  border-radius: 10px !important;
+  margin-left: 50px !important;
+  margin-top: 20px !important;
+}
+
+/******************** requirements view file ************/
 
 .ellipse-container {
   position: relative;
@@ -172,36 +178,24 @@
 
 }
 
-.ellipse-second{
+.ellipse-second {
   background-color: #FFFFFF !important;
   border-radius: 50% !important;
   height: 2.5rem !important;
   width: 2.5rem !important;
   margin: 4px 0px 0px 4px !important;
- 
+
 }
 
-.view-file{
+.view-file {
   width: 200px !important;
-  margin: -40px  0px 0px 60px !important;
+  margin: -40px 0px 0px 60px !important;
 }
-.view-select{
+
+.view-select {
   width: 300px !important;
-  margin: -2px  0px 0px 62px !important;
+  margin: -2px 0px 0px 62px !important;
   font-size: x-small;
-}
-
-
-
-/*** subcomponents of requirements  nb clearance****/
-.box-requiremnets-nbi-clearance {
-  width: 300px !important;
-  height: 70px !important;
-  background-color: #52459F !important;
-  margin: 0 auto !important;
-  margin-top: 130px !important;
-  border-radius: 10px !important;
-  margin-left: 50px !important;
 }
 
 
@@ -273,11 +267,6 @@
     max-width: 250px !important;
   }
 
-  .box-requiremnets-driver-license {
-
-    margin-left: 27px !important;
-
-  }
 
 
 

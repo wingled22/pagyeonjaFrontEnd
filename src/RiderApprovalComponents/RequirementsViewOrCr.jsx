@@ -4,18 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const ViewORCR = () => {
-  const Elipse = {
-    width: 46.96,
-    height: 44,
-    background: "white",
-    borderRadius: 9999,
-    border: "3.12px #CBD0DC solid",
-
-    textAlign: "center",
-    marginTop: -55,
-    marginLeft: 50,
-  };
-
   return (
     <>
       <div className="box-requiremnets-orcr container-fluid">

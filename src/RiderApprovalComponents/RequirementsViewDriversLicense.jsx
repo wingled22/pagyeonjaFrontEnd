@@ -20,16 +20,18 @@ const ViewDriversLicense = () => {
 
   return (
     <>
-      <div className="box-requiremnets-driver-license"></div>
+      <div className="box-requirements-drivers-license container-fluid">
+        <div className="ellipse-container">
+          <div className="ellipse-first">
+            <div className="ellipse-second">
+              <FontAwesomeIcon icon={faCloudArrowUp} className="icon-view" />
+            </div>
 
-      <div className="Ellipse1" style={Elipse}>
-        <FontAwesomeIcon icon={faCloudArrowUp} className="icon" />
+            <p className="fw-bold text-white view-file">View Drivers License file</p>
+            <p className="text-white view-select">Select and upload the files of your choice</p>
+          </div>
+        </div>
       </div>
-
-      <p className="TextReq">
-        View Drivers License file
-        <h6 className="Uploadtext">Select and view the files of your choice</h6>
-      </p>
     </>
   );
 };
