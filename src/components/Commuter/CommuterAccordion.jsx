@@ -87,7 +87,7 @@ const CommuterAccordion = () => {
                             <Row>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className='riderHistoryLabelInfo'>Fare</span>
-                                    <span className='riderHistoryTextInfo text-success'> : &emsp;{item.fare}</span>
+                                    <span className='riderHistoryTextInfo text-success'> : &emsp;<strong>{item.fare}</strong></span>
                                 </Col>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className='riderHistoryLabelInfo'>Rating</span>
