@@ -1,5 +1,5 @@
 import "../assets/css/HomePage.css";
-import Cards from "../components/Homepage/cards/Card";
+import Cards from "../components/Homepage/cards/Cards";
 
 const HomePage = () => {
   return (

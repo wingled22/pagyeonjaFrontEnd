@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../assets/css/CardTotalRider.css";
+import "../../../assets/css/Cards.css";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faBicycle,
@@ -26,7 +26,7 @@ const CardTotalRider = ({ cardIcon, text, numericText }) => {
                   ? faMoneyBill1
                   : faCertificate
               }
-              className="card-icon"
+              className="card-icon fs-1"
             />
           </Col>
           <Col className="text-end">
