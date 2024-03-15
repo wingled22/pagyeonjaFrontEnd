@@ -1,58 +1,60 @@
-.CommuterTableContainer
-{
-    height: 86vh;
+.CommuterTableContainer {
+    /* display: flex !important; */
+    min-height: 86vh !important;
+    /* min-width: 516px !important; */
+
     width: 100%;
     background-color: #eceaea;
     border-radius: 20px;
 
-    max-height: 86vh;
+    /* min-width: 400px !important; */
+
+    max-height: 86vh !important;
     overflow: auto;
 
-    /* margin-left: 20px; */
+    /* /* margin-left: 20px; * */
 
     box-shadow: 0px 4px 14.1px -1px #00000080;
 }
- 
-thead
+
+.tableCommuterTable
 {
+    /* min-width: 516px !important; */
+}
+
+thead {
     position: sticky !important;
 }
 
 
-.tableCommuterTable
-{
+.tableCommuterTable {
     margin: auto;
 
     width: 100%;
     background: white;
 }
 
-.trCommuterTable
-{
+.trCommuterTable {
 
     /* background-color:  #52459F !important; */
     color: white;
     height: 50px;
 }
 
-.rowCommuterTable
-{
+.rowCommuterTable {
     border: 1px;
 }
 
-.btn
-{
+.btn {
     margin-left: 10px;
 }
 
-tbody
-{
+tbody {
     overflow: auto !important;
     max-height: 86vh;
 }
 
-.badgeStatusCommuter
-{
+.badgeStatusCommuter {
     width: 100%;
     margin: 0 auto;
 
@@ -63,4 +65,86 @@ tbody
     justify-content: center;
 
     padding: 10px;
+}
+
+.statusTh
+{
+    text-align: center;
+}
+
+@media (max-width: 1067px) {
+    .thCommuterTable {
+        font-size: small;
+    }
+
+    .commuterName {
+        font-size: 0.7rem !important;
+    }
+
+    .badgeStatusCommuter {
+        height: 25px;
+        width: 100%;
+
+        font-size: 11px;
+    }
+
+}
+
+@media (max-width: 1065px)
+{
+    .btnAction
+    {
+        width: 40px;
+        height: 40;
+    }
+}
+
+
+/* 
+@media (max-width: 280px) 
+{
+    .thCommuterTable {
+        font-size: xx-small;
+    }
+
+    .commuterName {
+        font-size: 0.5rem !important;
+    }
+
+    .badgeStatusCommuter {
+        height: 5px;
+        width: 20%;
+    }
+
+    .statusName
+    {
+        visibility: hidden;
+    }
+
+    .statusTh
+    {
+       margin-top: 100px !important;
+
+       text-align: justify !important;
+    }
+} */
+
+/* 
+.col-sm-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+.col-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+} */
+
+
+@media (max-width: 767px) 
+{
+    .CommuterTableContainer
+    {
+        min-width: 516px !important;
+    }
 }
