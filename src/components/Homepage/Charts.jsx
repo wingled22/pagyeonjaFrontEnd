@@ -2,7 +2,8 @@ import React from "react";
 import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 
-import '../../assets/css/Charts.css';
+import "../../assets/css/Charts.css";
+import { Col, Row } from "reactstrap";
 
 const revenueData = [
   {
@@ -23,48 +24,48 @@ const revenueData = [
   {
     label: "Apr",
     revenue: 82830,
-    cost: 64731
+    cost: 64731,
   },
   {
     label: "May",
     revenue: 91208,
-    cost: 41893
+    cost: 41893,
   },
   {
     label: "Jun",
     revenue: 103609,
-    cost: 83809
+    cost: 83809,
   },
   {
     label: "Jul",
     revenue: 90974,
-    cost: 44772
+    cost: 44772,
   },
   {
     label: "Aug",
     revenue: 82919,
-    cost: 37590
+    cost: 37590,
   },
   {
     label: "Sep",
     revenue: 62407,
-    cost: 43349
+    cost: 43349,
   },
   {
     label: "Oct",
     revenue: 82528,
-    cost: 45324
+    cost: 45324,
   },
   {
     label: "Nov",
     revenue: 56979,
-    cost: 47978
+    cost: 47978,
   },
   {
     label: "Dec",
     revenue: 87436,
-    cost: 39175
-  }
+    cost: 39175,
+  },
 ];
 
 const sourceData = [
@@ -96,8 +97,6 @@ const sourceData = [
     label: "Sun",
     value: 18945,
   },
-
- 
 ];
 
 defaults.maintainAspectRatio = false;
@@ -107,11 +106,18 @@ defaults.plugins.title.display = true;
 defaults.plugins.title.align = "start";
 defaults.plugins.title.font.size = 20;
 defaults.plugins.title.color = "black";
+// defaults.backgroundColor = "white";
 
- const Charts = () => {
+const Charts = () => {
   return (
-    <div className="Chartm">
-      <div className="dataCard revenueCard">
+    <Row className="">
+      <Col
+        md={6}
+        lg={6}
+        sm={8}
+        className="revenueCard shadow-sm p-2"
+        style={{ background: "white" }}
+      >
         <Line
           data={{
             labels: revenueData.map((data) => data.label),
@@ -143,9 +149,15 @@ defaults.plugins.title.color = "black";
             },
           }}
         />
-      </div>
+      </Col>
 
-      <div className="dataCard customerCard">
+      <Col
+        md={6}
+        lg={6}
+        sm={8}
+        className="revenueCard shadow-sm p-2"
+        style={{ background: "white" }}
+      >
         <Bar
           data={{
             labels: sourceData.map((data) => data.label),
@@ -170,8 +182,8 @@ defaults.plugins.title.color = "black";
             },
           }}
         />
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 export default Charts;
