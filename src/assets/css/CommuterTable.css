@@ -145,6 +145,8 @@ tbody {
 {
     .CommuterTableContainer
     {
-        min-width: 516px !important;
+        /* min-width: 516px !important; */
+        min-width: 100% !important;
+
     }
 }
