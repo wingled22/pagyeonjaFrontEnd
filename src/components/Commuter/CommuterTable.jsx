@@ -6,6 +6,8 @@ import {
     faCirclePause
 } from "@fortawesome/free-solid-svg-icons";
 
+import { Row, Col, Container } from 'reactstrap';
+
 
 const CommuterTable = () => {
     const data = [

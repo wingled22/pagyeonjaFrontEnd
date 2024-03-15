@@ -14,12 +14,14 @@
 
     /* /* margin-left: 20px; * */
 
-  box-shadow: 0px 4px 14.1px -1px #00000080;
+    box-shadow: 0px 4px 14.1px -1px #00000080;
+    /* box-shadow: 0px 10px 5px #888, 0px -10px 5px #888; */
 }
 
 .tableCommuterTable
 {
     /* min-width: 516px !important; */
+    box-shadow: 0px 10px 5px #888, 0px -10px 5px #888;
 }
 
 thead {
