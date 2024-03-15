@@ -14,10 +14,10 @@ const CommuterDetails = () => {
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
-                <Col md="2" sm="2" xs="2">
+                <Col md="2" sm="2" xs={12}>
                     <Icon icon={faCircleUser} color='black' className="imageContainer"></Icon>
                 </Col>
-                <Col md="6" sm="6" xs="6" id="textInfoContainer">
+                <Col md="6" sm="6" xs={12} id="textInfoContainer">
                     <div className="text-name">Andrew Walker</div>
                     <div className="labelInfoPositioning">
                         <span className="labelInfo">Sex: <span className="textInfo">Male</span></span>
@@ -25,7 +25,7 @@ const CommuterDetails = () => {
                         <div className="labelInfo">Civil Status: <span className="textInfo">Single</span></div>
                     </div>
                 </Col>
-                <Col md="4" sm="4" xs="4">
+                <Col md="4" sm="4" xs={12}>
                     <div className="btn btn-warning btnViewDocuments">
                         Documents
                     </div>
@@ -35,7 +35,8 @@ const CommuterDetails = () => {
                 <Col md={10} sm="10" xs="10">
                     <span className="labelInfo">Address: <span className="textInfo">Barangay Maya, Biringan City, Samar</span></span>
                     <div className="labelInfo">Contact Number: <span className="textInfo">09163345411</span></div>
-                    <div className="labelInfo">Email Address: <span className="textInfo">andrewwalker@gmail.com</span></div>
+                    <span className="labelInfo">Email Address: <span className="textInfo">andrewwalker@gmail.com</span></span>
+                    <br />
                     <br />
                     <div className="labelInfo">Date Registered: <span className="textInfo">March 06, 2024</span></div>
                     <div className="labelInfo">Status: <span className={`textInfo ${'Suspended' === 'Suspended' ? 'text-danger' : 'text-success'}`}>Suspended</span></div>

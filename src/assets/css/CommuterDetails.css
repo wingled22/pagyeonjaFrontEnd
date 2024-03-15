@@ -11,7 +11,7 @@
     min-width: 516px !important;
     min-height: 86vh !important;
 
-  box-shadow: 0px 2px 18.3px #00000080;
+    box-shadow: 0px 2px 18.3px #00000080;
 }
 
 #colContainerDetails {
@@ -70,7 +70,7 @@
     margin-top: 10px;
 
 
-  border-radius: 20px;
+    border-radius: 20px;
 
     background-color: #f8f8f8;
 
@@ -95,13 +95,13 @@
 
     /* min-height: 240px !important; */
 
-  margin: 0 auto;
+    margin: 0 auto;
 
-  background-color: #e7fafe;
+    background-color: #e7fafe;
 
-  border-radius: 20px;
-  padding: 10px;
-  overflow: auto;
+    border-radius: 20px;
+    padding: 10px;
+    overflow: auto;
 }
 
 #accordionHeaderStyle>button {
@@ -109,7 +109,7 @@
     background-color: #52459F !important;
     color: white;
 
-  border-radius: 10px !important;
+    border-radius: 10px !important;
 
     margin-top: 5px;
 
@@ -127,24 +127,50 @@
 
 .riderHistoryLabelInfo {
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .riderHistoryTextInfo {
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .newlineInfo {
     margin-top: 13px !important;
 }
 
-@media (max-width: 767px) 
-{
-    .commuterDetailsContainer
-    {
-        min-width: 516px !important;
+@media (max-width: 767px) {
+    .commuterDetailsContainer {
+        min-width: 100% !important;
+        max-width: 516px !important;
+
         margin: 0 auto;
         margin-top: 15px;
+
+        min-height: 86vh !important;
+
+    }
+}
+
+@media (max-width: 572px) {
+
+    #textInfoContainer
+    {
+        margin: auto !important;
+    }
+
+    .labelInfoPositioning    
+    {
+        margin: auto;
+    }
+
+    .btnViewDocuments
+    {
+        margin: auto;
+    }
+
+    .text-name
+    {
+        margin: auto;
     }
 }
 

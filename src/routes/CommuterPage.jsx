@@ -14,10 +14,10 @@ const CommuterPage = () => {
                     </Col>
                 </Row>
                 <Row className="d-flex">
-                    <Col md={6} xs={12} id="colContainerTable">
+                    <Col md={6} sm={12} xs={12} id="colContainerTable">
                         <CommuterTable />
                     </Col>
-                    <Col md={6} xs={12} id='colContainerDetails'>
+                    <Col md={6} sm={12} xs={12} id='colContainerDetails'>
                         <CommuterDetails/>
                     </Col>
                 </Row>
