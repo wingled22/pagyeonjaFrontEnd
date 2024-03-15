@@ -39,7 +39,7 @@ const RiderProfile = () => {
                   Contact Number: 09564457889
                   <br></br>
                 </div>
-              </Row>
+              </Row>  
             </Col>
           </Row>
         </div>

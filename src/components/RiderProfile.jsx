@@ -16,23 +16,23 @@ const RiderProfile = () => {
                 <div className="rect-profile">
              
                         <Row>
-                            <Col md={2} lg={2} sm={2} xs={2}  className="prof-col">
+                            <Col md={3} lg={2} sm={3} xs={2}  className="prof-col">
                                 <Icon className="profile-img" icon={faCircleUser} color='black' />
                             </Col>
 
-                            <Col md={8} lg={7} sm={8} xs={8} style={{marginLeft: "60px", marginTop: "40px"}}>
+                            <Col md={7} lg={7} sm={7} xs={7} style={{marginLeft: "60px", marginTop: "40px"}}>
                                 <Row className="name-row">
                                     <p className="text-ridername">Juan Dela Cruz</p>
                                 </Row>
                                 <Row className="details-row" >
                                     <p className="text-detailsrider">
                                         <span className="mr-4" >Address: Sudlonon Bogo City, Cebu</span>
-                                  
-                                        <span style={{marginLeft: "50px"}} className="mr-4">Position: Cab Rider</span>
+                                        <br/>
+                                        <span className="mr-4">Position: Cab Rider</span>
                                         <br />
                                         <span className="mr-4">Age: 20</span>
-
-                                        <span style={{marginLeft: "330px"}} className="mr-4">Vehicle No: 47548</span>
+                                        <br/>
+                                        <span className="mr-4">Vehicle No: 47548</span>
                                         <br />
                                         <span>Contact Number: 09564457889</span>
                                     </p>
