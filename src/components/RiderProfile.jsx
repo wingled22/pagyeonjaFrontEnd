@@ -16,7 +16,7 @@ const RiderProfile = () => {
                 <div className="rect-profile">
              
                         <Row>
-                            <Col md={3} lg={2} sm={3} xs={2}  className="prof-col">
+                            <Col md={3} lg={3} sm={3} xs={2}  className="prof-col">
                                 <Icon className="profile-img" icon={faCircleUser} color='black' />
                             </Col>
 
