@@ -1,72 +1,150 @@
-<<<<<<< HEAD
 .CommuterTableContainer {
-  height: 600px;
-  width: 100%;
-  background-color: #eceaea;
-  border-radius: 20px;
+    /* display: flex !important; */
+    min-height: 86vh !important;
+    /* min-width: 516px !important; */
 
-  margin-left: 20px;
-=======
-.CommuterTableContainer
-{
-    height: 86vh;
     width: 100%;
     background-color: #eceaea;
     border-radius: 20px;
 
-    max-height: 86vh;
+    /* min-width: 400px !important; */
+
+    max-height: 86vh !important;
     overflow: auto;
 
-    /* margin-left: 20px; */
->>>>>>> facfa97f5d1509874448f57cc951ec840eb513ef
+    /* /* margin-left: 20px; * */
 
   box-shadow: 0px 4px 14.1px -1px #00000080;
 }
- 
-thead
+
+.tableCommuterTable
 {
+    /* min-width: 516px !important; */
+}
+
+thead {
     position: sticky !important;
 }
 
 
 .tableCommuterTable {
-  margin: auto;
+    margin: auto;
 
   width: 100%;
   background: white;
 }
 
-<<<<<<< HEAD
 .trCommuterTable {
-  background-color: #52459f !important;
-  color: white;
-  height: 50px;
-=======
-.trCommuterTable
-{
 
-    background-color:  #52459F !important;
+    /* background-color:  #52459F !important; */
     color: white;
     height: 50px;
->>>>>>> facfa97f5d1509874448f57cc951ec840eb513ef
 }
 
 .rowCommuterTable {
-  border: 1px;
+    border: 1px;
 }
 
 .btn {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
-<<<<<<< HEAD
-#colContainerTable {
-  width: 55%;
-}
-=======
-tbody
-{
+tbody {
     overflow: auto !important;
     max-height: 86vh;
 }
->>>>>>> facfa97f5d1509874448f57cc951ec840eb513ef
+
+.badgeStatusCommuter {
+    width: 100%;
+    margin: 0 auto;
+
+    border-radius: 20px;
+    height: 30px;
+
+    text-align: center;
+    justify-content: center;
+
+    padding: 10px;
+}
+
+.statusTh
+{
+    text-align: center;
+}
+
+@media (max-width: 1067px) {
+    .thCommuterTable {
+        font-size: small;
+    }
+
+    .commuterName {
+        font-size: 0.7rem !important;
+    }
+
+    .badgeStatusCommuter {
+        height: 25px;
+        width: 100%;
+
+        font-size: 11px;
+    }
+
+}
+
+@media (max-width: 1065px)
+{
+    .btnAction
+    {
+        width: 40px;
+        height: 40;
+    }
+}
+
+
+/* 
+@media (max-width: 280px) 
+{
+    .thCommuterTable {
+        font-size: xx-small;
+    }
+
+    .commuterName {
+        font-size: 0.5rem !important;
+    }
+
+    .badgeStatusCommuter {
+        height: 5px;
+        width: 20%;
+    }
+
+    .statusName
+    {
+        visibility: hidden;
+    }
+
+    .statusTh
+    {
+       margin-top: 100px !important;
+
+       text-align: justify !important;
+    }
+} */
+
+/* 
+.col-sm-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+.col-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+} */
+
+
+@media (max-width: 767px) 
+{
+    .CommuterTableContainer
+    {
+        min-width: 516px !important;
+    }
+}
