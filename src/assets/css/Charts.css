@@ -1,0 +1,30 @@
+.Chartm {
+  /* height: 100vh;
+  width: 100%; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center;  */
+  align-content: center;
+  gap: 2vw;
+  flex-wrap: wrap;
+}
+
+.dataCard {
+  background-color: #efefef;
+  border-radius: 0.5em;
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+  /* padding: 12px; */
+}
+
+.revenueCard {
+  margin-top: 32px;
+  width: 41%;
+  height: 20rem;
+}
+
+.customerCard {
+  margin-bottom: -32px;
+  width: 41%;
+  height: 20rem;
+}

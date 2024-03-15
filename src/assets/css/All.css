@@ -5,3 +5,7 @@
 body {
   padding: 0.8%;
 }
+
+.outlet {
+  transition: all 0.3s ease-out;
+}
