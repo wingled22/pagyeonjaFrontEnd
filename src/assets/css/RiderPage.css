@@ -2,6 +2,10 @@
 
 /* Rider Profile CSS */
 
+.col{
+    margin-left: 50px;
+    margin-right: 50px;
+}
 .rectangle-header {
     background-color: #52459F;
     border-radius: 30px;
@@ -9,61 +13,63 @@
     left: 0;
     width: 100%;
     padding: 6px;
+    top: 0;
 }
 
 .box-header .label {
     margin-left: 20px;
 }
 
-.box-header .label .text-wrapper {
+.text-wrapper {
     color: #e1dff3;
     font-size: 27px;
     font-weight: 600;
 }
 
 .rect-profile {
-    margin: auto;
+    margin-top: 20px;
     background-color: #fdfdfd;
     border-radius: 30px;
     box-shadow: 0px 2px 4px 1.5px #00000080;
-    height: 180px;
     width: 100%;
     left: 0;
-    margin-top: 20px;
-
+  
 }
-
 .profile-img {
-    position: relative;
-    margin-left: 40px;
-    margin-top: 15px;
+    padding: 40px;
+    font-size: 130px;
 }
 
-
-.text-name {
+.text-containers{
+margin: 0;
+margin-top: 40px;
+    width: 100%;
+}
+.text-ridername {
     color: #52459F;
-    font-weight: 700 !important;
-    line-height: normal;
+    font-weight: 700;
+    font-size: 30px;
+    margin: 0;
+    margin-left: 12px;
 }
 
-.text-details {
-    font-size: 17px;
+.text-detailsrider {
     font-weight: 400;
     color: #504b4b;
+    margin: 0;
+    margin-left: 12px;
 }
 
-.name-row {
-    margin-top: 30px !important;
+
+.prof-col{
+    width: 100%;
 }
 
-.details-row {
-    margin-top: 10px !important;
-    margin-left: 35px !important;
-}
+
 
 /* Search CSS */
 .search-box {
-    margin-left: 20px;
+    margin-left: 2px;
     margin-top: 20px !important;
     width: 70% !important;
 
@@ -121,6 +127,9 @@ th {
     top: 0;
 }
 
+.Row1.row{
+    min-width: 1369px;
+}
 
 .id-header {
     border-top-left-radius: 20px;
