@@ -7,7 +7,7 @@ const RiderProfile = () => {
       <div className="box-header">
         <div className="rectangle-header">
           <div className="label">
-            <h2 className="text-wrapper">Rider Profile</h2>
+            <h2 className="rider-profile-header">Rider Profile</h2>
           </div>
         </div>
 
@@ -28,7 +28,7 @@ const RiderProfile = () => {
                 <p className="text-ridername">Juan Dela Cruz</p>
               </Row>
               <Row className="mt-2">
-                <Row style={{ marginBottom: -15 }}>
+                <Row style={{}}>
                   <Col>
                     <p>Address: Sudlonon Bogo City, Cebu</p>
                   </Col>
@@ -36,7 +36,7 @@ const RiderProfile = () => {
                     <p>Position: Tricy Rider</p>
                   </Col>
                 </Row>
-                <Row style={{ marginBottom: -15 }}>
+                <Row style={{}}>
                   <Col>
                     <p>Age: 20</p>
                   </Col>
@@ -44,7 +44,7 @@ const RiderProfile = () => {
                     <p>Vehicle: Tricycle</p>
                   </Col>
                 </Row>
-                <Row style={{ marginBottom: -15 }}>
+                <Row style={{}}>
                   <Col>
                     <p>Contact Number: 123456</p>
                   </Col>
