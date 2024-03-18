@@ -16,11 +16,11 @@ const RiderProfile = () => {
                 <div className="rect-profile">
              
                         <Row>
-                            <Col md={3} lg={3} sm={3} xs={2}  className="prof-col">
+                            <Col md={2} lg={3} sm={3} xs={2}  className="prof-col">
                                 <Icon className="profile-img" icon={faCircleUser} color='black' />
                             </Col>
 
-                            <Col md={7} lg={7} sm={7} xs={7} style={{marginLeft: "60px", marginTop: "40px"}}>
+                            <Col md={6} lg={7} sm={7} xs={7} style={{marginLeft: "60px", marginTop: "40px"}}>
                                 <Row className="name-row">
                                     <p className="text-ridername">Juan Dela Cruz</p>
                                 </Row>
