@@ -26,8 +26,8 @@ const CommuterDetails = () => {
                     <div className="labelInfoPositioning">
                         <span className="labelInfo">Sex: <span className="textInfo">Male</span></span>
                         <div className="labelInfo">Birthdate: <span className="textInfo">November 01, 2000</span></div>
-                        <div className="labelInfo">Civil Status: <span className="textInfo">Single</span></div>
-                        <span className="labelInfo">Occupation: <span className="textInfo">Student</span></span>
+                        <span className="labelInfo">Civil Status: <span className="textInfo">Single</span></span>
+                        <div className="labelInfo">Occupation: <span className="textInfo">Student</span></div>
                     </div>
                 </Col>
                 <Col md="4" sm="4" xs={12}>
