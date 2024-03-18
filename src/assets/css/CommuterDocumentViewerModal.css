@@ -13,6 +13,7 @@
     width: 100% !important;
 
     max-height: 250px !important;
+    overflow: hidden !important;
     overflow-y: auto !important;
 
     padding: 0%;
