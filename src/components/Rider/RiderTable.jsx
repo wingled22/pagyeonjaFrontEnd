@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import "../../assets/css/RiderPage.css";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,8 +8,14 @@ import {
   faCirclePause,
 } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "reactstrap";
-
+import RiderDetailsModal from "./RiderDetailsModal";
 const RiderTable = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = (rider) => {
+    setModalOpen(!modalOpen);
+  };
+
   const data = [
     { id: 1, riderId: "123123", name: "Mark Zuckerberg", status: "suspended" },
     { id: 2, riderId: "456456", name: "Jacob Wikowski", status: "active" },
@@ -47,11 +54,13 @@ const RiderTable = () => {
 
   return (
     <>
+      <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal(null)} />
+
       <div className="search-box">
         <input type="text" placeholder="Search for rider" />
       </div>
-      <div className="table-container">
-        <Table>
+      <div className="rider-container">
+        <Table className="rider-table">
           <thead>
             <tr>
               <th className="id-header">Rider ID No.</th>
@@ -84,7 +93,10 @@ const RiderTable = () => {
                   </p>
                 </td>
                 <td>
-                  <button className="btn btn-primary">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => toggleModal(rider)}
+                  >
                     <Icon icon={faCircleInfo} color="white" />
                   </button>
                   <button className="btn btn-success">

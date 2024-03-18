@@ -29,7 +29,12 @@ const NavigationBar = () => {
             <Icon icon={faPerson} color="white" className="large-icon" />
           </NavLink>
 
-          <Icon icon={faCertificate} color="white" className="large-icon" />
+          <NavLink 
+            className="nav-link"
+            activeClassName="active"
+            to={"/rider-approval"}>
+            <Icon icon={faCertificate} color="white" className="large-icon" />
+          </NavLink>
         </div>
         <div className="logout">
           <Icon icon={faPowerOff} color="#e38071" className="logout-btn mb-4" />

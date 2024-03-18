@@ -5,11 +5,11 @@ import Charts from "../components/Homepage/Charts.jsx";
 const HomePage = () => {
   return (
     <>
-      <h1 className="greatings fs-1 fs-md-2 fs-sm-3 fs-xs-5">
+      <h1 className="greatings fs-1 fs-md-2 fs-sm-3 fs-xs-5 mb-3">
         Good Afternoon, Admin
       </h1>
       <Cards />
-      <Charts/>
+      <Charts />
     </>
   );
 };
