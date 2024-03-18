@@ -24,9 +24,9 @@
     box-shadow: 0px 10px 5px #888, 0px -10px 5px #888;
 }
 
-thead {
+/* thead {
     position: sticky !important;
-}
+} */
 
 
 .tableCommuterTable {
@@ -50,11 +50,11 @@ thead {
 .btn {
     margin-left: 10px;
 }
-
+/* 
 tbody {
     overflow: auto !important;
     max-height: 86vh;
-}
+} */
 
 .badgeStatusCommuter {
     width: 100%;
