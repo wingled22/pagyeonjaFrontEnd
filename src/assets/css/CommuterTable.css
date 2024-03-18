@@ -10,7 +10,7 @@
     /* min-width: 400px !important; */
 
     max-height: 86vh !important;
-    overflow: auto;
+    overflow-y: auto !important;
 
     /* /* margin-left: 20px; * */
 
