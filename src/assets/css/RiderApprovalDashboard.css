@@ -1,22 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 
 /******************* approval text  ***************/
 .text-wrapper {
-  color: #000000;
-  font-family: "Poppins-SemiBold", Helvetica;
-  left: 0;
-  letter-spacing: 0;
-  line-height: normal;
-  top: 0;
-  width: 231px;
-  font-weight: bold;
-  font-size: clamp(5px, 4vw, 20px);
-  margin-left: 30px;
+  color: #000000 !important;
+  font-family: "Poppins-Bold", sans-serif !important;
+  width: 231px !important;
+  font-weight: bold !important;
+  font-size: clamp(5px, 4vw, 30px) !important;
+  margin-left: 40px !important;
+  margin-top: 5px;
 }
 
 
@@ -25,20 +22,18 @@
 .search-field {
   background-color: #d1d1d1 !important;
   height: 45px !important;
-  margin: 5px 10px 10px 15px !important;
+  margin: 10px 0px 10px 10px !important;
   width: 100% !important;
-  max-width: 500px !important;
+  max-width: 380px !important;
   border-radius: 130px !important;
-  padding-left: 25px !important;
-
-
+  padding-left: 20px !important;
 }
 
 /********************************** filter status ******************************/
 .filter-status {
 
   /* top right bottom left */
-  margin: 5px 0px 0px 0px !important;
+  margin: 10px 0px 0px -100px !important;
   height: 45px !important;
   width: 150px !important;
   background-color: #52459F !important;
@@ -47,13 +42,18 @@
   font-weight: bold !important;
   border-radius: 22px !important;
   font-family: 'Poppins', sans-serif !important;
-
+ font-size: smaller !important;
 }
 
 /************************ table styling ***********************/
 
 .table-container {
-  max-height: 519px !important;
+   /* display: flex !important; */
+
+   width: 100%;
+
+   min-height: 75vh !important;
+
   overflow-y: auto !important;
   padding: 0px 50px 50px 50px !important;
   background-color: #F0F0F0 !important;
@@ -61,8 +61,8 @@
   box-shadow: 0px 4px 14.1px -1px #00000080 !important;
   font-size: 1.2vw !important;
   font-weight: bold !important;
-  margin-left: 25px !important;
-  margin-top: -20px;
+  margin-left: 20px !important;
+  margin-top: 20px !important;
 }
 
 .table-in {
@@ -87,13 +87,15 @@
 /*************************  rider requirements profiling style************************ */
 .rectangle-requiment {
   width: 400px !important;
-  height: 530px !important;
+
   background-color: #F0F0F0 !important;
   border-radius: 20px !important;
   box-shadow: 0px 4px 14.1px -1px #00000080 !important;
   margin-left: 50px !important;
-  margin-top: -20px !important;
-
+  margin-top: 20px !important;
+  
+  height: 500px !important;
+  min-height: 75vh !important;
 }
 
 .rider-profile {

@@ -1,13 +1,13 @@
 import React from "react";
 import { Button,  Modal,ModalHeader, ModalBody,ModalFooter,FormGroup,Label,Input,Row,Col,} from "reactstrap";
-import images1 from "../assets/image/carlo.jpg";
-import images2 from "../assets/image/cliff.jpg";
-import images3 from "../assets/image/cs3.png";
+import images1 from "../../assets/image/carlo.jpg";
+import images2 from "../../assets/image/cliff.jpg";
+import images3 from "../../assets/image/cs3.png";
 import { auto } from "@popperjs/core";
 
-import ViewORCR from "./RequirementsViewOrCr";
-import ViewDriversLicense from "./RequirementsViewDriversLicense";
-import ViewNBIClearance from "./RequirementsViewNBIClearance";
+import ViewORCR from "../../components/RiderApprovalComponents/RequirementsViewOrCr";
+import ViewDriversLicense from "../../components/RiderApprovalComponents/RequirementsViewDriversLicense";
+import ViewNBIClearance from "../../components/RiderApprovalComponents/RequirementsViewNBIClearance";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
