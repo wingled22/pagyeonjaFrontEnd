@@ -3,6 +3,7 @@ import App from "./App";
 import HomePage from "./routes/HomePage";
 import RiderPage from "./routes/RiderPage";
 import CommuterPage from "./routes/CommuterPage";
+import RiderApprovalDashboard from "./components/RiderApprovalComponents/Rider_Approval_Dashboard";
 const AppRouter = () => {
   return (
     <>
@@ -12,7 +13,7 @@ const AppRouter = () => {
           <Route path="/home" element={<HomePage />} />
           <Route path="/rider" element={<RiderPage />} />
           <Route path="/commuter" element={<CommuterPage />} />
-          {/* <Route path="/verification" element={<HomePage />} /> */}
+          <Route path="/rider-approval" element={<RiderApprovalDashboard />} />
         </Route>
       </Routes>
     </>

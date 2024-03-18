@@ -12,6 +12,7 @@ function App() {
         <Col xs="10" sm="10" md="9" lg="11" xl="11">
           <Outlet />
         </Col>
+        
       </Row>
     </>
   );
