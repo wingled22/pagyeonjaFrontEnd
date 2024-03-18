@@ -1,39 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 .modal-header {
-    background-color: #52459F;
-    color: white;
-  }
-  
-  .modal-footer {
-    background-color: #52459F; 
-    height: 60px;
-  }
+  background-color: #52459F;
+  color: white;
+}
 
-  .modal-dialog {
-    max-width: 1100px; 
-    margin: 1.75rem auto; 
-    max-height: 1500px;
-  }
-  
-  .box-profile{
-    margin: 0 auto;
-    width: 50%;
-    height: 140px;
-    background-color: #52459F;
-    border-radius: 30px;
-    box-shadow: 0px 2px 4px 1.5px #00000080;
-  }
-  
-  .profile-img {
-    margin-left: 90px;
-    margin-top: 20px;
-  }
+.modal-footer {
+  background-color: #52459F;
+  height: 60px;
+}
 
-  .accordion-button{
+.modal-dialog {
+  max-width: 1100px;
+  margin: 1.75rem auto;
+}
 
-    height: 60px;
-  }
-  
-  .accordion-button.collapsed{
-    height: 60px;
-  }
+.profile-container {
+  margin: 0 auto;
+  width: 90%;
+  height: 140px;
+  background-color: #52459F;
+  border-radius: 30px;
+  box-shadow: 0px 2px 4px 1.5px #00000080;
+}
+
+.profile-image {
+  margin-left: 80px;
+  margin-top: 25px;
+}
+
+.accordion-button {
+  height: 60px;
+}
+
+.ridername {
+  color: white;
+  font-weight: 700;
+  font-size: 36px;
+  font-weight: 500;
+  margin: 0;
+  margin-top: 30px;
+  margin-left: 38px;
+}
+
+.rider-id {
+  color: white;
+  font-weight: 400;
+  font-size: 20px;
+  margin-left: 40px;
+  font-weight: 300;
+}
+
+.accordion-button.collapsed {
+  height: 60px;
+}
+
+p {
+  margin: 0;
+}
+
+
+.info-item {
+  margin-bottom: 10px;
+}
+
+.label-text{
+  font-weight: bold;
+}
+
+.text-value{
+  font-weight: 400;
+  margin-left: 5px;
+}

@@ -12,7 +12,7 @@ const RiderProfile = () => {
                         <h2 className="text-wrapper">Rider Profile</h2>
                     </div>
                 </div>
-
+              
                 <div className="rect-profile">
              
                         <Row>
