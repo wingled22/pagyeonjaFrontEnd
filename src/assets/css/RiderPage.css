@@ -6,7 +6,7 @@
     border-radius: 30px;
     height: 50px;
     left: 0;
-    width: 100%;
+    max-width: 100%;
     padding: 10px;
     top: 0;
 }
@@ -34,7 +34,8 @@
 }
 
 .profile-img {
-    padding: 40px;
+    padding: 0 !important;
+    margin-top: 30px !important;
     font-size: 10vw;
 }
 
@@ -138,8 +139,7 @@ td {
 @media screen and (max-width: 1920px) {
  
     .profile-img {
-        margin: 0;
-      
+        padding: 0 !important;
         font-size: 10vw;
     }
 
@@ -148,10 +148,11 @@ td {
     }
 
     .text-detailsrider{
-        font-size: 1.5vw;
+        margin-top: 10px;
+        font-size: 1.3vw;
     }
+   
 
-    
 }
 
 /* @media screen and (max-width: 990px) {
