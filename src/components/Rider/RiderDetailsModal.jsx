@@ -16,7 +16,7 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
     if (open === id) {
       setOpen();
     } else {
-      setOpen(id);
+      setOpen(id); 
     }
   };
   const data = [
@@ -113,8 +113,8 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
   ];
   return (
     <>
-      <Modal isOpen={isOpen} toggle={toggle} size="md">
-        <ModalHeader toggle={toggle}>Rider Details</ModalHeader>
+      <Modal className="rider-modal-dialog"isOpen={isOpen} toggle={toggle} size="md">
+        <ModalHeader className="rider-header-modal" toggle={toggle}>Rider Details</ModalHeader>
         <ModalBody>
           <Row>
             <div className="profile-container">
@@ -150,9 +150,10 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
                   boxShadow: '0px 2px 4px 1.5px #00000080',
                   maxWidth: '400px',
                   margin: 'auto',
-                  maxHeight: '100%',
+                  height: '70%',
+                   
                   marginTop: '25px',
-                  padding: "30px",
+                  padding: "40px",
                   marginLeft: "50px"
                 }}>
                 <span className="label-text">Vehicle No: <span className="text-value">47548</span></span>
@@ -332,7 +333,7 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
           </Row>
 
         </ModalBody>
-        <ModalFooter></ModalFooter>
+        <ModalFooter className="rider-footer-modal"></ModalFooter>
       </Modal>
     </>
   );

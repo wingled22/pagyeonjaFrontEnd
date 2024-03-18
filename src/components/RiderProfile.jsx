@@ -28,7 +28,7 @@ const RiderProfile = () => {
                 <p className="text-ridername">Juan Dela Cruz</p>
               </Row>
               <Row className="mt-2">
-                <Row style={{}}>
+                <Row style={{ marginBottom: -15 }}>
                   <Col>
                     <p>Address: Sudlonon Bogo City, Cebu</p>
                   </Col>
@@ -36,7 +36,7 @@ const RiderProfile = () => {
                     <p>Position: Tricy Rider</p>
                   </Col>
                 </Row>
-                <Row style={{}}>
+                <Row style={{ marginBottom: -15 }}>
                   <Col>
                     <p>Age: 20</p>
                   </Col>
@@ -44,7 +44,7 @@ const RiderProfile = () => {
                     <p>Vehicle: Tricycle</p>
                   </Col>
                 </Row>
-                <Row style={{}}>
+                <Row style={{ marginBottom: -15 }}>
                   <Col>
                     <p>Contact Number: 123456</p>
                   </Col>
