@@ -1,0 +1,38 @@
+.box {
+  max-height: 164px;
+  min-height: 50%;
+  max-width: 120px;
+  min-width: 50%;
+}
+.text-wrapper-Rider {
+  background: linear-gradient(
+    to right,
+    rgb(82, 69, 159) 0%,
+    rgb(227, 128, 113) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 5vw;
+}
+
+.card-icon {
+  color: #e38071;
+}
+
+.div-total {
+  color: #737277;
+  font-family: "Poppins-Regular", Helvetica;
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 25px;
+  letter-spacing: 0;
+  line-height: normal;
+  /* position: absolute; */
+  margin-top: 85px;
+  width: 178px;
+}
+.menu {
+  /* margin-bottom: -52px; */
+  font-size: 1.5rem;
+  /* margin-left: 198px; */
+}

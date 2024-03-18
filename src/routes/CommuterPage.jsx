@@ -1,27 +1,27 @@
 import CommuterTable from "../components/Commuter/CommuterTable.jsx";
 import CommuterDetails from "../components/Commuter/CommuterDetails.jsx";
 import CommuterSearch from "../components/Commuter/CommuterSearch.jsx";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Container } from "reactstrap";
 
 const CommuterPage = () => {
 
     return (
         <>
-            <div>
-                <Row>
-                    <Col md={5} sm={12}>
+            <Container>
+                <Row className="commuterPageContainer d-flex flex-md-row flex-lg-column">
+                    <Col md={5} xs={12}>
                         <CommuterSearch/>
                     </Col>
                 </Row>
-                <Row>
-                    <Col md={6} sm={12} id='colContainerTable'>
+                <Row className="d-flex">
+                    <Col md={6} sm={12} xs={12} id="colContainerTable">
                         <CommuterTable />
                     </Col>
-                    <Col md={6} id='colContainerDetails'>
+                    <Col md={6} sm={12} xs={12} id='colContainerDetails'>
                         <CommuterDetails/>
                     </Col>
                 </Row>
-            </div>
+            </Container>
 
             
         </>

@@ -6,6 +6,8 @@ import {
     faCirclePause
 } from "@fortawesome/free-solid-svg-icons";
 
+import { Row, Col, Container } from 'reactstrap';
+
 
 const CommuterTable = () => {
     const data = [
@@ -25,25 +27,25 @@ const CommuterTable = () => {
                 <table className='tableCommuterTable'>
                     <thead className='theadCommuterTable'>
                         <tr className='trCommuterTable'>
-                            <th className='thCommuterTable' style={{ width: '35%', paddingLeft: '20px', borderRadius: '20px 0 0 0', marginBottom: '10px' }}>Name</th>
-                            <th className='thCommuterTable' style={{ width: '30%', padding: '20px', textAlign:'center'}}>Status</th>
-                            <th className='thCommuterTable' style={{ width: '30%', padding: '20px', borderRadius: '0 20px 0 0', textAlign:'center' }}>Action</th>
+                            <th className='thCommuterTable col-6 col-sm-5' style={{ paddingLeft: '20px', borderRadius: '20px 0 0 0', marginBottom: '10px' }}>Name</th>
+                            <th className='thCommuterTable col-3 col-sm-3 statusTh' style={{ padding: '20px' }}>Status</th>
+                            <th className='thCommuterTable col-3 col-sm-4' style={{ padding: '20px', borderRadius: '0 20px 0 0', textAlign: 'center' }}>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map(item => (
                             <tr key={item.id}>
-                                <td style={{ borderTop: 'groove', padding: '20px' }}>{item.name}</td>
+                                <td className='commuterName' style={{ borderTop: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.name}</td>
                                 <td style={{ borderTop: 'groove', padding: '20px' }}>
-                                <Badge className='badgeStatusCommuter' color={item.status === 'Active' ? 'success' : 'danger'}>
-                                    {item.status}
-                                </Badge></td>
-                                <td style={{ borderTop: 'groove', padding: '20px', textAlign: 'center'}}>
+                                    <Badge className='badgeStatusCommuter' color={item.status === 'Active' ? 'success' : 'danger'}>
+                                        <span className='statusName'>{item.status}</span>
+                                    </Badge></td>
+                                <td style={{ borderTop: 'groove', padding: '20px', textAlign: 'center' }}>
                                     {/* Use Reactstrap Button for the action */}
-                                    <button className='btn btn-success' onClick={() => console.log(`Action clicked for ${item.name}`)}>
+                                    <button className='btn btn-success btnAction' onClick={() => console.log(`Action clicked for ${item.name}`)}>
                                         <Icon icon={faPenToSquare} color='white' />
                                     </button>
-                                    <button className='btn btn-danger' onClick={() => console.log(`Action clicked for ${item.name}`)}>
+                                    <button className='btn btn-danger btnAction' onClick={() => console.log(`Action clicked for ${item.name}`)}>
                                         <Icon icon={faCirclePause} color='white' />
                                     </button>
                                 </td>

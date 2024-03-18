@@ -1,136 +1,432 @@
-.commuterDetailsContainer
-{
+.commuterDetailsContainer {
+
+    /* display: flex !important; */
     background: #EEEBFC;
-    height: 86vh;
     width: 100%;
 
     border-radius: 20px;
+    /* min-width: 400px !important; */
     /* margin-left: 10px; */
+
+    min-width: 516px !important;
+    min-height: 86vh !important;
 
     box-shadow: 0px 2px 18.3px #00000080;
 }
 
-#colContainerDetails
-{
+#colContainerDetails {
     /* width: 40%; */
 }
 
-.imageContainer
-{
-    width: 105px;
-    height: 105px;
+.imageContainer {
+    width: 90px;
+    height: 90px;
 
-    margin: 25px;
+    margin-top: 2.5vh;
+
+    margin-left: 15px;
 }
 
-.text-name
-{
+.text-name {
     margin-top: 20px;
     margin-left: 45px;
-
-    font-size: 2vw;
-    font-weight: bold;
-}
-
-.labelInfoPositioning
-{
-    margin-left: 45px;
-}
-
-.labelInfo
-{
-    font-weight: 500;
-    font-size: 14px;
-}
-
-.textInfo
-{
-    font-weight: normal;
-
-}
-
-.btnViewDocuments
-{
-    margin: 20px;
-    margin-right: 20px;
-    
-    font-weight: normal !important;
-    border-radius: 50px !important; 
-}
-
-.containerCommuterDetails
-{
-    /* width: 530px !important; */
-    /* width: 100%; */
-    height: 100%;
-
-    margin: 0 auto;
-
-    border-radius: 20px;
-
-    background-color: #f8f8f8;
-    padding: 10px;
-}
-
-.labelRideHistory
-{
-    padding: 10px;
-    margin-top: 20px;
-    margin-left: 20px;
 
     font-size: 20px;
     font-weight: bold;
 }
 
-.containerRideHistory
-{
-    /* width: 100% !important; */
-    height: 190px;
+.labelInfoPositioning {
+    margin-left: 45px;
+}
 
-    max-height: 100%;
+.labelInfo {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.textInfo {
+    font-weight: normal;
+
+}
+
+.btnViewDocuments {
+    margin: 20px;
+    margin-right: 20px;
+
+    font-weight: normal !important;
+    border-radius: 50px !important;
+
+    height: 35px;
+    width: 80%;
+
+    font-size: small;
+}
+
+.containerCommuterDetails {
+    /* width: 530px !important; */
+    /* width: 100%; */
+    /* height: 25vh; */
+    min-height: 25vh !important;
+
+    margin: 0 auto;
+    margin-top: 10px;
+
+
+    border-radius: 20px;
+
+    background-color: #f8f8f8;
+
+    padding-top: 10px;
+}
+
+.labelRideHistory {
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.containerRideHistory {
+    /* width: 100% !important; */
+    /* height: 190px; */
+    /* height: 100%; */
+    max-height: 30vh;
+    min-height: 30vh !important;
+
+    /* min-height: 240px !important; */
 
     margin: 0 auto;
 
-    background-color: #E7FAFE;
+    background-color: #e7fafe;
 
     border-radius: 20px;
     padding: 10px;
     overflow: auto;
 }
 
-#accordionHeaderStyle > button
-{
-    background-color:  #52459F !important;
+#accordionHeaderStyle>button {
+
+    background-color: #52459F !important;
     color: white;
 
     border-radius: 10px !important;
 
     margin-top: 5px;
+
+    font-size: 14px !important;
 }
 
-#accordionHeaderStyle > button::after
-{
+#accordionHeaderStyle>button::after {
     /* background-color: white !important; */
     filter: brightness(0) invert(1);
 }
 
-.dropOffDateHeader
-{
+.dropOffDateHeader {
     max-width: 200px;
 }
 
-.riderHistoryLabelInfo
-{
+.riderHistoryLabelInfo {
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
 }
 
-.riderHistoryTextInfo
-{
-    font-size: 13px;
+.riderHistoryTextInfo {
+    font-size: 12px;
 }
 
-.newlineInfo
-{
+.newlineInfo {
     margin-top: 13px !important;
 }
+
+@media (max-width: 767px) {
+    .commuterDetailsContainer {
+        min-width: 100% !important;
+        max-width: 516px !important;
+
+        margin: 0 auto;
+        margin-top: 15px;
+
+        min-height: 86vh !important;
+
+    }
+}
+
+@media (max-width: 572px) {
+
+    #textInfoContainer
+    {
+        margin: auto !important;
+    }
+
+    .labelInfoPositioning    
+    {
+        margin: auto;
+    }
+
+    .btnViewDocuments
+    {
+        margin: auto;
+    }
+
+    .text-name
+    {
+        margin: auto;
+    }
+}
+
+/* @media (max-width: 1067px) {
+    .text-name {
+        font-size: 3vh !important;
+    }
+
+    .imageContainer {
+        width: 10vw;
+        height: 10vh;
+        margin-top: 2.5vh;
+    }
+
+    .labelInfo {
+        font-size: 1.6vh;
+    }
+
+    .btnViewDocuments {
+
+        height: 35px;
+        width: 70%;
+
+        font-size: x-small;
+    }
+
+    .riderHistoryLabelInfo {
+        font-size: 10px;
+    }
+
+    .riderHistoryTextInfo {
+        font-size: 10px;
+    }
+
+    #accordionHeaderStyle>button {
+        font-size: 12px !important;
+
+        height: 40px !important;
+    }
+}
+
+
+@media (max-width: 991px) {
+    .text-name
+    {
+        font-size: 12px !important;
+    }
+
+    .imageContainer {
+        width: 60px;
+        height: 60px;
+    }
+
+    .labelInfo
+    {
+        font-size: 9px;
+    }
+
+    .labelRideHistory
+    {
+        font-size: 13px;
+
+        margin-left: 10px;
+    }
+
+    .btnViewDocuments {
+    
+        height: 30px;
+        width: 80%;
+    
+        font-size: xx-small;
+
+        padding-left: 10px;
+    }
+
+    .riderHistoryLabelInfo {
+        font-size: 5px;
+    }
+    
+    .riderHistoryTextInfo {
+        font-size: 5px;
+    }
+
+    #accordionHeaderStyle>button {
+        font-size: 8px !important;
+
+        height: 35px !important;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .text-name
+    {
+        font-size: 18px !important;
+    }
+
+    .imageContainer {
+        width: 80px;
+        height: 80px;
+    }
+
+    .labelInfo
+    {
+        font-size: 10px;
+    }
+
+    .btnViewDocuments {
+    
+        height: 35px;
+        width: 70%;
+    
+        font-size: x-small;
+    }
+
+    .riderHistoryLabelInfo {
+        font-size: 10px;
+    }
+    
+    .riderHistoryTextInfo {
+        font-size: 10px;
+    }
+
+    #accordionHeaderStyle>button {
+        font-size: 12px !important;
+
+        height: 40px !important;
+    }
+
+    .commuterDetailsContainer
+    {
+        margin-top: 15px;
+    }
+} */
+
+/* 
+
+
+@media (max-width: 497px) {
+    .text-name
+    {
+        font-size: 12px !important;
+    }
+
+    .imageContainer {
+        width: 60px;
+        height: 60px;
+    }
+
+    .labelInfo
+    {
+        font-size: 9px;
+    }
+
+    .labelRideHistory
+    {
+        font-size: 13px;
+
+        margin-left: 10px;
+    }
+
+    .btnViewDocuments {
+    
+        height: 30px;
+        width: 80%;
+    
+        font-size: xx-small;
+
+        padding-left: 10px;
+    }
+
+    .riderHistoryLabelInfo {
+        font-size: 5px;
+    }
+    
+    .riderHistoryTextInfo {
+        font-size: 5px;
+    }
+
+    #accordionHeaderStyle>button {
+        font-size: 8px !important;
+
+        height: 35px !important;
+    }
+}
+
+@media (max-width: 375px)
+{
+    .btnViewDocuments
+    {
+        height: 28px;
+        width: 80%;
+    
+        font-size: xx-small;
+
+        padding-left: 6px;
+    }
+
+    .text-name
+    {
+        font-size: 10px !important;
+    }
+
+    .imageContainer {
+        width: 50px;
+        height: 50px;
+    }
+
+    .labelInfo
+    {
+        font-size: 8px;
+    }
+
+    .riderHistoryLabelInfo {
+        font-size: 3px;
+    }
+    
+    .riderHistoryTextInfo {
+        font-size: 5px;
+    }
+}
+
+@media (min-height: 1024px)
+{
+    .btnViewDocuments
+    {
+        height: 28px;
+        width: 80%;
+    
+        font-size: xx-small;
+
+        padding-left: 6px;
+    }
+
+    .text-name
+    {
+        font-size: 10px !important;
+    }
+
+    .imageContainer {
+        width: 50px;
+        height: 50px;
+    }
+
+    .labelInfo
+    {
+        font-size: 8px;
+    }
+
+    .riderHistoryLabelInfo {
+        font-size: 3px;
+    }
+    
+    .riderHistoryTextInfo {
+        font-size: 5px;
+    }
+} */
