@@ -1,5 +1,6 @@
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container } from 'reactstrap';
 import "../../assets/css/CommuterDocumentViewerModal.css";
+import { useState } from 'react';
 
 const CommuterDocumentViewerModal = ({ isOpen, untoggle }) => {
 
@@ -10,15 +11,15 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle }) => {
         { id: 4, documentName: 'National ID', type: 'Back' },
     ];
 
-    const openImage = (id) => {
+    const [selectedImage, setSelectedImage] = useState(null);
 
-        const item = data.find((item) => item.id === id);
-        if (item && item.path) {
-            const imagePath = item.path;
-            window.open(`file://${imagePath}`, '_blank');
-        } else {
-            console.error("Image path not found.");
-        }
+    const openImage = (path) => {
+        setSelectedImage(path);
+        console.log(selectedImage);
+    };
+
+    const closeImage = () => {
+        setSelectedImage(null);
     };
 
     return (
@@ -41,7 +42,7 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle }) => {
                                     <tr>
                                         <td className='itemBodyDocumentViewer'>{item.documentName}</td>
                                         <td className='itemBodyDocumentViewer'>{item.type}</td>
-                                        <td className='itemBodyDocumentViewer'><Button className="btn btn-warning btnView" onClick={() => { openImage(item.id) }}>View</Button></td>
+                                        <td className='itemBodyDocumentViewer'><Button className="btn btn-warning btnView" onClick={() => { openImage(item.path) }}>View</Button></td>
                                     </tr>
                                 ))}
                                 {/* Add more rows as needed */}
@@ -50,6 +51,12 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle }) => {
                     </Container>
                 </ModalBody>
             </Modal>
+
+            {selectedImage && (
+                <Container>
+                    <img src="" alt="None selected" style={{ width: '100%' }} />
+                </Container>
+            )}
         </>
     );
 }
