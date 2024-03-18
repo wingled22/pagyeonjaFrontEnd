@@ -98,7 +98,9 @@
   background-color: #555;
 }
 
-th {
+
+
+.name-th{
   background-color: #52459f !important;
   color: white !important;
   padding: 18px !important;
@@ -107,21 +109,48 @@ th {
   font-size: 1vw;
 }
 
-tbody {
+.status-th{
+  background-color: #52459f !important;
+  color: white !important;
+  padding: 18px !important;
+  position: sticky;
+  top: 0;
   font-size: 1vw;
 }
 
-.id-header {
-  border-top-left-radius: 20px;
+.rider-tbody {
+  background-color: #52459f !important;
+  color: white !important;
+  padding: 18px !important;
+  position: sticky;
+  top: 0;
+  font-size: 1vw;
+  font-size: 1vw;
+} 
+
+.rider-id-th {
+  border-top-left-radius: 20px !important;
+  background-color: #52459f !important;
+  color: white !important;
+  padding: 18px !important;
+  position: sticky !important;
+  top: 0 !important;
+  font-size: 1vw !important;
 }
 
-.act-header {
+.act-th {
   border-top-right-radius: 20px;
+  background-color: #52459f !important;
+  color: white !important;
+  padding: 18px !important;
+  position: sticky;
+  top: 0;
+  font-size: 1vw;
 }
 
-td {
+.rider-td {
   margin-left: 30px !important;
-}
+} 
 
 .btn {
   margin-left: 10px;
