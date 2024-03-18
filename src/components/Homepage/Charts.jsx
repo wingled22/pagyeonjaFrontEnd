@@ -110,15 +110,10 @@ defaults.plugins.title.color = "black";
 
 const Charts = () => {
   return (
-    <Row className="">
-      <Col
-        md={6}
-        lg={6}
-        sm={8}
-        className="revenueCard shadow-sm p-2"
-        style={{ background: "white" }}
-      >
+    <Row className="mt-3">
+      <Col xs={12} sm={10} md={6} lg={6} style={{ background: "white" }}>
         <Line
+          className="revenueCard shadow-sm rounded-3 p-4"
           data={{
             labels: revenueData.map((data) => data.label),
             datasets: [
@@ -151,14 +146,9 @@ const Charts = () => {
         />
       </Col>
 
-      <Col
-        md={6}
-        lg={6}
-        sm={8}
-        className="revenueCard shadow-sm p-2"
-        style={{ background: "white" }}
-      >
+      <Col xs={12} sm={10} md={6} lg={6} style={{ background: "white" }}>
         <Bar
+          className="revenueCard shadow-sm rounded-3 p-4"
           data={{
             labels: sourceData.map((data) => data.label),
             datasets: [

@@ -15,7 +15,7 @@ const CommuterAccordion = () => {
     const [open, setOpen] = useState('0');
     const toggle = (id) => {
         if (open === id) {
-            setOpen();
+            setOpen("0");
         } else {
             setOpen(id);
         }
@@ -40,7 +40,6 @@ const CommuterAccordion = () => {
                             <Col>
                                 <span className='headerText'>&emsp;|&emsp; {item.dropOFfTime} </span>
                             </Col>
-
                         </AccordionHeader>
                         <AccordionBody accordionId={item.id.toString()}>
                             <Row>
