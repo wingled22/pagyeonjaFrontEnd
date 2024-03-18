@@ -16,8 +16,6 @@
   margin-top: 5px;
 }
 
-
-
 /* ******************************search box ***************************/
 .search-field {
   background-color: #d1d1d1 !important;
@@ -231,7 +229,7 @@
 
   /* ******************table styling ****************/
 
-  .table-container {
+  .rider-approval-container {
     max-height: 490px !important;
     max-width: 400px !important;
 

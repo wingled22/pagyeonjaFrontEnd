@@ -24,8 +24,9 @@
     box-shadow: 0px 10px 5px #888, 0px -10px 5px #888;
 }
 
-thead {
+.theadCommuterTable {
     position: sticky !important;
+    background-color: #52459f;
 }
 
 

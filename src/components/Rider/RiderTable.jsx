@@ -63,18 +63,18 @@ const RiderTable = () => {
         <Table className="rider-table">
           <thead>
             <tr>
-              <th className="id-header">Rider ID No.</th>
-              <th>Name</th>
-              <th>Status</th>
-              <th className="act-header">Action</th>
+              <th className="id-th">Rider ID No.</th>
+              <th className="name-th">Name</th>
+              <th className="status-th">Status</th>
+              <th className="act-th">Action</th>
             </tr>
           </thead>
-          <tbody className="rider-body">
+          <tbody className="rider-tbody">
             {data.map((rider) => (
               <tr key={rider.id}>
-                <td>{rider.riderId}</td>
-                <td>{rider.name}</td>
-                <td>
+                <td className="rider-td">{rider.riderId}</td>
+                <td className="rider-td">{rider.name}</td>
+                <td className="rider-td">
                   <p
                     className="status-circle"
                     style={{
@@ -91,8 +91,8 @@ const RiderTable = () => {
                   >
                     {rider.status}
                   </p>
-                </td>
-                <td>
+                </td >
+                <td className="rider-td">
                   <button
                     className="btn btn-primary"
                     onClick={() => toggleModal(rider)}
