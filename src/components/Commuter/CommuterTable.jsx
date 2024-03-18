@@ -42,12 +42,12 @@ const CommuterTable = () => {
                     <tbody>
                         {data.map(item => (
                             <tr key={item.id}>
-                                <td className='commuterName' style={{ borderTop: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.name}</td>
-                                <td style={{ borderTop: 'groove', padding: '20px' }}>
+                                <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.name}</td>
+                                <td style={{ borderBottom: 'groove', padding: '20px' }}>
                                     <Badge className='badgeStatusCommuter' color={item.status === 'Active' ? 'success' : 'danger'}>
                                         <span className='statusName'>{item.status}</span>
                                     </Badge></td>
-                                <td style={{ borderTop: 'groove', padding: '20px', textAlign: 'center' }}>
+                                <td style={{ borderBottom: 'groove', padding: '20px', textAlign: 'center' }}>
                                     {/* Use Reactstrap Button for the action */}
                                     <button className='btn btn-success btnAction' onClick={() => console.log(`Action clicked for ${item.name}`)}>
                                         <Icon icon={faPenToSquare} color='white' />

@@ -1,0 +1,49 @@
+.commuterDocumentViewerHeader
+{
+    background-color: #52459F !important;
+    color: white;
+}
+
+.documentViewerContainer
+{
+    margin-top: 25px;
+    margin-bottom: 15px;
+    background-color: #EEEBFC;
+    height: 250px !important;
+    width: 100% !important;
+
+    max-height: 250px !important;
+    overflow-y: auto !important;
+
+    padding: 0%;
+
+    text-align: center;
+
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0px 2px 18.3px #00000080;
+
+}
+
+.itemBodyDocumentViewer
+{
+    font-size: 14px !important;
+
+    border-bottom: groove !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.documentViewerth
+{
+    font-size: 15px !important;
+}
+
+.btnView
+{
+    border-radius: 20px;
+    width: 50%;
+
+    font-size: 2vh !important;
+    font-weight: 600;
+}
+/* style={{backgroundColor: '#EEEBFC', height: '100px', width: '100%'}} */

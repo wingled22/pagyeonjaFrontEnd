@@ -8,13 +8,18 @@ import {
 import { Row, Col, Container, Button } from 'reactstrap';
 
 import CommuterAccordion from '../../components/Commuter/CommuterAccordion.jsx'
+import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocumentViewerModal.jsx";
+
 import { useState } from "react";
 
 const CommuterDetails = () => {
 
-    
+    const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
+    const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
 
     return (<>
+
+        <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} />
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
@@ -31,7 +36,7 @@ const CommuterDetails = () => {
                     </div>
                 </Col>
                 <Col md="4" sm="4" xs={12}>
-                    <Button className="btn btn-warning btnViewDocuments">
+                    <Button className="btn btn-warning btnViewDocuments" onClick={() => {toggleDocumentViewer()}}>
                         Documents
                     </Button>
                 </Col>
