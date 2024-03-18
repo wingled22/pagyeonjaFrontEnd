@@ -11,10 +11,10 @@
 }
 
 .box-header .label {
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 
-.text-wrapper {
+.rider-profile-header {
   color: #e1dff3;
   font-size: 2vw;
   font-weight: 500;
@@ -27,20 +27,19 @@
   box-shadow: 0px 2px 4px 1.5px #00000080;
   width: 100%;
   left: 0;
-  padding: 20px;
+  padding: 10px;
 }
 
 .profile-img {
-    padding: 0 !important;
-    margin-top: 30px !important;
-    margin-left: 30px;
-    font-size: 10vw;
+  padding: 40px;
+  font-size: 15vw;
+  text-align: center;
 }
 
 .text-ridername {
   color: #52459f;
   font-weight: 700;
-  font-size: 3vw;
+  /* font-size: 3vw; */
   margin: 0 auto;
 }
 
@@ -73,7 +72,7 @@
 
 /* Rider Table CSS */
 
-.table-container {
+.rider-container {
   margin: 0 auto;
   margin-top: 20px !important;
   max-height: 45vh;
@@ -81,21 +80,21 @@
   border-radius: 25px;
 }
 
-.table {
+.rider-table {
   box-shadow: 0 0 10px rgba(0, 0, 12, 0.1);
   border-radius: 20px;
 }
 
-.table-container::-webkit-scrollbar {
+.rider-container::-webkit-scrollbar {
   width: 8px;
 }
 
-.table-container::-webkit-scrollbar-thumb {
+.rider-container::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 4px;
 }
 
-.table-container::-webkit-scrollbar-thumb:hover {
+.rider-container::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
 
@@ -139,12 +138,10 @@ td {
     font-size: 2vw;
   }
 
-    .text-detailsrider{
-        margin-top: 10px;
-        font-size: 1.3vw;
-    }
-   
-
+  .text-detailsrider {
+    margin-top: 10px;
+    font-size: 1.3vw;
+  }
 }
 
 /* @media screen and (max-width: 990px) {

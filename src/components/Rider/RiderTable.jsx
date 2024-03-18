@@ -54,16 +54,13 @@ const RiderTable = () => {
 
   return (
     <>
-      <RiderDetailsModal
-        isOpen={modalOpen}
-        toggle={() => toggleModal(null)}
-      />
+      <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal(null)} />
 
       <div className="search-box">
         <input type="text" placeholder="Search for rider" />
       </div>
-      <div className="table-container">
-        <Table>
+      <div className="rider-container">
+        <Table className="rider-table">
           <thead>
             <tr>
               <th className="id-header">Rider ID No.</th>
