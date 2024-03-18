@@ -5,16 +5,21 @@ import {
     faCircleUser
 } from "@fortawesome/free-solid-svg-icons";
 
-import { Row, Col, Container } from 'reactstrap';
+import { Row, Col, Container, Button } from 'reactstrap';
 
 import CommuterAccordion from '../../components/Commuter/CommuterAccordion.jsx'
+import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocumentViewerModal.jsx";
+
 import { useState } from "react";
 
 const CommuterDetails = () => {
 
-    
+    const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
+    const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
 
     return (<>
+
+        <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} />
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
@@ -27,13 +32,13 @@ const CommuterDetails = () => {
                         <span className="labelInfo">Sex: <span className="textInfo">Male</span></span>
                         <div className="labelInfo">Birthdate: <span className="textInfo">November 01, 2000</span></div>
                         <div className="labelInfo">Civil Status: <span className="textInfo">Single</span></div>
-                        <span className="labelInfo">Occupation: <span className="textInfo">Student</span></span>
+                        <div className="labelInfo">Occupation: <span className="textInfo">Student</span></div>
                     </div>
                 </Col>
                 <Col md="4" sm="4" xs={12}>
-                    <div className="btn btn-warning btnViewDocuments">
+                    <Button className="btn btn-warning btnViewDocuments" onClick={() => {toggleDocumentViewer()}}>
                         Documents
-                    </div>
+                    </Button>
                 </Col>
             </Row>
             <Row className="containerCommuterDetails">
