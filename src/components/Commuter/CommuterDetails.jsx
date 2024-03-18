@@ -8,8 +8,12 @@ import {
 import { Row, Col, Container } from 'reactstrap';
 
 import CommuterAccordion from '../../components/Commuter/CommuterAccordion.jsx'
+import { useState } from "react";
 
 const CommuterDetails = () => {
+
+    
+
     return (<>
 
         <Container className="commuterDetailsContainer" fluid>

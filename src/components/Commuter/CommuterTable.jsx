@@ -7,7 +7,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Row, Col, Container } from 'reactstrap';
-
+import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensionModal.jsx";
+import { useState } from "react";
 
 const CommuterTable = () => {
     const data = [
@@ -21,8 +22,14 @@ const CommuterTable = () => {
         { id: 8, name: 'Windel Pelayo', status: 'Active' },
     ];
 
+    const [modalSuspension, setModalSuspension] = useState(false);
+    const toggleSuspension = () => setModalSuspension(!modalSuspension);
+
     return (
         <>
+
+        <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
+
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
                     <thead className='theadCommuterTable'>
@@ -45,7 +52,7 @@ const CommuterTable = () => {
                                     <button className='btn btn-success btnAction' onClick={() => console.log(`Action clicked for ${item.name}`)}>
                                         <Icon icon={faPenToSquare} color='white' />
                                     </button>
-                                    <button className='btn btn-danger btnAction' onClick={() => console.log(`Action clicked for ${item.name}`)}>
+                                    <button className='btn btn-danger btnSuspendCommuter' onClick={() => {toggleSuspension()}}>
                                         <Icon icon={faCirclePause} color='white' />
                                     </button>
                                 </td>
