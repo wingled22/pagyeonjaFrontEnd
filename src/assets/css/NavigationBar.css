@@ -27,12 +27,12 @@
 
 .nav-link.active::before {
   content: url("../img/CurrentPageArrow.svg");
-  transition: all 0.2s ease-in-out;
-  position: absolute;
-  left: -20px;
-  margin-top: 1rem;
+  position: relative;
+  margin-left: -2rem;
+  bottom: 0.5rem;
 }
 
+/* 
 @media screen and (max-width: 600px) {
   .nav-link.active::before {
     left: -3%;
@@ -49,4 +49,4 @@
   .nav-link.active::before {
     left: -0.48%;
   }
-}
+} */
