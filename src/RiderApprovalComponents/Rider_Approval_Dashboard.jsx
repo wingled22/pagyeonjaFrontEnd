@@ -24,7 +24,7 @@ const RiderApprovalDashboard = () => {
     <>
       
 
-      <Row className="me-md-5">
+      <Row className="me-md-5 ms-sm-1">
 
      
         <div className="text-wrapper">Approval List</div>
@@ -41,13 +41,13 @@ const RiderApprovalDashboard = () => {
 
       </Row>
 
-      <Row className="mt-xs-2 mt-lg-4 mt-sm-4 mt-md-4 mt-xl-4" xs={1}  sm={6} md={12} lg={2} xl={2}>
+      <Row className="mt-xs-2 mt-lg-4 mt-sm-4 mt-md-4 mt-xl-4 ms-sm-1" xs={1}  sm={6} md={12} lg={2} xl={2}>
 
-      <Col   className="mt-xs-5 " xs={12} sm={12} md={8} lg={6} xl={6}>
+      <Col   className="mt-xs-5 " xs={5} sm={5} md={8} lg={6} xl={6}>
           <Rider_Approval_TablePage />
         </Col>
 
-        <Col>
+        <Col sm={1}>
           <Requirements />
         </Col>
       </Row>

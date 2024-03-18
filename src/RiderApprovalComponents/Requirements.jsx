@@ -33,14 +33,14 @@ const Requirements = () => {
         
         </Row>
         
-        <ViewORCR />
+        <ViewORCR className="me-md-5" />
         <ViewDriversLicense />
         <ViewNBIClearance/>
        
 
         <div className="btnAppRej">
-        <Button className="btn" color="success" style={{borderRadius:50 , fontWeight: "bold"}}> <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve</Button>
-        <Button className="btn" color="danger" style={{borderRadius:50 , fontWeight: "bold"}}><FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject</Button>
+        <Button className="btn-rider-approval" color="success" style={{borderRadius:50 , fontWeight: "bold"}}> <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve</Button>
+        <Button className="btn-rider-approval" color="danger" style={{borderRadius:50 , fontWeight: "bold"}}><FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject</Button>
         </div>
         
       </div>
