@@ -10,8 +10,11 @@ import {
 } from "reactstrap";
 import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
+import RiderDocumentViewerModal from "./RiderDocumentViewerModal";
 const RiderDetailsModal = ({ isOpen, toggle }) => {
   const [open, setOpen] = useState("0");
+  const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
+  const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
   const toggleAct = (id) => {
     if (open === id) {
       setOpen();
@@ -113,6 +116,8 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
   ];
   return (
     <>
+    <RiderDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} />
+
       <Modal className="rider-modal-dialog"isOpen={isOpen} toggle={toggle} size="md">
         <ModalHeader className="rider-header-modal" toggle={toggle}>Rider Details</ModalHeader>
         <ModalBody>
@@ -136,7 +141,7 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
                   </Row>
                 </Col>
                 <Col md={3}>
-                  <button style={{ fontWeight: "500", marginTop: "90px", borderRadius: "50px", width: "170px" }} className="btn btn-warning">View Documents</button>
+                  <button style={{ fontWeight: "500", marginTop: "90px", borderRadius: "50px", width: "170px" }} className="btn btn-warning" onClick={() => {toggleDocumentViewer()}}>View Documents</button>
                 </Col>
               </Row>
             </div>
