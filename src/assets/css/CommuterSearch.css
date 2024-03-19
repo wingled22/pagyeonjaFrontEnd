@@ -1,0 +1,29 @@
+.commuterSearchContainer {
+    background-color: #d1d1d1 !important;
+
+    height: 40px;
+    
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+
+    border-radius: 130px !important;
+
+    padding-left: 25px !important;
+}
+
+@media (max-width: 1067px) 
+{
+    .commuterSearchContainer
+    {
+        height: 30px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 767px) 
+{
+    .commuterSearchContainer
+    {
+        min-width: 100% !important;
+    }
+}

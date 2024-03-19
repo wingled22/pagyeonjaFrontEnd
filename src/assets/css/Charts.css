@@ -1,0 +1,23 @@
+.Chartm {
+  gap: 2vw Im !important;
+}
+
+.dataCard {
+  background-color: #efefef;
+  border-radius: 0.5em;
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+  /* padding: 12px; */
+}
+
+.revenueCard {
+  /* margin-top: 32px; */
+  /* width: 50%; */
+  height: 50vh;
+  margin-left: -0.8rem;
+}
+
+.customerCard {
+  margin-bottom: -32px;
+  /* width: 41%; */
+  height: 20rem;
+}
