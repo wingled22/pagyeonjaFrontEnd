@@ -9,6 +9,7 @@ import {
 import { Row, Col, Container } from 'reactstrap';
 import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensionModal.jsx";
 import { useState } from "react";
+import CommuterUpdateModal from '../../components/Commuter/CommuterUpdateModal.jsx';
 
 const CommuterTable = () => {
     const data = [
@@ -25,11 +26,13 @@ const CommuterTable = () => {
     const [modalSuspension, setModalSuspension] = useState(false);
     const toggleSuspension = () => setModalSuspension(!modalSuspension);
 
+    const [modalupdate, setModalUpdate] = useState(false);
+    const toggleUpdate = () => setModalUpdate(!modalupdate)
+
     return (
         <>
-
+        <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate}/>        
         <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
-
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
                     <thead className='theadCommuterTable'>
@@ -49,7 +52,10 @@ const CommuterTable = () => {
                                     </Badge></td>
                                 <td style={{ borderTop: 'groove', padding: '20px', textAlign: 'center' }}>
                                     {/* Use Reactstrap Button for the action */}
-                                    <button className='btn btn-success btnAction' onClick={() => console.log(`Action clicked for ${item.name}`)}>
+                                    {/* <button className='btn btn-success btnAction' onClick={() => console.log(`Action clicked for ${item.name}`)}>
+                                        <Icon icon={faPenToSquare} color='white' />
+                                    </button> */}
+                                    <button className='btn btn-success btnAction' onClick={() => {toggleUpdate()}}>
                                         <Icon icon={faPenToSquare} color='white' />
                                     </button>
                                     <button className='btn btn-danger btnSuspendCommuter' onClick={() => {toggleSuspension()}}>
