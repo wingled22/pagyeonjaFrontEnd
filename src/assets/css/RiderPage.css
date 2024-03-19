@@ -78,6 +78,7 @@
   max-height: 45vh;
   overflow-y: auto;
   border-radius: 25px;
+  box-shadow: 0px 2px 4px 1.5px #00000080;
 }
 
 .rider-table {
@@ -146,12 +147,10 @@ th{
 }
 
 .rider-td {
-  margin-left: 30px !important;
+ 
 } 
 
-.btn {
-  margin-left: 10px;
-}
+
 
 @media screen and (max-width: 1920px) {
   .profile-img {
