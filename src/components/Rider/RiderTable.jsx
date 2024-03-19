@@ -9,10 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "reactstrap";
 import RiderDetailsModal from "./RiderDetailsModal";
+import RiderSuspensionModal from "./RiderSuspensionModal";
 const RiderTable = () => {
   const [modalOpen, setModalOpen] = useState(false);
-
+  const [modalSuspension, setModalSuspension] = useState(false);
+    const toggleSuspension = () => setModalSuspension(!modalSuspension);
   const toggleModal = (rider) => {
+     
     setModalOpen(!modalOpen);
   };
 
@@ -55,7 +58,8 @@ const RiderTable = () => {
   return (
     <>
       <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal(null)} />
-
+      <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
+       {/* <RiderSuspensionModal isOpen={modalOpen}  untoggle={() => toggleModal(null)}/> */}
       <div className="search-box">
         <input type="text" placeholder="Search for rider" />
       </div>
@@ -102,7 +106,9 @@ const RiderTable = () => {
                   <button className="btn btn-success">
                     <Icon icon={faPenToSquare} color="white" />
                   </button>
-                  <button className="btn btn-danger">
+                  <button className="btn btn-danger"
+                     onClick={() => {toggleSuspension()}}
+                  >
                     <Icon icon={faCirclePause} color="white" />
                   </button>
                 </td>
