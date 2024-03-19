@@ -9,12 +9,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "reactstrap";
 import RiderDetailsModal from "./RiderDetailsModal";
+import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
 const RiderTable = () => {
   const [modalOpen, setModalOpen] = useState(false);
-
   const toggleModal = (rider) => {
     setModalOpen(!modalOpen);
   };
+
+  const [modalupdaterider, setModalupdaterider] =useState(false);
+  const updatetoggle = () =>{
+    setModalupdaterider(!modalupdaterider);
+  }
 
   const data = [
     { id: 1, riderId: "123123", name: "Mark Zuckerberg", status: "suspended" },
@@ -55,7 +60,7 @@ const RiderTable = () => {
   return (
     <>
       <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal(null)} />
-
+      <RiderUpdateModal isOpen={modalupdaterider} toggle={()=> updatetoggle()} />
       <div className="search-box">
         <input type="text" placeholder="Search for rider" />
       </div>
@@ -99,7 +104,7 @@ const RiderTable = () => {
                   >
                     <Icon icon={faCircleInfo} color="white" />
                   </button>
-                  <button className="btn btn-success">
+                  <button className="btn btn-success" onClick={() => updatetoggle()}>
                     <Icon icon={faPenToSquare} color="white" />
                   </button>
                   <button className="btn btn-danger">
