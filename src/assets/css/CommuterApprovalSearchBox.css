@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* ******************************search box ***************************/
+.commuter-approval-search-field {
+    background-color: #d1d1d1 !important;
+    height: 45px !important;
+    margin: 10px 0px 10px 10px !important;
+    width: 100% !important;
+    max-width: 380px !important;
+    border-radius: 130px !important;
+    padding-left: 20px !important;
+  }
