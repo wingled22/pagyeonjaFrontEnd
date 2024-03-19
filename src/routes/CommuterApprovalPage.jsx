@@ -12,24 +12,19 @@ import {
   Col,
 } from "reactstrap";
 import { useState } from "react";
-
-
+import CommuterApprovalSearchBox from "../components/CommuterApproval/CommuterApprovalSearchBox";
 const CommuterApprovalPage = () => {
  
   return (
     <>
       
-
-      
-
-    
-     <div className="commuter-approval-text-wrapper fw-bold">Commuter Approval List</div>
+     <div className="commuter-approval-text-wrapper fw-bold ms-md-5">Commuter Approval List</div>
     
     
       
      <Row >
         <Col  xs={8} sm={7} md={5} lg={4} xl={5} className="ms-md-4">
-          {/* <SearchBar /> */}
+        <CommuterApprovalSearchBox />
         </Col>
 
         <Col xs={4} sm={5} md={6} lg={4} xl={4}>
