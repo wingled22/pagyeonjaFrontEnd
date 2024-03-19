@@ -98,31 +98,30 @@
   background-color: #555;
 }
 
-
-
 .name-th{
   background-color: #52459f !important;
   color: white !important;
   padding: 18px !important;
-  position: sticky;
   top: 0;
   font-size: 1vw;
 }
 
+th{
+  position: sticky !important;
+}
 .status-th{
   background-color: #52459f !important;
   color: white !important;
   padding: 18px !important;
-  position: sticky;
   top: 0;
   font-size: 1vw;
+
 }
 
 .rider-tbody {
   background-color: #52459f !important;
   color: white !important;
   padding: 18px !important;
-  position: sticky;
   top: 0;
   font-size: 1vw;
   font-size: 1vw;
@@ -133,7 +132,6 @@
   background-color: #52459f !important;
   color: white !important;
   padding: 18px !important;
-  position: sticky !important;
   top: 0 !important;
   font-size: 1vw !important;
 }
@@ -143,7 +141,6 @@
   background-color: #52459f !important;
   color: white !important;
   padding: 18px !important;
-  position: sticky;
   top: 0;
   font-size: 1vw;
 }

@@ -25,9 +25,10 @@
 }
 
 .theadCommuterTable {
-    position: sticky !important;
+    /* position: sticky !important; */
     background-color: #52459f;
 }
+
 
 
 .tableCommuterTable {
@@ -38,7 +39,7 @@
 }
 
 .trCommuterTable {
-
+   position: sticky !important;
     /* background-color:  #52459F !important; */
     color: white;
     height: 50px;
