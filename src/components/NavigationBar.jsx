@@ -8,7 +8,9 @@ import {
   faPerson,
   faCertificate,
   faPowerOff,
+  faPersonCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
+
 const NavigationBar = () => {
   return (
     <>
@@ -42,7 +44,7 @@ const NavigationBar = () => {
             activeClassName="active"
             to={"/commuter-approval"}
           >
-            <Icon icon={faPerson} color="white" className="large-icon" />
+            <Icon icon={faPersonCircleCheck} color="white" className="large-icon" />
           </NavLink>
 
         </div>
