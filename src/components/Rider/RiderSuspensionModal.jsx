@@ -1,5 +1,5 @@
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Input } from 'reactstrap';
-
+import "../../assets/css/RiderSuspensionModal.css";
 const RiderSuspensionModal = ({ isOpen, untoggle }) => {
 
     const today = new Date().toISOString().split('T')[0];
@@ -7,10 +7,10 @@ const RiderSuspensionModal = ({ isOpen, untoggle }) => {
     return (
         <>
             <Modal isOpen={isOpen} toggle={untoggle} centered>
-                <ModalHeader toggle={untoggle} className='commuterSuspensionHeader'>Commuter Suspension</ModalHeader>
+                <ModalHeader toggle={untoggle} className='riderSuspensionHeader'>Rider Suspension</ModalHeader>
                 <Form>
                     <ModalBody>
-                        <center><h5><strong>Andrew Walker</strong></h5></center>                        <div>
+                        <center><h5><strong>Juan Dela Cruz</strong></h5></center>                        <div>
                             <label htmlFor="" style={{ margin: '5px' }}><strong>Reason : </strong></label>
                             <Input className='inputReason'
                                 name='Reason'
@@ -33,9 +33,9 @@ const RiderSuspensionModal = ({ isOpen, untoggle }) => {
                         </div>
 
                     </ModalBody>
-                    <ModalFooter className='commuterSuspensionFooter' style={{ justifyContent: 'space-between' }}>
-                        <Button className='btn btn-warning btnRevokeSuspension'>Revoke Suspension</Button>
-                        <Button className='btn btnConfirmSuspension'>Confirm</Button>
+                    <ModalFooter className='riderSuspensionFooter' style={{ justifyContent: 'space-between' }}>
+                        <Button className='btn btn-warning btnRiderRevokeSuspension'>Revoke Suspension</Button>
+                        <Button className='btn btnRiderConfirmSuspension'>Confirm</Button>
                     </ModalFooter>
                 </Form>
             </Modal>

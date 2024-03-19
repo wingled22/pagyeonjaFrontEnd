@@ -1,0 +1,47 @@
+.riderSuspensionHeader
+{
+    background-color: #52459F !important;
+    color: white;
+}
+
+.riderSuspensionFooter
+{
+    background-color: #52459F !important;
+}
+
+button.btn-close
+{
+    color: white !important;
+    background-color: white;
+}
+
+.btnConfirmSuspension
+{
+    border-radius: 20px;
+    background-color: #38A843;
+
+    border: none;
+}
+
+.btnRevokeSuspension
+{
+    border-radius: 20px;
+}
+
+.btnConfirmSuspension:hover
+{
+    background-color: #3d9d46;
+}
+
+.inputReason
+{
+    border-radius: 10px;
+    background-color: #d1d1d1 !important;
+
+    height: 120px;
+}
+
+.inputReason:focus
+{
+    /* color: black !important; */
+}
