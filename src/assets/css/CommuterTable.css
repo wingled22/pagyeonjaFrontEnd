@@ -26,6 +26,7 @@
 
 th {
     position: sticky !important;
+    background-color: #52459f;
 }
 
 .tableCommuterTable {
@@ -49,11 +50,11 @@ th {
 .btn {
     margin-left: 10px;
 }
-
+/* 
 tbody {
     overflow: auto !important;
     max-height: 86vh;
-}
+} */
 
 .badgeStatusCommuter {
     width: 100%;

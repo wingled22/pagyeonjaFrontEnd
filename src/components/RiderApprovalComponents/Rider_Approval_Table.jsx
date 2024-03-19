@@ -43,7 +43,7 @@ const Rider_Approval_TablePage = ({text, color}) => {
  
   
   return (
-    <div className="table-container">
+    <div className="rider-approval-table-container">
       <table className="table-in">
 
         <tbody>

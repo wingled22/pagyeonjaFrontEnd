@@ -16,8 +16,6 @@
   margin-top: 5px;
 }
 
-
-
 /* ******************************search box ***************************/
 .search-field {
   background-color: #d1d1d1 !important;
@@ -47,13 +45,13 @@
 
 /************************ table styling ***********************/
 
-.table-container {
+.rider-approval-table-container {
    /* display: flex !important; */
 
    width: 100%;
 
-   min-height: 75vh !important;
-
+   max-height: 75vh !important;
+  
   overflow-y: auto !important;
   padding: 0px 50px 50px 50px !important;
   background-color: #F0F0F0 !important;
@@ -63,6 +61,8 @@
   font-weight: bold !important;
   margin-left: 20px !important;
   margin-top: 20px !important;
+
+ 
 }
 
 .table-in {
@@ -231,7 +231,7 @@
 
   /* ******************table styling ****************/
 
-  .table-container {
+  .rider-approval-container {
     max-height: 490px !important;
     max-width: 400px !important;
 
