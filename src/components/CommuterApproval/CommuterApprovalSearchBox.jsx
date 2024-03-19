@@ -1,8 +1,8 @@
 import React from "react";
-import "../../assets/css/CommuterApprovalSearchBox.css";
+import "../../assets/css/CommuterApproval/CommuterApprovalSearchBox.css";
 
 
-const commuterApprovalSearchBox = () => {
+const CommuterApprovalSearchBox = () => {
   return (
     <>
       <input
@@ -15,4 +15,4 @@ const commuterApprovalSearchBox = () => {
   );
 };
 
-export default commuterApprovalSearchBox;
+export default CommuterApprovalSearchBox;
