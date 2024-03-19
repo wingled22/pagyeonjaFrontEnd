@@ -9,10 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "reactstrap";
 import RiderDetailsModal from "./RiderDetailsModal";
+import RiderSuspensionModal from "./RiderSuspensionModal";
 const RiderTable = () => {
   const [modalOpen, setModalOpen] = useState(false);
-
+  const [modalSuspension, setModalSuspension] = useState(false);
+    const toggleSuspension = () => setModalSuspension(!modalSuspension);
   const toggleModal = (rider) => {
+     
     setModalOpen(!modalOpen);
   };
 
@@ -55,7 +58,8 @@ const RiderTable = () => {
   return (
     <>
       <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal(null)} />
-
+      <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
+    
       <div className="search-box">
         <input type="text" placeholder="Search for rider" />
       </div>
@@ -72,13 +76,14 @@ const RiderTable = () => {
           <tbody className="rider-tbody">
             {data.map((rider) => (
               <tr key={rider.id}>
-                <td className="rider-td">{rider.riderId}</td>
-                <td className="rider-td">{rider.name}</td>
+                <td style={{padding: "17px"}} className="rider-td">{rider.riderId}</td>
+                <td style={{padding: "17px"}} className="rider-td">{rider.name}</td>
                 <td className="rider-td">
                   <p
                     className="status-circle"
                     style={{
                       backgroundColor: getStatusColor(rider.status),
+                      margin: "0",
                       borderRadius: "20px",
                       width: "100px",
                       height: "30px",
@@ -102,7 +107,9 @@ const RiderTable = () => {
                   <button className="btn btn-success">
                     <Icon icon={faPenToSquare} color="white" />
                   </button>
-                  <button className="btn btn-danger">
+                  <button className="btn btn-danger"
+                     onClick={() => {toggleSuspension()}}
+                  >
                     <Icon icon={faCirclePause} color="white" />
                   </button>
                 </td>
