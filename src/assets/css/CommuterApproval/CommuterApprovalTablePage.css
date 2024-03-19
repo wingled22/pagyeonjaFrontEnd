@@ -1,0 +1,40 @@
+/************************ table styling ***********************/
+
+.commuter-approval-table-container {
+    /* display: flex !important; */
+ 
+    width: 100%;
+   max-width: 900px;
+    max-height: 75vh !important;
+   
+   overflow-y: auto !important;
+   padding: 0px 50px 50px 50px !important;
+   background-color: #F0F0F0 !important;
+   border-radius: 20px !important;
+   box-shadow: 0px 4px 14.1px -1px #00000080 !important;
+   font-size: 1.2vw !important;
+   font-weight: bold !important;
+   margin-left: 20px !important;
+   margin-top: 20px !important;
+ 
+  
+ }
+ 
+ .commuter-table-in {
+   width: 100% !important;
+   background-color: #F0F0F0 !important;
+   border-radius: 10px !important;
+ }
+ 
+ .commuter-td-style {
+   padding: 50px 0px 10px 0px !important;
+   border-bottom: 3px solid #52459F !important;
+ }
+ 
+ .commuter-table-image {
+   max-width: 80px !important;
+   max-height: 80px !important;
+   border-radius: 50px !important;
+ 
+ }
+ 
