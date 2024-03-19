@@ -11,7 +11,7 @@ import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensio
 import { useState } from "react";
 import CommuterUpdateModal from '../../components/Commuter/CommuterUpdateModal.jsx';
 
-const CommuterTable = () => {
+const CommuterTable = ({selectUser}) => {
     const data = [
         { id: 1, name: 'Dawn Keith Francisco', status: 'Active' },
         { id: 2, name: 'Axle Adolfo', status: 'Suspended' },
@@ -44,7 +44,7 @@ const CommuterTable = () => {
                     </thead> 
                     <tbody>
                         {data.map(item => (
-                            <tr key={item.id}>
+                            <tr key={item.id} onClick={() => {selectUser(item.id)}}>
                                 <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.name}</td>
                                 <td style={{ borderBottom: 'groove', padding: '20px' }}>
                                     <Badge className='badgeStatusCommuter' color={item.status === 'Active' ? 'success' : 'danger'}>
