@@ -24,7 +24,7 @@
     box-shadow: 0px 10px 5px #888, 0px -10px 5px #888;
 }
 
-thead {
+th {
     position: sticky !important;
 }
 
