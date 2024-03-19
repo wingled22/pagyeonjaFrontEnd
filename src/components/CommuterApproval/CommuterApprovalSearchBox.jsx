@@ -1,5 +1,5 @@
 import React from "react";
-import "../../assets/css/CommuterApprovalSearchBox.css";
+import "../../assets/css/CommuterApproval/CommuterApprovalSearchBox.css";
 
 
 const CommuterApprovalSearchBox = () => {

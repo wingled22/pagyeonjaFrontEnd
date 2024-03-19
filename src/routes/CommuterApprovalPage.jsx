@@ -13,6 +13,8 @@ import {
 } from "reactstrap";
 import { useState } from "react";
 import CommuterApprovalSearchBox from "../components/CommuterApproval/CommuterApprovalSearchBox";
+import CommuterFilterStatus from "../components/CommuterApproval/CommuterApprovalFilter";
+
 const CommuterApprovalPage = () => {
  
   return (
@@ -28,7 +30,7 @@ const CommuterApprovalPage = () => {
         </Col>
 
         <Col xs={4} sm={5} md={6} lg={4} xl={4}>
-          {/* <FilterStatus /> */}
+          <CommuterFilterStatus />
         </Col>
 
       </Row>
