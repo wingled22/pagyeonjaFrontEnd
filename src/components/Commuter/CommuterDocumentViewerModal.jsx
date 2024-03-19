@@ -30,7 +30,7 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle }) => {
                     <center><h5><strong>Andrew Walker</strong></h5></center>
                     <Container className='documentViewerContainer'>
                         <table style={{ width: '100%' }}>
-                            <thead>
+                            <thead style={{position: 'sticky', top: 0, zIndex: 1, backgroundColor: '#52459f', height: '50px', color: 'white'}}>
                                 <tr>
                                     <th className="documentViewerth">Document</th>
                                     <th className="documentViewerth">Type</th>
