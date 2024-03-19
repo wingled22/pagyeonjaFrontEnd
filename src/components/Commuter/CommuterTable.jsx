@@ -38,7 +38,7 @@ const CommuterTable = () => {
                             <th id='thCommuter' className='thCommuterTable col-3 col-sm-3 statusTh' style={{ padding: '20px' }}>Status</th>
                             <th id='thCommuter' className='thCommuterTable col-3 col-sm-4' style={{ padding: '20px', borderRadius: '0 20px 0 0', textAlign: 'center' }}>Action</th>
                         </tr>
-                    </thead>
+                    </thead> 
                     <tbody>
                         {data.map(item => (
                             <tr key={item.id}>
