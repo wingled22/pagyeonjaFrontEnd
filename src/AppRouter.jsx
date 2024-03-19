@@ -4,6 +4,7 @@ import HomePage from "./routes/HomePage";
 import RiderPage from "./routes/RiderPage";
 import CommuterPage from "./routes/CommuterPage";
 import RiderApprovalDashboard from "./components/RiderApprovalComponents/Rider_Approval_Dashboard";
+import CommuterApprovalPage from "./routes/CommuterApprovalPage";
 const AppRouter = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const AppRouter = () => {
           <Route path="/rider" element={<RiderPage />} />
           <Route path="/commuter" element={<CommuterPage />} />
           <Route path="/rider-approval" element={<RiderApprovalDashboard />} />
+          <Route path="/commuter-approval" element={<CommuterApprovalPage />} />
         </Route>
       </Routes>
     </>
