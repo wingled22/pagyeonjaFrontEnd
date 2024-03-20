@@ -15,8 +15,8 @@ import "../../assets/css/CommuterApproval/CommuterApprovalFilterStatus.css";
 const CommuterFilterStatus = () => {
   const StatusData = [
     { id: 55, status: "Pending" },
-    { id: 55, status: "Approved" },
-    { id: 55, status: "Rejected" },
+    { id: 56, status: "Approved" },
+    { id: 57, status: "Rejected" },
   ];
 
  

@@ -11,20 +11,24 @@ import { Table } from "reactstrap";
 import RiderDetailsModal from "./RiderDetailsModal";
 import RiderSuspensionModal from "./RiderSuspensionModal";
 import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
-const RiderTable = () => {
+import RiderProfile from "./RiderProfile";
+const RiderTable = ({setProfileVisible} ) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSuspension, setModalSuspension] = useState(false);
-    const toggleSuspension = () => setModalSuspension(!modalSuspension);
+  const toggleSuspension = () => setModalSuspension(!modalSuspension);
+  const [modalupdaterider, setModalupdaterider] = useState(false);
+  const [selectedRider, setSelectedRider] = useState(null);
   const toggleModal = (rider) => {
-     
     setModalOpen(!modalOpen);
   };
 
-  const [modalupdaterider, setModalupdaterider] =useState(false);
-  const updatetoggle = () =>{
+  const updatetoggle = () => {
     setModalupdaterider(!modalupdaterider);
   }
-
+  const handleRowClick = (rider) => {
+    setSelectedRider(rider);
+    setProfileVisible(true);
+  };
   const data = [
     { id: 1, riderId: "123123", name: "Mark Zuckerberg", status: "suspended" },
     { id: 2, riderId: "456456", name: "Jacob Wikowski", status: "active" },
@@ -65,8 +69,10 @@ const RiderTable = () => {
     <>
       <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal(null)} />
       <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
-    
-      <RiderUpdateModal isOpen={modalupdaterider} toggle={()=> updatetoggle()} />
+
+      <RiderUpdateModal isOpen={modalupdaterider} toggle={() => updatetoggle()} />
+
+     
       <div className="search-box">
         <input type="text" placeholder="Search for rider" />
       </div>
@@ -82,9 +88,9 @@ const RiderTable = () => {
           </thead>
           <tbody className="rider-tbody">
             {data.map((rider) => (
-              <tr key={rider.id}>
-                <td style={{padding: "17px"}} className="rider-td">{rider.riderId}</td>
-                <td style={{padding: "17px"}} className="rider-td">{rider.name}</td>
+              <tr key={rider.id} onClick={() => handleRowClick(rider)}>
+                <td style={{ padding: "17px" }} className="rider-td">{rider.riderId}</td>
+                <td style={{ padding: "17px" }} className="rider-td">{rider.name}</td>
                 <td className="rider-td">
                   <p
                     className="status-circle"
@@ -115,7 +121,7 @@ const RiderTable = () => {
                     <Icon icon={faPenToSquare} color="white" />
                   </button>
                   <button className="btn btn-danger"
-                     onClick={() => {toggleSuspension()}}
+                    onClick={() => { toggleSuspension() }}
                   >
                     <Icon icon={faCirclePause} color="white" />
                   </button>
@@ -125,6 +131,7 @@ const RiderTable = () => {
           </tbody>
         </Table>
       </div>
+  
     </>
   );
 };

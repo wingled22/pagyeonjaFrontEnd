@@ -1,31 +1,31 @@
 import "../assets/css/RiderPage.css";
+import { useState } from "react";
 import RiderTable from "../components/Rider/RiderTable.jsx";
-import RiderProfile from "../components/RiderProfile.jsx";
+import RiderProfile from "../components/Rider/RiderProfile.jsx";
 import { Row, Col, Container } from "reactstrap";
+
 const RiderPage = () => {
+  const [profileVisible, setProfileVisible] = useState(false);
+
   return (
     <>
-      {/* <Container> */}
-      {/* <Row className="Row1">
-        <RiderProfile />
-      </Row>
-
-      <Row className="Row2">
-        <RiderTable />
-      </Row> */}
       <Container fluid={true}>
         <Row>
           <Col>
-            <RiderProfile />
+            <div className="rectangle-header">
+              <div className="label">
+                <h2 className="rider-profile-header">Rider Profile</h2>
+              </div>
+            </div>
+            <RiderProfile visible={profileVisible} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <RiderTable />
+            <RiderTable setProfileVisible={setProfileVisible} />
           </Col>
         </Row>
       </Container>
-      {/* </Container> */}
     </>
   );
 };
