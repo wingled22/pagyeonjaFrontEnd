@@ -8,10 +8,10 @@ import images3 from '../../assets/image/cs3.png';
 
 
 
-const Rider_Approval_TablePage = ({text, color}) => {
+const Rider_Approval_TablePage = ({text, color, changeUserID }) => {
   const data = [
     { id: 111, imageSrc: images1, name: "Carlo M. Gesta", status: "Approved" },
-    { id: 22, imageSrc: images2, name: "Cliff Richard N. Languido", status: "Approved" },
+    { id: 22, imageSrc: images2, name: "Cliff Richard N. Languido", status: "Pending" },
     { id: 333, imageSrc: images3, name: "Axle Deimitry Adolfo", status: "Approved" },
     { id: 32, imageSrc: images1,name: "Charls Jay C. Magdalaga", status: "Rejected" },
     { id: 34, imageSrc: images2,name: "Client", status: "Approved" },
@@ -31,15 +31,11 @@ const Rider_Approval_TablePage = ({text, color}) => {
     
   ];
 
-  
-  const tdNAME   = {
-    // padding: '10px',
-    padding: '50px 0px 10px 0px',
-    borderBottom: '3px solid #52459F',
-    fontSize: '20px',
-   
-  };
-  
+  const callChangeUserID = (id) => 
+  {
+    changeUserID(id);
+  }
+
  
   
   return (
@@ -53,9 +49,9 @@ const Rider_Approval_TablePage = ({text, color}) => {
 
 
 
-            <tr key={item.id}>
+            <tr key={item.id} onClick={() => {callChangeUserID(item.id)}}>
 
-              
+          
              
               <td className="td-style">
               <img src={item.imageSrc}  className="rider-table-image"/>
@@ -63,6 +59,7 @@ const Rider_Approval_TablePage = ({text, color}) => {
               <td className="td-style">{item.name}</td>
               <td className="td-style">
                 <Badge text={item.status} />
+                
               </td>
             </tr>
           ))}

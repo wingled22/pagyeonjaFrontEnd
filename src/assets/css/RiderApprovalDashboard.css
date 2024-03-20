@@ -86,8 +86,8 @@
 
 /*************************  rider requirements profiling style************************ */
 .rectangle-requiment {
-  width: 400px !important;
-
+  width: 100% !important;
+  max-width: 400px !important;
   background-color: #F0F0F0 !important;
   border-radius: 20px !important;
   box-shadow: 0px 4px 14.1px -1px #00000080 !important;

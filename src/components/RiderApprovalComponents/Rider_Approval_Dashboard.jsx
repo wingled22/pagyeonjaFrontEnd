@@ -19,6 +19,14 @@ import Rider_Approval_TablePage from "../../components/RiderApprovalComponents/R
 import Requirements from "../../components/RiderApprovalComponents/Requirements";
 
 const RiderApprovalDashboard = () => {
+
+
+  const [selectedUser, setSelectedUser] = useState(null); // reciever from rider table approval
+  const setChangeUserID = (id) => 
+  {
+      setSelectedUser(id);
+  }
+
  
   return (
     <>
@@ -42,15 +50,18 @@ const RiderApprovalDashboard = () => {
 
       </Row>
 
-      <Row className="mt-xs-1 mt-lg-1 mt-sm-1 mt-md-1 mt-xl-1 ms-sm-1" xs={1}  sm={6} md={12} lg={2} xl={2}>
+      <Row className="mt-xs-1 mt-lg-1 mt-sm-1 mt-md-1 mt-xl-1 ms-sm-1" xs={1}  sm={6} md={11} lg={11} xl={11}>
 
-      <Col   className="mt-xs-5 " xs={5} sm={5} md={8} lg={6} xl={6}>
-          <Rider_Approval_TablePage />
+      <Col   className="mt-xs-5 " xs={5} sm={5} md={selectedUser === null ? 12 : 8} lg={selectedUser === null ? 11 : 6} xl={selectedUser === null ? 11 : 6}>
+
+
+          <Rider_Approval_TablePage  changeUserID={setChangeUserID} />
         </Col>
 
-        <Col sm={1}>
+
+        {selectedUser && <Col sm={1} md={6} lg={6}>
           <Requirements />
-        </Col>
+        </Col>}
       </Row>
     </>
   );
