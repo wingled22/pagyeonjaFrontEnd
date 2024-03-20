@@ -147,11 +147,6 @@ th{
   font-size: 1vw;
 }
 
-tr:hover {
-  background-color: #504b4b !important;
-}
-
-
 @media screen and (max-width: 1920px) {
   .profile-img {
     margin: 0;
