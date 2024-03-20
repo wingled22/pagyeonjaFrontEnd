@@ -6,7 +6,7 @@ import images1 from "../../assets/image/carlo.jpg";
 import images2 from "../../assets/image/cliff.jpg";
 import images3 from "../../assets/image/cs3.png";
 
-const CommuterApprovalTablePage = ({ text, color, changeUserID }) => {
+const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
   const data = [
     { id: 111, imageSrc: images1, name: "Carlo M. Gesta", status: "Approved" },
     {
@@ -46,18 +46,20 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID }) => {
   const callChangeUserID = (id) => 
   {
     changeUserID(id);
+    console.log("na click ko")
   }
+
 
   return (
     <div className="commuter-approval-table-container">
       <table className="commuter-table-in">
         <tbody>
           {data.map((item) => (
-            <tr key={item.id}>
+            <tr key={item.id} onClick={() => {callChangeUserID(item.id)}}>
               <td className="commuter-td-style">
                 <img src={item.imageSrc} className="commuter-table-image" />
               </td>
-              <td className="commuter-td-style"><span onClick={() => {callChangeUserID(item.id)}}>{item.name}</span></td>
+              <td className="commuter-td-style">{item.name}</td>
               <td className="commuter-td-style">
                 <CommuterApprovalBadge text={item.status} />
               </td>
