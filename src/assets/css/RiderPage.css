@@ -128,8 +128,7 @@ th{
   font-size: 1vw;
 } 
 
-.rider-id-th {
-  border-top-left-radius: 20px !important;
+.occupation-th {
   background-color: #52459f !important;
   color: white !important;
   padding: 18px !important;
