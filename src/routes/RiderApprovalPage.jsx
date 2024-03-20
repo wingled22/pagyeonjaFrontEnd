@@ -13,8 +13,6 @@ import {
 } from "reactstrap";
 import { useState } from "react";
 import "../assets/css/RiderApproval/RiderApprovalDashboard.css";
-import SearchBar from "../components/RiderApproval/SearchBox";
-import FilterStatus from "../components/RiderApproval/FilterStatus";
 import Rider_Approval_TablePage from "../components/RiderApproval/Rider_Approval_Table";
 import Requirements from "../components/RiderApproval/Requirements";
 import RiderApprovalSearchFilter from "../components/RiderApproval/RiderApprovalSearchAndFilter";
@@ -29,13 +27,7 @@ const RiderApprovalDashboard = () => {
       <div className="text-wrapper">Approval List</div>
 
       <Row>
-        {/* <Col xs={8} sm={7} md={5} lg={4} xl={5} className="ms-md-4">
-          <SearchBar />
-        </Col>
-
-        <Col xs={4} sm={5} md={6} lg={4} xl={4}>
-          <FilterStatus />
-        </Col> */}
+       
 
         <RiderApprovalSearchFilter/>
 
