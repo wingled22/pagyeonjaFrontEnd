@@ -38,8 +38,8 @@ const CommuterTable = ({selectUser}) => {
                     <thead className='theadCommuterTable' style={{position: 'sticky', top: 0, zIndex: 1}}>
                         <tr className='trCommuterTable'>
                             <th id='thCommuter' className='thCommuterTable col-6 col-sm-5' style={{ paddingLeft: '20px', borderRadius: '20px 0 0 0', marginBottom: '10px', position: 'sticky' }}>Name</th>
-                            <th id='thCommuter' className='thCommuterTable col-3 col-sm-3 statusTh' style={{ padding: '20px' }}>Status</th>
-                            <th id='thCommuter' className='thCommuterTable col-3 col-sm-4' style={{ padding: '20px', borderRadius: '0 20px 0 0', textAlign: 'center' }}>Action</th>
+                            <th id='thCommuter' className='thCommuterTable col-1 col-sm-1 statusTh' style={{ padding: '20px' }}>Status</th>
+                            <th id='thCommuter' className='thCommuterTable col-3 col-sm-5' style={{ padding: '20px', borderRadius: '0 20px 0 0', textAlign: 'center' }}>Action</th>
                         </tr>
                     </thead> 
                     <tbody>
