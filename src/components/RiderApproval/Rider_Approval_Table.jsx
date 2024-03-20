@@ -20,11 +20,12 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
       console.error(error);
     }
   };
-
   const callChangeUserID = (id) => {
     changeUserID(id);
   };
-
+  useEffect(() => {
+    getApprovalList();
+  }, []);
   return (
     <div className="rider-approval-table-container">
       <table className="table-in">
@@ -39,9 +40,13 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
               <td className="td-style">
                 <img src={images1} className="rider-table-image" />
               </td>
-              <td className="td-style">{item.name}</td>
               <td className="td-style">
-                <Badge text={item.status} />
+                {item.firstName} {item.middleName} {item.lastName}
+              </td>
+              <td className="td-style">
+                <Badge
+                  text={item.approvalStatus === true ? "Approved" : "Pending"}
+                />
               </td>
             </tr>
           ))}

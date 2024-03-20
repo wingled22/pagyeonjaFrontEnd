@@ -12,7 +12,8 @@ import {
   Col,
 } from "reactstrap";
 import { useState } from "react";
-import "../../assets/css/RiderApprovalDashboard.css";
+// import "../../assets/css/RiderApprovalDashboard.css";
+// import "../../assets/css/RiderApproval/RiderApprovalDashboard.css";
 import SearchBar from "../../components/RiderApprovalComponents/SearchBox";
 import FilterStatus from "../../components/RiderApprovalComponents/FilterStatus";
 import Rider_Approval_TablePage from "../../components/RiderApprovalComponents/Rider_Approval_Table";
