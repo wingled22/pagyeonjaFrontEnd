@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import { useState } from "react";
 import "../assets/css/RiderApproval/RiderApprovalDashboard.css";
-import Rider_Approval_TablePage from "../components/RiderApproval/Rider_Approval_Table";
+import RiderApprovalTablePage from "../components/RiderApproval/Rider_Approval_Table";
 import Requirements from "../components/RiderApproval/Requirements";
 import RiderApprovalSearchFilter from "../components/RiderApproval/RiderApprovalSearchAndFilter";
 const RiderApprovalDashboard = () => {
@@ -50,7 +50,7 @@ const RiderApprovalDashboard = () => {
           lg={selectedUser === null ? 11 : 6}
           xl={selectedUser === null ? 11 : 6}
         >
-          <Rider_Approval_TablePage changeUserID={setChangeUserID} />
+          <RiderApprovalTablePage changeUserID={setChangeUserID} />
         </Col>
 
         {selectedUser && (

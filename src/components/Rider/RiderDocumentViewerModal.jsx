@@ -39,7 +39,7 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle }) => {
                             </thead>
                             <tbody>
                                 {data.map((item) => (
-                                    <tr>
+                                    <tr key={item.id}>
                                         <td className='itemBodyDocumentViewer'>{item.documentName}</td>
                                         <td className='itemBodyDocumentViewer'>{item.type}</td>
                                         <td className='itemBodyDocumentViewer'><Button className="btn btn-warning btnView" onClick={() => { openImage(item.path) }}>View</Button></td>
