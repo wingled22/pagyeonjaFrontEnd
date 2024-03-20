@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import { Button, Table } from "reactstrap";
-import "../../assets/css/RiderApprovalDashboard.css";
-import Badge from "../../components/RiderApprovalComponents/Badge";
+import "../../assets/css/CommuterApproval/CommuterApprovalTablePage.css";
+import CommuterApprovalBadge from "./CommuterApprovalBadge";
 import images1 from "../../assets/image/carlo.jpg";
 import images2 from "../../assets/image/cliff.jpg";
 import images3 from "../../assets/image/cs3.png";
 
-const Rider_Approval_TablePage = ({ text, color }) => {
+const CommuterApprovalTablePage = ({ text, color, changeUserID }) => {
   const data = [
     { id: 111, imageSrc: images1, name: "Carlo M. Gesta", status: "Approved" },
     {
       id: 22,
       imageSrc: images2,
       name: "Cliff Richard N. Languido",
-      status: "Approved",
+      status: "Pending",
     },
     {
       id: 333,
       imageSrc: images3,
       name: "Axle Deimitry Adolfo",
-      status: "Approved",
+      status: "Rejected",
     },
     {
       id: 32,
@@ -42,47 +42,24 @@ const Rider_Approval_TablePage = ({ text, color }) => {
     { id: 345324, imageSrc: images2, name: "Bob", status: "Pending" },
     { id: 32342, imageSrc: images3, name: "Bob", status: "Approved" },
   ];
-  const [approvals, setApprovals] = useState([]);
-  const getApprovalList = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
-      );
-      const data = await response.json();
-      setApprovals(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  console.log(approvals);
 
-  const tdNAME = {
-    // padding: '10px',
-    padding: "50px 0px 10px 0px",
-    borderBottom: "3px solid #52459F",
-    fontSize: "20px",
-  };
-
-  useEffect(() => {
-    getApprovalList();
-  }, []);
+  const callChangeUserID = (id) => 
+  {
+    changeUserID(id);
+  }
 
   return (
-    <div className="rider-approval-table-container">
-      <table className="table-in">
+    <div className="commuter-approval-table-container">
+      <table className="commuter-table-in">
         <tbody>
-          {approvals.map((item) => (
+          {data.map((item) => (
             <tr key={item.id}>
-              <td className="td-style">
-                <img src={images1} className="rider-table-image" />
+              <td className="commuter-td-style">
+                <img src={item.imageSrc} className="commuter-table-image" />
               </td>
-              <td className="td-style">
-                {item.firstName} {item.middleName} {item.lastName}
-              </td>
-              <td className="td-style">
-                <Badge
-                  text={item.approvalStatus === true ? "Approved" : "Pending"}
-                />
+              <td className="commuter-td-style"><span onClick={() => {callChangeUserID(item.id)}}>{item.name}</span></td>
+              <td className="commuter-td-style">
+                <CommuterApprovalBadge text={item.status} />
               </td>
             </tr>
           ))}
@@ -92,4 +69,4 @@ const Rider_Approval_TablePage = ({ text, color }) => {
   );
 };
 
-export default Rider_Approval_TablePage;
+export default CommuterApprovalTablePage;

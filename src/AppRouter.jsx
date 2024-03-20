@@ -3,7 +3,7 @@ import App from "./App";
 import HomePage from "./routes/HomePage";
 import RiderPage from "./routes/RiderPage";
 import CommuterPage from "./routes/CommuterPage";
-import RiderApprovalDashboard from "./components/RiderApprovalComponents/Rider_Approval_Dashboard";
+import RiderApprovalDashboard from "./routes/RiderApprovalPage";
 import CommuterApprovalPage from "./routes/CommuterApprovalPage";
 const AppRouter = () => {
   return (

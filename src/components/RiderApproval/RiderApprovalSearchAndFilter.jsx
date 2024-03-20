@@ -1,39 +1,39 @@
 import React from "react";
-import { useState } from "react";
+import "../../assets/css/RiderApproval/RiderApprovalDashboard.css";
 import {
-  Button,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownItem,
   DropdownMenu,
-  Label,
-  Input,
-  FormGroup,
+  Col,
 } from "reactstrap";
-import "../../assets/css/CommuterApproval/CommuterApprovalFilterStatus.css";
 
-const CommuterFilterStatus = () => {
+const RiderApprovalSearchFilter = () => {
+
   const StatusData = [
     { id: 55, status: "Pending" },
-    { id: 55, status: "Approved" },
-    { id: 55, status: "Rejected" },
+    { id: 56, status: "Approved" },
+    { id: 57, status: "Rejected" },
   ];
-
- 
-
-
-
-
 
   return (
     <>
 
+   <Col xs={8} sm={7} md={5} lg={4} xl={5} className="ms-md-4">
+      <input
+        type="text"
+        className="form-control search-field  "
+        placeholder="Search name"
+      />
 
+   </Col>
+
+   <Col xs={4} sm={5} md={6} lg={4} xl={4}>
       <UncontrolledDropdown>
         <DropdownToggle
           caret
           color="dark"
-          className="commuter-approval-filter-status"
+          className="rider-approval-filter-status"
         >
           Filter by status
         </DropdownToggle>
@@ -45,9 +45,9 @@ const CommuterFilterStatus = () => {
         </DropdownMenu>
       </UncontrolledDropdown>
 
-
+    </Col>
     </>
   );
 };
 
-export default CommuterFilterStatus;
+export default RiderApprovalSearchFilter;
