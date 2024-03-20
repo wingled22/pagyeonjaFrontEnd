@@ -118,7 +118,7 @@ tbody {
 }
 
 .commuterRow:hover {
-    background-color: #EEEBFC;
+    background-color: #EEEBFC !important;
 }
 
 
