@@ -30,10 +30,7 @@ const CommuterDetails = ({selectedCommuter}) => {
     
           const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommuter?id=' + selectedCommuter);
           const data = await response.json();
-          setCommuterInfo(data)
-
-          console.log(data);
-    
+          setCommuterInfo(data);
         } catch (error) {
           console.error("Error fetching data:", error);
         }

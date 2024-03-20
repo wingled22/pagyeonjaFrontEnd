@@ -11,27 +11,29 @@ import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensio
 import { useState, useEffect } from "react";
 import CommuterUpdateModal from '../../components/Commuter/CommuterUpdateModal.jsx';
 
-const CommuterTable = ({ selectUser }) => {
+const CommuterTable = ({ selectUser, searchValueCommuter }) => {
     const [commuters, setCommuters] = useState([]);
+    const [filteredCommuters, setFilteredCommuters] = useState([]);
 
-    const data = [
-        { id: 1, name: 'Dawn Keith Francisco', status: 'Active' },
-        { id: 2, name: 'Axle Adolfo', status: 'Suspended' },
-        { id: 3, name: 'Ademel Viagedor', status: 'Active' },
-        { id: 4, name: 'Michael Jay Sinadjan', status: 'Active' },
-        { id: 5, name: 'Nino Abao', status: 'Active' },
-        { id: 6, name: 'Client Stewart Booc', status: 'Active' },
-        { id: 7, name: 'Neil Chris Ursal', status: 'Suspended' },
-        { id: 8, name: 'Windel Pelayo', status: 'Active' },
-    ];
+    const commuterMatchesSearchTerm = (commuter) => {
+        if (!searchValueCommuter) return true;
+        const fullName = `${commuter.firstName} ${commuter.middleName} ${commuter.lastName}`.toLowerCase();
+        const status = commuter.suspensionStatus === false ? 'active' : 'suspended';
+        return fullName.includes(searchValueCommuter.toLowerCase()) || status.includes(searchValueCommuter.toLowerCase());
+    };
+
+    useEffect(() => {
+        const filtered = commuters.filter((commuter) =>
+            commuterMatchesSearchTerm(commuter)
+        );
+        setFilteredCommuters(filtered);
+    }, [commuters, searchValueCommuter]);
 
     const getCommuters = async () => {
         try {
             const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommutersApproved');
             const data = await response.json();
             setCommuters(data);
-            console.log(data);
-
         } catch (error) {
             console.log(error);
         }
@@ -62,7 +64,8 @@ const CommuterTable = ({ selectUser }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {commuters.map(item => (
+                        {commuters.length === 0 && "No commuters on the list."}
+                        {filteredCommuters.map(item => (
                             <tr className='commuterRow' key={item.commuterId} onClick={() => { selectUser(item.commuterId) }}>
                                 <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.firstName} {item.middleName} {item.lastName}</td>
                                 <td style={{ borderBottom: 'groove', padding: '20px' }}>
