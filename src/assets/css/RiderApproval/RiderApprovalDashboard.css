@@ -117,36 +117,15 @@
 
 /*************** subcomponents of requirements  drive license********************/
 
-.box-requirements-drivers-license {
+.rider-approval-boxRequirements {
   width: 300px !important;
   height: 70px !important;
   background-color: #52459F !important;
   margin-top: 20px !important;
   border-radius: 10px !important;
-  margin-left: 50px !important;
+  margin-left: 62px !important;
 }
 
-/********************* subcomponents of requirements  OR/CR****************/
-.box-requiremnets-orcr {
-  width: 300px !important;
-  height: 70px !important;
-  background-color: #52459F !important;
-  margin-top: 20px !important;
-  border-radius: 10px !important;
-  margin-left: 50px !important;
-
-}
-
-/*** subcomponents of requirements  nb clearance****/
-.box-requiremnets-nbi-clearance {
-  width: 300px !important;
-  height: 70px !important;
-  background-color: #52459F !important;
-  margin: 0 auto !important;
-  border-radius: 10px !important;
-  margin-left: 50px !important;
-  margin-top: 20px !important;
-}
 
 /******************** requirements view file ************/
 
@@ -257,9 +236,7 @@
 
 
   /***************************** box rectangle for viewing requirements****************** */
-  .box-requiremnets-orcr,
-  .box-requiremnets-nbi-clearance,
-  .box-requirements-drivers-license{
+  .rider-approval-boxRequirements{
 
     margin-left: 35px !important;
     max-width: 280px !important;

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../assets/css/RiderApprovalDashboard.css";
+import "../../assets/css/RiderApproval/RiderApprovalDashboard.css";
 
 
 const SearchBar = () => {
