@@ -8,26 +8,26 @@ import {
   Col,
 } from "reactstrap";
 
-const RiderApprovalSearchFilter = () => {
+const RiderApprovalSearchFilter = ({onSearch }) => {
 
   const StatusData = [
     { id: 55, status: "Pending" },
     { id: 56, status: "Approved" },
     { id: 57, status: "Rejected" },
   ];
-
+  const handleSearch = (event) => {
+    onSearch(event.target.value.toLowerCase());
+  };
   return (
     <>
-
-   <Col xs={8} sm={7} md={5} lg={4} xl={5} className="ms-md-4">
-      <input
-        type="text"
-        className="form-control search-field  "
-        placeholder="Search name"
-      />
-
-   </Col>
-
+    <Col xs={8} sm={5} md={5} lg={4} xl={5} className="ms-md-4">
+        <input
+          type="text"
+          className="form-control search-field"
+          placeholder="Search name" 
+          onChange={handleSearch}
+        />
+      </Col>
    <Col xs={4} sm={5} md={6} lg={4} xl={4}>
       <UncontrolledDropdown>
         <DropdownToggle

@@ -26,14 +26,6 @@ const RiderApprovalDashboard = () => {
     <>
       <div className="text-wrapper">Approval List</div>
 
-      <Row>
-       
-
-        <RiderApprovalSearchFilter/>
-
-
-      </Row>
-
       <Row
         className="mt-xs-1 mt-lg-1 mt-sm-1 mt-md-1 mt-xl-1 ms-sm-1"
         xs={1}
