@@ -5,12 +5,6 @@ const RiderProfile = () => {
   return (
     <>
       <div className="box-header">
-        <div className="rectangle-header">
-          <div className="label">
-            <h2 className="rider-profile-header">Rider Profile</h2>
-          </div>
-        </div>
-
         <div className="rect-profile">
           <Row>
             <Col md={3} lg={2} sm={3} xs={2} className="prof-col">

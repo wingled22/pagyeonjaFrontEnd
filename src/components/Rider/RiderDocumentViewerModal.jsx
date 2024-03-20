@@ -31,7 +31,7 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle }) => {
                     <Container className='documentViewerContainer'>
                         <table style={{ width: '100%' }}>
                             <thead style={{position: 'sticky', top: 0, zIndex: 1, backgroundColor: '#52459f', height: '50px', color: 'white'}}>
-                                <tr>
+                                <tr >
                                     <th className="documentViewerth">Document</th>
                                     <th className="documentViewerth">Type</th>
                                     <th className="documentViewerth">Action</th>
@@ -39,7 +39,7 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle }) => {
                             </thead>
                             <tbody>
                                 {data.map((item) => (
-                                    <tr>
+                                    <tr key={item.id}>
                                         <td className='itemBodyDocumentViewer'>{item.documentName}</td>
                                         <td className='itemBodyDocumentViewer'>{item.type}</td>
                                         <td className='itemBodyDocumentViewer'><Button className="btn btn-warning btnView" onClick={() => { openImage(item.path) }}>View</Button></td>
