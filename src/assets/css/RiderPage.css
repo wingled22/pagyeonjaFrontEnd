@@ -86,6 +86,8 @@
   border-radius: 20px;
 }
 
+
+
 .rider-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -145,10 +147,9 @@ th{
   font-size: 1vw;
 }
 
-.rider-td {
- 
-} 
-
+tr:hover {
+  background-color: #504b4b !important;
+}
 
 
 @media screen and (max-width: 1920px) {

@@ -29,7 +29,7 @@ const RiderProfile = ({ rider }) => {
                   <p>Age: {rider.age}</p>
                 </Col>
                 <Col>
-                  <p>Vehicle: {rider.vehicle}</p>
+                  <p>Vehicle Number: {rider.vehicleNumber}</p>
                 </Col>
               </Row>
               <Row style={{ marginBottom: -15 }}>
