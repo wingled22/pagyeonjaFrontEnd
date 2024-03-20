@@ -1,52 +1,61 @@
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import {
-    faCircleUser
-} from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Input, Container } from 'reactstrap';
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row, Input, Container } from "reactstrap";
 const RiderProfile = () => {
-    return (
-        <>
-            <div className="box-header">
-                <div className="rectangle-header">
-                    <div className="label">
-                        <h2 className="text-wrapper">Rider Profile</h2>
-                    </div>
-                </div>
-              
-                <div className="rect-profile">
-             
-                        <Row>
-                            <Col md={3} lg={3} sm={3} xs={2}  className="prof-col">
-                                <Icon className="profile-img" icon={faCircleUser} color='black' />
-                            </Col>
+  return (
+    <>
+      <div className="box-header">
+        <div className="rectangle-header">
+          <div className="label">
+            <h2 className="rider-profile-header">Rider Profile</h2>
+          </div>
+        </div>
 
-                            <Col md={6} lg={7} sm={5} xs={6} style={{marginLeft: "120px", marginTop: "10px"}}>
-                                <Row className="name-row">
-                                    <p className="text-ridername">Juan Dela Cruz</p>
-                                </Row>
-                                <Row className="details-row" >
-                                    <p className="text-detailsrider">
-                                        <span className="mr-4" >Address: Sudlonon Bogo City, Cebu</span>
-                                        <br/>
-                                        <span className="mr-4">Position: Cab Rider</span>
-                                        <br />
-                                        <span className="mr-4">Age: 20</span>
-                                        <br/>
-                                        <span className="mr-4">Vehicle No: 47548</span>
-                                        <br />
-                                        <span>Contact Number: 09564457889</span>
-                                    </p>
-                                </Row>
-                            </Col>
+        <div className="rect-profile">
+          <Row>
+            <Col md={3} lg={2} sm={3} xs={2} className="prof-col">
+              <Icon className="profile-img" icon={faCircleUser} color="black" />
+            </Col>
 
-
-                        </Row>
-             
-
-                </div>
-            </div>
-        </>
-    );
-}
+            <Col
+              md={7}
+              lg={8}
+              sm={7}
+              xs={10}
+              // style={{ marginLeft: "60px", marginTop: "40px" }}
+            >
+              <Row className="name-row mt-5">
+                <p className="text-ridername">Juan Dela Cruz</p>
+              </Row>
+              <Row className="mt-2">
+                <Row style={{ marginBottom: -15 }}>
+                  <Col>
+                    <p>Address: Sudlonon Bogo City, Cebu</p>
+                  </Col>
+                  <Col>
+                    <p>Position: Tricy Rider</p>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: -15 }}>
+                  <Col>
+                    <p>Age: 20</p>
+                  </Col>
+                  <Col>
+                    <p>Vehicle: Tricycle</p>
+                  </Col>
+                </Row>
+                <Row style={{ marginBottom: -15 }}>
+                  <Col>
+                    <p>Contact Number: 123456</p>
+                  </Col>
+                </Row>
+              </Row>
+            </Col>
+          </Row>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default RiderProfile;

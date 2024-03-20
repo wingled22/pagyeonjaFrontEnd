@@ -1,6 +1,6 @@
 import "../assets/css/RiderPage.css";
 import RiderTable from "../components/Rider/RiderTable.jsx";
-import RiderProfile from "../components/RiderProfile.jsx";
+// import RiderProfile from "../components/RiderProfile.jsx";
 import { Row, Col, Container } from "reactstrap";
 const RiderPage = () => {
   return (
@@ -16,7 +16,7 @@ const RiderPage = () => {
       <Container fluid={true}>
         <Row>
           <Col>
-            <RiderProfile />
+            {/* <RiderProfile /> */}
           </Col>
         </Row>
         <Row>
