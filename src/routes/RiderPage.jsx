@@ -6,8 +6,8 @@ import { Row, Col, Container } from "reactstrap";
 import { useState } from "react";
 const RiderPage = () => {
 
-  const [selectedrider, setSelectedRider] = useState(null);
-  const updateSelectRider = (id) => { setSelectedRider(id);}
+  const [selectedRider, setSelectedRider] = useState(null);
+  const updateSelectRider = (id) => { setSelectedRider(id); }
 
   return (
     <>
@@ -19,14 +19,12 @@ const RiderPage = () => {
             </div>
           </div>
           <Col>
-          {
-            selectedrider && <RiderProfile />
-          }
+          {selectedRider && <RiderProfile rider={selectedRider} />}
           </Col>
         </Row>
         <Row>
           <Col>
-            <RiderTable selectRider={updateSelectRider} />
+            <RiderTable onSelectRider={updateSelectRider} />
           </Col>
         </Row>
       </Container>
