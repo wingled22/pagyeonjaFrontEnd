@@ -7,16 +7,25 @@ import RiderDetailsModal from "./RiderDetailsModal";
 import RiderSuspensionModal from "./RiderSuspensionModal";
 import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
 
-const RiderTable = ({onSelectRider} ) => {
+const RiderTable = ({ onSelectRider }) => {
   const [riders, setRiders] = useState([]);
+  const [filteredRiders, setFilteredRiders] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSuspension, setModalSuspension] = useState(false);
   const [selectedRider, setSelectedRider] = useState(null);
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchRiders();
   }, []);
+
+  useEffect(() => {
+    const filtered = riders.filter((rider) =>
+      riderMatchesSearchTerm(rider)
+    );
+    setFilteredRiders(filtered);
+  }, [riders, searchTerm]);
 
   const fetchRiders = async () => {
     try {
@@ -29,6 +38,13 @@ const RiderTable = ({onSelectRider} ) => {
     } catch (error) {
       console.error("Error fetching riders:", error);
     }
+  };
+
+  const riderMatchesSearchTerm = (rider) => {
+    if (!searchTerm) return true;
+    const fullName = `${rider.firstName} ${rider.middleName} ${rider.lastName}`.toLowerCase();
+    const status = rider.suspensionStatus === false ? 'active' : 'suspended';
+    return fullName.includes(searchTerm.toLowerCase()) || status.includes(searchTerm.toLowerCase());
   };
 
   const toggleModal = (rider) => {
@@ -45,11 +61,7 @@ const RiderTable = ({onSelectRider} ) => {
   };
 
   const getStatusColor = (status) => {
-    if (status === false) {
-      return "#38A843"; // Active
-    } else {
-      return "#EA5943"; // Suspended or any other status
-    }
+    return status === false ? "#38A843" : "#EA5943";
   };
 
   return (
@@ -58,7 +70,12 @@ const RiderTable = ({onSelectRider} ) => {
       <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
       <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} />
       <div className="search-box">
-        <input type="text" placeholder="Search for rider" />
+        <input
+          type="text"
+          placeholder="Search for rider"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
       <div className="rider-container">
         <Table className="rider-table">
@@ -71,11 +88,10 @@ const RiderTable = ({onSelectRider} ) => {
             </tr>
           </thead>
           <tbody className="rider-tbody">
-            {riders.map((rider) => (
-              <tr  className="riders-tr" key={rider.riderId} onClick={() => onSelectRider(rider)}>
+            {filteredRiders.map((rider) => (
+              <tr key={rider.riderId} onClick={() => onSelectRider(rider)}>
                 <td style={{ padding: "17px" }} className="rider-td">{rider.firstName} {rider.middleName} {rider.lastName}</td>
                 <td style={{ padding: "17px" }} className="rider-td">{rider.occupation}</td>
-               
                 <td className="rider-td">
                   <p
                     className="status-circle"
