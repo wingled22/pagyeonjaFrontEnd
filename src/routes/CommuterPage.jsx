@@ -24,7 +24,7 @@ const CommuterPage = () => {
                     </Col>
 
                     {selectedCommuter && <Col md={6} sm={12} xs={12} id='colContainerDetails'>
-                        <CommuterDetails/>
+                        <CommuterDetails selectedCommuter={selectedCommuter} />
                     </Col>}
                 </Row>
             </Container>

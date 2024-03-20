@@ -10,12 +10,38 @@ import { Row, Col, Container, Button } from 'reactstrap';
 import CommuterAccordion from '../../components/Commuter/CommuterAccordion.jsx'
 import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocumentViewerModal.jsx";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const CommuterDetails = () => {
+const CommuterDetails = ({selectedCommuter}) => {
 
     const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
+    const [commuterInfo, setCommuterInfo] = useState([]);
+
     const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
+
+    function formatDate(dateString) {
+        const newDate = new Date(dateString);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return newDate.toLocaleDateString('en-US', options);
+    }
+
+    const getCommuter = async () => {
+        try {
+    
+          const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommuter?id=' + selectedCommuter);
+          const data = await response.json();
+          setCommuterInfo(data)
+
+          console.log(data);
+    
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+    useEffect(() => {
+        getCommuter();
+    }, [selectedCommuter])
 
     return (<>
 
@@ -27,12 +53,12 @@ const CommuterDetails = () => {
                     <Icon icon={faCircleUser} color='black' className="imageContainer"></Icon>
                 </Col>
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
-                    <div className="text-name">Andrew Walker</div>
+                    <div className="text-name">{commuterInfo.firstName} {commuterInfo.lastName}</div>
                     <div className="labelInfoPositioning">
-                        <span className="labelInfo">Sex: <span className="textInfo">Male</span></span>
-                        <div className="labelInfo">Birthdate: <span className="textInfo">November 01, 2000</span></div>
-                        <div className="labelInfo">Civil Status: <span className="textInfo">Single</span></div>
-                        <div className="labelInfo">Occupation: <span className="textInfo">Student</span></div>
+                        <span className="labelInfo">Sex: <span className="textInfo">{commuterInfo.sex === 'M' ? 'Male' : 'Female'}</span></span>
+                        <div className="labelInfo">Birthdate: <span className="textInfo">{formatDate(commuterInfo.birthdate)}</span></div>
+                        <div className="labelInfo">Civil Status: <span className="textInfo">{commuterInfo.civilStatus}</span></div>
+                        <div className="labelInfo">Occupation: <span className="textInfo">{commuterInfo.occupation}</span></div>
                     </div>
                 </Col>
                 <Col md="4" sm="4" xs={12}>
@@ -43,15 +69,15 @@ const CommuterDetails = () => {
             </Row>
             <Row className="containerCommuterDetails">
                 <Col md={10} sm="10" xs="10">
-                    <span className="labelInfo">Address: <span className="textInfo">Barangay Maya, Biringan City, Samar</span></span>
-                    <div className="labelInfo">Contact Number: <span className="textInfo">09163345411</span></div>
-                    <span className="labelInfo">Email Address: <span className="textInfo">andrewwalker@gmail.com</span></span>
+                    <span className="labelInfo">Address: <span className="textInfo">{commuterInfo.address}</span></span>
+                    <div className="labelInfo">Contact Number: <span className="textInfo">{commuterInfo.contactNumber}</span></div>
+                    <span className="labelInfo">Email Address: <span className="textInfo">{commuterInfo.emailAddress}</span></span>
                     <br />
                     <br />
-                    <div className="labelInfo">Date Registered: <span className="textInfo">March 06, 2024</span></div>
-                    <div className="labelInfo">Status: <span className={`textInfo ${'Suspended' === 'Suspended' ? 'text-danger' : 'text-success'}`}>Suspended</span></div>
-                    <div style={{ display: 'Suspended' === 'Suspended' ? 'block' : 'none' }} className="labelInfo">
-                        Duration: <span className={`textInfo ${'Suspended' === 'Suspended' ? 'text-danger' : 'text-success'}`}>1D : 06hrs: 32m: 06s</span>
+                    <div className="labelInfo">Date Registered: <span className="textInfo">{formatDate(commuterInfo.dateApplied)}</span></div>
+                    <div className="labelInfo">Status: <span className={`textInfo ${commuterInfo.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{commuterInfo.suspensionStatus === true ? 'Suspended' : 'Active'}</span></div>
+                    <div style={{ display: commuterInfo.suspensionStatus === true ? 'block' : 'none' }} className="labelInfo">
+                        Duration: <span className={`textInfo ${commuterInfo.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>1D : 06hrs: 32m: 06s</span>
                     </div>
                 </Col>
             </Row>
