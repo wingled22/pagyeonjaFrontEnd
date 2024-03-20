@@ -7,7 +7,7 @@ import RiderDetailsModal from "./RiderDetailsModal";
 import RiderSuspensionModal from "./RiderSuspensionModal";
 import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
 
-const RiderTable = () => {
+const RiderTable = ({selectRider}) => {
   const [riders, setRiders] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSuspension, setModalSuspension] = useState(false);
@@ -72,7 +72,7 @@ const RiderTable = () => {
           </thead>
           <tbody className="rider-tbody">
             {riders.map((rider) => (
-              <tr key={rider.riderId}>
+              <tr key={rider.riderId} onClick={() => {selectRider(rider.riderId)}}>
                 <td style={{ padding: "17px" }} className="rider-td">{rider.firstName} {rider.middleName} {rider.lastName}</td>
                 <td style={{ padding: "17px" }} className="rider-td">{rider.occupation}</td>
                
