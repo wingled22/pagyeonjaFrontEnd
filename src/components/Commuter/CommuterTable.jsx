@@ -8,10 +8,12 @@ import {
 
 import { Row, Col, Container } from 'reactstrap';
 import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensionModal.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CommuterUpdateModal from '../../components/Commuter/CommuterUpdateModal.jsx';
 
-const CommuterTable = ({selectUser}) => {
+const CommuterTable = ({ selectUser }) => {
+    const [commuters, setCommuters] = useState([]);
+
     const data = [
         { id: 1, name: 'Dawn Keith Francisco', status: 'Active' },
         { id: 2, name: 'Axle Adolfo', status: 'Suspended' },
@@ -23,6 +25,23 @@ const CommuterTable = ({selectUser}) => {
         { id: 8, name: 'Windel Pelayo', status: 'Active' },
     ];
 
+    const getCommuters = async () => {
+        try {
+            const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommutersApproved');
+            const data = await response.json();
+            setCommuters(data);
+            console.log(data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getCommuters();
+    }, []);
+
+
     const [modalSuspension, setModalSuspension] = useState(false);
     const toggleSuspension = () => setModalSuspension(!modalSuspension);
 
@@ -31,34 +50,30 @@ const CommuterTable = ({selectUser}) => {
 
     return (
         <>
-        <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate}/>        
-        <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
+            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} />
+            <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
-                    <thead className='theadCommuterTable' style={{position: 'sticky', top: 0, zIndex: 1}}>
+                    <thead className='theadCommuterTable' style={{ position: 'sticky', top: 0, zIndex: 1 }}>
                         <tr className='trCommuterTable'>
                             <th id='thCommuter' className='thCommuterTable col-6 col-sm-5' style={{ paddingLeft: '20px', borderRadius: '20px 0 0 0', marginBottom: '10px', position: 'sticky' }}>Name</th>
                             <th id='thCommuter' className='thCommuterTable col-1 col-sm-1 statusTh' style={{ padding: '20px' }}>Status</th>
                             <th id='thCommuter' className='thCommuterTable col-3 col-sm-5' style={{ padding: '20px', borderRadius: '0 20px 0 0', textAlign: 'center' }}>Action</th>
                         </tr>
-                    </thead> 
+                    </thead>
                     <tbody>
-                        {data.map(item => (
-                            <tr key={item.id} onClick={() => {selectUser(item.id)}}>
-                                <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.name}</td>
+                        {commuters.map(item => (
+                            <tr className='commuterRow' key={item.commuterId} onClick={() => { selectUser(item.commuterId) }}>
+                                <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.firstName} {item.middleName} {item.lastName}</td>
                                 <td style={{ borderBottom: 'groove', padding: '20px' }}>
-                                    <Badge className='badgeStatusCommuter' color={item.status === 'Active' ? 'success' : 'danger'}>
-                                        <span className='statusName'>{item.status}</span>
+                                    <Badge className='badgeStatusCommuter' color={item.suspensionStatus === false ? 'success' : 'danger'}>
+                                        <span className='statusName'>{item.suspensionStatus === false ? 'Active' : 'Suspended'}</span>
                                     </Badge></td>
                                 <td style={{ borderBottom: 'groove', padding: '20px', textAlign: 'center' }}>
-                                    {/* Use Reactstrap Button for the action */}
-                                    {/* <button className='btn btn-success btnAction' onClick={() => console.log(`Action clicked for ${item.name}`)}>
-                                        <Icon icon={faPenToSquare} color='white' />
-                                    </button> */}
-                                    <button className='btn btn-success btnAction' onClick={() => {toggleUpdate()}}>
+                                    <button className='btn btn-success btnAction' onClick={() => { toggleUpdate() }}>
                                         <Icon icon={faPenToSquare} color='white' />
                                     </button>
-                                    <button className='btn btn-danger btnSuspendCommuter' onClick={() => {toggleSuspension()}}>
+                                    <button className='btn btn-danger btnSuspendCommuter' onClick={() => { toggleSuspension() }}>
                                         <Icon icon={faCirclePause} color='white' />
                                     </button>
                                 </td>

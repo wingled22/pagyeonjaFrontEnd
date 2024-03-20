@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/*************************  rider requirements profiling style************************ */
+.commuter-approval-rectangle-requiment {
+  width: 100% !important;
+  max-width: 400px !important;
+  background-color: #F0F0F0 !important;
+  border-radius: 20px !important;
+  box-shadow: 0px 4px 14.1px -1px #00000080 !important;
+  margin-left: 50px !important;
+  margin-top: 20px !important;
+  
+  height: 500px !important;
+  min-height: 75vh !important;
+}
+
+.commuter-approval-profile {
+  max-width: 100px !important;
+  max-height: 100px !important;
+  border-radius: 50% !important;
+  margin-top: 30px !important;
+  margin-left: 150px !important;
+
+}
+
+.profile-line {
+  max-width: 300px !important;
+  height: 3px !important;
+  background-color: #52459F !important;
+  margin: 0 auto !important;
+
+}
+
+/********************* button approve and reject****************** */
+.btnAppRej {
+    margin-top: 30px;
+    margin-left: 40px;
+  }
+  
+  .btn-rider-approval{
+    width: 145px;
+    height: 45px;
+  }
+  

@@ -6,7 +6,9 @@ import images2 from '../../assets/image/cliff.jpg';
 import images3 from '../../assets/image/cs3.png';
 import RiderApprovalSearchFilter from './RiderApprovalSearchAndFilter';
 
-const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
+
+
+const RiderApprovalTablePage = ({text, color, changeUserID }) => {
   const data = [
     { id: 111, imageSrc: images1, name: "Carlo M. Gesta", status: "Approved" },
     { id: 22, imageSrc: images2, name: "Cliff Richard N. Languido", status: "Pending" },
@@ -69,4 +71,4 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
   );
 };
 
-export default Rider_Approval_TablePage;
+export default RiderApprovalTablePage;
