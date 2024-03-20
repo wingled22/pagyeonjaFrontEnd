@@ -42,7 +42,7 @@ const CommuterApprovalPage = () => {
 
       <Row className="mt-xs-1 mt-lg-1 mt-sm-1 mt-md-1 mt-xl-1 ms-sm-1" xs={1}  sm={6} md={12} lg={2} xl={2}>
 
-      <Col   className="mt-xs-5 " xs={5} sm={5} md={8} lg={12} xl={12}>
+      <Col   className="mt-xs-5 " xs={5} sm={5} md={8} lg={11} xl={11}>
           <CommuterApprovalTablePage changeUserID={setChangeUserID} />
         </Col>
 

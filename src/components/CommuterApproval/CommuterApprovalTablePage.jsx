@@ -57,7 +57,7 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID }) => {
               <td className="commuter-td-style">
                 <img src={item.imageSrc} className="commuter-table-image" />
               </td>
-              <td className="commuter-td-style"><span onClick={() => {callChangeUserID(item.id);}}>{item.name}</span></td>
+              <td className="commuter-td-style"><span onClick={() => {callChangeUserID(item.id)}}>{item.name}</span></td>
               <td className="commuter-td-style">
                 <CommuterApprovalBadge text={item.status} />
               </td>
