@@ -137,7 +137,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
                 </Col>
                 <Col md={7}>
                   <Row>
-                    <p className="ridername">{rider.firstName} {rider.middleName} {rider.lastName}</p>
+                    <p className="ridername">{rider.firstName} {rider.lastName}</p>
                   </Row>
                 </Col>
                 <Col md={3}>
@@ -153,7 +153,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
                 style={{
                   borderRadius: '10px',
                   boxShadow: '0px 2px 4px 1.5px #00000080',
-                  maxWidth: '450px',
+                  maxWidth: '449px',
                   margin: 'auto',
                   height: '70%',
                    
