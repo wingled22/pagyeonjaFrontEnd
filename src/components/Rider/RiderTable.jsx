@@ -31,7 +31,7 @@ const RiderTable = ({ onSelectRider }) => {
 
   const fetchRiders = async () => {
     try {
-      const response = await fetch("http://localhost:5180/api/RiderRegistration/GetRiders");
+      const response = await fetch("http://localhost:5180/api/RiderRegistration/GetRidersApproved");
       if (!response.ok) {
         throw new Error("Failed to fetch riders");
       }
