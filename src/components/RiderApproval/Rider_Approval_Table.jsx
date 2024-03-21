@@ -21,13 +21,13 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
     }
   };
 
-  console.log(approvals);
   const callChangeUserID = (id) => {
     changeUserID(id);
   };
   useEffect(() => {
     getApprovalList();
-  }, []);
+  }, []); // Add isFetched as a dependency
+
   return (
     <div className="rider-approval-table-container">
       <table className="table-in">
