@@ -18,6 +18,7 @@ const RiderApprovalSearchFilter = ({onSearch }) => {
   const handleSearch = (event) => {
     onSearch(event.target.value.toLowerCase());
   };
+  
   return (
     <>
     
@@ -29,6 +30,8 @@ const RiderApprovalSearchFilter = ({onSearch }) => {
           onChange={handleSearch}
         />
       </Col>
+
+
    <Col xs={1} sm={1} md={1} lg={1} xl={1} className="ms-md-4" >
       <UncontrolledDropdown>
         <DropdownToggle
