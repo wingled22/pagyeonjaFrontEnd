@@ -20,25 +20,25 @@ const CommuterApprovalPage = () => {
 
       <Row
         className="mt-xs-1 mt-lg-1 mt-sm-1 mt-md-1 mt-xl-1 ms-sm-1"
-        xs={1}
+        xs={1} 
         sm={6}
-        md={12}
-        lg={2}
-        xl={2}
+        md={11}
+        lg={11}
+        xl={11}
       >
         <Col
           className="mt-xs-5 "
           xs={5}
           sm={5}
           md={selectedUser === null ? 12 : 8}
-          lg={selectedUser === null ? 11 : 6}
-          xl={selectedUser === null ? 11 : 6}
+          lg={selectedUser === null ? 11 : 7}
+          xl={selectedUser === null ? 11 : 7}
         >
           <CommuterApprovalTablePage changeUserID={setChangeUserID} />
         </Col>
 
         {selectedUser && (
-          <Col xs={11} sm={11} md={11} lg={6}>
+          <Col  sm={1} md={6} lg={5}>
             <CommuterApprovalRequirements />
           </Col>
         )}

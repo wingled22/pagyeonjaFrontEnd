@@ -27,7 +27,7 @@ const RiderApprovalDashboard = () => {
   
       <Row
         className="mt-xs-1 mt-lg-1 mt-sm-1 mt-md-1 mt-xl-1"
-        xs={1}
+        xs={1} 
         sm={6}
         md={11}
         lg={11}
