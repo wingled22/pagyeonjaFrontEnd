@@ -11,7 +11,8 @@ import {
 import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
 import RiderDocumentViewerModal from "./RiderDocumentViewerModal";
-const RiderDetailsModal = ({ isOpen, toggle }) => {
+const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
+  // console.log("Rider Object:", rider);
   const [open, setOpen] = useState("0");
   const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
   const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
@@ -22,6 +23,8 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
       setOpen(id); 
     }
   };
+
+
   const data = [
     {
       id: 1,
@@ -117,7 +120,7 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
   return (
     <>
     <RiderDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} />
-
+      
       <Modal className="rider-modal-dialog"isOpen={isOpen} toggle={toggle} size="md">
         <ModalHeader className="rider-header-modal" toggle={toggle}>Rider Details</ModalHeader>
         <ModalBody>
@@ -134,10 +137,7 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
                 </Col>
                 <Col md={7}>
                   <Row>
-                    <p className="ridername">Juan Dela Cruz</p>
-                  </Row>
-                  <Row>
-                    <p className="rider-id">Rider ID: 0432432</p>
+                    <p className="ridername">{rider.firstName} {rider.middleName} {rider.lastName}</p>
                   </Row>
                 </Col>
                 <Col md={3}>
@@ -153,7 +153,7 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
                 style={{
                   borderRadius: '10px',
                   boxShadow: '0px 2px 4px 1.5px #00000080',
-                  maxWidth: '400px',
+                  maxWidth: '450px',
                   margin: 'auto',
                   height: '70%',
                    
@@ -161,28 +161,28 @@ const RiderDetailsModal = ({ isOpen, toggle }) => {
                   padding: "40px",
                   marginLeft: "50px"
                 }}>
-                <span className="label-text">Vehicle No: <span className="text-value">47548</span></span>
+                <span className="label-text">Vehicle No: <span className="text-value">{rider.vehicleNumber}</span></span>
                 <br />
-                <span className="label-text">Occupation: <span className="text-value">Tricycle Driver</span></span>
+                <span className="label-text">Occupation: <span className="text-value">{rider.occupation}</span></span>
                 <br />
-                <span className="label-text">Address: <span className="text-value">Sambag Bogo City, Cebu</span></span>
+                <span className="label-text">Address: <span className="text-value">{rider.address}</span></span>
                 <br />
-                <span className="label-text">Age: <span className="text-value">20</span></span>
+                <span className="label-text">Age: <span className="text-value">{rider.age}</span></span>
                 <br />
-                <span className="label-text">Contact Number: <span className="text-value">09454323347</span></span>
+                <span className="label-text">Contact Number: <span className="text-value">{rider.contactNumber}</span></span>
                 <br />
-                <span className="label-text">Birthdate: <span className="text-value">August 13, 1993</span></span>
+                <span className="label-text">Birthdate: <span className="text-value">{rider.birthdate}</span></span>
                 <br />
-                <span className="label-text">Email Address: <span className="text-value">juandelacruz@gmail.com</span></span>
+                <span className="label-text">Email Address: <span className="text-value">{rider.emailAddress}</span></span>
                 <br />
-                <span className="label-text">Sex: <span className="text-value">Female</span></span>
+                <span className="label-text">Sex: <span className="text-value">{rider.sex}</span></span>
                 <br />
-                <span className="label-text">Date Registered: <span className="text-value">Female</span></span>
+                <span className="label-text">Date Registered: <span className="text-value">{rider.dateApplied}</span></span>
 
-                <div className="label-text">Status: <span className={`text-value ${'Suspended' === 'Suspended' ? 'text-danger' : 'text-success'}`}>Suspended</span></div>
-                <div style={{ display: 'Suspended' === 'Suspended' ? 'block' : 'none' }} className="label-text">
-                  Duration: <span className={`text-value ${'Suspended' === 'Suspended' ? 'text-danger' : 'text-success'}`}>1D : 06hrs: 32m: 06s</span>
-                </div>
+                <div className="label-text">Status: <span className={`text-value ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{rider.suspensionStatus === true ? 'Suspended' : 'Active'}</span></div>
+                    <div style={{ display: rider.suspensionStatus === true ? 'block' : 'none' }} className="label-text">
+                        Duration: <span className={`textInfo ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>1D : 06hrs: 32m: 06s</span>
+                    </div>
               </Container>
             </Col>
             <Col md={7}>
