@@ -41,7 +41,7 @@ const CommuterApprovalPage = () => {
         </Col>
 
         {selectedUser && (
-          <Col sm={1}>
+          <Col xs={11} sm={11} md={11} lg={6}>
             <CommuterApprovalRequirements />
           </Col>
         )}

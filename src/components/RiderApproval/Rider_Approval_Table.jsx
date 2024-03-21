@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { Col, Row } from 'reactstrap'; // Import Col from reactstrap
 import Badge from './Badge'; // Import Badge component
 import images1 from '../../assets/image/carlo.jpg';
 import images2 from '../../assets/image/cliff.jpg';
 import images3 from '../../assets/image/cs3.png';
 import RiderApprovalSearchFilter from './RiderApprovalSearchAndFilter';
+
 
 
 
@@ -34,6 +35,9 @@ const RiderApprovalTablePage = ({text, color, changeUserID }) => {
     changeUserID(id);
   }
 
+
+
+  
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = (value) => {
@@ -44,11 +48,14 @@ const RiderApprovalTablePage = ({text, color, changeUserID }) => {
     item.name.toLowerCase().includes(searchTerm) ||
     item.status.toLowerCase().includes(searchTerm)
   );
+
+
   return (
     <>
    <Row>
    <RiderApprovalSearchFilter onSearch={handleSearch} />
    </Row>
+   
     <div className="rider-approval-table-container">
       <table className="table-in">
         <tbody>

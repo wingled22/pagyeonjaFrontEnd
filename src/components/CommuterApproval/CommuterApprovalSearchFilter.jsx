@@ -8,13 +8,18 @@ import {
   Col,
 } from "reactstrap";
 
-const CommuterApprovalSearchAndFilter = () => {
+const CommuterApprovalSearchAndFilter = ({onSearchCommuterApproval }) => {
 
   const StatusData = [
     { id: 55, status: "Pending" },
     { id: 56, status: "Approved" },
     { id: 57, status: "Rejected" },
   ];
+
+  const handleSearch = (event) => {
+    onSearchCommuterApproval(event.target.value.toLowerCase());
+  };
+  
 
   return (
     <>
@@ -24,6 +29,8 @@ const CommuterApprovalSearchAndFilter = () => {
         type="text"
         className="form-control commuter-approval-search-field"
         placeholder="Search name"
+        
+        onChange={handleSearch}
       />
       </Col>
 

@@ -48,5 +48,9 @@
     font-weight: 600;
 }
 
+.trDocumentViewerTable:hover {
+    background-color: #ffffff !important;
+}
+
 
 /* style={{backgroundColor: '#EEEBFC', height: '100px', width: '100%'}} */

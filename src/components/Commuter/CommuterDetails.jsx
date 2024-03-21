@@ -42,7 +42,7 @@ const CommuterDetails = ({selectedCommuter}) => {
 
     return (<>
 
-        <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} />
+        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} commuterInfo={commuterInfo}/>}
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>

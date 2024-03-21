@@ -1,10 +1,11 @@
-import React from "react";
-import { Button, Table } from "reactstrap";
+import React , { useState ,useEffect}  from "react";
+import { Button, Table,Row } from "reactstrap";
 import "../../assets/css/CommuterApproval/CommuterApprovalTablePage.css";
 import CommuterApprovalBadge from "./CommuterApprovalBadge";
 import images1 from "../../assets/image/carlo.jpg";
 import images2 from "../../assets/image/cliff.jpg";
 import images3 from "../../assets/image/cs3.png";
+import CommuterApprovalSearchAndFilter from "./CommuterApprovalSearchFilter";
 
 const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
   const data = [
@@ -50,11 +51,27 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
   }
 
 
+  const [searchCommuterApprovalTerm, setSearchCommuterApprovalTerm] = useState('');
+
+  const handleSearch = (value) => {
+    setSearchCommuterApprovalTerm(value);
+  };
+
+  const CommuterApprovalFilteredData = data.filter(item =>
+    item.name.toLowerCase().includes(searchCommuterApprovalTerm) ||
+    item.status.toLowerCase().includes(searchCommuterApprovalTerm)
+  );
+
   return (
+  <>
+
+  <Row>
+   <CommuterApprovalSearchAndFilter onSearchCommuterApproval={handleSearch} />
+   </Row>
     <div className="commuter-approval-table-container">
       <table className="commuter-table-in">
         <tbody>
-          {data.map((item) => (
+          {CommuterApprovalFilteredData.map((item) => (
             <tr key={item.id} onClick={() => {callChangeUserID(item.id)}}>
               <td className="commuter-td-style">
                 <img src={item.imageSrc} className="commuter-table-image" />
@@ -68,6 +85,7 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 
