@@ -137,7 +137,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
                 </Col>
                 <Col md={7}>
                   <Row>
-                    <p className="ridername">{rider.firstName} {rider.lastName}</p>
+                    <p className="ridername">{rider.firstName} {isOpen ? rider.middleName[0] : "" }. {rider.lastName}</p>
                   </Row>
                 </Col>
                 <Col md={3}>
