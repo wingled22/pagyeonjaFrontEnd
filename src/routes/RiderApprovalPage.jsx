@@ -15,7 +15,6 @@ import { useState } from "react";
 import "../assets/css/RiderApproval/RiderApprovalDashboard.css";
 import RiderApprovalTablePage from "../components/RiderApproval/Rider_Approval_Table";
 import Requirements from "../components/RiderApproval/Requirements";
-import RiderApprovalSearchFilter from "../components/RiderApproval/RiderApprovalSearchAndFilter";
 const RiderApprovalDashboard = () => {
   const [selectedUser, setSelectedUser] = useState(null); // reciever from rider table approval
   const setChangeUserID = (id) => {
@@ -25,7 +24,7 @@ const RiderApprovalDashboard = () => {
   return (
     <>
       <div className="text-wrapper">Approval List</div>
-
+  
       <Row
         className="mt-xs-1 mt-lg-1 mt-sm-1 mt-md-1 mt-xl-1 ms-sm-1"
         xs={1}
@@ -39,14 +38,14 @@ const RiderApprovalDashboard = () => {
           xs={5}
           sm={5}
           md={selectedUser === null ? 12 : 8}
-          lg={selectedUser === null ? 11 : 6}
-          xl={selectedUser === null ? 11 : 6}
+          lg={selectedUser === null ? 11 : 7}
+          xl={selectedUser === null ? 11 : 7}
         >
           <RiderApprovalTablePage changeUserID={setChangeUserID} />
         </Col>
 
         {selectedUser && (
-          <Col sm={1} md={6} lg={6}>
+          <Col sm={1} md={6} lg={5}>
             <Requirements />
           </Col>
         )}

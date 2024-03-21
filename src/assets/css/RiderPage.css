@@ -97,9 +97,7 @@
   border-radius: 4px;
 }
 
-.rider-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
+
 
 .name-th{
   background-color: #52459f !important;
@@ -146,11 +144,6 @@ th{
   top: 0;
   font-size: 1vw;
 }
-
-tr:hover {
-  background-color: #504b4b !important;
-}
-
 
 @media screen and (max-width: 1920px) {
   .profile-img {

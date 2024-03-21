@@ -5,6 +5,7 @@ import Badge from "./Badge";
 import images1 from "../../assets/image/carlo.jpg";
 import images2 from "../../assets/image/cliff.jpg";
 import images3 from "../../assets/image/cs3.png";
+import RiderApprovalSearchFilter from "./RiderApprovalSearchAndFilter";
 
 const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
   const [approvals, setApprovals] = useState([]);
@@ -23,6 +24,18 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
 
   const callChangeUserID = (id) => {
     changeUserID(id);
+
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const handleSearch = (value) => {
+      setSearchTerm(value);
+    };
+
+    const filteredData = approvals.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchTerm) ||
+        item.status.toLowerCase().includes(searchTerm)
+    );
   };
   useEffect(() => {
     getApprovalList();
@@ -32,7 +45,7 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
     <div className="rider-approval-table-container">
       <table className="table-in">
         <tbody>
-          {approvals.map((item) => (
+          {filteredData.map((item) => (
             <tr
               key={item.id}
               onClick={() => {

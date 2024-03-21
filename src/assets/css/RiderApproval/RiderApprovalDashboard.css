@@ -22,16 +22,17 @@
   height: 45px !important;
   margin: 10px 0px 10px 10px !important;
   width: 100% !important;
-  max-width: 380px !important;
+ 
   border-radius: 130px !important;
   padding-left: 20px !important;
+  width: 100% !important;
 }
 
 /********************************** filter status ******************************/
 .rider-approval-filter-status {
 
   /* top right bottom left */
-  margin: 10px 0px 0px -100px !important;
+  margin: 10px 0px 0px 0px !important;
   height: 45px !important;
   width: 150px !important;
   background-color: #52459F !important;
@@ -92,7 +93,7 @@
   border-radius: 20px !important;
   box-shadow: 0px 4px 14.1px -1px #00000080 !important;
   margin-left: 50px !important;
-  margin-top: 20px !important;
+  margin-top: 80px !important;
   
   height: 500px !important;
   min-height: 75vh !important;
