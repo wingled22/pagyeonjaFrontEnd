@@ -72,7 +72,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter }) => {
                         {commuters.length === 0 && <tr><td>No commuters on the list</td></tr>}
                         {filteredCommuters.map(item => (
                             <tr className='commuterRow' key={item.commuterId} onClick={() => { selectUser(item.commuterId) }}>
-                                <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.firstName} {item.middleName} {item.lastName}</td>
+                                <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.firstName} {item.middleName ? item.middleName[0] + '.' : ''} {item.lastName}</td>
                                 <td style={{ borderBottom: 'groove', padding: '20px' }}>
                                     <Badge className='badgeStatusCommuter' color={item.suspensionStatus === false ? 'success' : 'danger'}>
                                         <span className='statusName'>{item.suspensionStatus === false ? 'Active' : 'Suspended'}</span>
