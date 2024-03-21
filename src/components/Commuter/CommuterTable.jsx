@@ -69,7 +69,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {commuters.length === 0 && "No commuters on the list."}
+                        {commuters.length === 0 && <tr><td>No commuters on the list</td></tr>}
                         {filteredCommuters.map(item => (
                             <tr className='commuterRow' key={item.commuterId} onClick={() => { selectUser(item.commuterId) }}>
                                 <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.firstName} {item.middleName} {item.lastName}</td>
