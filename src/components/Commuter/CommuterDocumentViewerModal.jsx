@@ -1,10 +1,10 @@
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container } from 'reactstrap';
 import "../../assets/css/CommuterDocumentViewerModal.css";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ViewImageModal from '../../components/Commuter/ViewImageModal.jsx';
 
 
-const CommuterDocumentViewerModal = ({ isOpen, untoggle }) => {
+const CommuterDocumentViewerModal = ({ isOpen, untoggle, commuterInfo }) => {
 
     const data = [
         { id: 1, documentName: 'National ID', type: 'Front', path: '../../assets/image/cs3.png' },
@@ -13,16 +13,12 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle }) => {
         { id: 4, documentName: 'National ID', type: 'Back' },
     ];
 
-    // const [selectedImage, setSelectedImage] = useState(null);
-
-    // const openImage = (path) => {
-    //     setSelectedImage(path);
-    //     console.log(selectedImage);
-    // };
-
-    // const closeImage = () => {
-    //     setSelectedImage(null);
-    // };
+    const {
+        commuterId,
+        firstName,
+        middleName,
+        lastName
+      } = commuterInfo;
 
     const [modalImageViewer, setModalImageViewer] = useState(false);
     const toggleImageViewer = () => setModalImageViewer(!modalImageViewer);
@@ -35,7 +31,7 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle }) => {
             <Modal isOpen={isOpen} toggle={untoggle} centered size="lg">
                 <ModalHeader toggle={untoggle} className='commuterDocumentViewerHeader'>Document Viewer</ModalHeader>
                 <ModalBody>
-                    <center><h5><strong>Andrew Walker</strong></h5></center>
+                    <center><h5><strong>{firstName} {middleName} {lastName}</strong></h5></center>
                     <Container className='documentViewerContainer'>
                         <table style={{ width: '100%' }}>
                             <thead style={{ position: 'sticky', top: 0, zIndex: 1, backgroundColor: '#52459f', height: '50px', color: 'white' }}>
@@ -47,7 +43,7 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle }) => {
                             </thead>
                             <tbody>
                                 {data.map((item) => (
-                                    <tr key={item.id}>
+                                    <tr className='trDocumentViewerTable' key={item.id}>
                                         <td className='itemBodyDocumentViewer'>{item.documentName}</td>
                                         <td className='itemBodyDocumentViewer'>{item.type}</td>
                                         <td className='itemBodyDocumentViewer'><Button className="btn btn-warning btnView" onClick={() => {toggleImageViewer(), setImageSource(item.path)}}>View</Button></td>

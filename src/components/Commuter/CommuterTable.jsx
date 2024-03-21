@@ -17,7 +17,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter }) => {
 
     const commuterMatchesSearchTerm = (commuter) => {
         if (!searchValueCommuter) return true;
-        const fullName = `${commuter.firstName} ${commuter.middleName} ${commuter.lastName}`.toLowerCase();
+        const fullName = `${commuter.firstName} ${commuter.middleName ? commuter.middleName + ' ' : ''}${commuter.lastName}`.toLowerCase();
         const status = commuter.suspensionStatus === false ? 'active' : 'suspended';
         return fullName.includes(searchValueCommuter.toLowerCase()) || status.includes(searchValueCommuter.toLowerCase());
     };
