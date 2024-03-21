@@ -65,7 +65,7 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
   return (
   <>
 
-  <Row>
+  <Row sm={11}>
    <CommuterApprovalSearchAndFilter onSearchCommuterApproval={handleSearch} />
    </Row>
     <div className="commuter-approval-table-container">

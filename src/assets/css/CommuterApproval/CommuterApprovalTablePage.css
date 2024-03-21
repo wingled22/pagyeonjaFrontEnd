@@ -1,3 +1,15 @@
+/******************* approval text  ***************/
+.commuter-approval-text-wrapper {
+
+  font-family: "Poppins-Bold", sans-serif !important;
+  max-width: 300px !important;
+  font-weight: 450 !important;
+  font-size: clamp(5px, 4vw, 25px) !important;
+  margin-left: 30px !important;
+  margin-top: 5px;
+}
+
+
 /************************ table styling ***********************/
 
 .commuter-approval-table-container {
@@ -36,4 +48,17 @@
    border-radius: 50px !important;
  
  }
- 
+
+
+ @media only screen and (max-width: 991px) {
+
+
+
+  /* ******************table styling ****************/
+
+  .commuter-approval-container {
+    max-height: 490px !important;
+    max-width: 400px !important;
+
+  }
+}

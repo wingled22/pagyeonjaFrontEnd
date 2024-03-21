@@ -13,13 +13,10 @@ const CommuterApprovalPage = () => {
 
   return (
     <>
-      <div className="commuter-approval-text-wrapper fw-bold ms-md-5 mt-md-2">
+      <div className="commuter-approval-text-wrapper">
         Commuter Approval List
       </div>
 
-      <Row>
-        <CommuterApprovalSearchAndFilter />
-      </Row>
 
       <Row
         className="mt-xs-1 mt-lg-1 mt-sm-1 mt-md-1 mt-xl-1 ms-sm-1"
