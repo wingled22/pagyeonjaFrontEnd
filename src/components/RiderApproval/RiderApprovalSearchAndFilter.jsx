@@ -20,7 +20,8 @@ const RiderApprovalSearchFilter = ({onSearch }) => {
   };
   return (
     <>
-    <Col xs={8} sm={5} md={5} lg={4} xl={5} className="ms-md-4">
+    
+    <Col xs={8} sm={5} md={6} lg={7} xl={7} className="ms-md-4 " >
         <input
           type="text"
           className="form-control search-field"
@@ -28,7 +29,7 @@ const RiderApprovalSearchFilter = ({onSearch }) => {
           onChange={handleSearch}
         />
       </Col>
-   <Col xs={4} sm={5} md={6} lg={4} xl={4}>
+   <Col xs={1} sm={1} md={1} lg={1} xl={1} className="ms-md-4" >
       <UncontrolledDropdown>
         <DropdownToggle
           caret
@@ -46,6 +47,7 @@ const RiderApprovalSearchFilter = ({onSearch }) => {
       </UncontrolledDropdown>
 
     </Col>
+    
     </>
   );
 };
