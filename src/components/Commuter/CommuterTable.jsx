@@ -20,17 +20,18 @@ const CommuterTable = ({ selectUser, searchValueCommuter }) => {
         const fullName = `${commuter.firstName} ${commuter.middleName ? commuter.middleName + ' ' : ''}${commuter.lastName}`.toLowerCase();
         const status = commuter.suspensionStatus === false ? 'active' : 'suspended';
         const fullNameWords = fullName.split(' ');
-        const searchWords = searchValueCommuter.toLowerCase().split(' ');
-
+        const searchWords = searchValueCommuter.toLowerCase().split(' ').filter(word => word);
+    
         return searchWords.some(searchWord => fullNameWords.some(fullNameWord => fullNameWord.includes(searchWord))) || status.includes(searchValueCommuter.toLowerCase());
     };
-
+    
     useEffect(() => {
         const filtered = commuters.filter((commuter) =>
             commuterMatchesSearchTerm(commuter)
         );
         setFilteredCommuters(filtered);
     }, [commuters, searchValueCommuter]);
+    
 
 
     const getCommuters = async () => {
