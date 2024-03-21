@@ -13,7 +13,7 @@ const RiderProfile = ({ rider }) => {
 
           <Col md={7} lg={8} sm={7} xs={10}>
             <Row className="name-row mt-5">
-              <p className="text-ridername">{rider.firstName} {rider.middleName} {rider.lastName}</p>
+              <p className="text-ridername">{rider.firstName} {rider.lastName}</p>
             </Row>
             <Row className="mt-2">
               <Row style={{ marginBottom: -15 }}>
