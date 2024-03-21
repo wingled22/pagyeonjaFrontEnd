@@ -40,7 +40,7 @@
 }
 
 .trCommuterTable {
-   position: sticky !important;
+    position: sticky !important;
     /* background-color:  #52459F !important; */
     color: white;
     height: 50px;
