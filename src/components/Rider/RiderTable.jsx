@@ -12,12 +12,13 @@ const RiderTable = ({ onSelectRider }) => {
   const [filteredRiders, setFilteredRiders] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSuspension, setModalSuspension] = useState(false);
-  const [selectedRider, setSelectedRider] = useState(null);
+  const [selectedRider, setSelectedRider] = useState([]);
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchRiders();
+   
   }, []);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const RiderTable = ({ onSelectRider }) => {
     );
     setFilteredRiders(filtered);
   }, [riders, searchTerm]);
+
 
   const fetchRiders = async () => {
     try {
@@ -40,6 +42,7 @@ const RiderTable = ({ onSelectRider }) => {
     }
   };
 
+
   const riderMatchesSearchTerm = (rider) => {
     if (!searchTerm) return true;
     const fullName = `${rider.firstName} ${rider.middleName} ${rider.lastName}`.toLowerCase();
@@ -47,8 +50,7 @@ const RiderTable = ({ onSelectRider }) => {
     return fullName.includes(searchTerm.toLowerCase()) || status.includes(searchTerm.toLowerCase());
   };
 
-  const toggleModal = (rider) => {
-    setSelectedRider(rider);
+  const toggleModal = () => {
     setModalOpen(!modalOpen);
   };
 
@@ -66,7 +68,7 @@ const RiderTable = ({ onSelectRider }) => {
 
   return (
     <>
-      <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal(null)} rider={selectedRider} />
+      <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} />
       <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
       <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} />
       <div className="search-box">
@@ -112,7 +114,10 @@ const RiderTable = ({ onSelectRider }) => {
                   </p>
                 </td>
                 <td className="rider-td">
-                  <button className="btn btn-primary" onClick={() => toggleModal(rider)}>
+                  <button className="btn btn-primary" onClick={() => {
+                    toggleModal(rider);
+                    setSelectedRider(rider);
+                    }}>
                     <Icon icon={faCircleInfo} color="white" />
                   </button>
                   <button className="btn btn-success" onClick={toggleUpdateModal}>
