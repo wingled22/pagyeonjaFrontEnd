@@ -15,7 +15,10 @@
 }
 
 .iconContainer{
-    height: 120px;
+    width: 100px;
+    height: 100px;
+    margin-top: 2.5vh;
+    margin-left: 15px;
 }
 
 #colContainerDetails {
@@ -23,8 +26,8 @@
 }
 
 .imageContainer {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 100%;
     margin-top: 2.5vh;
     margin-left: 15px;
