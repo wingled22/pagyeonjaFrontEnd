@@ -15,23 +15,27 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
     const [commuters, setCommuters] = useState([]);
     const [filteredCommuters, setFilteredCommuters] = useState([]);
 
+    const [commuterID, setCommuterID] = useState(null);
+    const [commuterSuspensionStatus, setCommuterSuspensionStatus] = useState(null);
+    // const updateSuspensionStatus = () => setCommuterSuspensionStatus(!commuterSuspensionStatus);
+
     const commuterMatchesSearchTerm = (commuter) => {
         if (!searchValueCommuter) return true;
         const fullName = `${commuter.firstName} ${commuter.middleName ? commuter.middleName + ' ' : ''}${commuter.lastName}`.toLowerCase();
         const status = commuter.suspensionStatus === false ? 'active' : 'suspended';
         const fullNameWords = fullName.split(' ');
         const searchWords = searchValueCommuter.toLowerCase().split(' ').filter(word => word);
-    
+
         return searchWords.some(searchWord => fullNameWords.some(fullNameWord => fullNameWord.includes(searchWord))) || status.includes(searchValueCommuter.toLowerCase());
     };
-    
+
     useEffect(() => {
         const filtered = commuters.filter((commuter) =>
             commuterMatchesSearchTerm(commuter)
         );
         setFilteredCommuters(filtered);
     }, [commuters, searchValueCommuter]);
-    
+
 
 
     const getCommuters = async () => {
@@ -41,6 +45,64 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
             setCommuters(data);
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    const [reason, setReason] = useState('');
+    const [suspensionDate, setSuspensionDate] = useState("");
+
+    const updateReason = (e) => { setReason(e) }
+    const updateSuspensionDate = (e) => { setSuspensionDate(e) }
+
+    const getSuspension = async (suspendStatus, commuterId) => {
+        try {
+
+            if (suspendStatus === true) {
+                //If suspended, then get the latest end date suspension
+                const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${commuterId}&usertype=Commuter`)
+                const data = await response.json();
+                setReason(data.reason);
+                setSuspensionDate(data.suspensionDate);
+            }
+            else {
+                setReason("");
+                setSuspensionDate("");
+            }
+        }
+        catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    const handleUpdateSuspensionCommuter = async () => {
+        try {
+            const formData =
+            {
+                userId: commuterID,
+                userType: "Commuter",
+                reason: reason,
+                suspensionDate: suspensionDate
+            }
+
+            const response = await fetch(
+                "http://localhost:5180/api/Suspension/RegisterSuspension",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                }
+            );
+
+            setReason("");
+            setSuspensionDate("");
+            getCommuters();
+            toggleSuspension();
+
+            //toggle so that the suspension status is true
+            suspensionStatus(true);
+
+        } catch (error) {
+            console.error("Error fetching data: ", error)
         }
     }
 
@@ -58,7 +120,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
     return (
         <>
             <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} />
-            <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
+            {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} /> : ''}
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
                     <thead className='theadCommuterTable' style={{ position: 'sticky', top: 0, zIndex: 1 }}>
@@ -81,7 +143,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                                     <button className='btn btn-success btnAction' onClick={() => { toggleUpdate() }}>
                                         <Icon icon={faPenToSquare} color='white' />
                                     </button>
-                                    <button className='btn btn-danger btnSuspendCommuter' onClick={() => { toggleSuspension() }}>
+                                    <button className='btn btn-danger btnSuspendCommuter' onClick={() => { toggleSuspension(); setCommuterID(item.commuterId); getSuspension(item.suspensionStatus, item.commuterId); }}>
                                         <Icon icon={faCirclePause} color='white' />
                                     </button>
                                 </td>

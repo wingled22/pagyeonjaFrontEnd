@@ -78,7 +78,7 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
     useEffect(() => {
         getCommuter();
         getLatestSuspension();
-    }, [selectedCommuter])
+    }, [selectedCommuter, suspensionStatus])
 
     useEffect(() => {
         if(suspensionStatus === true)
@@ -91,7 +91,7 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
     
             return () => clearTimeout(timer);
         }
-    }, [timeLeft])
+    })
 
     return (<>
 
@@ -100,9 +100,7 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
         <Container className="commuterDetailsContainer" fluid>
             <Row>
                 <Col md="2" sm="2" xs={12}>
-              
-                {commuterInfo.profilePath === "" ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" /> }
-               
+                    <Icon icon={faCircleUser} color='black' className="imageContainer"></Icon>
                 </Col>
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
                     <div className="text-name">{commuterInfo.firstName} {commuterInfo.lastName}</div>
