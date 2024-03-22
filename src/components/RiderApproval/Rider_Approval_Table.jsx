@@ -26,6 +26,7 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
   const callChangeUserID = (id) => {
     changeUserID(id);
   };
+
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -40,7 +41,6 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
   useEffect(() => {
     getApprovalList();
   }, []); // Add isFetched as a dependency
-
   return (
     <>
       <Row>
@@ -53,7 +53,7 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
               <tr
                 key={item.id}
                 onClick={() => {
-                  callChangeUserID(item.id);
+                  callChangeUserID(item.userId);
                 }}
               >
                 <td className="td-style">
