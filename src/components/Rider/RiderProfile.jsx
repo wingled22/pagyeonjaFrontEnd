@@ -7,11 +7,12 @@ const RiderProfile = ({ rider }) => {
     <div className="box-header">
       <div className="rect-profile">
         <Row>
-          <Col md={3} lg={2} sm={3} xs={2} className="prof-col">
-            <Icon className="profile-img" icon={faCircleUser} color="black" />
+          <Col style={{padding: "60px"}}md={3} lg={2} sm={3} xs={2} className="prof-col">
+            {/* <Icon className="profile-img" icon={faCircleUser} color="black" /> */}
+            <img className="profile-img" src= {`http://localhost:5180/img/rider_profile/${rider.profilePath}`} alt="" />
           </Col>
 
-          <Col md={7} lg={8} sm={7} xs={10}>
+          <Col style={{padding: "20px"}} md={7} lg={8} sm={7} xs={10}>
             <Row className="name-row mt-5">
               <p className="text-ridername">{rider.firstName} {rider.middleName[0]}. {rider.lastName}</p>
             </Row>
