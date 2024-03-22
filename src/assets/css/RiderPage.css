@@ -121,7 +121,6 @@ th{
 }
 
 .rider-tbody {
-  background-color: #52459f !important;
   color: white !important;
   padding: 18px !important;
   top: 0;
@@ -162,14 +161,7 @@ th{
     font-size: 1.3vw;
   }
 }
-
-/* @media screen and (max-width: 990px) {
- 
-    .profile-img {
-        margin: 0;
-        padding: 50px;
-        font-size: 80px;
-    }
-
-    
+/* 
+.rider-td:hover{
+  background-color: rgb(161, 153, 153) !important;
 } */

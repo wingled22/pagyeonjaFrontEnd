@@ -91,7 +91,7 @@ const RiderTable = ({ onSelectRider }) => {
           </thead>
           <tbody className="rider-tbody">
             {filteredRiders.map((rider) => (
-              <tr key={rider.riderId} onClick={() => onSelectRider(rider)}>
+              <tr className="rider-table-row" key={rider.riderId} onClick={() => onSelectRider(rider)}>
                 <td style={{ padding: "17px" }} className="rider-td">{rider.firstName} {rider.middleName} {rider.lastName}</td>
                 <td style={{ padding: "17px" }} className="rider-td">{rider.occupation}</td>
                 <td className="rider-td">
