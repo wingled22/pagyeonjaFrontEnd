@@ -78,7 +78,7 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
     useEffect(() => {
         getCommuter();
         getLatestSuspension();
-    }, [selectedCommuter])
+    }, [selectedCommuter, suspensionStatus])
 
     useEffect(() => {
         if(suspensionStatus === true)
@@ -91,7 +91,7 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
     
             return () => clearTimeout(timer);
         }
-    }, [timeLeft])
+    })
 
     return (<>
 
