@@ -12,12 +12,14 @@ import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocum
 
 import { useState, useEffect } from "react";
 
-const CommuterDetails = ({selectedCommuter}) => {
+const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
 
     const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
     const [commuterInfo, setCommuterInfo] = useState([]);
-
+    const [suspensionInfo, setSuspensionInfo] = useState([]);
     const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
+
+    const [startTime, setStartTime] = useState(true);
 
     function formatDate(dateString) {
         const newDate = new Date(dateString);
@@ -36,9 +38,60 @@ const CommuterDetails = ({selectedCommuter}) => {
         }
       }
 
+    const getLatestSuspension = async () => 
+    {
+        try
+        {
+            if(suspensionStatus === true)
+            {
+                //If suspended, then get the latest end date suspension
+                const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${selectedCommuter}&usertype=Commuter`)
+                const data = await response.json();
+                setSuspensionInfo(data);
+            }
+        }
+        catch(error)
+        {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    const calculateSuspensionDuration = () => {
+
+        let difference = +new Date(`${suspensionInfo.suspensionDate}`) - +new Date();
+        let timeLeft = {};
+
+        if (difference > 0) {
+            timeLeft = {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60)
+            };
+        }
+        setTimeLeft(timeLeft)
+    }
+
+    //This must be after calculateSuspensionDuration. This must be initialize after the calculateSuspensionDuration
+    const [timeLeft, setTimeLeft] = useState([]);
+
     useEffect(() => {
         getCommuter();
+        getLatestSuspension();
     }, [selectedCommuter])
+
+    useEffect(() => {
+        if(suspensionStatus === true)
+        {
+            // calculateSuspensionDuration();
+
+            const timer = setTimeout(() => {
+                calculateSuspensionDuration();
+            }, 1000);
+    
+            return () => clearTimeout(timer);
+        }
+    }, [timeLeft])
 
     return (<>
 
@@ -75,9 +128,9 @@ const CommuterDetails = ({selectedCommuter}) => {
                     <br />
                     <div className="labelInfo">Date Registered: <span className="textInfo">{formatDate(commuterInfo.dateApplied)}</span></div>
                     <div className="labelInfo">Status: <span className={`textInfo ${commuterInfo.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{commuterInfo.suspensionStatus === true ? 'Suspended' : 'Active'}</span></div>
-                    <div style={{ display: commuterInfo.suspensionStatus === true ? 'block' : 'none' }} className="labelInfo">
-                        Duration: <span className={`textInfo ${commuterInfo.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>1D : 06hrs: 32m: 06s</span>
-                    </div>
+                    {timeLeft.length === 0 ? '' : <div style={{ display: commuterInfo.suspensionStatus === true ? 'block' : 'none' }} className="labelInfo">
+                        Duration: <span className={`textInfo ${commuterInfo.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}m: {timeLeft.seconds}s</span>
+                    </div>}
                 </Col>
             </Row>
             <br />
