@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -21,55 +21,80 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
-const Requirements = () => {
+const Requirements = ({ userid }) => {
+  const [document, setDocument] = useState([]);
+  const getRequirements = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/document/getdocuments?id=${userid}&usertype=Rider`
+      );
+      if (response.ok) {
+        setDocument(await response.json());
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // console.log(userid);
+  console.log(document);
+  useEffect(() => {
+    getRequirements();
+  }, [userid]);
   return (
     <>
       <div className="rectangle-requiment">
-        <Row>
-          <img className="centered rider-profile" src={images1} />
-          <h5 style={{ textAlign: "center", marginTop: "10px" }}>
-            Carlo M. Gesta
-          </h5>
-          <div className="profile-line"></div>
-        </Row>
-        <Row>
-          {/* <ViewORCR className="me-md-5" />
-         <ViewDriversLicense />
-        <ViewNBIClearance/>
-        */}
-          <ViewRequirements
-            viewText={"View OR/CR file"}
-            viewFileText={"Select and upload the files of your choice"}
-          />
+        {document.map((item) => (
+          <>
+            <Row>
+              <img
+                className="centered rider-profile"
+                src={
+                  item.profilePath != null
+                    ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
+                    : images1
+                }
+              />
+              <h5 style={{ textAlign: "center", marginTop: "10px" }}>
+                {item.firstName} {item.middleName[0]}. {item.lastName}
+              </h5>
+              <div className="profile-line"></div>
+            </Row>
+            <Row>
+              <ViewRequirements
+                viewText={"View OR/CR file"}
+                viewFileText={"Select and upload the files of your choice"}
+              />
 
-          <ViewRequirements
-            viewText={"View Drivers License file"}
-            viewFileText={"Select and upload the files of your choice"}
-          />
+              <ViewRequirements
+                viewText={"View Drivers License file"}
+                viewFileText={"Select and upload the files of your choice"}
+              />
 
-          <ViewRequirements
-            viewText={"View NBI clearance file"}
-            viewFileText={"Select and upload the files of your choice"}
-          />
-        </Row>
+              <ViewRequirements
+                viewText={"View NBI clearance file"}
+                viewFileText={"Select and upload the files of your choice"}
+              />
+            </Row>
 
-        <div className="btnAppRej">
-          <Button
-            className="btn-rider-approval"
-            color="success"
-            style={{ borderRadius: 50, fontWeight: "bold" }}
-          >
-            {" "}
-            <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
-          </Button>
-          <Button
-            className="btn-rider-approval"
-            color="danger"
-            style={{ borderRadius: 50, fontWeight: "bold" }}
-          >
-            <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
-          </Button>
-        </div>
+            <div className="btnAppRej">
+              <Button
+                className="btn-rider-approval"
+                color="success"
+                style={{ borderRadius: 50, fontWeight: "bold" }}
+              >
+                {" "}
+                <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
+              </Button>
+              <Button
+                className="btn-rider-approval"
+                color="danger"
+                style={{ borderRadius: 50, fontWeight: "bold" }}
+              >
+                <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
+              </Button>
+            </div>
+          </>
+        ))}
       </div>
     </>
   );
