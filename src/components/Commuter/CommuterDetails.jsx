@@ -29,14 +29,14 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
 
     const getCommuter = async () => {
         try {
-    
-          const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommuter?id=' + selectedCommuter);
-          const data = await response.json();
-          setCommuterInfo(data);
+
+            const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommuter?id=' + selectedCommuter);
+            const data = await response.json();
+            setCommuterInfo(data);
         } catch (error) {
-          console.error("Error fetching data:", error);
+            console.error("Error fetching data:", error);
         }
-      }
+    }
 
     const getLatestSuspension = async () => 
     {
@@ -95,7 +95,7 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
 
     return (<>
 
-        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} commuterInfo={commuterInfo}/>}
+        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} commuterInfo={commuterInfo} />}
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
@@ -114,7 +114,7 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
                     </div>
                 </Col>
                 <Col md="4" sm="4" xs={12}>
-                    <Button className="btn btn-warning btnViewDocuments" onClick={() => {toggleDocumentViewer()}}>
+                    <Button className="btn btn-warning btnViewDocuments" onClick={() => { toggleDocumentViewer() }}>
                         Documents
                     </Button>
                 </Col>

@@ -37,6 +37,10 @@
   text-align: center;
 }
 
+.icon-img {
+  height: 150px;
+  width: 150px;
+}
 .text-ridername {
   color: #52459f;
   font-weight: 700;
@@ -87,8 +91,6 @@
   border-radius: 20px;
 }
 
-
-
 .rider-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -97,8 +99,6 @@
   background-color: #888;
   border-radius: 4px;
 }
-
-
 
 .name-th{
   background-color: #52459f !important;
