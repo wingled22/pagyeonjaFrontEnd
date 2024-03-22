@@ -1,6 +1,15 @@
-import React, {useState}from "react";
+import React, { useState } from "react";
 import "../../assets/css/RiderApproval/RiderApprovalDashboard.css";
-import {UncontrolledDropdown,DropdownToggle,DropdownItem,DropdownMenu,Col,Row,FormGroup,Input,} from "reactstrap";
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu,
+  Col,
+  Row,
+  FormGroup,
+  Input,
+} from "reactstrap";
 
 const RiderApprovalSearchFilter = ({ onSearch }) => {
   const StatusData = [
@@ -38,20 +47,26 @@ const RiderApprovalSearchFilter = ({ onSearch }) => {
         </Col>
 
         <Col xs={1} sm={2} md={2} lg={1} xl={1}>
-          
-        <UncontrolledDropdown>
-      <DropdownToggle caret color="dark" className="rider-approval-filter-status">
-        {selectedStatus ? selectedStatus : 'Filter by status'}
-      </DropdownToggle>
-      <DropdownMenu dark>
-        <DropdownItem header>Select to Filter</DropdownItem>
-        {StatusData.map((item) => (
-          <DropdownItem key={item.id} onClick={() => handleStatusSelect(item.status)}>
-            {item.status}
-          </DropdownItem>
-        ))}
-      </DropdownMenu>
-    </UncontrolledDropdown>
+          <UncontrolledDropdown>
+            <DropdownToggle
+              caret
+              color="dark"
+              className="rider-approval-filter-status"
+            >
+              {selectedStatus ? selectedStatus : "Filter by status"}
+            </DropdownToggle>
+            <DropdownMenu dark>
+              <DropdownItem header>Select to Filter</DropdownItem>
+              {StatusData.map((item) => (
+                <DropdownItem
+                  key={item.id}
+                  onClick={() => handleStatusSelect(item.status)}
+                >
+                  {item.status}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </UncontrolledDropdown>
         </Col>
       </Row>
     </>
