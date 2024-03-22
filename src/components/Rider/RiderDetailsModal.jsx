@@ -127,13 +127,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
           <Row>
             <div className="profile-container">
               <Row>
-                <Col md={2}>
-                  <Icon
-                    className="profile-image"
-                    icon={faCircleUser}
-                    color="white"
-                    style={{ fontSize: "90px" }}
-                  />
+                <Col style={{padding: "25px"}} md={2}>
+                   {rider.profilePath === "" || rider.profilePath === null ? <Icon className="modal-icon-img" icon={faCircleUser} color='white' style={{height :"90px", width: "90px"}}></Icon> : <img className="modal-profile-img" src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`} alt="" />}
                 </Col>
                 <Col md={7}>
                   <Row>
