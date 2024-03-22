@@ -12,7 +12,7 @@ import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocum
 
 import { useState, useEffect } from "react";
 
-const CommuterDetails = ({selectedCommuter}) => {
+const CommuterDetails = ({ selectedCommuter }) => {
 
     const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
     const [commuterInfo, setCommuterInfo] = useState([]);
@@ -27,14 +27,14 @@ const CommuterDetails = ({selectedCommuter}) => {
 
     const getCommuter = async () => {
         try {
-    
-          const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommuter?id=' + selectedCommuter);
-          const data = await response.json();
-          setCommuterInfo(data);
+
+            const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommuter?id=' + selectedCommuter);
+            const data = await response.json();
+            setCommuterInfo(data);
         } catch (error) {
-          console.error("Error fetching data:", error);
+            console.error("Error fetching data:", error);
         }
-      }
+    }
 
     useEffect(() => {
         getCommuter();
@@ -42,14 +42,12 @@ const CommuterDetails = ({selectedCommuter}) => {
 
     return (<>
 
-        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} commuterInfo={commuterInfo}/>}
+        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} commuterInfo={commuterInfo} />}
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
                 <Col md="2" sm="2" xs={12}>
-              
-                {commuterInfo.profilePath === "" ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" /> }
-               
+                    {commuterInfo.profilePath === "" ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" />}
                 </Col>
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
                     <div className="text-name">{commuterInfo.firstName} {commuterInfo.lastName}</div>
@@ -61,7 +59,7 @@ const CommuterDetails = ({selectedCommuter}) => {
                     </div>
                 </Col>
                 <Col md="4" sm="4" xs={12}>
-                    <Button className="btn btn-warning btnViewDocuments" onClick={() => {toggleDocumentViewer()}}>
+                    <Button className="btn btn-warning btnViewDocuments" onClick={() => { toggleDocumentViewer() }}>
                         Documents
                     </Button>
                 </Col>
