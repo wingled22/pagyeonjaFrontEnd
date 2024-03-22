@@ -24,7 +24,7 @@ const CommuterApprovalSearchAndFilter = ({onSearchCommuterApproval }) => {
   return (
     <>
 
-    <Col xs={8} sm={7} md={5} lg={4} xl={5} className="ms-md-4">
+    <Col xs={9} sm={9} md={8} lg={9} xl={9} className="me-xl-1 me-lg-3 me-md-3" >
       <input
         type="text"
         className="form-control commuter-approval-search-field"
@@ -36,7 +36,7 @@ const CommuterApprovalSearchAndFilter = ({onSearchCommuterApproval }) => {
 
 
       
-      <Col xs={4} sm={5} md={6} lg={4} xl={4}>
+      <Col xs={1} sm={2} md={2} lg={1} xl={1}>
         
       <UncontrolledDropdown>
         <DropdownToggle

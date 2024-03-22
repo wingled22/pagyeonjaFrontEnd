@@ -6,13 +6,13 @@
 
 
 /******************* approval text  ***************/
-.text-wrapper {
-  color: #000000 !important;
+.rider-approval-text-wrapper {
+
   font-family: "Poppins-Bold", sans-serif !important;
-  width: 231px !important;
-  font-weight: bold !important;
-  font-size: clamp(5px, 4vw, 30px) !important;
-  margin-left: 40px !important;
+  max-width: 300px !important;
+  font-weight: 450 !important;
+  font-size: clamp(5px, 4vw, 25px) !important;
+  margin-left: 30px !important;
   margin-top: 5px;
 }
 
@@ -20,7 +20,7 @@
 .search-field {
   background-color: #d1d1d1 !important;
   height: 45px !important;
-  margin: 10px 0px 10px 10px !important;
+  margin: 10px 0px 10px 20px !important;
   width: 100% !important;
  
   border-radius: 130px !important;
@@ -205,7 +205,7 @@
 
   /* ******************sidebar styling ****************/
 
-  .Nav {
+  .Nav{
     margin-right: -70px;
   }
 
@@ -306,9 +306,9 @@
 
     max-height: 40px !important;
     font-weight: 10px !important;
-    max-width: 120px !important;
+    max-width: 100px !important;
     font-size: .7rem !important;
-
+    
   }
 
 
@@ -320,7 +320,7 @@
    .search-field {
 
     max-height: 40px !important;
-    max-width: 300px !important;
+    max-width: 450px !important;
     font-size: .6rem !important;
 
   }
