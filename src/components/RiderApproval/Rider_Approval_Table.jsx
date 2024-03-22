@@ -34,8 +34,9 @@ const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
 
   const filteredData = approvals.filter(
     (item) =>
-      item.firstName.toLowerCase().includes(searchTerm) ||
-      item.lastName.toLowerCase().includes(searchTerm)
+    {(item.firstName ?? "").toLowerCase().includes(searchTerm) ||
+    (item.lastName ?? "").toLowerCase().includes(searchTerm)}
+      
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
   useEffect(() => {

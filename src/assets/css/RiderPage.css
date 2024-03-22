@@ -37,6 +37,10 @@
   text-align: center;
 }
 
+.icon-img {
+  height: 146px;
+  width: 150px;
+}
 .text-ridername {
   color: #52459f;
   font-weight: 700;
@@ -87,8 +91,6 @@
   border-radius: 20px;
 }
 
-
-
 .rider-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -97,8 +99,6 @@
   background-color: #888;
   border-radius: 4px;
 }
-
-
 
 .name-th{
   background-color: #52459f !important;
@@ -121,7 +121,6 @@ th{
 }
 
 .rider-tbody {
-  background-color: #52459f !important;
   color: white !important;
   padding: 18px !important;
   top: 0;
@@ -162,14 +161,7 @@ th{
     font-size: 1.3vw;
   }
 }
-
-/* @media screen and (max-width: 990px) {
- 
-    .profile-img {
-        margin: 0;
-        padding: 50px;
-        font-size: 80px;
-    }
-
-    
+/* 
+.rider-td:hover{
+  background-color: rgb(161, 153, 153) !important;
 } */
