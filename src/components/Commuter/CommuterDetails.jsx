@@ -47,7 +47,9 @@ const CommuterDetails = ({selectedCommuter}) => {
         <Container className="commuterDetailsContainer" fluid>
             <Row>
                 <Col md="2" sm="2" xs={12}>
-                <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" />
+              
+                {commuterInfo.profilePath === "" ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" /> }
+               
                 </Col>
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
                     <div className="text-name">{commuterInfo.firstName} {commuterInfo.lastName}</div>

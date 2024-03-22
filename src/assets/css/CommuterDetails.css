@@ -14,13 +14,20 @@
     box-shadow: 0px 2px 18.3px #00000080;
 }
 
+.iconContainer{
+    width: 100px;
+    height: 100px;
+    margin-top: 2.5vh;
+    margin-left: 15px;
+}
+
 #colContainerDetails {
     /* width: 40%; */
 }
 
 .imageContainer {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 100%;
     margin-top: 2.5vh;
     margin-left: 15px;
