@@ -8,7 +8,7 @@ import images3 from "../../assets/image/cs3.png";
 import RiderApprovalSearchFilter from "./RiderApprovalSearchAndFilter";
 import { Row } from "reactstrap";
 
-const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
+const Rider_Approval_TablePage = ({ text, color, changeUserID }) => {
   const [approvals, setApprovals] = useState([]);
 
   const getApprovalList = async () => {
@@ -43,9 +43,9 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
 
   return (
     <>
-      
-   <RiderApprovalSearchFilter onSearch={handleSearch} />
-    
+      <Row>
+        <RiderApprovalSearchFilter onSearch={handleSearch} />
+      </Row>
       <div className="rider-approval-table-container">
         <table className="table-in">
           <tbody>
@@ -83,4 +83,4 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
   );
 };
 
-export default RiderApprovalTablePage;
+export default Rider_Approval_TablePage;
