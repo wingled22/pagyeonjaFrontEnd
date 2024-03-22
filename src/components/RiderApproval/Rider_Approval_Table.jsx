@@ -43,9 +43,8 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
 
   return (
     <>
-      
-   <RiderApprovalSearchFilter onSearch={handleSearch} />
-    
+      <RiderApprovalSearchFilter onSearch={handleSearch} />
+
       <div className="rider-approval-table-container">
         <table className="table-in">
           <tbody>
@@ -53,7 +52,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
               <tr
                 key={item.id}
                 onClick={() => {
-                  callChangeUserID(item.id);
+                  callChangeUserID(item.userId);
                 }}
               >
                 <td className="td-style">
