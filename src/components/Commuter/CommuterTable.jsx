@@ -11,7 +11,7 @@ import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensio
 import { useState, useEffect } from "react";
 import CommuterUpdateModal from '../../components/Commuter/CommuterUpdateModal.jsx';
 
-const CommuterTable = ({ selectUser, searchValueCommuter }) => {
+const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) => {
     const [commuters, setCommuters] = useState([]);
     const [filteredCommuters, setFilteredCommuters] = useState([]);
 
@@ -71,7 +71,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter }) => {
                     <tbody>
                         {commuters.length === 0 && <tr><td>No commuters on the list</td></tr>}
                         {filteredCommuters.map(item => (
-                            <tr className='commuterRow' key={item.commuterId} onClick={() => { selectUser(item.commuterId) }}>
+                            <tr className='commuterRow' key={item.commuterId} onClick={() => { selectUser(item.commuterId), suspensionStatus(item.suspensionStatus) }}>
                                 <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.firstName} {item.middleName ? item.middleName[0] + '.' : ''} {item.lastName}</td>
                                 <td style={{ borderBottom: 'groove', padding: '20px' }}>
                                     <Badge className='badgeStatusCommuter' color={item.suspensionStatus === false ? 'success' : 'danger'}>
