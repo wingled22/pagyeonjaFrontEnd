@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Container } from "reactstrap";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  Container,
+} from "reactstrap";
 import {
   Accordion,
   AccordionBody,
@@ -11,19 +18,19 @@ import {
 import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
 import RiderDocumentViewerModal from "./RiderDocumentViewerModal";
-const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
+const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   // console.log("Rider Object:", rider);
   const [open, setOpen] = useState("0");
   const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
-  const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
+  const toggleDocumentViewer = () =>
+    setModalDocumentViewer(!modalDocumentViewer);
   const toggleAct = (id) => {
     if (open === id) {
       setOpen();
     } else {
-      setOpen(id); 
+      setOpen(id);
     }
   };
-
 
   const data = [
     {
@@ -117,77 +124,197 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
       fare: "₱15.00",
     },
   ];
+  if (rider == null) {
+    return <></>;
+  }
   return (
     <>
-    <RiderDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} />
-      
-      <Modal className="rider-modal-dialog"isOpen={isOpen} toggle={toggle} size="md">
-        <ModalHeader className="rider-header-modal" toggle={toggle}>Rider Details</ModalHeader>
+      <RiderDocumentViewerModal
+        isOpen={modalDocumentViewer}
+        untoggle={toggleDocumentViewer}
+      />
+
+      <Modal
+        className="rider-modal-dialog"
+        isOpen={isOpen}
+        toggle={toggle}
+        size="md"
+      >
+        <ModalHeader className="rider-header-modal" toggle={toggle}>
+          Rider Details
+        </ModalHeader>
         <ModalBody>
           <Row>
             <div className="profile-container">
               <Row>
-                <Col md={2}>
-                  <Icon
-                    className="profile-image"
-                    icon={faCircleUser}
-                    color="white"
-                    style={{ fontSize: "90px" }}
-                  />
+                <Col style={{ padding: "25px" }} md={2}>
+                  {rider.profilePath === "" || rider.profilePath === null ? (
+                    <Icon
+                      className="modal-icon-img"
+                      icon={faCircleUser}
+                      color="white"
+                      style={{ height: "90px", width: "90px" }}
+                    ></Icon>
+                  ) : (
+                    <img
+                      className="modal-profile-img"
+                      src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`}
+                      alt=""
+                    />
+                  )}
                 </Col>
                 <Col md={7}>
                   <Row>
-                    <p className="ridername">{rider.firstName} {isOpen ? rider.middleName[0] : "" }. {rider.lastName}</p>
+                    <p className="ridername">
+                      {rider.firstName} {isOpen ? rider.middleName[0] : ""}.{" "}
+                      {rider.lastName}
+                    </p>
                   </Row>
                 </Col>
                 <Col md={3}>
-                  <button style={{ fontWeight: "500", marginTop: "90px", borderRadius: "50px", width: "170px" }} className="btn btn-warning" onClick={() => {toggleDocumentViewer()}}>View Documents</button>
+                  <button
+                    style={{
+                      fontWeight: "500",
+                      marginTop: "90px",
+                      borderRadius: "50px",
+                      width: "170px",
+                    }}
+                    className="btn btn-warning"
+                    onClick={() => {
+                      toggleDocumentViewer();
+                    }}
+                  >
+                    View Documents
+                  </button>
                 </Col>
               </Row>
             </div>
           </Row>
           <Row>
             <Col md={5}>
-              <p style={{fontSize: "23px", fontWeight: "600", marginTop: "30px", marginLeft: "50px"}}> Rider Information</p>
+              <p
+                style={{
+                  fontSize: "23px",
+                  fontWeight: "600",
+                  marginTop: "30px",
+                  marginLeft: "50px",
+                }}
+              >
+                {" "}
+                Rider Information
+              </p>
               <Container
                 style={{
-                  borderRadius: '10px',
-                  boxShadow: '0px 2px 4px 1.5px #00000080',
-                  maxWidth: '449px',
-                  margin: 'auto',
-                  height: '70%',
-                   
-                  marginTop: '25px',
-                  padding: "40px",
-                  marginLeft: "50px"
-                }}>
-                <span className="label-text">Vehicle No: <span className="text-value">{rider.vehicleNumber}</span></span>
-                <br />
-                <span className="label-text">Occupation: <span className="text-value">{rider.occupation}</span></span>
-                <br />
-                <span className="label-text">Address: <span className="text-value">{rider.address}</span></span>
-                <br />
-                <span className="label-text">Age: <span className="text-value">{rider.age}</span></span>
-                <br />
-                <span className="label-text">Contact Number: <span className="text-value">{rider.contactNumber}</span></span>
-                <br />
-                <span className="label-text">Birthdate: <span className="text-value">{rider.birthdate}</span></span>
-                <br />
-                <span className="label-text">Email Address: <span className="text-value">{rider.emailAddress}</span></span>
-                <br />
-                <span className="label-text">Sex: <span className="text-value">{rider.sex}</span></span>
-                <br />
-                <span className="label-text">Date Registered: <span className="text-value">{rider.dateApplied}</span></span>
+                  borderRadius: "10px",
+                  boxShadow: "0px 2px 4px 1.5px #00000080",
+                  maxWidth: "449px",
+                  margin: "auto",
+                  height: "70%",
 
-                <div className="label-text">Status: <span className={`text-value ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{rider.suspensionStatus === true ? 'Suspended' : 'Active'}</span></div>
-                    <div style={{ display: rider.suspensionStatus === true ? 'block' : 'none' }} className="label-text">
-                        Duration: <span className={`textInfo ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>1D : 06hrs: 32m: 06s</span>
-                    </div>
+                  marginTop: "25px",
+                  padding: "40px",
+                  marginLeft: "50px",
+                }}
+              >
+                <span className="label-text">
+                  Vehicle No:{" "}
+                  <span className="text-value">{rider.vehicleNumber}</span>
+                </span>
+                <br />
+                <span className="label-text">
+                  Occupation:{" "}
+                  <span className="text-value">{rider.occupation}</span>
+                </span>
+                <br />
+                <span className="label-text">
+                  Address: <span className="text-value">{rider.address}</span>
+                </span>
+                <br />
+                <span className="label-text">
+                  Age: <span className="text-value">{rider.age}</span>
+                </span>
+                <br />
+                <span className="label-text">
+                  Contact Number:{" "}
+                  <span className="text-value">{rider.contactNumber}</span>
+                </span>
+                <br />
+                <span className="label-text">
+                  Birthdate:{" "}
+                  <span className="text-value">{rider.birthdate}</span>
+                </span>
+                <br />
+                <span className="label-text">
+                  Email Address:{" "}
+                  <span className="text-value">{rider.emailAddress}</span>
+                </span>
+                <br />
+                <span className="label-text">
+                  Sex: <span className="text-value">{rider.sex}</span>
+                </span>
+                <br />
+                <span className="label-text">
+                  Date Registered:{" "}
+                  <span className="text-value">{rider.dateApplied}</span>
+                </span>
+
+                <div className="label-text">
+                  Status:{" "}
+                  <span
+                    className={`text-value ${
+                      rider.suspensionStatus === true
+                        ? "text-danger"
+                        : "text-success"
+                    }`}
+                  >
+                    {rider.suspensionStatus === true ? "Suspended" : "Active"}
+                  </span>
+                </div>
+                <div
+                  style={{
+                    display: rider.suspensionStatus === true ? "block" : "none",
+                  }}
+                  className="label-text"
+                >
+                  Duration:{" "}
+                  <span
+                    className={`textInfo ${
+                      rider.suspensionStatus === true
+                        ? "text-danger"
+                        : "text-success"
+                    }`}
+                  >
+                    1D : 06hrs: 32m: 06s
+                  </span>
+                </div>
               </Container>
             </Col>
             <Col md={7}>
-            <p style={{fontSize: "23px", fontWeight: "600", marginTop: "29px", marginLeft: "50px"}}> Ride History</p>
-              <Container style={{ overflow: 'hidden', overflowY: "auto", marginTop: "20px", borderRadius: "30px", background: "#DDDBDB", maxHeight: "100%", width: "90%", display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <p
+                style={{
+                  fontSize: "23px",
+                  fontWeight: "600",
+                  marginTop: "29px",
+                  marginLeft: "50px",
+                }}
+              >
+                {" "}
+                Ride History
+              </p>
+              <Container
+                style={{
+                  overflow: "hidden",
+                  overflowY: "auto",
+                  marginTop: "20px",
+                  borderRadius: "30px",
+                  background: "#DDDBDB",
+                  maxHeight: "100%",
+                  width: "90%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Accordion
                   flush
                   open={open}
@@ -260,7 +387,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
                         </Row>
                         <Row>
                           <Col md={2}>
-                            <span className="riderHistoryLabelInfo">Rider ID</span>
+                            <span className="riderHistoryLabelInfo">
+                              Rider ID
+                            </span>
                           </Col>
                           <Col md={3}>
                             <span className="riderHistoryTextInfo">
@@ -269,7 +398,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
                             </span>
                           </Col>
                           <Col md={3} style={{ marginLeft: "20px" }}>
-                            <span className="riderHistoryLabelInfo">End Time</span>
+                            <span className="riderHistoryLabelInfo">
+                              End Time
+                            </span>
                           </Col>
                           <Col md={3}>
                             <span className="riderHistoryTextInfo">
@@ -280,7 +411,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
                         </Row>
                         <Row className="newlineInfo">
                           <Col md={3}>
-                            <span className="riderHistoryLabelInfo">Vehicle</span>
+                            <span className="riderHistoryLabelInfo">
+                              Vehicle
+                            </span>
                           </Col>
                           <Col md={3}>
                             <span className="riderHistoryTextInfo">
@@ -315,12 +448,13 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
                           </Col>
                           <Col md={3}>
                             <span
-                              className={`riderHistoryTextInfo ${2.7 >= 1.0 && 2.7 <= 2.9
-                                ? "text-danger"
-                                : 2.7 >= 3.0 && 2.7 <= 3.9
+                              className={`riderHistoryTextInfo ${
+                                2.7 >= 1.0 && 2.7 <= 2.9
+                                  ? "text-danger"
+                                  : 2.7 >= 3.0 && 2.7 <= 3.9
                                   ? "text-warning"
                                   : "text-success"
-                                }`}
+                              }`}
                             >
                               {" "}
                               : &emsp;2.7
@@ -332,11 +466,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider}) => {
                   ))}
                 </Accordion>
               </Container>
-
             </Col>
-
           </Row>
-
         </ModalBody>
         <ModalFooter className="rider-footer-modal"></ModalFooter>
       </Modal>

@@ -43,9 +43,8 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
 
   return (
     <>
-      
-   <RiderApprovalSearchFilter onSearch={handleSearch} />
-    
+      <RiderApprovalSearchFilter onSearch={handleSearch} />
+
       <div className="rider-approval-table-container">
         <table className="table-in">
           <tbody>

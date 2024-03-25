@@ -7,8 +7,10 @@ import { useState } from "react";
 const CommuterPage = () => {
 
     const [selectedCommuter, setSelectedCommuter] = useState(null); //change this to null if you want to hide the commuter details
+    const [suspensionStatus, setSuspensionStatus] = useState(null);
 
     const updateSelectCommuter = (id) => { setSelectedCommuter(id); }
+    const updateSuspensionStatus = (suspensionStatus) => {setSuspensionStatus(suspensionStatus);}
 
     const [searchValueCommuter, setsearchValueCommuter] = useState("");
     const updateSearchValue =  (searchValue) => {setsearchValueCommuter(searchValue);}
@@ -23,11 +25,11 @@ const CommuterPage = () => {
                 </Row>
                 <Row className="d-flex">
                     <Col md={selectedCommuter === null ? 12 : 6} sm={12} xs={12} id="colContainerTable">
-                        <CommuterTable selectUser={updateSelectCommuter} searchValueCommuter={searchValueCommuter} />
+                        <CommuterTable selectUser={updateSelectCommuter} suspensionStatus={updateSuspensionStatus} searchValueCommuter={searchValueCommuter} />
                     </Col>
 
                     {selectedCommuter && <Col md={6} sm={12} xs={12} id='colContainerDetails'>
-                        <CommuterDetails selectedCommuter={selectedCommuter} />
+                        <CommuterDetails selectedCommuter={selectedCommuter} suspensionStatus={suspensionStatus} />
                     </Col>}
                 </Row>
             </Container>
