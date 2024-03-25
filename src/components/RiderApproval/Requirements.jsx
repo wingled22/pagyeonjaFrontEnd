@@ -60,6 +60,7 @@ const Requirements = ({ userid }) => {
         isOpen={isOpen}
         untoggle={toggle}
         document={documentFiles}
+        userName={`${document.firstName} ${document.middleName[0]}. ${document.lastName}`}
       />
       <div className="rectangle-requiment">
         <>
