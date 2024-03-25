@@ -14,7 +14,7 @@ const formatDate = (dateString) => {
     );
   };
 
-const CommuterSuspensionModal = ({ isOpen, untoggle, commuterID, reason, updateReason, suspensionDate, updateSuspensionDate, handleUpdateSuspensionCommuter}) => {
+const CommuterSuspensionModal = ({ isOpen, untoggle, commuterID, reason, updateReason, suspensionDate, updateSuspensionDate, handleUpdateSuspensionCommuter, handleRevokeSuspension}) => {
 
     const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
     const [commuterInfo, setCommuterInfo] = useState([]);
@@ -69,7 +69,7 @@ const CommuterSuspensionModal = ({ isOpen, untoggle, commuterID, reason, updateR
                     </form>
                 </ModalBody>
                 <ModalFooter className='commuterSuspensionFooter' style={{ justifyContent: 'space-between' }}>
-                    <Button className='btn btn-warning btnRevokeSuspension'>Revoke Suspension</Button>
+                    <Button className='btn btn-warning btnRevokeSuspension' onClick={() => {handleRevokeSuspension()}}>Revoke Suspension</Button>
                     <Button className='btn btnConfirmSuspension' onClick={() => {handleUpdateSuspensionCommuter()}}>Confirm</Button>
                 </ModalFooter>
             </Modal>

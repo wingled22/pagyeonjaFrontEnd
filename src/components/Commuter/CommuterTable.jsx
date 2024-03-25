@@ -65,8 +65,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 setSuspensionDate(data.suspensionDate);
             }
             else {
-                setReason("");
-                setSuspensionDate("");
+                clearSuspensionEntry();
             }
         }
         catch (error) {
@@ -76,6 +75,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
     const handleUpdateSuspensionCommuter = async () => {
         try {
+
             const formData =
             {
                 userId: commuterID,
@@ -93,8 +93,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 }
             );
 
-            setReason("");
-            setSuspensionDate("");
+            clearSuspensionEntry();
             getCommuters();
             toggleSuspension();
 
@@ -104,6 +103,41 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
         } catch (error) {
             console.error("Error fetching data: ", error)
         }
+    }
+
+    const handleRevokeSuspension = async () => {
+        try {
+
+            const formData =
+            {
+                userId: commuterID,
+                userType: "Commuter",
+            }
+
+            const response = await fetch(
+                "http://localhost:5180/api/Suspension/RevokeSuspension",
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                }
+            );
+
+            clearSuspensionEntry();
+            getCommuters();
+            toggleSuspension();
+
+            //toggle so that the suspension status is true
+            suspensionStatus(false);
+
+        } catch (error) {
+            console.error("Error fetching data: ", error);
+        }
+    }
+
+    const clearSuspensionEntry = () => {
+        setReason("");
+        setSuspensionDate("");
     }
 
     useEffect(() => {
@@ -120,7 +154,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
     return (
         <>
             <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} />
-            {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} /> : ''}
+            {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} handleRevokeSuspension={handleRevokeSuspension} /> : ''}
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
                     <thead className='theadCommuterTable' style={{ position: 'sticky', top: 0, zIndex: 1 }}>
