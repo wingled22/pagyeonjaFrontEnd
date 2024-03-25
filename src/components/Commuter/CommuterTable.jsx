@@ -50,6 +50,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
     const [reason, setReason] = useState('');
     const [suspensionDate, setSuspensionDate] = useState("");
+    const [suspensionId, setSuspensionId] = useState(null);
 
     const updateReason = (e) => { setReason(e) }
     const updateSuspensionDate = (e) => { setSuspensionDate(e) }
@@ -63,6 +64,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 const data = await response.json();
                 setReason(data.reason);
                 setSuspensionDate(data.suspensionDate);
+                setSuspensionId(data.suspensionId);
             }
             else {
                 clearSuspensionEntry();
@@ -84,14 +86,36 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 suspensionDate: suspensionDate
             }
 
-            const response = await fetch(
-                "http://localhost:5180/api/Suspension/RegisterSuspension",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData)
-                }
-            );
+            const updateFormData =
+            {
+                suspensionId: suspensionId,
+                userId: commuterID,
+                userType: "Commuter",
+                reason: reason,
+                suspensionDate: suspensionDate
+            }
+
+            if (suspendStatus === false) {
+                const response = await fetch(
+                    "http://localhost:5180/api/Suspension/RegisterSuspension",
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData)
+                    }
+                );
+            }
+            else if(suspendStatus === true) //update instead
+            {
+                const response = await fetch(
+                    "http://localhost:5180/api/Suspension/UpdateSuspension?id=" + suspensionId,
+                    {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(updateFormData)
+                    }
+                );
+            }
 
             clearSuspensionEntry();
             getCommuters();

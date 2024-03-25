@@ -39,7 +39,7 @@ const CommuterSuspensionModal = ({ isOpen, untoggle, commuterID, reason, updateR
             <Modal isOpen={isOpen} toggle={untoggle} centered>
                 <ModalHeader toggle={untoggle} className='commuterSuspensionHeader'>Commuter Suspension</ModalHeader>
                 <ModalBody>
-                    <form>
+                    <Form>
                         <center><h5><strong>{commuterInfo.firstName} {commuterInfo.middleName ? commuterInfo.middleName[0] + '.' : ''} {commuterInfo.lastName}</strong></h5></center>                        <div>
                             <label htmlFor="" style={{ margin: '5px' }}><strong>Reason : </strong></label>
                             <Input className='inputReason'
@@ -66,11 +66,15 @@ const CommuterSuspensionModal = ({ isOpen, untoggle, commuterID, reason, updateR
                                 onChange={(e) => updateSuspensionDate(e.target.value)}
                             />
                         </div>
-                    </form>
+                    </Form>
                 </ModalBody>
-                <ModalFooter className='commuterSuspensionFooter' style={{ justifyContent: 'space-between' }}>
+                <ModalFooter className='commuterSuspensionFooter' style={{ justifyContent: 'space-between' }}>                    
                     {commuterSuspensionStatus ? <Button className='btn btn-warning btnRevokeSuspension' onClick={() => {handleRevokeSuspension()}}>Revoke Suspension</Button> : ''}
-                    <Button className='btn btnConfirmSuspension' onClick={() => {handleUpdateSuspensionCommuter(commuterSuspensionStatus)}}>Confirm</Button>
+                    {
+                        reason !== "" && suspensionDate !== ""
+                        ?
+                        <Button className='btn btnConfirmSuspension' onClick={() => {handleUpdateSuspensionCommuter(commuterSuspensionStatus)}}>Confirm</Button> : ''
+                    }
                 </ModalFooter>
             </Modal>
         </>
