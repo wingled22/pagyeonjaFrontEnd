@@ -16,6 +16,8 @@ import images2 from "../../assets/image/cliff.jpg";
 import images3 from "../../assets/image/cs3.png";
 import { auto } from "@popperjs/core";
 
+import RiderDocumentViewerModal from "../Rider/RiderDocumentViewerModal";
+
 import ViewRequirements from "./RequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +25,8 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const Requirements = ({ userid }) => {
   const [document, setDocument] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
   const getRequirements = async () => {
     try {
       const response = await fetch(
@@ -35,16 +39,21 @@ const Requirements = ({ userid }) => {
       console.error(error);
     }
   };
+
+  const onDocumentButtonClick = (documentType) => {
+    console.log(documentType);
+  };
   // console.log(userid);
-  console.log(document);
+  // console.log(document);
   useEffect(() => {
     getRequirements();
   }, [userid]);
   return (
     <>
+      <RiderDocumentViewerModal isOpen={isOpen} untoggle={toggle} />
       <div className="rectangle-requiment">
         {document.map((item) => (
-          <>
+          <div key={item}>
             <Row>
               <img
                 className="centered rider-profile"
@@ -61,18 +70,35 @@ const Requirements = ({ userid }) => {
             </Row>
             <Row>
               <ViewRequirements
-                viewText={"View OR/CR file"}
+                viewText={"View OR file"}
                 viewFileText={"Select and upload the files of your choice"}
+                onDocumentButtonClick={onDocumentButtonClick}
+                documentType={"or"}
+                toggle={toggle}
+              />
+
+              <ViewRequirements
+                viewText={"View CR file"}
+                viewFileText={"Select and upload the files of your choice"}
+                onDocumentButtonClick={onDocumentButtonClick}
+                documentType={"cr"}
+                toggle={toggle}
               />
 
               <ViewRequirements
                 viewText={"View Drivers License file"}
                 viewFileText={"Select and upload the files of your choice"}
+                onDocumentButtonClick={onDocumentButtonClick}
+                documentType={"license"}
+                toggle={toggle}
               />
 
               <ViewRequirements
                 viewText={"View NBI clearance file"}
                 viewFileText={"Select and upload the files of your choice"}
+                onDocumentButtonClick={onDocumentButtonClick}
+                documentType={"nbi"}
+                toggle={toggle}
               />
             </Row>
 
@@ -93,7 +119,7 @@ const Requirements = ({ userid }) => {
                 <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
               </Button>
             </div>
-          </>
+          </div>
         ))}
       </div>
     </>
