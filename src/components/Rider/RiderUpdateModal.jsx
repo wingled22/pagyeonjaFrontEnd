@@ -10,7 +10,8 @@ const RiderUpdateModal = ({ isOpen, toggle, rider, fetchRiders }) => {
         const year = newDate.getFullYear();
         return `${year}-${month}-${day}`;
     }
-
+ 
+    
     const [formData, setFormData] = useState({
         riderId: '',
         firstName: '',
