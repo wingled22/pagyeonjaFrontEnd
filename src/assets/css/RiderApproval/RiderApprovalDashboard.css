@@ -41,7 +41,11 @@
   font-weight: bold !important;
   border-radius: 22px !important;
   font-family: 'Poppins', sans-serif !important;
- font-size: smaller !important;
+}
+
+option{
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: bold !important;
 }
 
 /************************ table styling ***********************/

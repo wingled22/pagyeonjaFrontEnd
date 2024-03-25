@@ -37,9 +37,16 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
       item.lastName.toLowerCase().includes(searchTerm)
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
+
+  console.log(filteredData)
   useEffect(() => {
     getApprovalList();
   }, []); // Add isFetched as a dependency
+
+
+  if(filteredData == null){
+    return <></>;
+  }
 
   return (
     <>
@@ -52,7 +59,8 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
               <tr
                 key={item.id}
                 onClick={() => {
-                  callChangeUserID(item.userId);
+                  callChangeUserID(item.id);
+                  console.log(item.id)
                 }}
               >
                 <td className="td-style">

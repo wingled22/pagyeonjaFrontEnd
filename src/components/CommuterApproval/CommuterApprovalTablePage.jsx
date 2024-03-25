@@ -57,21 +57,40 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
     setSearchCommuterApprovalTerm(value);
   };
 
+
+
+  const [filterCommuterApproval, setfilterCommuterApproval] = useState('');
+  const handleFilter = (value) => {
+    setfilterCommuterApproval(value);
+
+    console.log(value,'filter ni siya nga value')
+  };
+
+
+  
+
   const CommuterApprovalFilteredData = data.filter(item =>
     item.name.toLowerCase().includes(searchCommuterApprovalTerm) ||
     item.status.toLowerCase().includes(searchCommuterApprovalTerm)
   );
+  
+  const CommuterApprovalFilterStatus = CommuterApprovalFilteredData.filter(item =>
+    item.name.toLowerCase().includes(filterCommuterApproval) ||
+    item.status.toLowerCase().includes(filterCommuterApproval)
+  );
+  
 
   return (
   <>
 
   <Row sm={11}>
-   <CommuterApprovalSearchAndFilter onSearchCommuterApproval={handleSearch} />
+   <CommuterApprovalSearchAndFilter onSearchCommuterApproval={handleSearch} filterStatus={handleFilter}/>
    </Row>
     <div className="commuter-approval-table-container">
       <table className="commuter-table-in">
         <tbody>
-          {CommuterApprovalFilteredData.map((item) => (
+          {CommuterApprovalFilterStatus.map((item) => (
+            
             <tr key={item.id} onClick={() => {callChangeUserID(item.id)}}>
               <td className="commuter-td-style">
                 <img src={item.imageSrc} className="commuter-table-image" />
@@ -82,6 +101,9 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
               </td>
             </tr>
           ))}
+
+
+          
         </tbody>
       </table>
     </div>

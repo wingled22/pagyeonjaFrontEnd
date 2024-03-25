@@ -23,7 +23,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
-const Requirements = ({ userid }) => {
+const Requirements = ({ userId }) => {
+  console.log('requirements',userId);
   const [document, setDocument] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,7 @@ const Requirements = ({ userid }) => {
   const getRequirements = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5180/api/document/getdocuments?id=${userid}&usertype=Rider`
+        `http://localhost:5180/api/document/getdocuments?id=${userId}&usertype=Rider`
       );
       if (response.ok) {
         setDocument(await response.json());
@@ -53,7 +54,7 @@ const Requirements = ({ userid }) => {
   // console.log(documentFiles);
   useEffect(() => {
     getRequirements();
-  }, [userid]);
+  }, [userId]);
   return (
     <>
       <RiderDocumentViewerModal
