@@ -145,7 +145,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
             <div className="profile-container">
               <Row>
                 <Col style={{ padding: "25px" }} md={2}>
-                  {rider.profilePath === "" || rider.profilePath === null ? (
+                  {rider.profilePath === "" || rider.profilePath === null || !rider.profilePath ? (
                     <Icon
                       className="modal-icon-img"
                       icon={faCircleUser}
