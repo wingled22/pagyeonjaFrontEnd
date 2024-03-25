@@ -53,7 +53,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
               <tr
                 key={item.id}
                 onClick={() => {
-                  callChangeUserID(item.id);
+                  callChangeUserID(item.userId);
                 }}
               >
                 <td className="td-style">
