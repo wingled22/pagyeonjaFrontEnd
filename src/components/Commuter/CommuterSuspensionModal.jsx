@@ -14,17 +14,17 @@ const formatDate = (dateString) => {
     );
   };
 
-const CommuterSuspensionModal = ({ isOpen, untoggle, commuterID, reason, updateReason, suspensionDate, updateSuspensionDate, handleUpdateSuspensionCommuter, handleRevokeSuspension}) => {
+const CommuterSuspensionModal = ({ isOpen, untoggle, commuterID, reason, updateReason, suspensionDate, updateSuspensionDate, handleUpdateSuspensionCommuter, handleRevokeSuspension, commuterSuspensionStatus}) => {
 
     const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
     const [commuterInfo, setCommuterInfo] = useState([]);
 
     const getCommuter = async () => {
         try {
-
             const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommuter?id=' + commuterID);
             const data = await response.json();
             setCommuterInfo(data);
+            console.log(commuterSuspensionStatus);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -69,8 +69,8 @@ const CommuterSuspensionModal = ({ isOpen, untoggle, commuterID, reason, updateR
                     </form>
                 </ModalBody>
                 <ModalFooter className='commuterSuspensionFooter' style={{ justifyContent: 'space-between' }}>
-                    <Button className='btn btn-warning btnRevokeSuspension' onClick={() => {handleRevokeSuspension()}}>Revoke Suspension</Button>
-                    <Button className='btn btnConfirmSuspension' onClick={() => {handleUpdateSuspensionCommuter()}}>Confirm</Button>
+                    {commuterSuspensionStatus ? <Button className='btn btn-warning btnRevokeSuspension' onClick={() => {handleRevokeSuspension()}}>Revoke Suspension</Button> : ''}
+                    <Button className='btn btnConfirmSuspension' onClick={() => {handleUpdateSuspensionCommuter(commuterSuspensionStatus)}}>Confirm</Button>
                 </ModalFooter>
             </Modal>
         </>

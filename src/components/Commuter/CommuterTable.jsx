@@ -56,7 +56,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
     const getSuspension = async (suspendStatus, commuterId) => {
         try {
-
+            setCommuterSuspensionStatus(suspendStatus);
             if (suspendStatus === true) {
                 //If suspended, then get the latest end date suspension
                 const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${commuterId}&usertype=Commuter`)
@@ -73,9 +73,9 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
         }
     }
 
-    const handleUpdateSuspensionCommuter = async () => {
+    const handleUpdateSuspensionCommuter = async (suspendStatus) => {
         try {
-
+            //Add a condition here that if the suspension status is already true then update the data instead
             const formData =
             {
                 userId: commuterID,
@@ -154,7 +154,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
     return (
         <>
             <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} />
-            {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} handleRevokeSuspension={handleRevokeSuspension} /> : ''}
+            {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} handleRevokeSuspension={handleRevokeSuspension} commuterSuspensionStatus={commuterSuspensionStatus} /> : ''}
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
                     <thead className='theadCommuterTable' style={{ position: 'sticky', top: 0, zIndex: 1 }}>
