@@ -1,84 +1,106 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../assets/css/RiderPage.css";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleInfo,
-  faPenToSquare,
-  faCirclePause,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faPenToSquare, faCirclePause } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "reactstrap";
 import RiderDetailsModal from "./RiderDetailsModal";
-const RiderTable = () => {
+import RiderSuspensionModal from "./RiderSuspensionModal";
+import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
+
+const RiderTable = ({ onSelectRider }) => {
+  const [riders, setRiders] = useState([]);
+  const [filteredRiders, setFilteredRiders] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalSuspension, setModalSuspension] = useState(false);
+  const [selectedRider, setSelectedRider] = useState([]);
+  const [modalUpdateRider, setModalUpdateRider] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const toggleModal = (rider) => {
-    setModalOpen(!modalOpen);
-  };
+  useEffect(() => {
+    fetchRiders();
+  }, []);
 
-  const data = [
-    { id: 1, riderId: "123123", name: "Mark Zuckerberg", status: "suspended" },
-    { id: 2, riderId: "456456", name: "Jacob Wikowski", status: "active" },
-    {
-      id: 3,
-      riderId: "789789",
-      name: "Larry Myersekerist",
-      status: "suspended",
-    },
-    { id: 4, riderId: "123123", name: "Mark Zuckerberg", status: "suspended" },
-    { id: 5, riderId: "456456", name: "Jacob Wikowski", status: "active" },
-    {
-      id: 6,
-      riderId: "789789",
-      name: "Larry Myersekerist",
-      status: "suspended",
-    },
-    {
-      id: 7,
-      riderId: "789789",
-      name: "Larry Myersekerist",
-      status: "suspended",
-    },
-  ];
+  useEffect(() => {
+    const filtered = riders.filter((rider) =>
+      riderMatchesSearchTerm(rider)
+    );
+    setFilteredRiders(filtered);
+  }, [riders, searchTerm]);
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "active":
-        return "#38A843";
-      case "suspended":
-        return "#EA5943";
-      default:
-        return "transparent";
+
+  const fetchRiders = async () => {
+    try {
+      const response = await fetch("http://localhost:5180/api/RiderRegistration/GetRidersApproved");
+      if (!response.ok) {
+        throw new Error("Failed to fetch riders");
+      }
+      const data = await response.json();
+      setRiders(data);
+    } catch (error) {
+      console.error("Error fetching riders:", error);
     }
   };
 
+
+  const riderMatchesSearchTerm = (rider) => {
+    if (!searchTerm) return true;
+    const fullName = `${rider.firstName} ${rider.middleName} ${rider.lastName}`.toLowerCase();
+    const status = rider.suspensionStatus === false ? 'active' : 'suspended';
+    return fullName.includes(searchTerm.toLowerCase()) || status.includes(searchTerm.toLowerCase());
+  };
+
+  const toggleModal = (rider) => {
+    setModalOpen(!modalOpen);
+    setSelectedRider(rider);
+  };
+
+  const toggleSuspension = () => {
+    setModalSuspension(!modalSuspension);
+  };
+
+  const toggleUpdateModal = (rider) => {
+    setModalUpdateRider(!modalUpdateRider);
+    setSelectedRider(rider);
+    console.log("Rider Data:", rider); // Logging rider data
+  };
+ 
+  const getStatusColor = (status) => {
+    return status === false ? "#38A843" : "#EA5943";
+  };
   return (
     <>
-      <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal(null)} />
-
+      <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} />
+      <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
+      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} />
       <div className="search-box">
-        <input type="text" placeholder="Search for rider" />
+        <input
+          type="text"
+          placeholder="Search for rider"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
       <div className="rider-container">
         <Table className="rider-table">
           <thead>
             <tr>
-              <th className="rider-id-th">Rider ID No.</th>
               <th className="name-th">Name</th>
+              <th className="occupation-th">Occupation</th>
               <th className="status-th">Status</th>
               <th className="act-th">Action</th>
             </tr>
           </thead>
           <tbody className="rider-tbody">
-            {data.map((rider) => (
-              <tr key={rider.id}>
-                <td className="rider-td">{rider.riderId}</td>
-                <td className="rider-td">{rider.name}</td>
+            {filteredRiders.map((rider) => (
+              <tr className="rider-table-row" key={rider.riderId} onClick={() => onSelectRider(rider)}>
+                <td style={{ padding: "17px" }} className="rider-td">{rider.firstName} {rider.middleName} {rider.lastName}</td>
+                <td style={{ padding: "17px" }} className="rider-td">{rider.occupation}</td>
                 <td className="rider-td">
                   <p
                     className="status-circle"
                     style={{
-                      backgroundColor: getStatusColor(rider.status),
+                      backgroundColor: getStatusColor(rider.suspensionStatus),
+                      margin: "0",
                       borderRadius: "20px",
                       width: "100px",
                       height: "30px",
@@ -89,20 +111,17 @@ const RiderTable = () => {
                       color: "white",
                     }}
                   >
-                    {rider.status}
+                    {rider.suspensionStatus === false ? 'Active' : 'Suspended'}
                   </p>
-                </td >
+                </td>
                 <td className="rider-td">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => toggleModal(rider)}
-                  >
+                  <button className="btn btn-primary" onClick={() => toggleModal(rider)}>
                     <Icon icon={faCircleInfo} color="white" />
                   </button>
-                  <button className="btn btn-success">
+                  <button className="btn btn-success" onClick={() => toggleUpdateModal(rider)}>
                     <Icon icon={faPenToSquare} color="white" />
                   </button>
-                  <button className="btn btn-danger">
+                  <button className="btn btn-danger" onClick={toggleSuspension}>
                     <Icon icon={faCirclePause} color="white" />
                   </button>
                 </td>

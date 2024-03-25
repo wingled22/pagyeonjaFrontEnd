@@ -10,49 +10,127 @@ import { Row, Col, Container, Button } from 'reactstrap';
 import CommuterAccordion from '../../components/Commuter/CommuterAccordion.jsx'
 import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocumentViewerModal.jsx";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const CommuterDetails = () => {
+const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
 
     const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
+    const [commuterInfo, setCommuterInfo] = useState([]);
+    const [suspensionInfo, setSuspensionInfo] = useState([]);
     const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
+
+    const [startTime, setStartTime] = useState(true);
+
+    function formatDate(dateString) {
+        const newDate = new Date(dateString);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return newDate.toLocaleDateString('en-US', options);
+    }
+
+    const getCommuter = async () => {
+        try {
+
+            const response = await fetch('http://localhost:5180/api/CommuterRegistration/GetCommuter?id=' + selectedCommuter);
+            const data = await response.json();
+            setCommuterInfo(data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    const getLatestSuspension = async () => 
+    {
+        try
+        {
+            if(suspensionStatus === true)
+            {
+                //If suspended, then get the latest end date suspension
+                const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${selectedCommuter}&usertype=Commuter`)
+                const data = await response.json();
+                setSuspensionInfo(data);
+            }
+        }
+        catch(error)
+        {
+            console.error("Error fetching data:", error);
+        }
+    }
+
+    const calculateSuspensionDuration = () => {
+
+        let difference = +new Date(`${suspensionInfo.suspensionDate}`) - +new Date();
+        let timeLeft = {};
+
+        if (difference > 0) {
+            timeLeft = {
+                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((difference / 1000 / 60) % 60),
+                seconds: Math.floor((difference / 1000) % 60)
+            };
+        }
+        setTimeLeft(timeLeft)
+    }
+
+    //This must be after calculateSuspensionDuration. This must be initialize after the calculateSuspensionDuration
+    const [timeLeft, setTimeLeft] = useState([]);
+
+    useEffect(() => {
+        getCommuter();
+        getLatestSuspension();
+    }, [selectedCommuter, suspensionStatus])
+
+    useEffect(() => {
+        if(suspensionStatus === true)
+        {
+            // calculateSuspensionDuration();
+
+            const timer = setTimeout(() => {
+                calculateSuspensionDuration();
+            }, 1000);
+    
+            return () => clearTimeout(timer);
+        }
+    })
 
     return (<>
 
-        <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} />
+        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} commuterInfo={commuterInfo} />}
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
                 <Col md="2" sm="2" xs={12}>
-                    <Icon icon={faCircleUser} color='black' className="imageContainer"></Icon>
+              
+                {commuterInfo.profilePath === "" || commuterInfo.profilePath === null ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" /> }
+               
                 </Col>
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
-                    <div className="text-name">Andrew Walker</div>
+                    <div className="text-name">{commuterInfo.firstName} {commuterInfo.lastName}</div>
                     <div className="labelInfoPositioning">
-                        <span className="labelInfo">Sex: <span className="textInfo">Male</span></span>
-                        <div className="labelInfo">Birthdate: <span className="textInfo">November 01, 2000</span></div>
-                        <div className="labelInfo">Civil Status: <span className="textInfo">Single</span></div>
-                        <div className="labelInfo">Occupation: <span className="textInfo">Student</span></div>
+                        <span className="labelInfo">Sex: <span className="textInfo">{commuterInfo.sex === 'M' ? 'Male' : 'Female'}</span></span>
+                        <div className="labelInfo">Birthdate: <span className="textInfo">{formatDate(commuterInfo.birthdate)}</span></div>
+                        <div className="labelInfo">Civil Status: <span className="textInfo">{commuterInfo.civilStatus}</span></div>
+                        <div className="labelInfo">Occupation: <span className="textInfo">{commuterInfo.occupation}</span></div>
                     </div>
                 </Col>
                 <Col md="4" sm="4" xs={12}>
-                    <Button className="btn btn-warning btnViewDocuments" onClick={() => {toggleDocumentViewer()}}>
+                    <Button className="btn btn-warning btnViewDocuments" onClick={() => { toggleDocumentViewer() }}>
                         Documents
                     </Button>
                 </Col>
             </Row>
             <Row className="containerCommuterDetails">
                 <Col md={10} sm="10" xs="10">
-                    <span className="labelInfo">Address: <span className="textInfo">Barangay Maya, Biringan City, Samar</span></span>
-                    <div className="labelInfo">Contact Number: <span className="textInfo">09163345411</span></div>
-                    <span className="labelInfo">Email Address: <span className="textInfo">andrewwalker@gmail.com</span></span>
+                    <span className="labelInfo">Address: <span className="textInfo">{commuterInfo.address}</span></span>
+                    <div className="labelInfo">Contact Number: <span className="textInfo">{commuterInfo.contactNumber}</span></div>
+                    <span className="labelInfo">Email Address: <span className="textInfo">{commuterInfo.emailAddress}</span></span>
                     <br />
                     <br />
-                    <div className="labelInfo">Date Registered: <span className="textInfo">March 06, 2024</span></div>
-                    <div className="labelInfo">Status: <span className={`textInfo ${'Suspended' === 'Suspended' ? 'text-danger' : 'text-success'}`}>Suspended</span></div>
-                    <div style={{ display: 'Suspended' === 'Suspended' ? 'block' : 'none' }} className="labelInfo">
-                        Duration: <span className={`textInfo ${'Suspended' === 'Suspended' ? 'text-danger' : 'text-success'}`}>1D : 06hrs: 32m: 06s</span>
-                    </div>
+                    <div className="labelInfo">Date Registered: <span className="textInfo">{formatDate(commuterInfo.dateApplied)}</span></div>
+                    <div className="labelInfo">Status: <span className={`textInfo ${commuterInfo.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{commuterInfo.suspensionStatus === true ? 'Suspended' : 'Active'}</span></div>
+                    {timeLeft.length === 0 ? '' : <div style={{ display: commuterInfo.suspensionStatus === true ? 'block' : 'none' }} className="labelInfo">
+                        Duration: <span className={`textInfo ${commuterInfo.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}m: {timeLeft.seconds}s</span>
+                    </div>}
                 </Col>
             </Row>
             <br />

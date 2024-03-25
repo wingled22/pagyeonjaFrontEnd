@@ -1,27 +1,30 @@
 import "../assets/css/RiderPage.css";
 import RiderTable from "../components/Rider/RiderTable.jsx";
-import RiderProfile from "../components/RiderProfile.jsx";
+import RiderProfile from "../components/Rider/RiderProfile.jsx";
+// import RiderProfile from "../components/RiderProfile.jsx";
 import { Row, Col, Container } from "reactstrap";
+import { useState } from "react";
 const RiderPage = () => {
+
+  const [selectedRider, setSelectedRider] = useState(null);
+  const updateSelectRider = (id) => { setSelectedRider(id); }
+
   return (
     <>
-      {/* <Container> */}
-      {/* <Row className="Row1">
-        <RiderProfile />
-      </Row>
-
-      <Row className="Row2">
-        <RiderTable />
-      </Row> */}
       <Container fluid={true}>
         <Row>
+          <div className="rectangle-header">
+            <div className="label">
+              <h2 className="rider-profile-header">Rider Profile</h2>
+            </div>
+          </div>
           <Col>
-            <RiderProfile />
+          {selectedRider && <RiderProfile rider={selectedRider} />}
           </Col>
         </Row>
         <Row>
           <Col>
-            <RiderTable />
+            <RiderTable onSelectRider={updateSelectRider} />
           </Col>
         </Row>
       </Container>

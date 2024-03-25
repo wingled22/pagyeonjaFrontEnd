@@ -1,52 +1,50 @@
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import {
-    faCircleUser
-} from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Input, Container } from 'reactstrap';
-const RiderProfile = () => {
-    return (
-        <>
-            <div className="box-header">
-                <div className="rectangle-header">
-                    <div className="label">
-                        <h2 className="text-wrapper">Rider Profile</h2>
-                    </div>
-                </div>
-              
-                <div className="rect-profile">
-             
-                        <Row>
-                            <Col md={3} lg={3} sm={3} xs={2}  className="prof-col">
-                                <Icon className="profile-img" icon={faCircleUser} color='black' />
-                            </Col>
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row, Input, Container } from "reactstrap";
 
-                            <Col md={6} lg={7} sm={5} xs={6} style={{marginLeft: "120px", marginTop: "10px"}}>
-                                <Row className="name-row">
-                                    <p className="text-ridername">Juan Dela Cruz</p>
-                                </Row>
-                                <Row className="details-row" >
-                                    <p className="text-detailsrider">
-                                        <span className="mr-4" >Address: Sudlonon Bogo City, Cebu</span>
-                                        <br/>
-                                        <span className="mr-4">Position: Cab Rider</span>
-                                        <br />
-                                        <span className="mr-4">Age: 20</span>
-                                        <br/>
-                                        <span className="mr-4">Vehicle No: 47548</span>
-                                        <br />
-                                        <span>Contact Number: 09564457889</span>
-                                    </p>
-                                </Row>
-                            </Col>
+const RiderProfile = ({ rider }) => {
+  return (
+    <div className="box-header">
+      <div className="rect-profile">
+        <Row>
+          <Col style={{padding: "60px"}}md={3} lg={2} sm={3} xs={2} className="prof-col">
+            {/* <Icon className="profile-img" icon={faCircleUser} color="black" /> */}
+            {/* <img className="profile-img" src= {`http://localhost:5180/img/rider_profile/${rider.profilePath}`} alt="" /> */}
+            {rider.profilePath === ""  || rider.profilePath === null ? <Icon icon={faCircleUser} color='black' className="icon-img"></Icon> : <img className="profile-img" src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`} alt="" />}
+          </Col>
 
-
-                        </Row>
-             
-
-                </div>
-            </div>
-        </>
-    );
-}
+          <Col style={{padding: "20px"}} md={7} lg={8} sm={7} xs={10}>
+            <Row className="name-row mt-5">
+              <p className="text-ridername">{rider.firstName} {rider.middleName[0]}. {rider.lastName}</p>
+            </Row>
+            <Row className="mt-2">
+              <Row style={{ marginBottom: -15 }}>
+                <Col>
+                  <p>Address: {rider.address}</p>
+                </Col>
+                <Col>
+                  <p>Position: {rider.occupation}</p>
+                </Col>
+              </Row>
+              <Row style={{ marginBottom: -15 }}>
+                <Col>
+                  <p>Age: {rider.age}</p>
+                </Col>
+                <Col>
+                  <p>Vehicle Number: {rider.vehicleNumber}</p>
+                </Col>
+              </Row>
+              <Row style={{ marginBottom: -15 }}>
+                <Col>
+                  <p>Contact Number: {rider.contactNumber}</p>
+                </Col>
+              </Row>
+            </Row>
+          </Col>
+        </Row>
+      </div>
+    </div>
+  );
+};
 
 export default RiderProfile;

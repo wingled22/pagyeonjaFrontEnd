@@ -1,4 +1,4 @@
-.commuterDocumentViewerHeader
+.riderDocumentViewerHeader
 {
     background-color: #52459F !important;
     color: white;
@@ -47,10 +47,3 @@
     font-size: 2vh !important;
     font-weight: 600;
 }
-
-.trDocumentViewerTable:hover {
-    background-color: #ffffff !important;
-}
-
-
-/* style={{backgroundColor: '#EEEBFC', height: '100px', width: '100%'}} */
