@@ -25,6 +25,7 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const Requirements = ({ userid }) => {
   const [document, setDocument] = useState([]);
+  const [documentFiles, setDocumentFiles] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const getRequirements = async () => {
@@ -41,86 +42,93 @@ const Requirements = ({ userid }) => {
   };
 
   const onDocumentButtonClick = (documentType) => {
-    console.log(documentType);
+    setDocumentFiles(
+      document.documents.filter(
+        (item) =>
+          item.documentName.includes(documentType) && item.userId === userid
+      )
+    );
   };
   // console.log(userid);
-  // console.log(document);
+  // console.log(documentFiles);
   useEffect(() => {
     getRequirements();
   }, [userid]);
   return (
     <>
-      <RiderDocumentViewerModal isOpen={isOpen} untoggle={toggle} />
+      <RiderDocumentViewerModal
+        isOpen={isOpen}
+        untoggle={toggle}
+        document={documentFiles}
+      />
       <div className="rectangle-requiment">
-        {document.map((item) => (
-          <div key={item}>
-            <Row>
-              <img
-                className="centered rider-profile"
-                src={
-                  item.profilePath != null
-                    ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
-                    : images1
-                }
-              />
-              <h5 style={{ textAlign: "center", marginTop: "10px" }}>
-                {item.firstName} {item.middleName[0]}. {item.lastName}
-              </h5>
-              <div className="profile-line"></div>
-            </Row>
-            <Row>
-              <ViewRequirements
-                viewText={"View OR file"}
-                viewFileText={"Select and upload the files of your choice"}
-                onDocumentButtonClick={onDocumentButtonClick}
-                documentType={"or"}
-                toggle={toggle}
-              />
+        <>
+          <Row>
+            <img
+              className="centered rider-profile"
+              src={
+                document.profilePath != null
+                  ? `http://localhost:5180/img/rider_profile/${document.profilePath}`
+                  : images1
+              }
+            />
+            <h5 style={{ textAlign: "center", marginTop: "10px" }}>
+              {document.firstName} {document.middleName}. {document.lastName}
+            </h5>
+            <div className="profile-line"></div>
+          </Row>
+          <Row>
+            <ViewRequirements
+              viewText={"View OR file"}
+              viewFileText={"Select and upload the files of your choice"}
+              onDocumentButtonClick={onDocumentButtonClick}
+              documentType={"or"}
+              toggle={toggle}
+            />
 
-              <ViewRequirements
-                viewText={"View CR file"}
-                viewFileText={"Select and upload the files of your choice"}
-                onDocumentButtonClick={onDocumentButtonClick}
-                documentType={"cr"}
-                toggle={toggle}
-              />
+            <ViewRequirements
+              viewText={"View CR file"}
+              viewFileText={"Select and upload the files of your choice"}
+              onDocumentButtonClick={onDocumentButtonClick}
+              documentType={"cr"}
+              toggle={toggle}
+            />
 
-              <ViewRequirements
-                viewText={"View Drivers License file"}
-                viewFileText={"Select and upload the files of your choice"}
-                onDocumentButtonClick={onDocumentButtonClick}
-                documentType={"license"}
-                toggle={toggle}
-              />
+            <ViewRequirements
+              viewText={"View Drivers License file"}
+              viewFileText={"Select and upload the files of your choice"}
+              onDocumentButtonClick={onDocumentButtonClick}
+              documentType={"license"}
+              toggle={toggle}
+            />
 
-              <ViewRequirements
-                viewText={"View NBI clearance file"}
-                viewFileText={"Select and upload the files of your choice"}
-                onDocumentButtonClick={onDocumentButtonClick}
-                documentType={"nbi"}
-                toggle={toggle}
-              />
-            </Row>
+            <ViewRequirements
+              viewText={"View NBI clearance file"}
+              viewFileText={"Select and upload the files of your choice"}
+              onDocumentButtonClick={onDocumentButtonClick}
+              documentType={"nbi"}
+              toggle={toggle}
+            />
+          </Row>
 
-            <div className="btnAppRej">
-              <Button
-                className="btn-rider-approval"
-                color="success"
-                style={{ borderRadius: 50, fontWeight: "bold" }}
-              >
-                {" "}
-                <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
-              </Button>
-              <Button
-                className="btn-rider-approval"
-                color="danger"
-                style={{ borderRadius: 50, fontWeight: "bold" }}
-              >
-                <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
-              </Button>
-            </div>
+          <div className="btnAppRej">
+            <Button
+              className="btn-rider-approval"
+              color="success"
+              style={{ borderRadius: 50, fontWeight: "bold" }}
+            >
+              {" "}
+              <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
+            </Button>
+            <Button
+              className="btn-rider-approval"
+              color="danger"
+              style={{ borderRadius: 50, fontWeight: "bold" }}
+            >
+              <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
+            </Button>
           </div>
-        ))}
+        </>
       </div>
     </>
   );
