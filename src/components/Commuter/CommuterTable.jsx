@@ -50,23 +50,24 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
     const [reason, setReason] = useState('');
     const [suspensionDate, setSuspensionDate] = useState("");
+    const [suspensionId, setSuspensionId] = useState(null);
 
     const updateReason = (e) => { setReason(e) }
     const updateSuspensionDate = (e) => { setSuspensionDate(e) }
 
     const getSuspension = async (suspendStatus, commuterId) => {
         try {
-
+            setCommuterSuspensionStatus(suspendStatus);
             if (suspendStatus === true) {
                 //If suspended, then get the latest end date suspension
                 const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${commuterId}&usertype=Commuter`)
                 const data = await response.json();
                 setReason(data.reason);
                 setSuspensionDate(data.suspensionDate);
+                setSuspensionId(data.suspensionId);
             }
             else {
-                setReason("");
-                setSuspensionDate("");
+                clearSuspensionEntry();
             }
         }
         catch (error) {
@@ -74,8 +75,9 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
         }
     }
 
-    const handleUpdateSuspensionCommuter = async () => {
+    const handleUpdateSuspensionCommuter = async (suspendStatus) => {
         try {
+            //Add a condition here that if the suspension status is already true then update the data instead
             const formData =
             {
                 userId: commuterID,
@@ -84,17 +86,38 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 suspensionDate: suspensionDate
             }
 
-            const response = await fetch(
-                "http://localhost:5180/api/Suspension/RegisterSuspension",
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData)
-                }
-            );
+            const updateFormData =
+            {
+                suspensionId: suspensionId,
+                userId: commuterID,
+                userType: "Commuter",
+                reason: reason,
+                suspensionDate: suspensionDate
+            }
 
-            setReason("");
-            setSuspensionDate("");
+            if (suspendStatus === false) {
+                const response = await fetch(
+                    "http://localhost:5180/api/Suspension/RegisterSuspension",
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData)
+                    }
+                );
+            }
+            else if(suspendStatus === true) //update instead
+            {
+                const response = await fetch(
+                    "http://localhost:5180/api/Suspension/UpdateSuspension?id=" + suspensionId,
+                    {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(updateFormData)
+                    }
+                );
+            }
+
+            clearSuspensionEntry();
             getCommuters();
             toggleSuspension();
 
@@ -104,6 +127,41 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
         } catch (error) {
             console.error("Error fetching data: ", error)
         }
+    }
+
+    const handleRevokeSuspension = async () => {
+        try {
+
+            const formData =
+            {
+                userId: commuterID,
+                userType: "Commuter",
+            }
+
+            const response = await fetch(
+                "http://localhost:5180/api/Suspension/RevokeSuspension",
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                }
+            );
+
+            clearSuspensionEntry();
+            getCommuters();
+            toggleSuspension();
+
+            //toggle so that the suspension status is true
+            suspensionStatus(false);
+
+        } catch (error) {
+            console.error("Error fetching data: ", error);
+        }
+    }
+
+    const clearSuspensionEntry = () => {
+        setReason("");
+        setSuspensionDate("");
     }
 
     useEffect(() => {
@@ -120,7 +178,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
     return (
         <>
             <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} />
-            {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} /> : ''}
+            {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} handleRevokeSuspension={handleRevokeSuspension} commuterSuspensionStatus={commuterSuspensionStatus} /> : ''}
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
                     <thead className='theadCommuterTable' style={{ position: 'sticky', top: 0, zIndex: 1 }}>
