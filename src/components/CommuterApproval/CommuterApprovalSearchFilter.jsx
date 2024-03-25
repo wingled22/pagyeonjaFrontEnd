@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import "../../assets/css/CommuterApproval/CommuterApprovalSearchAndFilter.css";
 import {
   UncontrolledDropdown,
@@ -8,17 +8,31 @@ import {
   Col,
 } from "reactstrap";
 
-const CommuterApprovalSearchAndFilter = ({onSearchCommuterApproval }) => {
+const CommuterApprovalSearchAndFilter = ({onSearchCommuterApproval, filterStatus}) => {
 
   const StatusData = [
-    { id: 55, status: "Pending" },
-    { id: 56, status: "Approved" },
-    { id: 57, status: "Rejected" },
+    {status: "Pending" },
+    { status: "Approved" },
+    {  status: "Rejected" },
   ];
 
   const handleSearch = (event) => {
     onSearchCommuterApproval(event.target.value.toLowerCase());
   };
+
+
+  
+  const [selectedStatus, setSelectedStatus] = useState(null);
+
+  const handleStatusSelect = (status) => {
+    setSelectedStatus(status.toLowerCase());
+    filterStatus(status.toLowerCase()); /// mag himo og function then ilabay adtos table page
+
+  };
+
+
+
+ 
   
 
   return (
@@ -44,14 +58,19 @@ const CommuterApprovalSearchAndFilter = ({onSearchCommuterApproval }) => {
           color="dark"
           className="commuter-approval-filter-status"
         >
-          Filter by status
-        </DropdownToggle>
-        <DropdownMenu dark>
-          <DropdownItem header>Select to Filter</DropdownItem>
-          {StatusData.map((item) => (
-            <DropdownItem key={item.id}>{item.status}</DropdownItem>
-          ))}
-        </DropdownMenu>
+        {selectedStatus ? selectedStatus : "Filter by status"}
+            </DropdownToggle>
+            <DropdownMenu dark>
+              <DropdownItem header>Select to Filter</DropdownItem>
+              {StatusData.map((item) => (
+                <DropdownItem
+                  key={item.status}
+                  onClick={() => handleStatusSelect(item.status)}
+                >
+                  {item.status}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
       </UncontrolledDropdown>
       </Col>
     </>

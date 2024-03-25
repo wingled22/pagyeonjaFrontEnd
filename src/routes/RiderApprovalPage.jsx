@@ -17,9 +17,14 @@ import RiderApprovalTablePage from "../components/RiderApproval/Rider_Approval_T
 import Requirements from "../components/RiderApproval/Requirements";
 const RiderApprovalDashboard = () => {
   const [selectedUser, setSelectedUser] = useState(null); // reciever from rider table approval
-  const setChangeUserID = (id) => {
-    setSelectedUser(id);
+  
+ 
+  const setChangeUserID = (userId) => {
+    setSelectedUser(userId);
+    console.log(userId,"rider page")
+  
   };
+
 
   return (
     <>
@@ -46,7 +51,7 @@ const RiderApprovalDashboard = () => {
 
         {selectedUser && (
           <Col sm={1} md={6} lg={5}>
-            <Requirements userid={selectedUser} />
+            <Requirements userId={selectedUser} />
           </Col>
         )}
       </Row>
