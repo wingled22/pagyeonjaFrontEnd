@@ -71,7 +71,7 @@ const RiderTable = ({ onSelectRider }) => {
     <>
       <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} />
       <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
-      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} />
+      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders()} />
       <div className="search-box">
         <input
           type="text"
