@@ -1,29 +1,31 @@
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container } from 'reactstrap';
 import "../../assets/css/RiderDocumentViewerModal.css";
 import { useState } from 'react';
-
-const RiderDocumentViewerModal = ({ isOpen, untoggle }) => {
+import ViewImageModal from '../../components/Commuter/ViewImageModal.jsx';
+const RiderDocumentViewerModal = ({ isOpen, untoggle, rider }) => {
 
     const data = [
-        { id: 1, documentName: 'National ID', type: 'Front', path: '../../assets/img/documentViewerImages/pictureCommuterFront.jpg' },
-        { id: 2, documentName: 'National ID', type: 'Back' },
+        { id: 1, documentName: 'National ID', type: 'Front', path: '../../assets/image/cs3.png' },
+        { id: 2, documentName: 'National ID', type: 'Back', path: '../../assets/img/documentViewerImages/pictureCommuterFront.jpg' },
         { id: 3, documentName: 'National ID', type: 'Back' },
         { id: 4, documentName: 'National ID', type: 'Back' },
     ];
 
-    const [selectedImage, setSelectedImage] = useState(null);
+    const {
+        riderId,
+        firstName,
+        middleName,
+        lastName
+      } = rider;
 
-    const openImage = (path) => {
-        setSelectedImage(path);
-        console.log(selectedImage);
-    };
-
-    const closeImage = () => {
-        setSelectedImage(null);
-    };
+    const [modalImageViewer, setModalImageViewer] = useState(false);
+    const toggleImageViewer = () => setModalImageViewer(!modalImageViewer);
+    const [imageSource, setImageSource] = useState(null);
 
     return (
         <>
+         {imageSource && <ViewImageModal isOpen={modalImageViewer} untoggle={toggleImageViewer} imageSource={imageSource} />}
+
             <Modal isOpen={isOpen} toggle={untoggle} centered size="lg">
                 <ModalHeader toggle={untoggle} className='riderDocumentViewerHeader'>Document Viewer</ModalHeader>
                 <ModalBody>
@@ -42,7 +44,7 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle }) => {
                                     <tr key={item.id}>
                                         <td className='itemBodyDocumentViewer'>{item.documentName}</td>
                                         <td className='itemBodyDocumentViewer'>{item.type}</td>
-                                        <td className='itemBodyDocumentViewer'><Button className="btn btn-warning btnView" onClick={() => { openImage(item.path) }}>View</Button></td>
+                                        <td className='itemBodyDocumentViewer'><Button className="btn btn-warning btnView" onClick={() => {toggleImageViewer(), setImageSource(item.path)}}>View</Button></td>
                                     </tr>
                                 ))}
                                 {/* Add more rows as needed */}
@@ -52,11 +54,11 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle }) => {
                 </ModalBody>
             </Modal>
 
-            {selectedImage && (
+            {/* {selectedImage && (
                 <Container>
                     <img src="" alt="None selected" style={{ width: '100%' }} />
                 </Container>
-            )}
+            )} */}
         </>
     );
 }

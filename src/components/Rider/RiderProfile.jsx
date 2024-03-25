@@ -8,8 +8,6 @@ const RiderProfile = ({ rider }) => {
       <div className="rect-profile">
         <Row>
           <Col style={{padding: "60px"}}md={3} lg={2} sm={3} xs={2} className="prof-col">
-            {/* <Icon className="profile-img" icon={faCircleUser} color="black" /> */}
-            {/* <img className="profile-img" src= {`http://localhost:5180/img/rider_profile/${rider.profilePath}`} alt="" /> */}
             {rider.profilePath === ""  || rider.profilePath === null ? <Icon icon={faCircleUser} color='black' className="icon-img"></Icon> : <img className="profile-img" src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`} alt="" />}
           </Col>
 

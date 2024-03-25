@@ -129,10 +129,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   }
   return (
     <>
-      <RiderDocumentViewerModal
-        isOpen={modalDocumentViewer}
-        untoggle={toggleDocumentViewer}
-      />
+        {rider.riderId && modalDocumentViewer && <RiderDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} rider={rider} />}
 
       <Modal
         className="rider-modal-dialog"
