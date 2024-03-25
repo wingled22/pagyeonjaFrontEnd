@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Button, Row, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders }) => {
+const RiderUpdateModal = ({ isOpen, toggle, rider, fetchRiders }) => {
 
     function formatDate(dateString) {
         const newDate = new Date(dateString);

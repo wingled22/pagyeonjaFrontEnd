@@ -17,16 +17,15 @@ const RiderTable = ({ onSelectRider }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetchRiders();
-  }, []);
-
-  useEffect(() => {
     const filtered = riders.filter((rider) =>
       riderMatchesSearchTerm(rider)
     );
     setFilteredRiders(filtered);
   }, [riders, searchTerm]);
 
+  useEffect(() => {
+    fetchRiders();
+  }, []);
 
   const fetchRiders = async () => {
     try {
@@ -71,7 +70,7 @@ const RiderTable = ({ onSelectRider }) => {
     <>
       <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} />
       <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
-      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders()} />
+      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} />
       <div className="search-box">
         <input
           type="text"
