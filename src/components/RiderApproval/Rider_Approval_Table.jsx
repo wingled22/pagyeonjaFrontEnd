@@ -42,6 +42,8 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
     } else if (value === "approved") {
         newValue = true;
     }
+
+    
     setfilterRiderApproval(newValue);
 
     // console.log(newValue,"mao ni siya ang new value")
@@ -56,10 +58,17 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
 
+
+
   const RiderApprovalFilterStatus = filteredData.filter(
     (item) =>
-    item.approvalStatus === filterRiderApproval
+       item.approvalStatus === filterRiderApproval  
   )
+
+
+
+
+  
 
   // console.log(filteredData)
   useEffect(() => {
@@ -67,7 +76,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
   }, []); // Add isFetched as a dependency
 
 
-  if(RiderApprovalFilterStatus == null){
+  if(filteredData == null){
     return <></>;
   }
 
