@@ -190,7 +190,7 @@ const RiderTable = ({ onSelectRider }) => {
   return (
     <>
       {selectedRider ? <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} /> : ''}
-      {selectedRider ? <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} rider={selectedRider} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionRider={handleUpdateSuspensionRider} /> : ''}
+      {selectedRider ? <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} rider={selectedRider} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionRider={handleUpdateSuspensionRider} handleRevokeSuspension={handleRevokeSuspension} /> : ''}
       <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} />
       <div className="search-box">
         <input
