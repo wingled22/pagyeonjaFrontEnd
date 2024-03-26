@@ -44,11 +44,6 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
     (item) => item.approvalStatus === filterRiderApproval
   );
 
-  // console.log(filteredData)
-  useEffect(() => {
-    getApprovalList();
-  }, []); // Add isFetched as a dependency
-
   if (filteredData == null) {
     return <></>;
   }
