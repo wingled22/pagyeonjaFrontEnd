@@ -16,16 +16,6 @@ const RiderTable = ({ onSelectRider }) => {
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    const filtered = riders.filter((rider) =>
-      riderMatchesSearchTerm(rider)
-    );
-    setFilteredRiders(filtered);
-  }, [riders, searchTerm]);
-
-  useEffect(() => {
-    fetchRiders();
-  }, []);
 
   const fetchRiders = async () => {
     try {
@@ -34,12 +24,15 @@ const RiderTable = ({ onSelectRider }) => {
         throw new Error("Failed to fetch riders");
       }
       const data = await response.json();
-      setRiders(data);
+      setRiders(currentData=>data);
     } catch (error) {
       console.error("Error fetching riders:", error);
     }
   };
 
+  const onChangeSelectedRider = async (rider)=>{
+    onSelectRider(rider)
+  }
 
   const riderMatchesSearchTerm = (rider) => {
     if (!searchTerm) return true;
@@ -66,11 +59,22 @@ const RiderTable = ({ onSelectRider }) => {
   const getStatusColor = (status) => {
     return status === false ? "#38A843" : "#EA5943";
   };
+
+  useEffect(() => {
+    const filtered = riders.filter((rider) =>
+      riderMatchesSearchTerm(rider)
+    );
+    setFilteredRiders(filtered);
+  }, [riders, searchTerm]);
+
+  useEffect(() => {
+    fetchRiders();
+  }, []);
   return (
     <>
       <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} />
       <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
-      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} />
+      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} onSelectRider={onChangeSelectedRider} />
       <div className="search-box">
         <input
           type="text"
