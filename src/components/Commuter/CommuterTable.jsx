@@ -185,7 +185,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
     return (
         <>
-            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} />
+            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} commuters={commuters}  />
             {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} handleRevokeSuspension={handleRevokeSuspension} commuterSuspensionStatus={commuterSuspensionStatus} /> : ''}
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
@@ -206,7 +206,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                                         <span className='statusName'>{item.suspensionStatus === false ? 'Active' : 'Suspended'}</span>
                                     </Badge></td>
                                 <td style={{ borderBottom: 'groove', padding: '20px', textAlign: 'center' }}>
-                                    <button className='btn btn-success btnAction' onClick={() => { toggleUpdate() }}>
+                                    <button className='btn btn-success btnAction' onClick={() => { toggleUpdate(commuters) }}>
                                         <Icon icon={faPenToSquare} color='white' />
                                     </button>
                                     <button className='btn btn-danger btnSuspendCommuter' onClick={() => { toggleSuspension(); setCommuterID(item.commuterId); getSuspension(item.suspensionStatus, item.commuterId); }}>
