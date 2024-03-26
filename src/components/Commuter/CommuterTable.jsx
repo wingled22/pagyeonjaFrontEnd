@@ -62,16 +62,19 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 //If suspended, then get the latest end date suspension
                 const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${commuterId}&usertype=Commuter`)
                 const data = await response.json();
+
                 setReason(data.reason);
                 setSuspensionDate(data.suspensionDate);
                 setSuspensionId(data.suspensionId);
+
             }
             else {
                 clearSuspensionEntry();
             }
         }
         catch (error) {
-            console.error("Error fetching data:", error);
+            // console.error("Error fetching data:", error);
+            clearSuspensionEntry();
         }
     }
 
@@ -105,7 +108,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                     }
                 );
             }
-            else if(suspendStatus === true) //update instead
+            else if (suspendStatus === true) //update instead
             {
                 const response = await fetch(
                     "http://localhost:5180/api/Suspension/UpdateSuspension?id=" + suspensionId,
