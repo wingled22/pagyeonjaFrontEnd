@@ -157,10 +157,40 @@ const RiderTable = ({ onSelectRider }) => {
     }
   }
 
+  const handleRevokeSuspension = async () => {
+    try {
+
+        const formData =
+        {
+            userId: selectedRider.riderId,
+            userType: "Rider",
+        }
+
+        const response = await fetch(
+            "http://localhost:5180/api/Suspension/RevokeSuspension",
+            {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            }
+        );
+
+        clearSuspensionEntry();
+        fetchRiders();
+        toggleSuspension();
+
+        //toggle so that the suspension status is true
+        // suspensionStatus(false);
+
+    } catch (error) {
+        console.error("Error fetching data: ", error);
+    }
+}
+
   return (
     <>
       <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} />
-      {selectedRider ? <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} rider={selectedRider} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionRider={handleUpdateSuspensionRider} /> : ''}
+      {selectedRider ? <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} rider={selectedRider} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionRider={handleUpdateSuspensionRider} handleRevokeSuspension={handleRevokeSuspension} /> : ''}
       <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} />
       <div className="search-box">
         <input

@@ -12,7 +12,7 @@ const formatDate = (dateString) => {
     );
 };
 
-const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate, updateReason, updateSuspensionDate, handleUpdateSuspensionRider }) => {
+const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate, updateReason, updateSuspensionDate, handleUpdateSuspensionRider, handleRevokeSuspension }) => {
 
     const today = new Date().toISOString().split('T')[0];
 
