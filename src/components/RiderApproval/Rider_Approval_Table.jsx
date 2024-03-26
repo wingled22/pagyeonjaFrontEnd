@@ -9,6 +9,21 @@ import RiderApprovalSearchFilter from "./RiderApprovalSearchAndFilter";
 import { Row } from "reactstrap";
 
 const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
+  const [approvals, setApprovals] = useState([]);
+
+  const getApprovalList = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
+      );
+      const data = await response.json();
+      console.log(data, "Rider Approval: ");
+      setApprovals(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const callChangeUserID = (id) => {
     changeUserID(id);
   };
