@@ -12,6 +12,12 @@ import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocum
 
 import { useState, useEffect } from "react";
 
+function formatDate(dateString) {
+    const newDate = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return newDate.toLocaleDateString('en-US', options);
+}
+
 const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
 
     const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
@@ -20,12 +26,6 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
     const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
 
     const [startTime, setStartTime] = useState(true);
-
-    function formatDate(dateString) {
-        const newDate = new Date(dateString);
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return newDate.toLocaleDateString('en-US', options);
-    }
 
     const getCommuter = async () => {
         try {
