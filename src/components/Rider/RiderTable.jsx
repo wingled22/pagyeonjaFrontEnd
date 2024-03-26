@@ -18,17 +18,6 @@ const RiderTable = ({ onSelectRider }) => {
 
   const [riderSuspensionStatus, setRiderSuspensionStatus] = useState(null);
 
-  useEffect(() => {
-    const filtered = riders.filter((rider) =>
-      riderMatchesSearchTerm(rider)
-    );
-    setFilteredRiders(filtered);
-  }, [riders, searchTerm]);
-
-  useEffect(() => {
-    fetchRiders();
-  }, []);
-
   const fetchRiders = async () => {
     try {
       const response = await fetch("http://localhost:5180/api/RiderRegistration/GetRidersApproved");
@@ -36,12 +25,15 @@ const RiderTable = ({ onSelectRider }) => {
         throw new Error("Failed to fetch riders");
       }
       const data = await response.json();
-      setRiders(data);
+      setRiders(currentData=>data);
     } catch (error) {
       console.error("Error fetching riders:", error);
     }
   };
 
+  const onChangeSelectedRider = async (rider)=>{
+    onSelectRider(rider)
+  }
 
   const riderMatchesSearchTerm = (rider) => {
     if (!searchTerm) return true;
@@ -65,7 +57,7 @@ const RiderTable = ({ onSelectRider }) => {
     setSelectedRider(rider);
     console.log("Rider Data:", rider); // Logging rider data
   };
-
+ 
   const getStatusColor = (status) => {
     return status === false ? "#38A843" : "#EA5943";
   };
@@ -192,11 +184,21 @@ const RiderTable = ({ onSelectRider }) => {
     }
 }
 
+  useEffect(() => {
+    const filtered = riders.filter((rider) =>
+      riderMatchesSearchTerm(rider)
+    );
+    setFilteredRiders(filtered);
+  }, [riders, searchTerm]);
+
+  useEffect(() => {
+    fetchRiders();
+  }, []);
   return (
     <>
       {selectedRider ? <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} /> : ''}
       {selectedRider ? <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} rider={selectedRider} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionRider={handleUpdateSuspensionRider} handleRevokeSuspension={handleRevokeSuspension} /> : ''}
-      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} />
+      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} onSelectRider={onChangeSelectedRider} />
       <div className="search-box">
         <input
           type="text"
@@ -240,7 +242,7 @@ const RiderTable = ({ onSelectRider }) => {
                   </p>
                 </td>
                 <td className="rider-td">
-                  <button className="btn btn-primary" onClick={() => toggleModal(rider)}>
+                <button className="btn btn-primary" onClick={() => toggleModal(rider)}>
                     <Icon icon={faCircleInfo} color="white" />
                   </button>
                   <button className="btn btn-success" onClick={() => toggleUpdateModal(rider)}>
