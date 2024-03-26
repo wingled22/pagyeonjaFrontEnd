@@ -50,7 +50,7 @@ const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate,
 
                     </ModalBody>
                     <ModalFooter className='riderSuspensionFooter' style={{ justifyContent: 'space-between' }}>
-                        <Button className='btn btn-warning btnRiderRevokeSuspension'>Revoke Suspension</Button>
+                        <Button className='btn btn-warning btnRiderRevokeSuspension' onClick={() => {handleRevokeSuspension()}}>Revoke Suspension</Button>
                         <Button className='btn btnRiderConfirmSuspension' onClick={() => { handleUpdateSuspensionRider(rider.suspensionStatus) }}>Confirm</Button>
                     </ModalFooter>
                 </Form>
