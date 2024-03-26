@@ -24,7 +24,7 @@ import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const Requirements = ({ userId }) => {
-  console.log('requirements',userId);
+  console.log("requirements", userId);
   const [document, setDocument] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +46,7 @@ const Requirements = ({ userId }) => {
     setDocumentFiles(
       document.documents.filter(
         (item) =>
-          item.documentName.includes(documentType) && item.userId === userid
+          item.documentName.includes(documentType) && item.userId === userId
       )
     );
   };

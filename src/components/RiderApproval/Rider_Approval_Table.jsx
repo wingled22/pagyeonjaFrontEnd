@@ -38,13 +38,12 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
 
-  console.log(filteredData)
+  console.log(filteredData);
   useEffect(() => {
     getApprovalList();
   }, []); // Add isFetched as a dependency
 
-
-  if(filteredData == null){
+  if (filteredData == null) {
     return <></>;
   }
 
@@ -59,8 +58,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
               <tr
                 key={item.id}
                 onClick={() => {
-                  callChangeUserID(item.id);
-                  console.log(item.id)
+                  callChangeUserID(item.userId);
                 }}
               >
                 <td className="td-style">
@@ -70,10 +68,10 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
                         item.profilePath != null
                           ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
                           : images1
-                      })`, // use default image if profilePath is null
-                      backgroundSize: "cover", // this will make sure the image covers the whole div
-                      height: "100px", // you can set this to whatever you want
-                      width: "100px", // you can set this to whatever you want
+                      })`,
+                      backgroundSize: "cover",
+                      height: "100px",
+                      width: "100px",
                     }}
                     className="rider-table-image"
                   />
