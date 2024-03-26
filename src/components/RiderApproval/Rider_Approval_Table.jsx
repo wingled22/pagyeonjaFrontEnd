@@ -82,22 +82,26 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
               <tr
                 key={item.id}
                 onClick={() => {
-                  callChangeUserID(item.id);
-                  // console.log(item.id)
+                  callChangeUserID(item.userId);
                 }}
               >
                 <td className="td-style">
-                  <img
-                    src={
-                      item.profilePath != null
-                        ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
-                        : images1
-                    } // use default image if profilePath is null
+                  <div
+                    style={{
+                      backgroundImage: `url(${
+                        item.profilePath != null
+                          ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
+                          : images1
+                      })`,
+                      backgroundSize: "cover",
+                      height: "100px",
+                      width: "100px",
+                    }}
                     className="rider-table-image"
                   />
                 </td>
                 <td className="td-style">
-                  {item.firstName} {item.middleName} {item.lastName}
+                  {item.firstName} {item.middleName[0]}. {item.lastName}
                 </td>
                 <td className="td-style">
                   <Badge

@@ -9,24 +9,7 @@ import {
 import "../../assets/css/RiderDocumentViewerModal.css";
 import { useState } from "react";
 import ViewImageModal from "../../components/Commuter/ViewImageModal.jsx";
-const RiderDocumentViewerModal = ({ isOpen, untoggle, document }) => {
-  const data = [
-    {
-      id: 1,
-      documentName: "National ID",
-      type: "Front",
-      path: "../../assets/image/cs3.png",
-    },
-    {
-      id: 2,
-      documentName: "National ID",
-      type: "Back",
-      path: "../../assets/img/documentViewerImages/pictureCommuterFront.jpg",
-    },
-    { id: 3, documentName: "National ID", type: "Back" },
-    { id: 4, documentName: "National ID", type: "Back" },
-  ];
-  console.log(document);
+const RiderDocumentViewerModal = ({ isOpen, untoggle, document, userName }) => {
   const [modalImageViewer, setModalImageViewer] = useState(false);
   const toggleImageViewer = () => setModalImageViewer(!modalImageViewer);
   const [imageSource, setImageSource] = useState("");
@@ -48,7 +31,7 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle, document }) => {
         <ModalBody>
           <center>
             <h5>
-              <strong>Juan Dela Cruz</strong>
+              <strong>{userName}</strong>
             </h5>
           </center>
           <Container className="documentViewerContainer">
@@ -70,29 +53,30 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle, document }) => {
                 </tr>
               </thead>
               <tbody>
-                {document.map((item) => (
-                  <tr key={item.id}>
-                    <td className="itemBodyDocumentViewer">
-                      {item.documentName}
-                    </td>
-                    <td className="itemBodyDocumentViewer">
-                      {item.documentView}
-                    </td>
-                    <td className="itemBodyDocumentViewer">
-                      <Button
-                        className="btn btn-warning btnView"
-                        onClick={() => {
-                          toggleImageViewer(),
-                            setImageSource(
-                              `http://localhost:5180/img/documents/${item.documentPath}`
-                            );
-                        }}
-                      >
-                        View
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
+                {document &&
+                  document.map((item) => (
+                    <tr key={item.id}>
+                      <td className="itemBodyDocumentViewer">
+                        {item.documentName}
+                      </td>
+                      <td className="itemBodyDocumentViewer">
+                        {item.documentView}
+                      </td>
+                      <td className="itemBodyDocumentViewer">
+                        <Button
+                          className="btn btn-warning btnView"
+                          onClick={() => {
+                            toggleImageViewer(),
+                              setImageSource(
+                                `http://localhost:5180/img/documents/${item.documentPath}`
+                              );
+                          }}
+                        >
+                          View
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
                 {/* Add more rows as needed */}
               </tbody>
             </table>
