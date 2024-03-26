@@ -12,7 +12,7 @@ const formatDate = (dateString) => {
     );
 };
 
-const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate, updateReason, updateSuspensionDate, handleUpdateSuspensionRider }) => {
+const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate, updateReason, updateSuspensionDate, handleUpdateSuspensionRider, handleRevokeSuspension }) => {
 
     const today = new Date().toISOString().split('T')[0];
 
@@ -50,8 +50,8 @@ const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate,
 
                     </ModalBody>
                     <ModalFooter className='riderSuspensionFooter' style={{ justifyContent: 'space-between' }}>
-                        <Button className='btn btn-warning btnRiderRevokeSuspension'>Revoke Suspension</Button>
-                        <Button className='btn btnRiderConfirmSuspension' onClick={() => { handleUpdateSuspensionRider(rider.suspensionStatus) }}>Confirm</Button>
+                        {rider.suspensionStatus ? <Button className='btn btn-warning btnRiderRevokeSuspension' onClick={() => {handleRevokeSuspension()}}>Revoke Suspension</Button> : ''}
+                        {reason !== "" && suspensionDate !== "" ?  <Button className='btn btnRiderConfirmSuspension' onClick={() => { handleUpdateSuspensionRider(rider.suspensionStatus) }}>Confirm</Button> : ''}
                     </ModalFooter>
                 </Form>
             </Modal>
