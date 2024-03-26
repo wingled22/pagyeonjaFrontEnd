@@ -8,22 +8,7 @@ import images3 from "../../assets/image/cs3.png";
 import RiderApprovalSearchFilter from "./RiderApprovalSearchAndFilter";
 import { Row } from "reactstrap";
 
-const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
-  const [approvals, setApprovals] = useState([]);
-
-  const getApprovalList = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
-      );
-      const data = await response.json();
-
-      setApprovals(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
   const callChangeUserID = (id) => {
     changeUserID(id);
   };
@@ -31,25 +16,22 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
-  const [filterRiderApproval, setfilterRiderApproval] = useState('');
+  const [filterRiderApproval, setfilterRiderApproval] = useState("");
 
   const handleFilter = (value) => {
     let newValue;
     if (value === "pending") {
-        newValue = null;
+      newValue = null;
     } else if (value === "rejected") {
-        newValue = false;
+      newValue = false;
     } else if (value === "approved") {
-        newValue = true;
+      newValue = true;
     }
 
-    
     setfilterRiderApproval(newValue);
 
     // console.log(newValue,"mao ni siya ang new value")
-}
-
-  
+  };
 
   const filteredData = approvals.filter(
     (item) =>
@@ -58,31 +40,20 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
 
-
-
   const RiderApprovalFilterStatus = filteredData.filter(
-    (item) =>
-       item.approvalStatus === filterRiderApproval  
-  )
+    (item) => item.approvalStatus === filterRiderApproval
+  );
 
-
-
-
-  
-
-  // console.log(filteredData)
-  useEffect(() => {
-    getApprovalList();
-  }, []); // Add isFetched as a dependency
-
-
-  if(filteredData == null){
+  if (filteredData == null) {
     return <></>;
   }
 
   return (
     <>
-      <RiderApprovalSearchFilter onSearch={handleSearch}  filterStatus={handleFilter}/>
+      <RiderApprovalSearchFilter
+        onSearch={handleSearch}
+        filterStatus={handleFilter}
+      />
 
       <div className="rider-approval-table-container">
         <table className="table-in">
@@ -114,7 +85,13 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
                 </td>
                 <td className="td-style">
                   <Badge
-                    text={item.approvalStatus === true ? "Approved" : "Pending"}
+                    text={
+                      item.approvalStatus === true
+                        ? "approved"
+                        : item.approvalStatus == false
+                        ? "rejected"
+                        : "Pending"
+                    }
                   />
                 </td>
               </tr>
