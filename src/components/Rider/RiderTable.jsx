@@ -55,7 +55,7 @@ const RiderTable = ({ onSelectRider }) => {
   const toggleUpdateModal = (rider) => {
     setModalUpdateRider(!modalUpdateRider);
     setSelectedRider(rider);
-    console.log("Rider Data:", rider); // Logging rider data
+    console.log("Rider Data:",rider); // Logging rider data
   };
  
   const getStatusColor = (status) => {

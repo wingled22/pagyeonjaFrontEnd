@@ -9,39 +9,18 @@ import CommuterApprovalSearchAndFilter from "./CommuterApprovalSearchFilter";
 
 const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
   const data = [
-    { id: 111, imageSrc: images1, name: "Carlo M. Gesta", status: "Approved" },
-    {
-      id: 22,
-      imageSrc: images2,
-      name: "Cliff Richard N. Languido",
-      status: "Pending",
-    },
-    {
-      id: 333,
-      imageSrc: images3,
-      name: "Axle Deimitry Adolfo",
-      status: "Rejected",
-    },
-    {
-      id: 32,
-      imageSrc: images1,
-      name: "Charls Jay C. Magdalaga",
-      status: "Rejected",
-    },
-    { id: 34, imageSrc: images2, name: "Client", status: "Approved" },
-    { id: 35, imageSrc: images3, name: "Dawn Keith", status: "Approved" },
-    { id: 14, imageSrc: images1, name: "John", status: "Pending" },
-    { id: 223, imageSrc: images2, name: "Jane", status: "Approved" },
-    { id: 335, imageSrc: images3, name: "Bob", status: "Rejected" },
-    { id: 37, imageSrc: images1, name: "Bob", status: "Approved" },
-    { id: 38, imageSrc: images2, name: "Bob", status: "Approved" },
-    { id: 39, imageSrc: images3, name: "Bob", status: "Approved" },
-    { id: 16, imageSrc: images1, name: "John", status: "Pending" },
-    { id: 28, imageSrc: images2, name: "Jane", status: "Approved" },
-    { id: 396, imageSrc: images3, name: "Bob", status: "Rejected" },
-    { id: 30, imageSrc: images1, name: "Bob", status: "Approved" },
-    { id: 345324, imageSrc: images2, name: "Bob", status: "Pending" },
-    { id: 32342, imageSrc: images3, name: "Bob", status: "Approved" },
+    { id: 111, imageSrc: images1, firstName: "Carlo",middleName:"M.", lastName:"Gesta" ,status: "Approved" },
+    { id: 11111, imageSrc: images1, firstName: "Cliff Richard",middleName:"N.", lastName:"Languido" ,status: "Pending" },
+    { id: 1111, imageSrc: images1, firstName: "Charls Jay",middleName:"C.", lastName:"Magdalaga" ,status: "Rejected" },
+    { id: 11, imageSrc: images1, firstName: "Axle",middleName:"D.", lastName:"Adolfo" ,status: "Approved" },
+    { id: 1, imageSrc: images1, firstName: "Dawn Keith",middleName:"F.", lastName:"Francisco" ,status: "Pending" },
+    { id: 22222, imageSrc: images1, firstName: "Neil Chris",middleName:"S.", lastName:"Ursal" ,status: "Rejected" },
+    { id: 2222, imageSrc: images1, firstName: "Ademel",middleName:"V.", lastName:"Viagedor" ,status: "Approved" },
+    { id: 222, imageSrc: images1, firstName: "Nino",middleName:"U.", lastName:"Abao" ,status: "Pending" },
+    { id: 22, imageSrc: images1, firstName: "Client",middleName:"M.", lastName:"Booc" ,status: "Rejected" },
+    { id: 2, imageSrc: images1, firstName: "Septh Krysler",middleName:"L.", lastName:"Camay" ,status: "Approved" },
+    { id: 3, imageSrc: images1, firstName: "Septh Kryster",middleName:"L.", lastName:"Camay" ,status: "Approved" },
+   
   ];
 
   const callChangeUserID = (id) => 
@@ -70,12 +49,15 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
   
 
   const CommuterApprovalFilteredData = data.filter(item =>
-    item.name.toLowerCase().includes(searchCommuterApprovalTerm) ||
+
+ 
+   ( item.firstName +' '+item.middleName +' '+item.lastName).toLowerCase().includes(searchCommuterApprovalTerm) ||
     item.status.toLowerCase().includes(searchCommuterApprovalTerm)
+    
   );
   
   const CommuterApprovalFilterStatus = CommuterApprovalFilteredData.filter(item =>
-    item.name.toLowerCase().includes(filterCommuterApproval) ||
+    ( item.firstName +' '+item.middleName +' '+item.lastName).toLowerCase().includes(filterCommuterApproval) ||
     item.status.toLowerCase().includes(filterCommuterApproval)
   );
   
@@ -95,7 +77,7 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID  }) => {
               <td className="commuter-td-style">
                 <img src={item.imageSrc} className="commuter-table-image" />
               </td>
-              <td className="commuter-td-style">{item.name}</td>
+              <td className="commuter-td-style">{item.firstName+' '+ item.middleName +' '+ item.lastName}</td>
               <td className="commuter-td-style">
                 <CommuterApprovalBadge text={item.status} />
               </td>

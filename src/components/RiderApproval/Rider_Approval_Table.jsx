@@ -35,13 +35,18 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
 
   const filteredData = approvals.filter(
     (item) =>
-      item.firstName.toLowerCase().includes(searchTerm) ||
-      item.lastName.toLowerCase().includes(searchTerm)
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(searchTerm) || item.approvalStatus == searchTerm
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
 
   const RiderApprovalFilterStatus = filteredData.filter(
-    (item) => item.approvalStatus === filterRiderApproval
+    (item) =>
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(filterRiderApproval) ||
+      item.approvalStatus == filterRiderApproval
   );
 
   if (filteredData == null) {
