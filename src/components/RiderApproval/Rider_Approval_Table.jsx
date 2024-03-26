@@ -110,7 +110,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
                   />
                 </td>
                 <td className="td-style">
-                  {item.firstName} {item.middleName[0]}. {item.lastName}
+                  {item.firstName} {item.middleName ? item.middleName[0] + '.' : ''} {item.lastName}
                 </td>
                 <td className="td-style">
                   <Badge
