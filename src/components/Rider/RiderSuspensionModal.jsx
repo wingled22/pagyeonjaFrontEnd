@@ -14,7 +14,11 @@ const formatDate = (dateString) => {
 
 const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate, updateReason, updateSuspensionDate, handleUpdateSuspensionRider, handleRevokeSuspension }) => {
 
-    const today = new Date().toISOString().split('T')[0];
+
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const formattedTomorrow = tomorrow.toISOString().split('T')[0];
 
     return (
         <>
@@ -42,7 +46,7 @@ const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate,
                                 name="date"
                                 placeholder="date placeholder"
                                 type="date"
-                                min={today}
+                                min={formattedTomorrow}
                                 value={formatDate(suspensionDate)}
                                 onChange={(e) => updateSuspensionDate(e.target.value)}
                             />
