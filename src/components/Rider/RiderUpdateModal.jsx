@@ -67,7 +67,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
                 fetchRiders()
                 onSelectRider(formData)
                 toggle();
-                // console.log(rider.riderId)
+                console.log(formData);
             }
             else {
                 const errorData = await response.json();

@@ -201,7 +201,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                                         <span className='statusName'>{item.suspensionStatus === false ? 'Active' : 'Suspended'}</span>
                                     </Badge></td>
                                 <td style={{ borderBottom: 'groove', padding: '20px', textAlign: 'center' }}>
-                                    <button className='btn btn-success btnAction' onClick={() => { toggleUpdate(commuters) }}>
+                                    <button className='btn btn-success btnAction' onClick={() => { toggleUpdate(commuters); console.log("Commuters: ",commuters) }}>
                                         <Icon icon={faPenToSquare} color='white' />
                                     </button>
                                     <button className='btn btn-danger btnSuspendCommuter' onClick={() => { toggleSuspension(); setCommuterID(item.commuterId); getSuspension(item.suspensionStatus, item.commuterId); }}>
