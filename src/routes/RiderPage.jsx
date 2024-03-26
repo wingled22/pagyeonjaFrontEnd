@@ -5,9 +5,10 @@ import RiderProfile from "../components/Rider/RiderProfile.jsx";
 import { Row, Col, Container } from "reactstrap";
 import { useState } from "react";
 const RiderPage = () => {
-
   const [selectedRider, setSelectedRider] = useState(null);
-  const updateSelectRider = (id) => { setSelectedRider(id); }
+  const updateSelectRider = (id) => {
+    setSelectedRider(id);
+  };
 
   return (
     <>
@@ -18,9 +19,7 @@ const RiderPage = () => {
               <h2 className="rider-profile-header">Rider Profile</h2>
             </div>
           </div>
-          <Col>
-          {selectedRider && <RiderProfile rider={selectedRider} />}
-          </Col>
+          <Col>{selectedRider && <RiderProfile rider={selectedRider} />}</Col>
         </Row>
         <Row>
           <Col>

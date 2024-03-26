@@ -16,17 +16,7 @@ const RiderTable = ({ onSelectRider }) => {
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    fetchRiders();
-  }, []);
-
-  useEffect(() => {
-    const filtered = riders.filter((rider) =>
-      riderMatchesSearchTerm(rider)
-    );
-    setFilteredRiders(filtered);
-  }, [riders, searchTerm]);
-
+  const [riderSuspensionStatus, setRiderSuspensionStatus] = useState(null);
 
   const fetchRiders = async () => {
     try {
@@ -35,12 +25,15 @@ const RiderTable = ({ onSelectRider }) => {
         throw new Error("Failed to fetch riders");
       }
       const data = await response.json();
-      setRiders(data);
+      setRiders(currentData=>data);
     } catch (error) {
       console.error("Error fetching riders:", error);
     }
   };
 
+  const onChangeSelectedRider = async (rider)=>{
+    onSelectRider(rider)
+  }
 
   const riderMatchesSearchTerm = (rider) => {
     if (!searchTerm) return true;
@@ -54,24 +47,158 @@ const RiderTable = ({ onSelectRider }) => {
     setSelectedRider(rider);
   };
 
-  const toggleSuspension = () => {
+  const toggleSuspension = (rider) => {
     setModalSuspension(!modalSuspension);
+    setSelectedRider(rider);
   };
 
   const toggleUpdateModal = (rider) => {
     setModalUpdateRider(!modalUpdateRider);
     setSelectedRider(rider);
-    console.log("Rider Data:", rider); // Logging rider data
+    console.log("Rider Data:",rider); // Logging rider data
   };
  
   const getStatusColor = (status) => {
     return status === false ? "#38A843" : "#EA5943";
   };
+
+  const [reason, setReason] = useState('');
+  const [suspensionDate, setSuspensionDate] = useState("");
+  const [suspensionId, setSuspensionId] = useState(null);
+
+  const updateReason = (e) => { setReason(e) }
+  const updateSuspensionDate = (e) => { setSuspensionDate(e) }
+
+  const getSuspension = async (suspendStatus, riderId) => {
+    try {
+      setRiderSuspensionStatus(suspendStatus);
+      if (suspendStatus === true) {
+        //If suspended, then get the latest end date suspension
+        const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${riderId}&usertype=Rider`)
+        const data = await response.json();
+
+        setReason(data.reason);
+        setSuspensionDate(data.suspensionDate);
+        setSuspensionId(data.suspensionId);
+      }
+      else {
+        clearSuspensionEntry();
+      }
+    }
+    catch (error) {
+      clearSuspensionEntry();
+    }
+  }
+
+  const clearSuspensionEntry = () => {
+    setReason("");
+    setSuspensionDate("");
+  }
+
+  const handleUpdateSuspensionRider = async (suspendStatus) => {
+    try {
+      //Add a condition here that if the suspension status is already true then update the data instead
+      const formData =
+      {
+        userId: selectedRider.riderId,
+        userType: "Rider",
+        reason: reason,
+        suspensionDate: suspensionDate
+      }
+
+      const updateFormData =
+      {
+        suspensionId: suspensionId,
+        userId: selectedRider.riderId,
+        userType: "Rider",
+        reason: reason,
+        suspensionDate: suspensionDate,
+        status : true
+      }
+
+      if (suspendStatus === false) {
+        const response = await fetch(
+          "http://localhost:5180/api/Suspension/RegisterSuspension",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+          }
+        );
+      }
+      else if (suspendStatus === true) //update instead
+      {
+        const response = await fetch(
+          "http://localhost:5180/api/Suspension/UpdateSuspension?id=" + suspensionId,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updateFormData)
+          }
+        );
+      }
+
+      clearSuspensionEntry();
+      fetchRiders();
+      toggleSuspension();
+
+      //toggle so that the suspension status is true
+      // suspensionStatus(true);
+
+    } catch (error) {
+      console.error("Error fetching data: ", error)
+    }
+  }
+
+  const handleRevokeSuspension = async () => {
+    try {
+
+        const formData =
+        {
+          suspensionId: suspensionId,
+          userId: selectedRider.riderId,
+          userType: "Rider",
+          reason: reason,
+          suspensionDate: suspensionDate,
+          status: false
+        }
+
+        const response = await fetch(
+            "http://localhost:5180/api/Suspension/RevokeSuspension",
+            {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            }
+        );
+
+        clearSuspensionEntry();
+        fetchRiders();
+        toggleSuspension();
+
+        //toggle so that the suspension status is true
+        // suspensionStatus(false);
+
+    } catch (error) {
+        console.error("Error fetching data: ", error);
+    }
+}
+
+  useEffect(() => {
+    const filtered = riders.filter((rider) =>
+      riderMatchesSearchTerm(rider)
+    );
+    setFilteredRiders(filtered);
+  }, [riders, searchTerm]);
+
+  useEffect(() => {
+    fetchRiders();
+  }, []);
   return (
     <>
-      <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} />
-      <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} />
-      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} />
+      {selectedRider ? <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} /> : ''}
+      {selectedRider ? <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} rider={selectedRider} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionRider={handleUpdateSuspensionRider} handleRevokeSuspension={handleRevokeSuspension} /> : ''}
+      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} onSelectRider={onChangeSelectedRider} />
       <div className="search-box">
         <input
           type="text"
@@ -115,13 +242,13 @@ const RiderTable = ({ onSelectRider }) => {
                   </p>
                 </td>
                 <td className="rider-td">
-                  <button className="btn btn-primary" onClick={() => toggleModal(rider)}>
+                <button className="btn btn-primary" onClick={() => toggleModal(rider)}>
                     <Icon icon={faCircleInfo} color="white" />
                   </button>
                   <button className="btn btn-success" onClick={() => toggleUpdateModal(rider)}>
                     <Icon icon={faPenToSquare} color="white" />
                   </button>
-                  <button className="btn btn-danger" onClick={toggleSuspension}>
+                  <button className="btn btn-danger" onClick={() => { toggleSuspension(rider), getSuspension(rider.suspensionStatus, rider.riderId) }}>
                     <Icon icon={faCirclePause} color="white" />
                   </button>
                 </td>

@@ -8,21 +8,7 @@ import images3 from "../../assets/image/cs3.png";
 import RiderApprovalSearchFilter from "./RiderApprovalSearchAndFilter";
 import { Row } from "reactstrap";
 
-const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
-  const [approvals, setApprovals] = useState([]);
-
-  const getApprovalList = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
-      );
-      const data = await response.json();
-      setApprovals(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
   const callChangeUserID = (id) => {
     changeUserID(id);
   };
@@ -30,25 +16,54 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
+  const [filterRiderApproval, setfilterRiderApproval] = useState("");
+
+  const handleFilter = (value) => {
+    let newValue;
+    if (value === "pending") {
+      newValue = null;
+    } else if (value === "rejected") {
+      newValue = false;
+    } else if (value === "approved") {
+      newValue = true;
+    }
+
+    setfilterRiderApproval(newValue);
+
+    // console.log(newValue,"mao ni siya ang new value")
+  };
 
   const filteredData = approvals.filter(
     (item) =>
-      item.firstName.toLowerCase().includes(searchTerm) ||
-      item.lastName.toLowerCase().includes(searchTerm)
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(searchTerm) || item.approvalStatus == searchTerm
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
-  useEffect(() => {
-    getApprovalList();
-  }, []); // Add isFetched as a dependency
+
+  const RiderApprovalFilterStatus = filteredData.filter(
+    (item) =>
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(filterRiderApproval) ||
+      item.approvalStatus == filterRiderApproval
+  );
+
+  if (filteredData == null) {
+    return <></>;
+  }
 
   return (
     <>
-      <RiderApprovalSearchFilter onSearch={handleSearch} />
+      <RiderApprovalSearchFilter
+        onSearch={handleSearch}
+        filterStatus={handleFilter}
+      />
 
       <div className="rider-approval-table-container">
         <table className="table-in">
           <tbody>
-            {filteredData.map((item) => (
+            {RiderApprovalFilterStatus.map((item) => (
               <tr
                 key={item.id}
                 onClick={() => {
@@ -56,21 +71,32 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
                 }}
               >
                 <td className="td-style">
-                  <img
-                    src={
-                      item.profilePath != null
-                        ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
-                        : images1
-                    } // use default image if profilePath is null
+                  <div
+                    style={{
+                      backgroundImage: `url(${
+                        item.profilePath != null
+                          ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
+                          : images1
+                      })`,
+                      backgroundSize: "cover",
+                      height: "100px",
+                      width: "100px",
+                    }}
                     className="rider-table-image"
                   />
                 </td>
                 <td className="td-style">
-                  {item.firstName} {item.middleName} {item.lastName}
+                  {item.firstName} {item.middleName[0]}. {item.lastName}
                 </td>
                 <td className="td-style">
                   <Badge
-                    text={item.approvalStatus === true ? "Approved" : "Pending"}
+                    text={
+                      item.approvalStatus === true
+                        ? "approved"
+                        : item.approvalStatus == false
+                        ? "rejected"
+                        : "Pending"
+                    }
                   />
                 </td>
               </tr>

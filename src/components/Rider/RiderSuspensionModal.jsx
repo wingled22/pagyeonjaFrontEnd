@@ -1,21 +1,39 @@
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Input } from 'reactstrap';
 import "../../assets/css/RiderSuspensionModal.css";
-const RiderSuspensionModal = ({ isOpen, untoggle }) => {
 
-    const today = new Date().toISOString().split('T')[0];
+const formatDate = (dateString) => {
+    let date = new Date(dateString);
+    return (
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1).toString().padStart(2, "0") +
+        "-" +
+        date.getDate().toString().padStart(2, "0")
+    );
+};
+
+const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate, updateReason, updateSuspensionDate, handleUpdateSuspensionRider, handleRevokeSuspension }) => {
+
+
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const formattedTomorrow = tomorrow.toISOString().split('T')[0];
 
     return (
         <>
             <Modal isOpen={isOpen} toggle={untoggle} centered>
                 <ModalHeader toggle={untoggle} className='riderSuspensionHeader'>Rider Suspension</ModalHeader>
-                <Form>
+                <Form form="true">
                     <ModalBody>
-                        <center><h5><strong>Juan Dela Cruz</strong></h5></center>                        <div>
+                        <center><h5><strong>{rider.firstName} {rider.middleName ? rider.middleName[0] + '.' : ''} {rider.lastName}</strong></h5></center>                        <div>
                             <label htmlFor="" style={{ margin: '5px' }}><strong>Reason : </strong></label>
                             <Input className='inputReason'
                                 name='Reason'
                                 multiple
                                 type="textarea"
+                                value={reason}
+                                onChange={(e) => updateReason(e.target.value)}
                             />
                         </div>
 
@@ -28,14 +46,16 @@ const RiderSuspensionModal = ({ isOpen, untoggle }) => {
                                 name="date"
                                 placeholder="date placeholder"
                                 type="date"
-                                min={today}
+                                min={formattedTomorrow}
+                                value={formatDate(suspensionDate)}
+                                onChange={(e) => updateSuspensionDate(e.target.value)}
                             />
                         </div>
 
                     </ModalBody>
                     <ModalFooter className='riderSuspensionFooter' style={{ justifyContent: 'space-between' }}>
-                        <Button className='btn btn-warning btnRiderRevokeSuspension'>Revoke Suspension</Button>
-                        <Button className='btn btnRiderConfirmSuspension'>Confirm</Button>
+                        {rider.suspensionStatus ? <Button className='btn btn-warning btnRiderRevokeSuspension' onClick={() => {handleRevokeSuspension()}}>Revoke Suspension</Button> : ''}
+                        {reason !== "" && suspensionDate !== "" ?  <Button className='btn btnRiderConfirmSuspension' onClick={() => { handleUpdateSuspensionRider(rider.suspensionStatus) }}>Confirm</Button> : ''}
                     </ModalFooter>
                 </Form>
             </Modal>

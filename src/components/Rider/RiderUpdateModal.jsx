@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Button, Row, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-const RiderUpdateModal = ({ isOpen, toggle, rider }) => {
+const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) => {
 
     function formatDate(dateString) {
         const newDate = new Date(dateString);
@@ -51,7 +51,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
-        console.log(formData);
+        // console.log(formData);
         try {
             const response = await fetch(
                 `http://localhost:5180/api/RiderRegistration/UpdateRider?id=${formData.riderId}`, {
@@ -64,8 +64,10 @@ const RiderUpdateModal = ({ isOpen, toggle, rider }) => {
             );
             if (response.ok) {
                 console.log("Update na intawn");
+                fetchRiders()
+                onSelectRider(formData)
                 toggle();
-                window.location.reload();
+                console.log(formData);
             }
             else {
                 const errorData = await response.json();
@@ -84,7 +86,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider }) => {
         <>
             <Modal isOpen={isOpen} toggle={toggle} centered>
                 <ModalHeader toggle={toggle} className='commuterSuspensionHeader'>Rider Update Info</ModalHeader>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} form="true">
                     <ModalBody>
 
                         <Input
@@ -158,13 +160,13 @@ const RiderUpdateModal = ({ isOpen, toggle, rider }) => {
                                             {formData.sex || 'Select Sex'}
                                         </DropdownToggle>
                                         <DropdownMenu>
-                                            <DropdownItem onClick={() => handleChange({ target: { name: "sex", value: "m" } })}>Male</DropdownItem>
-                                            <DropdownItem onClick={() => handleChange({ target: { name: "sex", value: "f" } })}>Female</DropdownItem>
+                                            <DropdownItem onClick={() => handleChange({ target: { name: "sex", value: "Male" } })}>Male</DropdownItem>
+                                            <DropdownItem onClick={() => handleChange({ target: { name: "sex", value: "Female" } })}>Female</DropdownItem>
                                         </DropdownMenu>
                                     </Dropdown>
                                 </FormGroup>
                             </Col>
-                            <Col className="col-6 col-sm-4">
+                            <Col className="col-6 col-sm-4">    
                                 <FormGroup>
                                     <Label for="civilStatus"><strong>Civil Status:</strong></Label>
                                     <Input
