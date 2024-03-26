@@ -17,7 +17,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
         "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
       );
       const data = await response.json();
-
+      console.log(data,"Rider Approval: ");
       setApprovals(data);
     } catch (error) {
       console.error(error);
@@ -42,7 +42,6 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
     } else if (value === "approved") {
         newValue = true;
     }
-
     
     setfilterRiderApproval(newValue);
 
@@ -53,8 +52,9 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
 
   const filteredData = approvals.filter(
     (item) =>
-      item.firstName.toLowerCase().includes(searchTerm) ||
-      item.lastName.toLowerCase().includes(searchTerm)
+       (item.firstName +' '+item.middleName +' '+item.lastName).toLowerCase().includes(searchTerm) ||
+    
+      item.approvalStatus == searchTerm  
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
 
@@ -62,7 +62,8 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
 
   const RiderApprovalFilterStatus = filteredData.filter(
     (item) =>
-       item.approvalStatus === filterRiderApproval  
+    (item.firstName +' '+item.middleName +' '+item.lastName).toLowerCase().includes(filterRiderApproval) ||
+    item.approvalStatus == filterRiderApproval  
   )
 
 

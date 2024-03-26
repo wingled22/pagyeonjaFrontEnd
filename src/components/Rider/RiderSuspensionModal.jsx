@@ -20,7 +20,7 @@ const RiderSuspensionModal = ({ isOpen, untoggle, rider, reason, suspensionDate,
         <>
             <Modal isOpen={isOpen} toggle={untoggle} centered>
                 <ModalHeader toggle={untoggle} className='riderSuspensionHeader'>Rider Suspension</ModalHeader>
-                <Form>
+                <Form form="true">
                     <ModalBody>
                         <center><h5><strong>{rider.firstName} {rider.middleName ? rider.middleName[0] + '.' : ''} {rider.lastName}</strong></h5></center>                        <div>
                             <label htmlFor="" style={{ margin: '5px' }}><strong>Reason : </strong></label>

@@ -84,7 +84,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders }) => {
         <>
             <Modal isOpen={isOpen} toggle={toggle} centered>
                 <ModalHeader toggle={toggle} className='commuterSuspensionHeader'>Rider Update Info</ModalHeader>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} form="true">
                     <ModalBody>
 
                         <Input
