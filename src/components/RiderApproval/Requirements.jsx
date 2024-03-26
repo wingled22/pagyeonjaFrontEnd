@@ -17,6 +17,7 @@ import images3 from "../../assets/image/cs3.png";
 import { auto } from "@popperjs/core";
 
 import RiderDocumentViewerModal from "../Rider/RiderDocumentViewerModal";
+  
 
 import ViewRequirements from "./RequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
