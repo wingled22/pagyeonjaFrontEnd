@@ -190,6 +190,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
       fare: "₱15.00",
     },
   ];
+  
   if (rider == null) {
     return <></>;
   }
@@ -332,8 +333,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                     {rider.suspensionStatus === true ? "Suspended" : "Active"}
                   </span>
                 </div>
-                {timeLeft.length === 0 ? '' : <div style={{ display: rider.suspensionStatus === true ? 'block' : 'none' }} className="labelInfo">
-                  Duration: <span className={`textInfo ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}m: {timeLeft.seconds}s</span>
+                {timeLeft.length === 0 ? '' : <div style={{ display: rider.suspensionStatus === true ? 'block' : 'none' }} className="label-text">
+                  Duration: <span style={{fontSize:"17px"}}className={`textInfo ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}m: {timeLeft.seconds}s</span>
                 </div>}
               </Container>
             </Col>
