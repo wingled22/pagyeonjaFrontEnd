@@ -17,6 +17,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
         "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
       );
       const data = await response.json();
+
       setApprovals(data);
     } catch (error) {
       console.error(error);
@@ -30,6 +31,25 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
+  const [filterRiderApproval, setfilterRiderApproval] = useState('');
+
+  const handleFilter = (value) => {
+    let newValue;
+    if (value === "pending") {
+        newValue = null;
+    } else if (value === "rejected") {
+        newValue = false;
+    } else if (value === "approved") {
+        newValue = true;
+    }
+
+    
+    setfilterRiderApproval(newValue);
+
+    // console.log(newValue,"mao ni siya ang new value")
+}
+
+  
 
   const filteredData = approvals.filter(
     (item) =>
@@ -38,7 +58,19 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
 
-  console.log(filteredData)
+
+
+  const RiderApprovalFilterStatus = filteredData.filter(
+    (item) =>
+       item.approvalStatus === filterRiderApproval  
+  )
+
+
+
+
+  
+
+  // console.log(filteredData)
   useEffect(() => {
     getApprovalList();
   }, []); // Add isFetched as a dependency
@@ -50,12 +82,12 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
 
   return (
     <>
-      <RiderApprovalSearchFilter onSearch={handleSearch} />
+      <RiderApprovalSearchFilter onSearch={handleSearch}  filterStatus={handleFilter}/>
 
       <div className="rider-approval-table-container">
         <table className="table-in">
           <tbody>
-            {filteredData.map((item) => (
+            {RiderApprovalFilterStatus.map((item) => (
               <tr
                 key={item.id}
                 onClick={() => {

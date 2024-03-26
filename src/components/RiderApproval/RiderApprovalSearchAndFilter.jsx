@@ -11,7 +11,7 @@ import {
   Input,
 } from "reactstrap";
 
-const RiderApprovalSearchFilter = ({ onSearch }) => {
+const RiderApprovalSearchFilter = ({ onSearch ,filterStatus}) => {
   const StatusData = [
     { id: 55, status: "Pending" },
     { id: 56, status: "Approved" },
@@ -25,6 +25,8 @@ const RiderApprovalSearchFilter = ({ onSearch }) => {
 
   const handleStatusSelect = (status) => {
     setSelectedStatus(status);
+    filterStatus(status.toLowerCase()); /// mag himo og function then ilabay adtos table page
+  // console.log(status.toLowerCase() ,"sample rider status")
   };
 
   return (
