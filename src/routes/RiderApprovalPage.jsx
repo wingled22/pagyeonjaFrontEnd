@@ -11,21 +11,32 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../assets/css/RiderApproval/RiderApprovalDashboard.css";
 import RiderApprovalTablePage from "../components/RiderApproval/Rider_Approval_Table";
 import Requirements from "../components/RiderApproval/Requirements";
 const RiderApprovalDashboard = () => {
   const [selectedUser, setSelectedUser] = useState(null); // reciever from rider table approval
-  
- 
+  const [approvals, setApprovals] = useState([]);
+
+  const getApprovalList = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
+      );
+      const data = await response.json();
+      setApprovals(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const setChangeUserID = (userId) => {
     setSelectedUser(userId);
-    console.log(userId,"rider page")
-  
+    console.log(userId, "rider page");
   };
-
-
+  useEffect(() => {
+    getApprovalList();
+  }, []);
   return (
     <>
       <div className="rider-approval-text-wrapper">Rider Approval List</div>
@@ -46,12 +57,18 @@ const RiderApprovalDashboard = () => {
           lg={selectedUser === null ? 11 : 7}
           xl={selectedUser === null ? 11 : 7}
         >
-          <RiderApprovalTablePage changeUserID={setChangeUserID} />
+          <RiderApprovalTablePage
+            changeUserID={setChangeUserID}
+            approvals={approvals}
+          />
         </Col>
 
         {selectedUser && (
           <Col sm={1} md={6} lg={5}>
-            <Requirements userId={selectedUser} />
+            <Requirements
+              userId={selectedUser}
+              getApprovals={getApprovalList}
+            />
           </Col>
         )}
       </Row>

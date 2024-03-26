@@ -112,7 +112,8 @@ const RiderTable = ({ onSelectRider }) => {
         userId: selectedRider.riderId,
         userType: "Rider",
         reason: reason,
-        suspensionDate: suspensionDate
+        suspensionDate: suspensionDate,
+        status : true
       }
 
       if (suspendStatus === false) {
@@ -154,8 +155,12 @@ const RiderTable = ({ onSelectRider }) => {
 
         const formData =
         {
-            userId: selectedRider.riderId,
-            userType: "Rider",
+          suspensionId: suspensionId,
+          userId: selectedRider.riderId,
+          userType: "Rider",
+          reason: reason,
+          suspensionDate: suspensionDate,
+          status: false
         }
 
         const response = await fetch(

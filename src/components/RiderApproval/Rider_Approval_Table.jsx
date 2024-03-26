@@ -31,24 +31,22 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
-  const [filterRiderApproval, setfilterRiderApproval] = useState('');
+  const [filterRiderApproval, setfilterRiderApproval] = useState("");
 
   const handleFilter = (value) => {
     let newValue;
     if (value === "pending") {
-        newValue = null;
+      newValue = null;
     } else if (value === "rejected") {
-        newValue = false;
+      newValue = false;
     } else if (value === "approved") {
-        newValue = true;
+      newValue = true;
     }
     
     setfilterRiderApproval(newValue);
 
     // console.log(newValue,"mao ni siya ang new value")
-}
-
-  
+  };
 
   const filteredData = approvals.filter(
     (item) =>
@@ -57,8 +55,6 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
       item.approvalStatus == searchTerm  
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
-
-
 
   const RiderApprovalFilterStatus = filteredData.filter(
     (item) =>
@@ -83,7 +79,10 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
 
   return (
     <>
-      <RiderApprovalSearchFilter onSearch={handleSearch}  filterStatus={handleFilter}/>
+      <RiderApprovalSearchFilter
+        onSearch={handleSearch}
+        filterStatus={handleFilter}
+      />
 
       <div className="rider-approval-table-container">
         <table className="table-in">
@@ -115,7 +114,13 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
                 </td>
                 <td className="td-style">
                   <Badge
-                    text={item.approvalStatus === true ? "Approved" : "Pending"}
+                    text={
+                      item.approvalStatus === true
+                        ? "approved"
+                        : item.approvalStatus == false
+                        ? "rejected"
+                        : "Pending"
+                    }
                   />
                 </td>
               </tr>
