@@ -12,7 +12,13 @@ import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocum
 
 import { useState, useEffect } from "react";
 
-const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
+function formatDate(dateString) {
+    const newDate = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return newDate.toLocaleDateString('en-US', options);
+}
+
+const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
 
     const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
     const [commuterInfo, setCommuterInfo] = useState([]);
@@ -20,12 +26,6 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
     const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
 
     const [startTime, setStartTime] = useState(true);
-
-    function formatDate(dateString) {
-        const newDate = new Date(dateString);
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return newDate.toLocaleDateString('en-US', options);
-    }
 
     const getCommuter = async () => {
         try {
@@ -38,21 +38,18 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
         }
     }
 
-    const getLatestSuspension = async () => 
-    {
-        try
-        {
-            if(suspensionStatus === true)
-            {
+    const getLatestSuspension = async () => {
+        try {
+            if (suspensionStatus === true) {
                 //If suspended, then get the latest end date suspension
                 const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${selectedCommuter}&usertype=Commuter`)
                 const data = await response.json();
+
                 setSuspensionInfo(data);
             }
         }
-        catch(error)
-        {
-            console.error("Error fetching data:", error);
+        catch (error) {
+            setSuspensionInfo([]);
         }
     }
 
@@ -69,6 +66,16 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
                 seconds: Math.floor((difference / 1000) % 60)
             };
         }
+        else
+        {
+            timeLeft = {
+                days: 0,
+                hours: 0,
+                minutes: 0,
+                seconds: 0
+            };
+        }
+
         setTimeLeft(timeLeft)
     }
 
@@ -81,14 +88,13 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
     }, [selectedCommuter, suspensionStatus])
 
     useEffect(() => {
-        if(suspensionStatus === true)
-        {
+        if (suspensionStatus === true) {
             // calculateSuspensionDuration();
 
             const timer = setTimeout(() => {
                 calculateSuspensionDuration();
             }, 1000);
-    
+
             return () => clearTimeout(timer);
         }
     })
@@ -100,9 +106,9 @@ const CommuterDetails = ({selectedCommuter, suspensionStatus}) => {
         <Container className="commuterDetailsContainer" fluid>
             <Row>
                 <Col md="2" sm="2" xs={12}>
-              
-                {commuterInfo.profilePath === "" || commuterInfo.profilePath === null ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" /> }
-               
+
+                    {commuterInfo.profilePath === "" || commuterInfo.profilePath === null ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" />}
+
                 </Col>
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
                     <div className="text-name">{commuterInfo.firstName} {commuterInfo.lastName}</div>

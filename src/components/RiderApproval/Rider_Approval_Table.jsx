@@ -16,6 +16,22 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
+  const [filterRiderApproval, setfilterRiderApproval] = useState("");
+
+  const handleFilter = (value) => {
+    let newValue;
+    if (value === "pending") {
+      newValue = null;
+    } else if (value === "rejected") {
+      newValue = false;
+    } else if (value === "approved") {
+      newValue = true;
+    }
+
+    setfilterRiderApproval(newValue);
+
+    // console.log(newValue,"mao ni siya ang new value")
+  };
 
   const filteredData = approvals.filter(
     (item) =>
@@ -24,8 +40,14 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
 
-  console.log(filteredData);
-  // Add isFetched as a dependency
+  const RiderApprovalFilterStatus = filteredData.filter(
+    (item) => item.approvalStatus === filterRiderApproval
+  );
+
+  // console.log(filteredData)
+  useEffect(() => {
+    getApprovalList();
+  }, []); // Add isFetched as a dependency
 
   if (filteredData == null) {
     return <></>;
@@ -33,12 +55,15 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
 
   return (
     <>
-      <RiderApprovalSearchFilter onSearch={handleSearch} />
+      <RiderApprovalSearchFilter
+        onSearch={handleSearch}
+        filterStatus={handleFilter}
+      />
 
       <div className="rider-approval-table-container">
         <table className="table-in">
           <tbody>
-            {filteredData.map((item) => (
+            {RiderApprovalFilterStatus.map((item) => (
               <tr
                 key={item.id}
                 onClick={() => {
