@@ -95,7 +95,8 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 userId: commuterID,
                 userType: "Commuter",
                 reason: reason,
-                suspensionDate: suspensionDate
+                suspensionDate: suspensionDate,
+                status: true
             }
 
             if (suspendStatus === false) {
@@ -137,8 +138,12 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
             const formData =
             {
+                suspensionId: suspensionId,
                 userId: commuterID,
                 userType: "Commuter",
+                reason: reason,
+                suspensionDate: suspensionDate,
+                status: false
             }
 
             const response = await fetch(
