@@ -56,17 +56,22 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
                 }}
               >
                 <td className="td-style">
-                  <img
-                    src={
-                      item.profilePath != null
-                        ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
-                        : images1
-                    } // use default image if profilePath is null
+                  <div
+                    style={{
+                      backgroundImage: `url(${
+                        item.profilePath != null
+                          ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
+                          : images1
+                      })`, // use default image if profilePath is null
+                      backgroundSize: "cover", // this will make sure the image covers the whole div
+                      height: "100px", // you can set this to whatever you want
+                      width: "100px", // you can set this to whatever you want
+                    }}
                     className="rider-table-image"
                   />
                 </td>
                 <td className="td-style">
-                  {item.firstName} {item.middleName} {item.lastName}
+                  {item.firstName} {item.middleName[0]}. {item.lastName}
                 </td>
                 <td className="td-style">
                   <Badge

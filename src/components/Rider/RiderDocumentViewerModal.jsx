@@ -53,29 +53,30 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle, document, userName }) => {
                 </tr>
               </thead>
               <tbody>
-                {document.map((item) => (
-                  <tr key={item.id}>
-                    <td className="itemBodyDocumentViewer">
-                      {item.documentName}
-                    </td>
-                    <td className="itemBodyDocumentViewer">
-                      {item.documentView}
-                    </td>
-                    <td className="itemBodyDocumentViewer">
-                      <Button
-                        className="btn btn-warning btnView"
-                        onClick={() => {
-                          toggleImageViewer(),
-                            setImageSource(
-                              `http://localhost:5180/img/documents/${item.documentPath}`
-                            );
-                        }}
-                      >
-                        View
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
+                {document &&
+                  document.map((item) => (
+                    <tr key={item.id}>
+                      <td className="itemBodyDocumentViewer">
+                        {item.documentName}
+                      </td>
+                      <td className="itemBodyDocumentViewer">
+                        {item.documentView}
+                      </td>
+                      <td className="itemBodyDocumentViewer">
+                        <Button
+                          className="btn btn-warning btnView"
+                          onClick={() => {
+                            toggleImageViewer(),
+                              setImageSource(
+                                `http://localhost:5180/img/documents/${item.documentPath}`
+                              );
+                          }}
+                        >
+                          View
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
                 {/* Add more rows as needed */}
               </tbody>
             </table>

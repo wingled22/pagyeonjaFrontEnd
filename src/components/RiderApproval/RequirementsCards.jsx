@@ -18,8 +18,8 @@ const ViewRequirements = ({
         toggle();
       }}
     >
-      <div className="ellipse-container">
-        <div className="ellipse-first">
+      <div className="ellipse-container d-flex align-items-center justify-content-even">
+        <div className="mt-2">
           <div className="ellipse-second">
             <FontAwesomeIcon icon={faCloudArrowUp} className="icon-view" />
           </div>

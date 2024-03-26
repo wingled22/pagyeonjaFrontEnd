@@ -60,21 +60,28 @@ const Requirements = ({ userid }) => {
         isOpen={isOpen}
         untoggle={toggle}
         document={documentFiles}
-        userName={`${document.firstName} ${document.middleName[0]}. ${document.lastName}`}
+        userName={`${document.firstName} ${
+          document.middleName && document.middleName[0]
+        }. ${document.lastName}`}
       />
       <div className="rectangle-requiment">
         <>
           <Row>
-            <img
-              className="centered rider-profile"
-              src={
-                document.profilePath != null
-                  ? `http://localhost:5180/img/rider_profile/${document.profilePath}`
-                  : images1
-              }
+            <div
+              style={{
+                backgroundImage: `url(${
+                  document.profilePath != null
+                    ? `http://localhost:5180/img/rider_profile/${document.profilePath}`
+                    : images1
+                })`, // use default image if profilePath is null
+                backgroundSize: "cover", // this will make sure the image covers the whole div
+              }}
+              className="rider-profile d-flex ms-auto me-auto mt-3"
             />
             <h5 style={{ textAlign: "center", marginTop: "10px" }}>
-              {document.firstName} {document.middleName}. {document.lastName}
+              {document.firstName}{" "}
+              {document.middleName && document.middleName[0]}.{" "}
+              {document.lastName}
             </h5>
             <div className="profile-line"></div>
           </Row>
