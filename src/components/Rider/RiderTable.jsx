@@ -16,6 +16,8 @@ const RiderTable = ({ onSelectRider }) => {
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [riderSuspensionStatus, setRiderSuspensionStatus] = useState(null);
+
 
   const fetchRiders = async () => {
     try {
@@ -48,6 +50,7 @@ const RiderTable = ({ onSelectRider }) => {
 
   const toggleSuspension = () => {
     setModalSuspension(!modalSuspension);
+    setSelectedRider(rider);
   };
 
   const toggleUpdateModal = (rider) => {
@@ -189,9 +192,9 @@ const RiderTable = ({ onSelectRider }) => {
   }, []);
   return (
     <>
-      <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} />
+      {selectedRider ? <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} /> : ''}
       {selectedRider ? <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} rider={selectedRider} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionRider={handleUpdateSuspensionRider} handleRevokeSuspension={handleRevokeSuspension} /> : ''}
-      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} onSelectRider={onChangeSelectedRider}/>
+      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} onSelectRider={onChangeSelectedRider} />
       <div className="search-box">
         <input
           type="text"
@@ -235,13 +238,13 @@ const RiderTable = ({ onSelectRider }) => {
                   </p>
                 </td>
                 <td className="rider-td">
-                  <button className="btn btn-primary" onClick={() => toggleModal(rider)}>
+                <button className="btn btn-primary" onClick={() => toggleModal(rider)}>
                     <Icon icon={faCircleInfo} color="white" />
                   </button>
                   <button className="btn btn-success" onClick={() => toggleUpdateModal(rider)}>
                     <Icon icon={faPenToSquare} color="white" />
                   </button>
-                  <button className="btn btn-danger" onClick={toggleSuspension}>
+                  <button className="btn btn-danger" onClick={() => { toggleSuspension(rider), getSuspension(rider.suspensionStatus, rider.riderId) }}>
                     <Icon icon={faCirclePause} color="white" />
                   </button>
                 </td>
