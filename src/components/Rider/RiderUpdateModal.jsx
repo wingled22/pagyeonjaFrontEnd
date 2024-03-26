@@ -67,7 +67,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
                 fetchRiders()
                 onSelectRider(formData)
                 toggle();
-                // console.log(rider.riderId)
+                console.log(formData);
             }
             else {
                 const errorData = await response.json();
@@ -86,7 +86,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
         <>
             <Modal isOpen={isOpen} toggle={toggle} centered>
                 <ModalHeader toggle={toggle} className='commuterSuspensionHeader'>Rider Update Info</ModalHeader>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} form="true">
                     <ModalBody>
 
                         <Input
