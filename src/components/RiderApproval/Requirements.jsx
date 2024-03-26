@@ -17,18 +17,27 @@ import images3 from "../../assets/image/cs3.png";
 import { auto } from "@popperjs/core";
 
 import RiderDocumentViewerModal from "../Rider/RiderDocumentViewerModal";
+import RiderApprovalResponseConfirmationModal from "./ApprovalResponseConfirmationModal";
 
 import ViewRequirements from "./RequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
-const Requirements = ({ userId }) => {
+const Requirements = ({ userId, getApprovals }) => {
   console.log("requirements", userId);
   const [document, setDocument] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
+  const [approvalResponse, setApprovalResponse] = useState(null);
+  console.log(approvalResponse);
+  // states for document modal
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+
+  // states for approval modal
+  const [approvalModalIsOpen, setApprovalModalIsOpen] = useState(false);
+  const toggleApprovaModal = () => setApprovalModalIsOpen(!approvalModalIsOpen);
+
   const getRequirements = async () => {
     try {
       const response = await fetch(
@@ -42,6 +51,7 @@ const Requirements = ({ userId }) => {
     }
   };
 
+  // Dynamic selection of documents
   const onDocumentButtonClick = (documentType) => {
     setDocumentFiles(
       document.documents.filter(
@@ -50,8 +60,26 @@ const Requirements = ({ userId }) => {
       )
     );
   };
-  // console.log(userid);
-  // console.log(documentFiles);
+
+  // approve or reject the rider approval request
+  const onResponseRiderApproval = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/RiderRegistration/RiderApprovalResponse?riderId=${userId}&response=${approvalResponse}`,
+        {
+          method: "PUT",
+        }
+      );
+      if (response.ok) {
+        toggleApprovaModal();
+        getRequirements();
+        getApprovals();
+        console.log({ riderId: userId, response: approvalResponse });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   useEffect(() => {
     getRequirements();
   }, [userId]);
@@ -64,6 +92,12 @@ const Requirements = ({ userId }) => {
         userName={`${document.firstName} ${
           document.middleName && document.middleName[0]
         }. ${document.lastName}`}
+      />
+      <RiderApprovalResponseConfirmationModal
+        isOpen={approvalModalIsOpen}
+        toggle={toggleApprovaModal}
+        response={approvalResponse}
+        onResponse={onResponseRiderApproval}
       />
       <div className="rectangle-requiment">
         <>
@@ -125,6 +159,10 @@ const Requirements = ({ userId }) => {
               className="btn-rider-approval"
               color="success"
               style={{ borderRadius: 50, fontWeight: "bold" }}
+              onClick={() => {
+                setApprovalResponse(true);
+                toggleApprovaModal();
+              }}
             >
               {" "}
               <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
@@ -133,6 +171,10 @@ const Requirements = ({ userId }) => {
               className="btn-rider-approval"
               color="danger"
               style={{ borderRadius: 50, fontWeight: "bold" }}
+              onClick={() => {
+                setApprovalResponse(false);
+                toggleApprovaModal();
+              }}
             >
               <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
             </Button>

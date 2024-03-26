@@ -8,21 +8,7 @@ import images3 from "../../assets/image/cs3.png";
 import RiderApprovalSearchFilter from "./RiderApprovalSearchAndFilter";
 import { Row } from "reactstrap";
 
-const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
-  const [approvals, setApprovals] = useState([]);
-
-  const getApprovalList = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
-      );
-      const data = await response.json();
-      setApprovals(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
   const callChangeUserID = (id) => {
     changeUserID(id);
   };
@@ -39,9 +25,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
   );
 
   console.log(filteredData);
-  useEffect(() => {
-    getApprovalList();
-  }, []); // Add isFetched as a dependency
+  // Add isFetched as a dependency
 
   if (filteredData == null) {
     return <></>;
@@ -81,7 +65,13 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
                 </td>
                 <td className="td-style">
                   <Badge
-                    text={item.approvalStatus === true ? "Approved" : "Pending"}
+                    text={
+                      item.approvalStatus === true
+                        ? "approved"
+                        : item.approvalStatus == false
+                        ? "rejected"
+                        : "Pending"
+                    }
                   />
                 </td>
               </tr>
