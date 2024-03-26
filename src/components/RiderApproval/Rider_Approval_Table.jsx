@@ -8,22 +8,7 @@ import images3 from "../../assets/image/cs3.png";
 import RiderApprovalSearchFilter from "./RiderApprovalSearchAndFilter";
 import { Row } from "reactstrap";
 
-const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
-  const [approvals, setApprovals] = useState([]);
-
-  const getApprovalList = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
-      );
-      const data = await response.json();
-      console.log(data,"Rider Approval: ");
-      setApprovals(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
   const callChangeUserID = (id) => {
     changeUserID(id);
   };
@@ -42,7 +27,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
     } else if (value === "approved") {
       newValue = true;
     }
-    
+
     setfilterRiderApproval(newValue);
 
     // console.log(newValue,"mao ni siya ang new value")
@@ -50,30 +35,21 @@ const RiderApprovalTablePage = ({ text, color, changeUserID }) => {
 
   const filteredData = approvals.filter(
     (item) =>
-       (item.firstName +' '+item.middleName +' '+item.lastName).toLowerCase().includes(searchTerm) ||
-    
-      item.approvalStatus == searchTerm  
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(searchTerm) || item.approvalStatus == searchTerm
     // item.approvalStatus.toLowerCase().includes(searchTerm)
   );
 
   const RiderApprovalFilterStatus = filteredData.filter(
     (item) =>
-    (item.firstName +' '+item.middleName +' '+item.lastName).toLowerCase().includes(filterRiderApproval) ||
-    item.approvalStatus == filterRiderApproval  
-  )
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(filterRiderApproval) ||
+      item.approvalStatus == filterRiderApproval
+  );
 
-
-
-
-  
-
-  // console.log(filteredData)
-  useEffect(() => {
-    getApprovalList();
-  }, []); // Add isFetched as a dependency
-
-
-  if(filteredData == null){
+  if (filteredData == null) {
     return <></>;
   }
 
