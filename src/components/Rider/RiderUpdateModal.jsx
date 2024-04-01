@@ -55,7 +55,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
         // console.log(formData);
         try {
             const response = await fetch(
-                `http://localhost:5180/api/RiderRegistration/UpdateRider?id=${formData.riderId}`, {
+                `http://localhost:5180/api/RiderRegistration/UpdateRider`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -100,6 +100,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
                             value={formData.dateApplied || ''}
                             onChange={handleChange}
                         />
+                 
                         <Row>
                             <Col >
                                 <FormGroup>
