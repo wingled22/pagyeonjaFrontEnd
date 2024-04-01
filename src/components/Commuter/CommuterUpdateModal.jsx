@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap';
 
-const CommuterUpdateModal = ({ isOpen, untoggle, commuters }) => {
+const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,onSelectCommuter}) => {
 
     function formatDate(dateString) {
         const newDate = new Date(dateString);
@@ -24,26 +24,13 @@ const CommuterUpdateModal = ({ isOpen, untoggle, commuters }) => {
         sex: '',
         address: ''
     });
+
+    
     useEffect(() => {
-        console.log(commuters);
-        if (commuters && commuters.length > 0) {
-            // Assuming you want to work with the first item in the array
-            const Commuter = commuters[0];
-            setformDatas({
-                firstName: Commuter.firstName || '',
-                middleName: Commuter.middleName || '',
-                lastName: Commuter.lastName || '',
-                civilStatus: Commuter.civilStatus || '',
-                occupation: Commuter.occupation || '',
-                age: Commuter.age || '',
-                contactNumber: Commuter.contactNumber || '',
-                birthdate: Commuter.birthdate || '',
-                emailAddress: Commuter.emailAddress || '',
-                sex: Commuter.sex || '',
-                address: Commuter.address || ''
-            });
+        if (CommuterUpdate) {
+            setformDatas(CommuterUpdate);
         }
-    }, [commuters]);
+    }, [CommuterUpdate]);
     
 
     const handleChange = (e) => {
@@ -54,10 +41,40 @@ const CommuterUpdateModal = ({ isOpen, untoggle, commuters }) => {
         }));
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Prevent default form submission
+        // console.log(formData);
+        try {
+            const response = await fetch(
+                `http://localhost:5180/api/CommuterRegistration/UpdateCommuter?id=${formDatas.commuterId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formDatas),
+            }
+            );
+            if (response.ok) {
+               alert("Update na intawn",formDatas);
+                // fetchRiders()
+                // onSelectRider(formDatas)
+                untoggle();
+              
+            }
+            else {
+                const errorData = await response.json();
+                console.error(`Error ${response.status}: ${errorData.message}`);
+            }
+        } catch (error) {
+            console.error("Error submitting form data:", error);
+        }
+    };
+
+
     return (
         <Modal isOpen={isOpen} toggle={untoggle} centered>
             <ModalHeader toggle={untoggle} className='commuterSuspensionHeader'>Commuter Update Info</ModalHeader>
-            <Form>
+            <Form  onSubmit={handleSubmit}>
                 <ModalBody>
                     <Row>
                         <Col>
