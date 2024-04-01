@@ -11,7 +11,7 @@ import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensio
 import { useState, useEffect } from "react";
 import CommuterUpdateModal from '../../components/Commuter/CommuterUpdateModal.jsx';
 
-const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) => {
+const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSelectCommuter}) => {
     const [commuters, setCommuters] = useState([]);
     const [filteredCommuters, setFilteredCommuters] = useState([]);
 
@@ -47,6 +47,13 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
             console.log(error);
         }
     }
+
+
+    const onChangeSelectedCommuter = async (commuter)=>{
+        onSelectCommuter(commuter)
+        console.log("OnselectCommuter",commuter)
+      }
+    
 
     const [reason, setReason] = useState('');
     const [suspensionDate, setSuspensionDate] = useState("");
@@ -193,7 +200,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
     return (
         <>
-            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} CommuterUpdate={selectedCommuter}  />
+            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} CommuterUpdate={selectedCommuter}  fetchCommuter={getCommuters} onSelectCommuter={onChangeSelectedCommuter}/>
             {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} handleRevokeSuspension={handleRevokeSuspension} commuterSuspensionStatus={commuterSuspensionStatus} /> : ''}
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
@@ -207,7 +214,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                     <tbody>
                         {commuters.length === 0 && <tr><td>No commuters on the list</td></tr>}
                         {filteredCommuters.map(commuterUpdate => (
-                            <tr className='commuterRow' key={commuterUpdate.commuterId} onClick={() => { selectUser(commuterUpdate.commuterId), suspensionStatus(commuterUpdate.suspensionStatus) }}>
+                            <tr className='commuterRow' key={commuterUpdate.commuterId} onClick={() => { selectUser(commuterUpdate.commuterId), suspensionStatus(commuterUpdate.suspensionStatus) , onSelectCommuter(commuterUpdate)}}>
                                 <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{commuterUpdate.firstName} {commuterUpdate.middleName ? commuterUpdate.middleName[0] + '.' : ''} {commuterUpdate.lastName}</td>
                                 <td style={{ borderBottom: 'groove', padding: '20px' }}>
                                     <Badge className='badgeStatusCommuter' color={commuterUpdate.suspensionStatus === false ? 'success' : 'danger'}>

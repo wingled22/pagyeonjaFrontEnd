@@ -56,8 +56,8 @@ const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,
             );
             if (response.ok) {
                alert("Update na intawn",formDatas);
-                // fetchCommuter()
-                // onSelectCommuter(formDatas)
+                 fetchCommuter()
+                 onSelectCommuter(formDatas)
                 untoggle();
               
             }
