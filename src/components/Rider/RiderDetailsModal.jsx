@@ -28,6 +28,7 @@ function formatDate(dateString) {
 const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   // console.log("Rider Object:", rider);
   const [open, setOpen] = useState("0");
+  const [document, setDocument] = useState([]);
   const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
   const toggleDocumentViewer = () =>
     setModalDocumentViewer(!modalDocumentViewer);
@@ -39,6 +40,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
     }
   };
 
+  
   const [suspensionInfo, setSuspensionInfo] = useState([]);
 
   const getLatestSuspension = async () => {
@@ -50,6 +52,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
 
         setSuspensionInfo(data);
       }
+     
     }
     catch (error) {
       setSuspensionInfo([]);
@@ -87,6 +90,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
     getLatestSuspension();
   }, [rider])
 
+
+  
   useEffect(() => {
     if (rider.suspensionStatus === true) {
 
@@ -190,13 +195,48 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
       fare: "₱15.00",
     },
   ];
-  
+
+
   if (rider == null) {
     return <></>;
   }
+  
+  
+  const getRequirements = async () => {
+    if (!rider.riderId) {
+      return;
+    }
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/document/getdocuments?id=${rider.riderId}&usertype=Rider`
+      );
+      if (response.ok) {
+        const data = await response.json()
+        setDocument(data);
+        console.log(data)
+      }
+     
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    
+    getRequirements();
+  }, [rider]);
   return (
     <>
-      {rider.riderId && modalDocumentViewer && <RiderDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} rider={rider} />}
+      {rider.riderId && modalDocumentViewer && (
+        <RiderDocumentViewerModal
+          isOpen={modalDocumentViewer}
+          untoggle={toggleDocumentViewer}
+          rider={rider}
+          document={document.documents}
+          userName={`${document.firstName} ${document.middleName && document.middleName[0]
+            }. ${document.lastName}`}
+        />
+      )}
 
       <Modal
         className="rider-modal-dialog"
@@ -246,6 +286,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                     className="btn btn-warning"
                     onClick={() => {
                       toggleDocumentViewer();
+
                     }}
                   >
                     View Documents
@@ -334,7 +375,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                   </span>
                 </div>
                 {timeLeft.length === 0 ? '' : <div style={{ display: rider.suspensionStatus === true ? 'block' : 'none' }} className="label-text">
-                  Duration: <span style={{fontSize:"17px"}}className={`textInfo ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}m: {timeLeft.seconds}s</span>
+                  Duration: <span style={{ fontSize: "17px" }} className={`textInfo ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}m: {timeLeft.seconds}s</span>
                 </div>}
               </Container>
             </Col>
