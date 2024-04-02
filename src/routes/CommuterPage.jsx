@@ -14,7 +14,10 @@ const CommuterPage = () => {
 
     const [searchValueCommuter, setsearchValueCommuter] = useState("");
     const updateSearchValue =  (searchValue) => {setsearchValueCommuter(searchValue);}
-
+    const [selectedUpdateCommuters, setSelectedUpdateCommuters] = useState(null);
+    const updateSelectCommuters = (id) => {
+        setSelectedUpdateCommuters(id);
+      };
     return (
         <>
             <Container>
@@ -25,7 +28,7 @@ const CommuterPage = () => {
                 </Row>
                 <Row className="d-flex">
                     <Col md={selectedCommuter === null ? 12 : 6} sm={12} xs={12} id="colContainerTable">
-                        <CommuterTable selectUser={updateSelectCommuter} suspensionStatus={updateSuspensionStatus} searchValueCommuter={searchValueCommuter} />
+                        <CommuterTable selectUser={updateSelectCommuter} suspensionStatus={updateSuspensionStatus} searchValueCommuter={searchValueCommuter} onSelectCommuter={updateSelectCommuters}/>
                     </Col>
 
                     {selectedCommuter && <Col md={6} sm={12} xs={12} id='colContainerDetails'>
