@@ -11,7 +11,7 @@ import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensio
 import { useState, useEffect } from "react";
 import CommuterUpdateModal from '../../components/Commuter/CommuterUpdateModal.jsx';
 
-const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) => {
+const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus, toggleTriggerChanges }) => {
     const [commuters, setCommuters] = useState([]);
     const [filteredCommuters, setFilteredCommuters] = useState([]);
 
@@ -128,6 +128,8 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
             getCommuters();
             toggleSuspension();
 
+            toggleTriggerChanges();
+
             //toggle so that the suspension status is true
             suspensionStatus(true);
 
@@ -162,6 +164,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
             clearSuspensionEntry();
             getCommuters();
             toggleSuspension();
+            toggleTriggerChanges();
 
             //toggle so that the suspension status is true
             suspensionStatus(false);
