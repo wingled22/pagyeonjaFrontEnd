@@ -99,15 +99,48 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
         }
     })
 
+    const getRequirements = async () => {
+        if (!commuterInfo.commuterId) {
+          return;
+        }
+        try {
+          const response = await fetch(
+            `http://localhost:5180/api/document/getdocuments?id=${commuterInfo.commuterId}&usertype=Commuter`
+          );
+          if (response.ok) {
+            const data = await response.json()
+            setDocument(data);
+            console.log(data)
+          }
+         
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    
+      useEffect(() => {
+        
+        getRequirements();
+      }, [commuterInfo]);
+
     return (<>
 
-        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} commuterInfo={commuterInfo} />}
+        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer}   document={document.documents}
+          userName={`${document.firstName} ${document.middleName && document.middleName[0]
+            }. ${document.lastName}`} />}
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
                 <Col md="2" sm="2" xs={12}>
-
-                    {commuterInfo.profilePath === "" || commuterInfo.profilePath === null ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" />}
+                {commuterInfo.profilePath === "" || commuterInfo.profilePath === null || !commuterInfo.profilePath ? (
+                 <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon>
+                  ) : (
+                    <img
+                      className="modal-profile-img"
+                      src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`}
+                      alt=""
+                    />
+                  )}
 
                 </Col>
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
