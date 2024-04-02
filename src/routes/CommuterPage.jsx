@@ -14,6 +14,10 @@ const CommuterPage = () => {
 
     const [searchValueCommuter, setsearchValueCommuter] = useState("");
     const updateSearchValue =  (searchValue) => {setsearchValueCommuter(searchValue);}
+    const [selectedUpdateCommuters, setSelectedUpdateCommuters] = useState(null);
+    const updateSelectCommuters = (id) => {
+        setSelectedUpdateCommuters(id);
+      };
 
     const [triggerChanges, setTriggerChanges] = useState(false);
     const toggleTriggerChanges = () => setTriggerChanges(!triggerChanges);
@@ -28,7 +32,7 @@ const CommuterPage = () => {
                 </Row>
                 <Row className="d-flex">
                     <Col md={selectedCommuter === null ? 12 : 6} sm={12} xs={12} id="colContainerTable">
-                        <CommuterTable selectUser={updateSelectCommuter} suspensionStatus={updateSuspensionStatus} searchValueCommuter={searchValueCommuter} toggleTriggerChanges={toggleTriggerChanges} />
+                        <CommuterTable selectUser={updateSelectCommuter} suspensionStatus={updateSuspensionStatus} searchValueCommuter={searchValueCommuter} onSelectCommuter={updateSelectCommuters} toggleTriggerChanges={toggleTriggerChanges}/>
                     </Col>
 
                     {selectedCommuter && <Col md={6} sm={12} xs={12} id='colContainerDetails'>

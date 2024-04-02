@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap';
 
 const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,onSelectCommuter}) => {
@@ -55,8 +57,9 @@ const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,
             }
             );
             if (response.ok) {
-               alert("Update na intawn",formDatas);
+            //    alert("Update na intawn",formDatas);
                  fetchCommuter()
+                 toast.success('Update successful!');
                  onSelectCommuter(formDatas)
                 untoggle();
               
@@ -72,7 +75,8 @@ const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,
 
 
     return (
-        <Modal isOpen={isOpen} toggle={untoggle} centered>
+        <>
+          <Modal isOpen={isOpen} toggle={untoggle} centered>
             <ModalHeader toggle={untoggle} className='commuterSuspensionHeader'>Commuter Update Info</ModalHeader>
             <Form  onSubmit={handleSubmit}>
                 <ModalBody>
@@ -236,7 +240,13 @@ const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,
                     <Button className='btn btnConfirmSuspension'>Confirm</Button>
                 </ModalFooter>
             </Form>
+
         </Modal>
+        <ToastContainer />
+
+        </>
+      
+        
     );
 }
 
