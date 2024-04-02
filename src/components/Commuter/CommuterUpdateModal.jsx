@@ -3,7 +3,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Button, Row, Col } from 'reactstrap';
 
-const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,onSelectCommuter}) => {
+const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,onSelectCommuter, toggleTriggerChanges}) => {
 
     function formatDate(dateString) {
         const newDate = new Date(dateString);
@@ -61,6 +61,7 @@ const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,
                  fetchCommuter()
                  toast.success('Update successful!');
                  onSelectCommuter(formDatas)
+                 toggleTriggerChanges();
                 untoggle();
               
             }

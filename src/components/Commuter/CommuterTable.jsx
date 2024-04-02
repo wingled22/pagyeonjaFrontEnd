@@ -203,7 +203,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
 
     return (
         <>
-            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} CommuterUpdate={selectedCommuter}  fetchCommuter={getCommuters} onSelectCommuter={onChangeSelectedCommuter}/>
+            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} CommuterUpdate={selectedCommuter}  fetchCommuter={getCommuters} onSelectCommuter={onChangeSelectedCommuter} toggleTriggerChanges={toggleTriggerChanges}/>
             {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} handleRevokeSuspension={handleRevokeSuspension} commuterSuspensionStatus={commuterSuspensionStatus} /> : ''}
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
