@@ -50,6 +50,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
     const [reason, setReason] = useState('');
     const [suspensionDate, setSuspensionDate] = useState("");
+    const [invokedSuspensionDate, setInvokedSuspensionDate] = useState("");
     const [suspensionId, setSuspensionId] = useState(null);
 
     const updateReason = (e) => { setReason(e) }
@@ -65,6 +66,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
                 setReason(data.reason);
                 setSuspensionDate(data.suspensionDate);
+                setInvokedSuspensionDate(data.invokedSuspensionDate);
                 setSuspensionId(data.suspensionId);
 
             }
@@ -96,6 +98,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 userType: "Commuter",
                 reason: reason,
                 suspensionDate: suspensionDate,
+                invokedSuspensionDate: invokedSuspensionDate,
                 status: true
             }
 
@@ -143,6 +146,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 userType: "Commuter",
                 reason: reason,
                 suspensionDate: suspensionDate,
+                invokedSuspensionDate: invokedSuspensionDate,
                 status: false
             }
 

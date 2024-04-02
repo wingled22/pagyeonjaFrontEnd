@@ -52,6 +52,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
   if (filteredData == null) {
     return <></>;
   }
+  console.log(approvals);
 
   return (
     <>
@@ -86,7 +87,8 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
                   />
                 </td>
                 <td className="td-style">
-                  {item.firstName} {item.middleName[0]}. {item.lastName}
+                  {item.firstName} {item.middleName && item.middleName[0]}.{" "}
+                  {item.lastName}
                 </td>
                 <td className="td-style">
                   <Badge

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Button, Row, Col, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) => {
 
     function formatDate(dateString) {
@@ -54,7 +55,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
         // console.log(formData);
         try {
             const response = await fetch(
-                `http://localhost:5180/api/RiderRegistration/UpdateRider?id=${formData.riderId}`, {
+                `http://localhost:5180/api/RiderRegistration/UpdateRider`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -63,21 +64,23 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
             }
             );
             if (response.ok) {
+                toast.success('Update successful!'); // Show success toast
                 console.log("Update na intawn");
-                fetchRiders()
-                onSelectRider(formData)
+                fetchRiders();
+                onSelectRider(formData);
                 toggle();
-                console.log(formData);
+              
             }
             else {
                 const errorData = await response.json();
+                toast.error(`Error ${response.status}: ${errorData.message}`); // Show error toast
                 console.error(`Error ${response.status}: ${errorData.message}`);
             }
         } catch (error) {
+            toast.error('Error submitting form data: ' + error.message); // Show error toast
             console.error("Error submitting form data:", error);
         }
     };
-
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggleDropdown = () => setDropdownOpen(prevState => !prevState);
@@ -97,6 +100,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
                             value={formData.dateApplied || ''}
                             onChange={handleChange}
                         />
+                 
                         <Row>
                             <Col >
                                 <FormGroup>
@@ -270,6 +274,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
                     </ModalFooter>
                 </Form>
             </Modal>
+            <ToastContainer />
         </>
     );
 }
