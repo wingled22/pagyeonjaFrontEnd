@@ -11,7 +11,7 @@ import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensio
 import { useState, useEffect } from "react";
 import CommuterUpdateModal from '../../components/Commuter/CommuterUpdateModal.jsx';
 
-const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) => {
+const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSelectCommuter}) => {
     const [commuters, setCommuters] = useState([]);
     const [filteredCommuters, setFilteredCommuters] = useState([]);
 
@@ -48,9 +48,15 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
         }
     }
 
+
+    const onChangeSelectedCommuter = async (commuter)=>{
+        onSelectCommuter(commuter)
+        console.log("OnselectCommuter",commuter)
+      }
+    
+
     const [reason, setReason] = useState('');
     const [suspensionDate, setSuspensionDate] = useState("");
-    const [invokedSuspensionDate, setInvokedSuspensionDate] = useState("");
     const [suspensionId, setSuspensionId] = useState(null);
 
     const updateReason = (e) => { setReason(e) }
@@ -66,7 +72,6 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
 
                 setReason(data.reason);
                 setSuspensionDate(data.suspensionDate);
-                setInvokedSuspensionDate(data.invokedSuspensionDate);
                 setSuspensionId(data.suspensionId);
 
             }
@@ -98,7 +103,6 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 userType: "Commuter",
                 reason: reason,
                 suspensionDate: suspensionDate,
-                invokedSuspensionDate: invokedSuspensionDate,
                 status: true
             }
 
@@ -146,7 +150,6 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                 userType: "Commuter",
                 reason: reason,
                 suspensionDate: suspensionDate,
-                invokedSuspensionDate: invokedSuspensionDate,
                 status: false
             }
 
@@ -184,12 +187,20 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
     const [modalSuspension, setModalSuspension] = useState(false);
     const toggleSuspension = () => setModalSuspension(!modalSuspension);
 
+    const [selectedCommuter, setSelectedCommuter] = useState([]);
     const [modalupdate, setModalUpdate] = useState(false);
-    const toggleUpdate = () => setModalUpdate(!modalupdate)
+    const toggleUpdate = (CommuterUpdate) => {
+        
+        setModalUpdate(!modalupdate)
+        setSelectedCommuter(CommuterUpdate);
+        console.log("Update selected",CommuterUpdate)
+    
+    }
+   
 
     return (
         <>
-            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} commuters={commuters}  />
+            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} CommuterUpdate={selectedCommuter}  fetchCommuter={getCommuters} onSelectCommuter={onChangeSelectedCommuter}/>
             {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} handleRevokeSuspension={handleRevokeSuspension} commuterSuspensionStatus={commuterSuspensionStatus} /> : ''}
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
@@ -202,18 +213,18 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
                     </thead>
                     <tbody>
                         {commuters.length === 0 && <tr><td>No commuters on the list</td></tr>}
-                        {filteredCommuters.map(item => (
-                            <tr className='commuterRow' key={item.commuterId} onClick={() => { selectUser(item.commuterId), suspensionStatus(item.suspensionStatus) }}>
-                                <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{item.firstName} {item.middleName ? item.middleName[0] + '.' : ''} {item.lastName}</td>
+                        {filteredCommuters.map(commuterUpdate => (
+                            <tr className='commuterRow' key={commuterUpdate.commuterId} onClick={() => { selectUser(commuterUpdate.commuterId), suspensionStatus(commuterUpdate.suspensionStatus) , onSelectCommuter(commuterUpdate)}}>
+                                <td className='commuterName' style={{ borderBottom: 'groove', padding: '20px', fontSize: '0.8rem', fontWeight: 'bold' }}>{commuterUpdate.firstName} {commuterUpdate.middleName ? commuterUpdate.middleName[0] + '.' : ''} {commuterUpdate.lastName}</td>
                                 <td style={{ borderBottom: 'groove', padding: '20px' }}>
-                                    <Badge className='badgeStatusCommuter' color={item.suspensionStatus === false ? 'success' : 'danger'}>
-                                        <span className='statusName'>{item.suspensionStatus === false ? 'Active' : 'Suspended'}</span>
-                                    </Badge></td>
+                                    <Badge className='badgeStatusCommuter' color={commuterUpdate.suspensionStatus === false ? 'success' : 'danger'}>
+                                        <span className='statusName'>{commuterUpdate.suspensionStatus === false ? 'Active' : 'Suspended'}</span>
+                                    </Badge></td>     
                                 <td style={{ borderBottom: 'groove', padding: '20px', textAlign: 'center' }}>
-                                    <button className='btn btn-success btnAction' onClick={() => { toggleUpdate(commuters); console.log("Commuters: ",commuters) }}>
+                                    <button className='btn btn-success btnAction' onClick={() => { toggleUpdate(commuterUpdate); console.log("Commuters: ",commuterUpdate) }}>
                                         <Icon icon={faPenToSquare} color='white' />
                                     </button>
-                                    <button className='btn btn-danger btnSuspendCommuter' onClick={() => { toggleSuspension(); setCommuterID(item.commuterId); getSuspension(item.suspensionStatus, item.commuterId); }}>
+                                    <button className='btn btn-danger btnSuspendCommuter' onClick={() => { toggleSuspension(); setCommuterID(commuterUpdate.commuterId); getSuspension(commuterUpdate.suspensionStatus, commuterUpdate.commuterId); }}>
                                         <Icon icon={faCirclePause} color='white' />
                                     </button>
                                 </td>
