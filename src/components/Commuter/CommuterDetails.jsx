@@ -18,8 +18,8 @@ function formatDate(dateString) {
     return newDate.toLocaleDateString('en-US', options);
 }
 
-const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
-    const [document, setDocument] = useState([]);
+const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges }) => {
+
     const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
     const [commuterInfo, setCommuterInfo] = useState([]);
     const [suspensionInfo, setSuspensionInfo] = useState([]);
@@ -85,7 +85,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
     useEffect(() => {
         getCommuter();
         getLatestSuspension();
-    }, [selectedCommuter, suspensionStatus])
+    }, [selectedCommuter, suspensionStatus, triggerChanges])
 
     useEffect(() => {
         if (suspensionStatus === true) {
