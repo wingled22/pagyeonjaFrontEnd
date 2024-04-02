@@ -75,7 +75,7 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
                   <div
                     style={{
                       backgroundImage: `url(${
-                        item.profilePath != null
+                        item.profilePath !== ""
                           ? `http://localhost:5180/img/rider_profile/${item.profilePath}`
                           : images1
                       })`,
