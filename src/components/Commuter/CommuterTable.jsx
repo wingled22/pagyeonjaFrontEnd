@@ -115,7 +115,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus }) =>
             else if (suspendStatus === true) //update instead
             {
                 const response = await fetch(
-                    "http://localhost:5180/api/Suspension/UpdateSuspension?id=" + suspensionId,
+                    "http://localhost:5180/api/Suspension/UpdateSuspension",
                     {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
