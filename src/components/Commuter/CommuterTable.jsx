@@ -165,8 +165,6 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
             clearSuspensionEntry();
             getCommuters();
             toggleSuspension();
-
-            //toggle so that the suspension status is true
             suspensionStatus(false);
 
         } catch (error) {
@@ -221,7 +219,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
                                         <span className='statusName'>{commuterUpdate.suspensionStatus === false ? 'Active' : 'Suspended'}</span>
                                     </Badge></td>     
                                 <td style={{ borderBottom: 'groove', padding: '20px', textAlign: 'center' }}>
-                                    <button className='btn btn-success btnAction' onClick={() => { toggleUpdate(commuterUpdate); console.log("Commuters: ",commuterUpdate) }}>
+                                    <button className='btn btn-success btnAction' onClick={() => { toggleUpdate(commuterUpdate); }}>
                                         <Icon icon={faPenToSquare} color='white' />
                                     </button>
                                     <button className='btn btn-danger btnSuspendCommuter' onClick={() => { toggleSuspension(); setCommuterID(commuterUpdate.commuterId); getSuspension(commuterUpdate.suspensionStatus, commuterUpdate.commuterId); }}>
