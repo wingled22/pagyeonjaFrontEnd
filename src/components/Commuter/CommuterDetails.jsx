@@ -21,6 +21,7 @@ function formatDate(dateString) {
 const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges }) => {
 
     const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
+    const [document, setDocument] = useState([]);
     const [commuterInfo, setCommuterInfo] = useState([]);
     const [suspensionInfo, setSuspensionInfo] = useState([]);
     const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
@@ -121,7 +122,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
       useEffect(() => {
         
         getRequirements();
-      }, [commuterInfo]);
+      }, [commuterInfo, triggerChanges]);
 
     return (<>
 
