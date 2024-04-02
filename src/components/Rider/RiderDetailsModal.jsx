@@ -52,9 +52,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
 
         setSuspensionInfo(data);
       }
-      else{
-        console.error("Document data is not an array:", data);
-      }
+     
     }
     catch (error) {
       setSuspensionInfo([]);
@@ -224,7 +222,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   };
 
   useEffect(() => {
-    console.log("Rider ID:",  rider.riderId);
+    
     getRequirements();
   }, [rider]);
   return (
