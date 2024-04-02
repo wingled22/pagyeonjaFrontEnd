@@ -46,7 +46,7 @@ const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,
         // console.log(formData);
         try {
             const response = await fetch(
-                `http://localhost:5180/api/CommuterRegistration/UpdateCommuter?id=${formDatas.commuterId}`, {
+                "http://localhost:5180/api/CommuterRegistration/UpdateCommuter", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
