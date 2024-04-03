@@ -7,13 +7,9 @@ import CommuterApprovalSearchAndFilter from "./CommuterApprovalSearchFilter";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
-const CommuterApprovalTablePage = ({
-  text,
-  color,
-  changeUserID,
-  approvals,
-}) => {
-  console.log("approval value nis table: ", approvals);
+const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
+
+  console.log("approval value nis table: ",approvals)
 
   const callChangeUserID = (id) => {
     changeUserID(id);
@@ -57,9 +53,9 @@ const CommuterApprovalTablePage = ({
       item.approvalStatus == filterCommuterApproval
   );
 
-  if (CommuterApprovalFilteredData == null) {
-    return <></>;
-  }
+  
+
+  
 
   return (
     <>
