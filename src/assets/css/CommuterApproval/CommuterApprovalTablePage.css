@@ -9,6 +9,14 @@
   margin-top: 5px;
 }
 
+/* *********************commuter approval table image size ****************/
+.commuter-table-image {
+  max-width: 80px !important;
+  max-height: 80px !important;
+  border-radius: 50% !important; 
+  object-fit: cover !important;
+}
+
 
 /************************ table styling ***********************/
 
