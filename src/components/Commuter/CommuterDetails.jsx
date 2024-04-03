@@ -137,7 +137,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
                  <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon>
                   ) : (
                     <img
-                      className="modal-profile-img"
+                      className="imageContainer"
                       src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`}
                       alt=""
                     />
