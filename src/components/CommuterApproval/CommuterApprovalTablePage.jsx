@@ -52,7 +52,7 @@ const CommuterApprovalTablePage = ({
       (item.firstName + " " + item.middleName + " " + item.lastName)
         .toLowerCase()
         .includes(filterCommuterApproval) ||
-      item.approvalStatus.toLowerCase().includes(filterCommuterApproval)
+      item.approvalStatus == filterCommuterApproval
   );
 
   if (CommuterApprovalFilteredData == null) {
@@ -70,7 +70,7 @@ const CommuterApprovalTablePage = ({
       <div className="commuter-approval-table-container">
         <table className="commuter-table-in">
           <tbody>
-            {CommuterApprovalFilteredData.map((item) => (
+            {CommuterApprovalFilterStatus.map((item) => (
               <tr
                 key={item.id}
                 onClick={() => {
