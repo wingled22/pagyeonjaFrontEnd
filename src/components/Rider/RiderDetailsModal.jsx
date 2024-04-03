@@ -40,7 +40,21 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
     }
   };
 
-  
+  function ProfileImage({ rider }) {
+    const [imageFailed, setImageFailed] = useState(false);
+
+    return (
+      imageFailed ?
+        <Icon icon={faCircleUser} color='white' className="modal-icon-img" /> :
+        <img
+          className="modal-profile-img"
+          src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`}
+          alt="Rider Profile"
+          onError={() => setImageFailed(true)}
+        />
+    );
+  }
+
   const [suspensionInfo, setSuspensionInfo] = useState([]);
 
   const getLatestSuspension = async () => {
@@ -52,7 +66,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
 
         setSuspensionInfo(data);
       }
-     
+
     }
     catch (error) {
       setSuspensionInfo([]);
@@ -91,7 +105,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   }, [rider])
 
 
-  
+
   useEffect(() => {
     if (rider.suspensionStatus === true) {
 
@@ -200,8 +214,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   if (rider == null) {
     return <></>;
   }
-  
-  
+
+
   const getRequirements = async () => {
     if (!rider.riderId) {
       return;
@@ -215,14 +229,14 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
         setDocument(data);
         console.log(data)
       }
-     
+
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    
+
     getRequirements();
   }, [rider]);
   return (
@@ -252,20 +266,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
             <div className="profile-container">
               <Row>
                 <Col style={{ padding: "25px" }} md={2}>
-                  {rider.profilePath === "" || rider.profilePath === null || !rider.profilePath ? (
-                    <Icon
-                      className="modal-icon-img"
-                      icon={faCircleUser}
-                      color="white"
-                      style={{ height: "90px", width: "90px" }}
-                    ></Icon>
-                  ) : (
-                    <img
-                      className="modal-profile-img"
-                      src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`}
-                      alt=""
-                    />
-                  )}
+                  {rider.profilePath === "" || rider.profilePath === null || !rider.profilePath ? <Icon icon={faCircleUser} color='white' className="modal-icon-img"></Icon> : <ProfileImage rider={rider} />
+                  }
                 </Col>
                 <Col md={7}>
                   <Row>
