@@ -4,6 +4,8 @@ import "../../assets/css/CommuterApproval/CommuterApprovalTablePage.css";
 import CommuterApprovalBadge from "./CommuterApprovalBadge";
 import images1 from "../../assets/image/withHer.png";
 import CommuterApprovalSearchAndFilter from "./CommuterApprovalSearchFilter";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
 
@@ -23,12 +25,27 @@ const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
 
   const [filterCommuterApproval, setfilterCommuterApproval] = useState("");
   const handleFilter = (value) => {
-    setfilterCommuterApproval(value);
+    let newValue;
+    if (value === "pending") {
+      newValue = null;
+    } else if (value === "rejected") {
+      newValue = false;
+    } else if (value === "approved") {
+      newValue = true;
+    }
 
-    console.log(value,'filter ni siya nga value')
+    setfilterCommuterApproval(newValue);
   };
 
   const CommuterApprovalFilteredData = approvals.filter(
+    (item) =>
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(searchCommuterApprovalTerm) ||
+      item.approvalStatus == searchCommuterApprovalTerm
+  );
+
+  const CommuterApprovalFilterStatus = CommuterApprovalFilteredData.filter(
     (item) =>
       (item.firstName + " " + item.middleName + " " + item.lastName)
         .toLowerCase()
@@ -51,7 +68,7 @@ const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
       <div className="commuter-approval-table-container">
         <table className="commuter-table-in">
           <tbody>
-            {CommuterApprovalFilteredData.map((item) => (
+            {CommuterApprovalFilterStatus.map((item) => (
               <tr
                 key={item.id}
                 onClick={() => {
@@ -62,9 +79,11 @@ const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
                   <div
                     style={{
                       backgroundImage: `url(${
-                        item.profilePath != "" && item.profilePath != null
-                          ? `http://localhost:5180/img/commuter_profile/${item.profilePath}`
-                          : images1
+                        item.profilePath != "" && item.profilePath != null ? (
+                          `http://localhost:5180/img/commuter_profile/${item.profilePath}`
+                        ) : (
+                         images1
+                        )
                       })`,
                       backgroundSize: "cover",
                       height: "100px",
