@@ -12,9 +12,7 @@ import {
   Col,
 } from "reactstrap";
 import images1 from "../../assets/image/carlo.jpg";
-import images2 from "../../assets/image/cliff.jpg";
-import images3 from "../../assets/image/cs3.png";
-import { auto } from "@popperjs/core";
+
 
 import RiderDocumentViewerModal from "../Rider/RiderDocumentViewerModal";
 import RiderApprovalResponseConfirmationModal from "./ApprovalResponseConfirmationModal";
