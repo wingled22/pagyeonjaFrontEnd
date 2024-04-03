@@ -42,14 +42,6 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
         }));
     };
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setFormData(prevData => ({
-            ...prevData,
-            image: file
-        }));
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
         // console.log(formData);
@@ -235,7 +227,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
                                     <Input
                                         type="email"
                                         id="email"
-                                        name="email"
+                                        name="emailAddress"
                                         placeholder="Enter Email Address"
                                         value={formData.emailAddress || ''}
                                         onChange={handleChange}
