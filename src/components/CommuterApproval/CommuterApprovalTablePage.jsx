@@ -28,6 +28,13 @@ const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
     console.log(value,'filter ni siya nga value')
   };
 
+  const CommuterApprovalFilteredData = approvals.filter(
+    (item) =>
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(filterCommuterApproval) ||
+      item.approvalStatus == filterCommuterApproval
+  );
 
   
 
