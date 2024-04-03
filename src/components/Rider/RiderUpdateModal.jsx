@@ -101,19 +101,7 @@ const RiderUpdateModal = ({ isOpen, toggle, rider,fetchRiders, onSelectRider }) 
                             onChange={handleChange}
                         />
                  
-                        <Row>
-                            <Col >
-                                <FormGroup>
-                                    <Label for="image"><strong>Image:</strong></Label>
-                                    <Input
-                                        type="file"
-                                        id="image"
-                                        name="image"
-                                        onChange={handleImageChange}
-                                    />
-                                </FormGroup>
-                            </Col>
-                        </Row>
+                        
                         <Row form>
                             <Col className="col-6 col-sm-4">
                                 <FormGroup>
