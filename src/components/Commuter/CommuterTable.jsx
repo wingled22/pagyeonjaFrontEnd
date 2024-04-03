@@ -5,7 +5,7 @@ import {
     faPenToSquare,
     faCirclePause
 } from "@fortawesome/free-solid-svg-icons";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Row, Col, Container } from 'reactstrap';
 import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensionModal.jsx";
@@ -116,7 +116,8 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
                         body: JSON.stringify(formData)
                     }
                 );
-             
+            toast.success('Commuter Suspended');
+
             }
             else if (suspendStatus === true) //update instead
             {
@@ -128,13 +129,13 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
                         body: JSON.stringify(updateFormData)
                     }
                 );
-            
+            toast.success('Commuter Suspended Updated');
+
             }
 
             clearSuspensionEntry();
             getCommuters();
             toggleSuspension();
-
             toggleTriggerChanges();
 
             //toggle so that the suspension status is true
@@ -171,11 +172,12 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
             getCommuters();
             toggleSuspension();
             toggleTriggerChanges();
-
+            toast.success('Commuter Suspension Revoked');
             //toggle so that the suspension status is true
             suspensionStatus(false);
+
         } catch (error) {
-            toast.error('Error occurred while processing');
+            console.error("Error fetching data: ", error);
         }
     }
 
@@ -238,7 +240,6 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
                     </tbody>
                 </table>
             </div>
-
         </>
     );
 };
