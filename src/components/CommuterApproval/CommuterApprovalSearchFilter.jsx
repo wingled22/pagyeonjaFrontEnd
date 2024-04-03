@@ -11,9 +11,9 @@ import {
 const CommuterApprovalSearchAndFilter = ({onSearchCommuterApproval, filterStatus}) => {
 
   const StatusData = [
-    {status: "Pending" },
-    { status: "Approved" },
-    {  status: "Rejected" },
+    { id: 55, status: "Pending" },
+    { id: 56, status: "Approved" },
+    { id: 57, status: "Rejected" },
   ];
 
   const handleSearch = (event) => {
@@ -25,7 +25,7 @@ const CommuterApprovalSearchAndFilter = ({onSearchCommuterApproval, filterStatus
   const [selectedStatus, setSelectedStatus] = useState(null);
 
   const handleStatusSelect = (status) => {
-    setSelectedStatus(status.toLowerCase());
+    setSelectedStatus(status);
     filterStatus(status.toLowerCase()); /// mag himo og function then ilabay adtos table page
 
   };
@@ -64,7 +64,7 @@ const CommuterApprovalSearchAndFilter = ({onSearchCommuterApproval, filterStatus
               <DropdownItem header>Select to Filter</DropdownItem>
               {StatusData.map((item) => (
                 <DropdownItem
-                  key={item.status}
+                  key={item.id}
                   onClick={() => handleStatusSelect(item.status)}
                 >
                   {item.status}

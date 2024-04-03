@@ -1,34 +1,31 @@
-import React , { useState ,useEffect}  from "react";
-import { Button, Table,Row } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Table, Row } from "reactstrap";
 import "../../assets/css/CommuterApproval/CommuterApprovalTablePage.css";
 import CommuterApprovalBadge from "./CommuterApprovalBadge";
 import images1 from "../../assets/image/withHer.png";
-
-
-
 import CommuterApprovalSearchAndFilter from "./CommuterApprovalSearchFilter";
 
-const CommuterApprovalTablePage = ({ text, color, changeUserID , approvals }) => {
- 
+const CommuterApprovalTablePage = ({
+  text,
+  color,
+  changeUserID,
+  approvals,
+}) => {
+  console.log("approval value nis table: ", approvals);
 
-  console.log("approval value nis table: ",approvals)
-
-  const callChangeUserID = (id) => 
-  {
+  const callChangeUserID = (id) => {
     changeUserID(id);
-    console.log("na click ko")
-  }
+    console.log("na click ko");
+  };
 
-
-  const [searchCommuterApprovalTerm, setSearchCommuterApprovalTerm] = useState('');
+  const [searchCommuterApprovalTerm, setSearchCommuterApprovalTerm] =
+    useState("");
 
   const handleSearch = (value) => {
     setSearchCommuterApprovalTerm(value);
   };
 
-
-
-  const [filterCommuterApproval, setfilterCommuterApproval] = useState('');
+  const [filterCommuterApproval, setfilterCommuterApproval] = useState("");
   const handleFilter = (value) => {
     let newValue;
     if (value === "pending") {
@@ -40,41 +37,48 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID , approvals }) =>
     }
 
     setfilterCommuterApproval(newValue);
-  };
+  };  
 
+  const CommuterApprovalFilteredData = approvals.filter(
+    (item) =>
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(searchCommuterApprovalTerm) ||
+        item.approvalStatus == searchCommuterApprovalTerm
+  );
 
-  
+  const CommuterApprovalFilterStatus = CommuterApprovalFilteredData.filter(
+    (item) =>
+      (item.firstName + " " + item.middleName + " " + item.lastName)
+        .toLowerCase()
+        .includes(filterCommuterApproval) ||
+      item.approvalStatus.toLowerCase().includes(filterCommuterApproval)
+  );
 
-  
-
-  // const CommuterApprovalFilteredData = approvals.filter(item =>
-
- 
-  //  ( item.firstName +' '+item.middleName +' '+item.lastName).toLowerCase().includes(searchCommuterApprovalTerm) ||
-  //   item.status.toLowerCase().includes(searchCommuterApprovalTerm)
-    
-  // );
-  
-  // const CommuterApprovalFilterStatus = CommuterApprovalFilteredData.filter(item =>
-  //   ( item.firstName +' '+item.middleName +' '+item.lastName).toLowerCase().includes(filterCommuterApproval) ||
-  //   item.status.toLowerCase().includes(filterCommuterApproval)
-  // );
-  
+  if (CommuterApprovalFilteredData == null) {
+    return <></>;
+  }
 
   return (
-  <>
-
-  <Row sm={11}>
-   <CommuterApprovalSearchAndFilter onSearchCommuterApproval={handleSearch} filterStatus={handleFilter}/>
-   </Row>
-    <div className="commuter-approval-table-container">
-      <table className="commuter-table-in">
-        <tbody>
-          {approvals.map((item) => (
-            
-            <tr key={item.id} onClick={() => {callChangeUserID(item.userId)}}>
-              <td className="commuter-td-style">
-              <div
+    <>
+      <Row sm={11}>
+        <CommuterApprovalSearchAndFilter
+          onSearchCommuterApproval={handleSearch}
+          filterStatus={handleFilter}
+        />
+      </Row>
+      <div className="commuter-approval-table-container">
+        <table className="commuter-table-in">
+          <tbody>
+            {CommuterApprovalFilteredData.map((item) => (
+              <tr
+                key={item.id}
+                onClick={() => {
+                  callChangeUserID(item.userId);
+                }}
+              >
+                <td className="commuter-td-style">
+                  <div
                     style={{
                       backgroundImage: `url(${
                         item.profilePath != "" && item.profilePath != null
@@ -87,25 +91,26 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID , approvals }) =>
                     }}
                     className="commuter-table-image"
                   />
-              </td>
-              <td className="commuter-td-style">{item.firstName+' '+ item.middleName +' '+ item.lastName}</td>
-              <td className="commuter-td-style">
-                <CommuterApprovalBadge text={
-                item.approvalStatus === true
-                ? "approved"
-                : item.approvalStatus == false
-                ? "rejected"
-                : "Pending"
-                } />
-              </td>
-            </tr>
-          ))}
-
-
-          
-        </tbody>
-      </table>
-    </div>
+                </td>
+                <td className="commuter-td-style">
+                  {item.firstName + " " + item.middleName + " " + item.lastName}
+                </td>
+                <td className="commuter-td-style">
+                  <CommuterApprovalBadge
+                    text={
+                      item.approvalStatus === true
+                        ? "approved"
+                        : item.approvalStatus == false
+                        ? "rejected"
+                        : "Pending"
+                    }
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
