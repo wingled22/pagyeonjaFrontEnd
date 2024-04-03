@@ -2,6 +2,7 @@ import React , { useState ,useEffect}  from "react";
 import { Button, Table,Row } from "reactstrap";
 import "../../assets/css/CommuterApproval/CommuterApprovalTablePage.css";
 import CommuterApprovalBadge from "./CommuterApprovalBadge";
+import images1 from "../../assets/image/withHer.png";
 
 
 import CommuterApprovalSearchAndFilter from "./CommuterApprovalSearchFilter";
@@ -87,7 +88,7 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID , approvals }) =>
                       height: "100px",
                       width: "100px",
                     }}
-                    className="rider-table-image"
+                    className="commuter-table-image"
                   />
                 {/* <img src={item.profilePath} className="commuter-table-image" /> */}
               </td>
