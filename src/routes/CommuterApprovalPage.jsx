@@ -8,9 +8,7 @@ const CommuterApprovalPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [approvals, setApprovals] = useState([]);
 
-  const setChangeUserID = (userId) => {
-    setSelectedUser(userId);
-  };
+ 
 
   const getApprovalList = async () => {
     try {
@@ -19,14 +17,21 @@ const CommuterApprovalPage = () => {
       );
       const data = await response.json();
       setApprovals(data);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const setChangeUserID = (userId) => {
+    setSelectedUser(userId);
+    console.log(userId, "commuter page");
+  };
   useEffect(() => {
     getApprovalList();
   }, []);
+
+  
 
   return (
     <>

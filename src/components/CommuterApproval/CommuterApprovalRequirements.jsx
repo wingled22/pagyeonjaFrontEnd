@@ -12,11 +12,11 @@ import {
   Col,
 } from "reactstrap";
 import images1 from "../../assets/image/carlo.jpg";
-import images2 from "../../assets/image/cliff.jpg";
-import images3 from "../../assets/image/cs3.png";
+import { useState, useEffect } from "react";
 import { auto } from "@popperjs/core";
 
 // import ViewRequirements from "./RequirementsCards";
+import CommuterDocumentViewerModal from "../Commuter/CommuterDocumentViewerModal";
 import CommuterApprovalViewRequirements from "./CommuterApprovalRequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
@@ -24,32 +24,101 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 import "../../assets/css/CommuterApproval/CommuterApprovalRequirements.css";
 
-const CommuterApprovalRequirements = () => {
+const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
+  console.log("requirements", userId);
+  const [document, setDocument] = useState([]);
+  const [documentFiles, setDocumentFiles] = useState([]);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+
+  const getRequirements = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/document/getdocuments?id=${userId}&usertype=Commuter`
+      );
+      if (response.ok) {
+        setDocument(await response.json());
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onDocumentButtonClick = (documentType) => {
+    setDocumentFiles(
+      document.documents.filter(
+        (item) =>
+          item.documentName.includes(documentType) && item.userId === userId
+      )
+    );
+  };
+
+  useEffect(() => {
+    getRequirements();
+  }, [userId]);
+
+
   return (
     <>
+      <CommuterDocumentViewerModal
+        isOpen={isOpen}
+        untoggle={toggle}
+        document={documentFiles}
+        userName={`${document.firstName} ${document.middleName && document.middleName[0]
+          }. ${document.lastName}`}
+      />
       <div className="commuter-approval-rectangle-requiment">
         <Row>
-          <img className="centered commuter-approval-profile" src={images1} />
+          <div
+            style={{
+              backgroundImage: `url(${document.profilePath != null
+                ? `http://localhost:5180/img/commuter_profile/${document.profilePath}`
+                : images1
+                })`,
+              backgroundSize: "cover",
+            }}
+            className="rider-profile d-flex ms-auto me-auto mt-3"
+          />
           <h5 style={{ textAlign: "center", marginTop: "10px" }}>
-            Carlo M. Gesta
+            {document.firstName}{" "}
+            {document.middleName && document.middleName[0]}.{" "}
+            {document.lastName}
           </h5>
           <div className="profile-line"></div>
         </Row>
         <Row>
-         
+
           <CommuterApprovalViewRequirements
-            viewText={"View OR/CR file"}
+            viewText={"View OR file"}
             viewFileText={"View the uploaded files from commuter"}
+            onDocumentButtonClick={onDocumentButtonClick}
+            documentType={"or"}
+            toggle={toggle}
           />
 
           <CommuterApprovalViewRequirements
-            viewText={"View Drivers License file"}
+            viewText={"View CR file"}
             viewFileText={"View the uploaded files from commuter"}
+            onDocumentButtonClick={onDocumentButtonClick}
+            documentType={"cr"}
+            toggle={toggle}
+          />
+
+          <CommuterApprovalViewRequirements
+            viewText={"View Driver's License file"}
+            viewFileText={"View the uploaded files from commuter"}
+            onDocumentButtonClick={onDocumentButtonClick}
+            documentType={"license"}
+            toggle={toggle}
           />
 
           <CommuterApprovalViewRequirements
             viewText={"View NBI clearance file"}
-            viewFileText={"View the uploaded files from commuter"}
+            viewFileText={"Select and upload the files of your choice"}
+            onDocumentButtonClick={onDocumentButtonClick}
+            documentType={"nbi"}
+            toggle={toggle}
           />
         </Row>
 
@@ -59,7 +128,7 @@ const CommuterApprovalRequirements = () => {
             color="success"
             style={{ borderRadius: 50, fontWeight: "bold" }}
           >
-            
+
             <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
           </Button>
           <Button
