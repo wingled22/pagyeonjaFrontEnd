@@ -1,6 +1,7 @@
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Input } from 'reactstrap';
 import "../../assets/css/CommuterSuspensionModal.css";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useState, useEffect } from "react";
 
 const formatDate = (dateString) => {
@@ -72,6 +73,7 @@ const CommuterSuspensionModal = ({ isOpen, untoggle, commuterID, reason, updateR
                             />
                         </div>
                     </Form>
+                    <ToastContainer />
                 </ModalBody>
                 <ModalFooter className='commuterSuspensionFooter' style={{ justifyContent: 'space-between' }}>
                     {commuterSuspensionStatus ? <Button className='btn btn-warning btnRevokeSuspension' onClick={() => { handleRevokeSuspension() }}>Revoke Suspension</Button> : ''}
