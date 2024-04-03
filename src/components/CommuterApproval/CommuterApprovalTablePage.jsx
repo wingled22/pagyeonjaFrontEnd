@@ -4,6 +4,8 @@ import "../../assets/css/CommuterApproval/CommuterApprovalTablePage.css";
 import CommuterApprovalBadge from "./CommuterApprovalBadge";
 import images1 from "../../assets/image/withHer.png";
 import CommuterApprovalSearchAndFilter from "./CommuterApprovalSearchFilter";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 const CommuterApprovalTablePage = ({
   text,
@@ -37,14 +39,14 @@ const CommuterApprovalTablePage = ({
     }
 
     setfilterCommuterApproval(newValue);
-  };  
+  };
 
   const CommuterApprovalFilteredData = approvals.filter(
     (item) =>
       (item.firstName + " " + item.middleName + " " + item.lastName)
         .toLowerCase()
         .includes(searchCommuterApprovalTerm) ||
-        item.approvalStatus == searchCommuterApprovalTerm
+      item.approvalStatus == searchCommuterApprovalTerm
   );
 
   const CommuterApprovalFilterStatus = CommuterApprovalFilteredData.filter(
@@ -81,9 +83,11 @@ const CommuterApprovalTablePage = ({
                   <div
                     style={{
                       backgroundImage: `url(${
-                        item.profilePath != "" && item.profilePath != null
-                          ? `http://localhost:5180/img/commuter_profile/${item.profilePath}`
-                          : images1
+                        item.profilePath != "" && item.profilePath != null ? (
+                          `http://localhost:5180/img/commuter_profile/${item.profilePath}`
+                        ) : (
+                         images1
+                        )
                       })`,
                       backgroundSize: "cover",
                       height: "100px",
