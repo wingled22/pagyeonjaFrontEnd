@@ -5,13 +5,9 @@ import CommuterApprovalBadge from "./CommuterApprovalBadge";
 import images1 from "../../assets/image/withHer.png";
 import CommuterApprovalSearchAndFilter from "./CommuterApprovalSearchFilter";
 
-const CommuterApprovalTablePage = ({
-  text,
-  color,
-  changeUserID,
-  approvals,
-}) => {
-  console.log("approval value nis table: ", approvals);
+const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
+
+  console.log("approval value nis table: ",approvals)
 
   const callChangeUserID = (id) => {
     changeUserID(id);
@@ -27,37 +23,22 @@ const CommuterApprovalTablePage = ({
 
   const [filterCommuterApproval, setfilterCommuterApproval] = useState("");
   const handleFilter = (value) => {
-    let newValue;
-    if (value === "pending") {
-      newValue = null;
-    } else if (value === "rejected") {
-      newValue = false;
-    } else if (value === "approved") {
-      newValue = true;
-    }
+    setfilterCommuterApproval(value);
 
-    setfilterCommuterApproval(newValue);
-  };  
+    console.log(value,'filter ni siya nga value')
+  };
 
   const CommuterApprovalFilteredData = approvals.filter(
     (item) =>
       (item.firstName + " " + item.middleName + " " + item.lastName)
         .toLowerCase()
-        .includes(searchCommuterApprovalTerm) ||
-        item.approvalStatus == searchCommuterApprovalTerm
-  );
-
-  const CommuterApprovalFilterStatus = CommuterApprovalFilteredData.filter(
-    (item) =>
-      (item.firstName + " " + item.middleName + " " + item.lastName)
-        .toLowerCase()
         .includes(filterCommuterApproval) ||
-      item.approvalStatus.toLowerCase().includes(filterCommuterApproval)
+      item.approvalStatus == filterCommuterApproval
   );
 
-  if (CommuterApprovalFilteredData == null) {
-    return <></>;
-  }
+  
+
+  
 
   return (
     <>
