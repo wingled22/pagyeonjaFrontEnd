@@ -11,7 +11,7 @@ import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensio
 import { useState, useEffect } from "react";
 import CommuterUpdateModal from '../../components/Commuter/CommuterUpdateModal.jsx';
 
-const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSelectCommuter}) => {
+const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSelectCommuter, toggleTriggerChanges}) => {
     const [commuters, setCommuters] = useState([]);
     const [filteredCommuters, setFilteredCommuters] = useState([]);
 
@@ -119,7 +119,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
             else if (suspendStatus === true) //update instead
             {
                 const response = await fetch(
-                    "http://localhost:5180/api/Suspension/UpdateSuspension?id=" + suspensionId,
+                    "http://localhost:5180/api/Suspension/UpdateSuspension",
                     {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
@@ -131,6 +131,8 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
             clearSuspensionEntry();
             getCommuters();
             toggleSuspension();
+
+            toggleTriggerChanges();
 
             //toggle so that the suspension status is true
             suspensionStatus(true);
@@ -165,6 +167,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
             clearSuspensionEntry();
             getCommuters();
             toggleSuspension();
+            toggleTriggerChanges();
 
             //toggle so that the suspension status is true
             suspensionStatus(false);
@@ -200,7 +203,7 @@ const CommuterTable = ({ selectUser, searchValueCommuter, suspensionStatus ,onSe
 
     return (
         <>
-            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} CommuterUpdate={selectedCommuter}  fetchCommuter={getCommuters} onSelectCommuter={onChangeSelectedCommuter}/>
+            <CommuterUpdateModal isOpen={modalupdate} untoggle={toggleUpdate} CommuterUpdate={selectedCommuter}  fetchCommuter={getCommuters} onSelectCommuter={onChangeSelectedCommuter} toggleTriggerChanges={toggleTriggerChanges}/>
             {commuterID ? <CommuterSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} commuterID={commuterID} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionCommuter={handleUpdateSuspensionCommuter} handleRevokeSuspension={handleRevokeSuspension} commuterSuspensionStatus={commuterSuspensionStatus} /> : ''}
             <div className="CommuterTableContainer">
                 <table className='tableCommuterTable'>
