@@ -57,6 +57,13 @@
  
  }
 
+ .iconProfilepath{
+  width: 100px !important;
+  height: 100px !important;
+  margin-top: 2.5vh !important;
+  margin-left: 15px !important;
+}
+
 
  @media only screen and (max-width: 991px) {
 
