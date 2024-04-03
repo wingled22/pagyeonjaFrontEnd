@@ -243,7 +243,6 @@ const CommuterUpdateModal = ({ isOpen, untoggle, CommuterUpdate ,fetchCommuter ,
             </Form>
 
         </Modal>
-        <ToastContainer />
 
         </>
       
