@@ -37,6 +37,11 @@ const Requirements = ({ userId, getApprovals }) => {
   // states for approval modal
   const [approvalModalIsOpen, setApprovalModalIsOpen] = useState(false);
   const toggleApprovaModal = () => setApprovalModalIsOpen(!approvalModalIsOpen);
+  const [rejectionMessage, setRejectionMessage] = useState("");
+  const onSetRejectionMessage = (message) => {
+    setRejectionMessage(() => message);
+    console.log(message);
+  };
 
   const getRequirements = async () => {
     try {
@@ -65,7 +70,7 @@ const Requirements = ({ userId, getApprovals }) => {
   const onResponseRiderApproval = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5180/api/Approval/UserApprovalResponse?usertype=Rider&userid=${userId}&response=${approvalResponse}`,
+        `http://localhost:5180/api/Approval/UserApprovalResponse?usertype=Rider&userid=${userId}&response=${approvalResponse}&rejectionmessage=${rejectionMessage}`,
         {
           method: "PUT",
         }
@@ -74,7 +79,11 @@ const Requirements = ({ userId, getApprovals }) => {
         toggleApprovaModal();
         getRequirements();
         getApprovals();
-        console.log({ riderId: userId, response: approvalResponse });
+        console.log({
+          riderId: userId,
+          response: approvalResponse,
+          message: rejectionMessage,
+        });
       }
     } catch (err) {
       console.error(err);
@@ -98,6 +107,8 @@ const Requirements = ({ userId, getApprovals }) => {
         toggle={toggleApprovaModal}
         response={approvalResponse}
         onResponse={onResponseRiderApproval}
+        setRejectionMessage={onSetRejectionMessage}
+        rejectionMessage={rejectionMessage}
       />
       <div className="rectangle-requiment">
         <>
