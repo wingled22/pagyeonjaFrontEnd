@@ -65,7 +65,7 @@ const Requirements = ({ userId, getApprovals }) => {
   const onResponseRiderApproval = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5180/api/RiderRegistration/RiderApprovalResponse?riderId=${userId}&response=${approvalResponse}`,
+        `http://localhost:5180/api/Approval/UserApprovalResponse?usertype=Rider&userid=${userId}&response=${approvalResponse}`,
         {
           method: "PUT",
         }
