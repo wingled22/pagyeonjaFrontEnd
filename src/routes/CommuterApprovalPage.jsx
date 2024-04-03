@@ -15,7 +15,7 @@ const CommuterApprovalPage = () => {
   const getApprovalList = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5180/api/Approval/GetApprovals?usertype=Rider"
+        "http://localhost:5180/api/Approval/GetApprovals?usertype=Commuter"
       );
       const data = await response.json();
       setApprovals(data);

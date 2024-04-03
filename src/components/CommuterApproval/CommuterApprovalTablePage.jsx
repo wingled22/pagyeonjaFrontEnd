@@ -94,7 +94,13 @@ const CommuterApprovalTablePage = ({ text, color, changeUserID , approvals }) =>
               </td>
               <td className="commuter-td-style">{item.firstName+' '+ item.middleName +' '+ item.lastName}</td>
               <td className="commuter-td-style">
-                {/* <CommuterApprovalBadge text={item.approvalStatus} /> */}
+                <CommuterApprovalBadge text={
+                item.approvalStatus === true
+                ? "approved"
+                : item.approvalStatus == false
+                ? "rejected"
+                : "Pending"
+                } />
               </td>
             </tr>
           ))}
