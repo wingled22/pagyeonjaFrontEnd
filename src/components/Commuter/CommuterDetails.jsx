@@ -67,8 +67,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
                 seconds: Math.floor((difference / 1000) % 60)
             };
         }
-        else
-        {
+        else {
             timeLeft = {
                 days: 0,
                 hours: 0,
@@ -102,47 +101,51 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
 
     const getRequirements = async () => {
         if (!commuterInfo.commuterId) {
-          return;
+            return;
         }
         try {
-          const response = await fetch(
-            `http://localhost:5180/api/document/getdocuments?id=${commuterInfo.commuterId}&usertype=Commuter`
-          );
-          if (response.ok) {
-            const data = await response.json()
-            setDocument(data);
-            console.log(data)
-          }
-         
+            const response = await fetch(
+                `http://localhost:5180/api/document/getdocuments?id=${commuterInfo.commuterId}&usertype=Commuter`
+            );
+            if (response.ok) {
+                const data = await response.json()
+                setDocument(data);
+            }
+
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
-    
-      useEffect(() => {
-        
+    };
+
+    useEffect(() => {
+
         getRequirements();
-      }, [commuterInfo, triggerChanges]);
+    }, [commuterInfo, triggerChanges]);
+
+    function ProfileImage({ commuterInfo }) {
+        const [imageFailed, setImageFailed] = useState(false);
+
+        return (
+            imageFailed ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> :
+                <img
+                    className="imageContainer"
+                    src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`}
+                    alt=""
+                />
+        );
+    }
 
     return (<>
 
-        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer}   document={document.documents}
-          userName={`${document.firstName} ${document.middleName && document.middleName[0]
-            }. ${document.lastName}`} />}
+        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} document={document.documents}
+            userName={`${document.firstName} ${document.middleName && document.middleName[0]
+                }. ${document.lastName}`} />}
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
                 <Col md="2" sm="2" xs={12}>
-                {commuterInfo.profilePath === "" || commuterInfo.profilePath === null || !commuterInfo.profilePath ? (
-                 <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon>
-                  ) : (
-                    <img
-                      className="imageContainer"
-                      src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`}
-                      alt=""
-                    />
-                  )}
-
+                    {commuterInfo.profilePath === "" || commuterInfo.profilePath === null || !commuterInfo.profilePath ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <ProfileImage commuterInfo={commuterInfo} />
+                    }
                 </Col>
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
                     <div className="text-name">{commuterInfo.firstName} {commuterInfo.lastName}</div>
