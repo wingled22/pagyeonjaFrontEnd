@@ -9,7 +9,7 @@ import {
   } from "reactstrap";
 //   import "../../assets/css/RiderTopUpModal.css";
 import "../../assets/css/RiderSuspensionModal.css";
-  
+
   
   const RiderTopUpModal = ({
     isOpen,
@@ -21,7 +21,7 @@ import "../../assets/css/RiderSuspensionModal.css";
   
     return (
       <>
-        <Modal isOpen={isOpen} toggle={untoggle} centered>
+        <Modal isOpen={isOpen} toggle={untoggle} centered size="lg">
           <ModalHeader toggle={untoggle} className="riderSuspensionHeader">
             Rider TopUpHistory
           </ModalHeader>
@@ -37,37 +37,14 @@ import "../../assets/css/RiderSuspensionModal.css";
                 </h5>
               </center>{" "}
               <div>
-                <label htmlFor="" style={{ margin: "5px" }}>
-                  <strong>Reason : </strong>
-                </label>
+               
                
               </div>
            
-              <hr />
+           
              
             </ModalBody>
-            <ModalFooter
-              className="riderSuspensionFooter"
-              style={{ justifyContent: "space-between" }}
-            >
-              
-                <Button
-                  className="btn btn-warning btnRiderRevokeSuspension"
-                
-                >
-                  Revoke Suspension
-                </Button>
-            
-                <Button
-                  className="btn btnRiderConfirmSuspension"
-                  onClick={() => {
-                   
-                  }}
-                >
-                  Confirm
-                </Button>
-             
-            </ModalFooter>
+           
           </Form>
         </Modal>
       </>
