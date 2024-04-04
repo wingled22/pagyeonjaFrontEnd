@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/RiderPage.css";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faPenToSquare, faCirclePause } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faPenToSquare, faCirclePause, faWallet } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "reactstrap";
 import RiderDetailsModal from "./RiderDetailsModal";
 import RiderSuspensionModal from "./RiderSuspensionModal";
@@ -260,7 +260,7 @@ const RiderTable = ({ onSelectRider }) => {
                     <Icon icon={faCirclePause} color="white" />
                   </button>
                   <button className="btn btn-primary" onClick={() => { toggleTopUpModal(rider)}}>
-                    <Icon icon={faCircleInfo} color="white" />
+                    <Icon icon={faWallet} color="white" />
                   </button>
                 </td>
               </tr>
