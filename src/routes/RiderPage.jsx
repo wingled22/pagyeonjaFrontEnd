@@ -1,13 +1,12 @@
 import "../assets/css/RiderPage.css";
 import RiderTable from "../components/Rider/RiderTable.jsx";
 import RiderProfile from "../components/Rider/RiderProfile.jsx";
-// import RiderProfile from "../components/RiderProfile.jsx";
 import { Row, Col, Container } from "reactstrap";
 import { useState } from "react";
 const RiderPage = () => {
   const [selectedRider, setSelectedRider] = useState(null);
-  const updateSelectRider = (id) => {
-    setSelectedRider(id);
+  const updateSelectRider = (rider) => {
+    setSelectedRider(rider);
   };
 
   return (
@@ -27,7 +26,6 @@ const RiderPage = () => {
           </Col>
         </Row>
       </Container>
-      {/* </Container> */}
     </>
   );
 };
