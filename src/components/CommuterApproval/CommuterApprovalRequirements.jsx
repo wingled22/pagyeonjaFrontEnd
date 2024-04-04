@@ -45,6 +45,7 @@ const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
     setRejectionMessage(() => message);
     console.log(message);
   };
+  const [approval, setApproval] = useState([]);
 
   const getRequirements = async () => {
     try {
@@ -92,9 +93,27 @@ const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
     }
   };
 
+  const getCommuter = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/CommuterRegistration/getcommuter?id=${userId}`
+      );
+      if (response.ok) {
+        setApproval(await response.json());
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     getRequirements();
   }, [userId]);
+
+  useEffect(() => {
+    getCommuter();
+  }, [userId]);
+
 
   return (
     <>
@@ -169,28 +188,46 @@ const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
         </Row>
 
         <div className="btnAppRej">
-          <Button
-            className="btn-rider-approval"
-            color="success"
-            style={{ borderRadius: 50, fontWeight: "bold" }}
-            onClick={() => {
-              setApprovalResponse(true);
-              toggleApprovaModal();
-            }}
-          >
-            <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
-          </Button>
-          <Button
-            className="btn-rider-approval"
-            color="danger"
-            style={{ borderRadius: 50, fontWeight: "bold" }}
-            onClick={() => {
-              setApprovalResponse(false);
-              toggleApprovaModal();
-            }}
-          >
-            <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
-          </Button>
+        {approval.approvalStatus === '' || approval.approvalStatus === null ?
+              <><Button
+                className="btn-rider-approval"
+                color="success"
+                style={{ borderRadius: 50, fontWeight: "bold" }}
+                onClick={() => {
+                  setApprovalResponse(true);
+                  toggleApprovaModal();
+                }}
+              >
+                {" "}
+                <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
+              </Button>
+                <Button
+                  className="btn-rider-approval"
+                  color="danger"
+                  style={{ borderRadius: 50, fontWeight: "bold" }}
+                  onClick={() => {
+                    setApprovalResponse(false);
+                    toggleApprovaModal();
+                  }}
+                >
+                  <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
+                </Button></>
+              :
+              <Button
+                className="btn-rider-approval"
+                color="success"
+                style={{ borderRadius: 50, fontWeight: "bold" }}
+                onClick={() => {
+                  setApprovalResponse(true);
+                  toggleApprovaModal();
+                }}
+              >
+                {" "}
+                <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
+              </Button>
+            }
+
+
         </div>
       </div>
     </>
