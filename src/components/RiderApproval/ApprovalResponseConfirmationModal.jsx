@@ -8,19 +8,20 @@ import {
 } from "reactstrap";
 import "../../assets/css/RiderDocumentViewerModal.css";
 import { Row, Col, Input } from "reactstrap";
-const RiderApprovalResponseConfirmationModal = ({
+const ApprovalResponseConfirmationModal = ({
   isOpen,
   toggle,
   response,
   onResponse,
   setRejectionMessage,
   rejectionMessage,
+  userType,
 }) => {
   return (
     <>
       <Modal isOpen={isOpen} toggle={toggle} centered size="md">
         <ModalHeader toggle={toggle} className="riderDocumentViewerHeader">
-          {response ? "Approve" : "Reject"} rider request
+          {response ? "Approve" : "Reject"} {userType.toLowerCase()} request
         </ModalHeader>
         <ModalBody>
           <center className="mt-3">
@@ -28,8 +29,8 @@ const RiderApprovalResponseConfirmationModal = ({
               {response && (
                 <>
                   Are you sure you want to
-                  <strong className="text-primary">Approve </strong>
-                  this Rider?
+                  <strong className="text-primary"> Approve </strong>
+                  this {userType}?
                 </>
               )}
             </h5>
@@ -54,13 +55,13 @@ const RiderApprovalResponseConfirmationModal = ({
           className="riderSuspensionFooter"
           style={{ justifyContent: "space-between" }}
         >
-          <Row className="">
-            <Col className="ms-auto">
+          <Row>
+            <Col style={{ marginLeft: "13rem" }}>
               <Button color="danger" onClick={toggle}>
                 Cancel
               </Button>
             </Col>
-            <Col>
+            <Col className="">
               {!response ? (
                 <Button color="warning" size="md" onClick={onResponse}>
                   Reject
@@ -78,4 +79,4 @@ const RiderApprovalResponseConfirmationModal = ({
   );
 };
 
-export default RiderApprovalResponseConfirmationModal;
+export default ApprovalResponseConfirmationModal;

@@ -17,8 +17,7 @@ import { auto } from "@popperjs/core";
 
 // import ViewRequirements from "./RequirementsCards";
 import CommuterDocumentViewerModal from "../Commuter/CommuterDocumentViewerModal";
-// import RiderApprovalResponseConfirmationModal from "./ApprovalResponseConfirmationModal";
-import RiderApprovalResponseConfirmationModal from "../RiderApproval/ApprovalResponseConfirmationModal";
+import ApprovalResponseConfirmationModal from "../RiderApproval/ApprovalResponseConfirmationModal";
 
 import CommuterApprovalViewRequirements from "./CommuterApprovalRequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -107,13 +106,14 @@ const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
           document.middleName && document.middleName[0]
         }. ${document.lastName}`}
       />
-      <RiderApprovalResponseConfirmationModal
+      <ApprovalResponseConfirmationModal
         isOpen={approvalModalIsOpen}
         toggle={toggleApprovaModal}
         response={approvalResponse}
         onResponse={onResponseRiderApproval}
         setRejectionMessage={onSetRejectionMessage}
         rejectionMessage={rejectionMessage}
+        userType={"Commuter"}
       />
       <div className="commuter-approval-rectangle-requiment">
         <Row>

@@ -13,9 +13,8 @@ import {
 } from "reactstrap";
 import images1 from "../../assets/image/carlo.jpg";
 
-
 import RiderDocumentViewerModal from "../Rider/RiderDocumentViewerModal";
-import RiderApprovalResponseConfirmationModal from "./ApprovalResponseConfirmationModal";
+import ApprovalResponseConfirmationModal from "./ApprovalResponseConfirmationModal";
 
 import ViewRequirements from "./RequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -100,13 +99,14 @@ const Requirements = ({ userId, getApprovals }) => {
           document.middleName && document.middleName[0]
         }. ${document.lastName}`}
       />
-      <RiderApprovalResponseConfirmationModal
+      <ApprovalResponseConfirmationModal
         isOpen={approvalModalIsOpen}
         toggle={toggleApprovaModal}
         response={approvalResponse}
         onResponse={onResponseRiderApproval}
         setRejectionMessage={onSetRejectionMessage}
         rejectionMessage={rejectionMessage}
+        userType={"Rider"}
       />
       <div className="rectangle-requiment">
         <>
