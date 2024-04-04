@@ -6,9 +6,10 @@ import { Row, Col, Container } from "reactstrap";
 import { useState } from "react";
 const RiderPage = () => {
   const [selectedRider, setSelectedRider] = useState(null);
-  const updateSelectRider = (id) => {
-    setSelectedRider(id);
+  const updateSelectRider = (rider) => {
+    setSelectedRider(rider);
   };
+  console.log(selectedRider);
 
   return (
     <>
