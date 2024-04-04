@@ -33,7 +33,23 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
       dropOffDate: "March 13, 2024",
       dropOFfTime: "08: 54 AM",
     },
-
+    {
+        id: 11,
+        BalanceBeforeTopup: 0.0,
+        BalanceAfterTopup: 100.0,
+        TopupAmount: 100.0,
+        Status: "Failed",
+        dropOffDate: "March 13, 2024",
+        dropOFfTime: "08: 54 AM",
+      }, {
+        id: 111,
+        BalanceBeforeTopup: 0.0,
+        BalanceAfterTopup: 100.0,
+        TopupAmount: 100.0,
+        Status: "Pending",
+        dropOffDate: "March 13, 2024",
+        dropOFfTime: "08: 54 AM",
+      },
     // {
     //   id: 1,
     //   name: "John Doe",
@@ -75,7 +91,7 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                 </strong>
               </h5>
             </center>{" "}
-            <hr />
+        
             <Container
               style={{
                 overflow: "hidden",
@@ -171,7 +187,13 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                           <span className="riderHistoryLabelInfo">Status</span>
                         </Col>
                         <Col md={2}>
-                          <span className="riderHistoryTextInfo text-success fw-bold">
+                          <span  className={`riderHistoryTextInfo fw-bold ${item.Status == "Failed"
+                                ? "text-danger"
+                                : item.Status == "Pending"
+                                  ? "text-warning"
+                                  : "text-success"
+                                }`}>
+                            
                             {" "}
                             : &emsp;{item.Status}
                           </span>
