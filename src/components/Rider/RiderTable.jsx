@@ -59,21 +59,21 @@ const RiderTable = ({ onSelectRider }) => {
   };
 
   const toggleModal = (rider) => {
-    setModalOpen(!modalOpen);
+    setModalOpen((isModalOpen) => !isModalOpen);
     setSelectedRider(rider);
   };
 
   const toggleTopUpModal = (rider) => {
-    setModalTopUpRider(!modalTopUpRider);
+    setModalTopUpRider((isModalOpen) => !isModalOpen);
     setSelectedRider(rider);
   };
   const toggleSuspension = (rider) => {
-    setModalSuspension(!modalSuspension);
+    setModalSuspension((isModalOpen) => !isModalOpen);
     setSelectedRider(rider);
   };
 
   const toggleUpdateModal = (rider) => {
-    setModalUpdateRider(!modalUpdateRider);
+    setModalUpdateRider((isModalOpen) => !isModalOpen);
     setSelectedRider(rider);
   };
 
