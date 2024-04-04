@@ -270,7 +270,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 style={{
                   borderRadius: "10px",
                   boxShadow: "0px 2px 4px 1.5px #00000080",
-                  maxWidth: "449px",
+                  maxWidth: "410px",
                   margin: "auto",
                   height: "70%",
 
@@ -356,7 +356,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                   marginTop: "20px",
                   borderRadius: "30px",
                   background: "#DDDBDB",
-                  maxHeight: "100%",
+                  maxHeight: "500px",
                   width: "90%",
                   display: "flex",
                   justifyContent: "center",
@@ -371,7 +371,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                   style={{
                     padding: "20px",
                     width: "100%",
-                    height: "100%",
+                    maxHeight: "500px",
                   }}
                 >
                   {data.map((item) => (
