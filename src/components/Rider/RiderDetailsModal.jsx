@@ -162,52 +162,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
       vehiclePlate: "06X77V",
       startingTime: "06: 00PM",
       fare: "₱15.00",
-    },
-    {
-      id: 4,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 5,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 6,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
+    }
+   
   ];
 
 
@@ -314,7 +270,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 style={{
                   borderRadius: "10px",
                   boxShadow: "0px 2px 4px 1.5px #00000080",
-                  maxWidth: "449px",
+                  maxWidth: "410px",
                   margin: "auto",
                   height: "70%",
 
@@ -400,7 +356,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                   marginTop: "20px",
                   borderRadius: "30px",
                   background: "#DDDBDB",
-                  maxHeight: "100%",
+                  maxHeight: "500px",
                   width: "90%",
                   display: "flex",
                   justifyContent: "center",
@@ -415,7 +371,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                   style={{
                     padding: "20px",
                     width: "100%",
-                    height: "100%",
+                    maxHeight: "500px",
                   }}
                 >
                   {data.map((item) => (
