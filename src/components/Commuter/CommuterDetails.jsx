@@ -150,7 +150,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
                     <div className="text-name">{commuterInfo.firstName} {commuterInfo.lastName}</div>
                     <div className="labelInfoPositioning">
-                        <span className="labelInfo">Sex: <span className="textInfo">{commuterInfo.sex === 'M' ? 'Male' : 'Female'}</span></span>
+                        <span className="labelInfo">Sex: <span className="textInfo">{commuterInfo.sex}</span></span>
                         <div className="labelInfo">Birthdate: <span className="textInfo">{formatDate(commuterInfo.birthdate)}</span></div>
                         <div className="labelInfo">Civil Status: <span className="textInfo">{commuterInfo.civilStatus}</span></div>
                         <div className="labelInfo">Occupation: <span className="textInfo">{commuterInfo.occupation}</span></div>
