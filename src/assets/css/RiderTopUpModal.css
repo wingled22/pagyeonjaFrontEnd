@@ -1,5 +1,17 @@
-.riderTopUpModalHeader
-{
+.riderTopUpModalHeader {
     background-color: #52459F !important;
     color: white;
+}
+
+.accordion-button {
+    height: 60px;
+}
+
+.accordion-button.collapsed {
+    height: 60px;
+}
+
+.topup-footer-modal {
+    background-color: #52459F;
+    height: 60px;
 }

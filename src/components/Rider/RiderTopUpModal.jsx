@@ -83,7 +83,7 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                 marginTop: "20px",
                 borderRadius: "30px",
                 background: "#DDDBDB",
-                maxHeight: "100%",
+                maxHeight: "500px",
                 width: "90%",
                 display: "flex",
                 justifyContent: "center",
@@ -98,7 +98,7 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                 style={{
                   padding: "20px",
                   width: "100%",
-                  height: "100%",
+                  maxHeight: "500px",
                 }}
               >
                 {data.map((item) => (
@@ -183,7 +183,9 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
               </Accordion>
             </Container>
           </ModalBody>
-          <ModalFooter></ModalFooter>
+          <ModalFooter className="topup-footer-modal">
+
+          </ModalFooter>
         </Form>
       </Modal>
     </>

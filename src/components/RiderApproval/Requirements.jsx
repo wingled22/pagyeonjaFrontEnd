@@ -13,14 +13,14 @@ import {
 } from "reactstrap";
 import images1 from "../../assets/image/carlo.jpg";
 
-
 import RiderDocumentViewerModal from "../Rider/RiderDocumentViewerModal";
-import RiderApprovalResponseConfirmationModal from "./ApprovalResponseConfirmationModal";
+import ApprovalResponseConfirmationModal from "./ApprovalResponseConfirmationModal";
 
 import ViewRequirements from "./RequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { toast } from 'react-toastify';
 
 const Requirements = ({ userId, getApprovals }) => {
   console.log("requirements", userId);
@@ -74,6 +74,7 @@ const Requirements = ({ userId, getApprovals }) => {
         }
       );
       if (response.ok) {
+        toast.success('Rider approval successfully.');
         toggleApprovaModal();
         getRequirements();
         getApprovals();
@@ -82,9 +83,13 @@ const Requirements = ({ userId, getApprovals }) => {
           response: approvalResponse,
           message: rejectionMessage,
         });
+      } else {
+        // This will show a rejection toast if the response is not OK
+        toast.error('Rider was rejected.');
       }
     } catch (err) {
       console.error(err);
+      toast.error('An error occurred while recording rider approval response.');
     }
   };
   useEffect(() => {
@@ -100,13 +105,14 @@ const Requirements = ({ userId, getApprovals }) => {
           document.middleName && document.middleName[0]
         }. ${document.lastName}`}
       />
-      <RiderApprovalResponseConfirmationModal
+      <ApprovalResponseConfirmationModal
         isOpen={approvalModalIsOpen}
         toggle={toggleApprovaModal}
         response={approvalResponse}
         onResponse={onResponseRiderApproval}
         setRejectionMessage={onSetRejectionMessage}
         rejectionMessage={rejectionMessage}
+        userType={"Rider"}
       />
       <div className="rectangle-requiment">
         <>

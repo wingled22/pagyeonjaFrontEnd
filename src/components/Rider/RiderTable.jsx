@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/RiderPage.css";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faPenToSquare, faCirclePause } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faPenToSquare, faCirclePause, faWallet } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "reactstrap";
 import RiderDetailsModal from "./RiderDetailsModal";
 import RiderSuspensionModal from "./RiderSuspensionModal";
 import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
 import RiderTopUpModal from "./RiderTopUpModal.jsx";
+import { toast } from 'react-toastify';
 
 const RiderTable = ({ onSelectRider }) => {
   const [riders, setRiders] = useState([]);
@@ -131,6 +132,8 @@ const RiderTable = ({ onSelectRider }) => {
             body: JSON.stringify(formData)
           }
         );
+        toast.success('Rider Suspended');
+
       }
       else if (suspendStatus === true) //update instead
       {
@@ -142,6 +145,8 @@ const RiderTable = ({ onSelectRider }) => {
             body: JSON.stringify(updateFormData)
           }
         );
+        toast.success('Rider Suspended Updated');
+
       }
 
       clearSuspensionEntry();
@@ -181,6 +186,7 @@ const RiderTable = ({ onSelectRider }) => {
         clearSuspensionEntry();
         fetchRiders();
         toggleSuspension();
+        toast.success('Rider Suspension Revoked');
 
         //toggle so that the suspension status is true
         // suspensionStatus(false);
@@ -260,7 +266,7 @@ const RiderTable = ({ onSelectRider }) => {
                     <Icon icon={faCirclePause} color="white" />
                   </button>
                   <button className="btn btn-primary" onClick={() => { toggleTopUpModal(rider)}}>
-                    <Icon icon={faCircleInfo} color="white" />
+                    <Icon icon={faWallet} color="white" />
                   </button>
                 </td>
               </tr>
