@@ -50,7 +50,7 @@ const RiderTable = ({ onSelectRider }) => {
   };
 
   const toggleTopUpModal = (rider) => {
-    setModalTopUpRider(!modalOpen);
+    setModalTopUpRider(!modalTopUpRider);
      setSelectedRider(rider);
   };
   const toggleSuspension = (rider) => {
