@@ -6,12 +6,14 @@ import { Table } from "reactstrap";
 import RiderDetailsModal from "./RiderDetailsModal";
 import RiderSuspensionModal from "./RiderSuspensionModal";
 import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
+import RiderTopUpModal from "./RiderTopUpModal.jsx";
 
 const RiderTable = ({ onSelectRider }) => {
   const [riders, setRiders] = useState([]);
   const [filteredRiders, setFilteredRiders] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSuspension, setModalSuspension] = useState(false);
+  const [modalTopUpRider, setModalTopUpRider] = useState(false); ///
   const [selectedRider, setSelectedRider] = useState([]);
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,6 +49,10 @@ const RiderTable = ({ onSelectRider }) => {
     setSelectedRider(rider);
   };
 
+  const toggleTopUpModal = (rider) => {
+    setModalTopUpRider(!modalOpen);
+     setSelectedRider(rider);
+  };
   const toggleSuspension = (rider) => {
     setModalSuspension(!modalSuspension);
     setSelectedRider(rider);
@@ -199,7 +205,9 @@ const RiderTable = ({ onSelectRider }) => {
       {selectedRider ? <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} /> : ''}
       {selectedRider ? <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} rider={selectedRider} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionRider={handleUpdateSuspensionRider} handleRevokeSuspension={handleRevokeSuspension} /> : ''}
       <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} onSelectRider={onChangeSelectedRider} />
-      <div className="search-box">
+      {selectedRider ? <RiderTopUpModal isOpen={modalTopUpRider} untoggle={toggleTopUpModal} rider={selectedRider}/> : ''}
+     
+     <div className="search-box">
         <input
           type="text"
           placeholder="Search for rider"
@@ -250,6 +258,9 @@ const RiderTable = ({ onSelectRider }) => {
                   </button>
                   <button className="btn btn-danger" onClick={() => { toggleSuspension(rider), getSuspension(rider.suspensionStatus, rider.riderId) }}>
                     <Icon icon={faCirclePause} color="white" />
+                  </button>
+                  <button className="btn btn-primary" onClick={() => { toggleTopUpModal(rider)}}>
+                    <Icon icon={faCircleInfo} color="white" />
                   </button>
                 </td>
               </tr>
