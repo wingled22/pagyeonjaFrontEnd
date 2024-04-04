@@ -231,6 +231,7 @@ const Requirements = ({ userId, getApprovals }) => {
           </div>
         </>
       </div>
+      
     </>
   );
 };
