@@ -7,6 +7,7 @@ import RiderDetailsModal from "./RiderDetailsModal";
 import RiderSuspensionModal from "./RiderSuspensionModal";
 import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
 import RiderTopUpModal from "./RiderTopUpModal.jsx";
+import { toast } from 'react-toastify';
 
 const RiderTable = ({ onSelectRider }) => {
   const [riders, setRiders] = useState([]);
@@ -131,6 +132,8 @@ const RiderTable = ({ onSelectRider }) => {
             body: JSON.stringify(formData)
           }
         );
+        toast.success('Rider Suspended');
+
       }
       else if (suspendStatus === true) //update instead
       {
@@ -142,6 +145,8 @@ const RiderTable = ({ onSelectRider }) => {
             body: JSON.stringify(updateFormData)
           }
         );
+        toast.success('Rider Suspended Updated');
+
       }
 
       clearSuspensionEntry();
@@ -181,6 +186,7 @@ const RiderTable = ({ onSelectRider }) => {
         clearSuspensionEntry();
         fetchRiders();
         toggleSuspension();
+        toast.success('Rider Suspension Revoked');
 
         //toggle so that the suspension status is true
         // suspensionStatus(false);

@@ -2,6 +2,8 @@ import "../assets/css/RiderPage.css";
 import RiderTable from "../components/Rider/RiderTable.jsx";
 import RiderProfile from "../components/Rider/RiderProfile.jsx";
 // import RiderProfile from "../components/RiderProfile.jsx";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Row, Col, Container } from "reactstrap";
 import { useState } from "react";
 const RiderPage = () => {
@@ -24,6 +26,7 @@ const RiderPage = () => {
         <Row>
           <Col>
             <RiderTable onSelectRider={updateSelectRider} />
+            <ToastContainer />
           </Col>
         </Row>
       </Container>
