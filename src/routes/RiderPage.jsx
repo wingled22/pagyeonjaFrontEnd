@@ -8,7 +8,6 @@ const RiderPage = () => {
   const updateSelectRider = (rider) => {
     setSelectedRider(rider);
   };
-  console.log(selectedRider);
 
   return (
     <>
