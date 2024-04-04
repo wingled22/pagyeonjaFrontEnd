@@ -24,6 +24,7 @@ import { toast } from 'react-toastify';
 
 const Requirements = ({ userId, getApprovals }) => {
   console.log("requirements", userId);
+
   const [document, setDocument] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
   const [approvalResponse, setApprovalResponse] = useState(null);
@@ -31,6 +32,7 @@ const Requirements = ({ userId, getApprovals }) => {
   // states for document modal
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const [approval, setApproval] = useState([]);
 
   // states for approval modal
   const [approvalModalIsOpen, setApprovalModalIsOpen] = useState(false);
@@ -53,6 +55,19 @@ const Requirements = ({ userId, getApprovals }) => {
       console.error(error);
     }
   };
+
+  const getApproval = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/riderregistration/getrider?id=${userId}`
+      );
+      if (response.ok) {
+        setApproval(await response.json());
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   // Dynamic selection of documents
   const onDocumentButtonClick = (documentType) => {
@@ -95,15 +110,20 @@ const Requirements = ({ userId, getApprovals }) => {
   useEffect(() => {
     getRequirements();
   }, [userId]);
+
+  useEffect(() => {
+    getApproval();
+  }, [userId]);
+
+  console.log("approval", approval.approvalStatus)
   return (
     <>
       <RiderDocumentViewerModal
         isOpen={isOpen}
         untoggle={toggle}
         document={documentFiles}
-        userName={`${document.firstName} ${
-          document.middleName && document.middleName[0]
-        }. ${document.lastName}`}
+        userName={`${document.firstName} ${document.middleName && document.middleName[0]
+          }. ${document.lastName}`}
       />
       <ApprovalResponseConfirmationModal
         isOpen={approvalModalIsOpen}
@@ -119,11 +139,10 @@ const Requirements = ({ userId, getApprovals }) => {
           <Row>
             <div
               style={{
-                backgroundImage: `url(${
-                  document.profilePath != null
+                backgroundImage: `url(${document.profilePath != null
                     ? `http://localhost:5180/img/rider_profile/${document.profilePath}`
                     : images1
-                })`, // use default image if profilePath is null
+                  })`, // use default image if profilePath is null
                 backgroundSize: "cover", // this will make sure the image covers the whole div
               }}
               className="rider-profile d-flex ms-auto me-auto mt-3"
@@ -170,29 +189,45 @@ const Requirements = ({ userId, getApprovals }) => {
           </Row>
 
           <div className="btnAppRej">
-            <Button
-              className="btn-rider-approval"
-              color="success"
-              style={{ borderRadius: 50, fontWeight: "bold" }}
-              onClick={() => {
-                setApprovalResponse(true);
-                toggleApprovaModal();
-              }}
-            >
-              {" "}
-              <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
-            </Button>
-            <Button
-              className="btn-rider-approval"
-              color="danger"
-              style={{ borderRadius: 50, fontWeight: "bold" }}
-              onClick={() => {
-                setApprovalResponse(false);
-                toggleApprovaModal();
-              }}
-            >
-              <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
-            </Button>
+            {approval.approvalStatus === '' || approval.approvalStatus === null ?
+              <><Button
+                className="btn-rider-approval"
+                color="success"
+                style={{ borderRadius: 50, fontWeight: "bold" }}
+                onClick={() => {
+                  setApprovalResponse(true);
+                  toggleApprovaModal();
+                }}
+              >
+                {" "}
+                <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
+              </Button>
+                <Button
+                  className="btn-rider-approval"
+                  color="danger"
+                  style={{ borderRadius: 50, fontWeight: "bold" }}
+                  onClick={() => {
+                    setApprovalResponse(false);
+                    toggleApprovaModal();
+                  }}
+                >
+                  <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
+                </Button></>
+              :
+              <Button
+                className="btn-rider-approval"
+                color="success"
+                style={{ borderRadius: 50, fontWeight: "bold" }}
+                onClick={() => {
+                  setApprovalResponse(true);
+                  toggleApprovaModal();
+                }}
+              >
+                {" "}
+                <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
+              </Button>
+            }
+
           </div>
         </>
       </div>
