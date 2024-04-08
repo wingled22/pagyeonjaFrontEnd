@@ -19,16 +19,17 @@ import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
 import RiderDocumentViewerModal from "./RiderDocumentViewerModal";
 
-function formatDate(dateString) {
-  const newDate = new Date(dateString);
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return newDate.toLocaleDateString('en-US', options);
+function formatDateTime(dateTimeString) {
+  const dateTime = new Date(dateTimeString);
+  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+  return dateTime.toLocaleDateString('en-US', options);
 }
 
 const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   // console.log("Rider Object:", rider);
   const [open, setOpen] = useState("0");
   const [document, setDocument] = useState([]);
+  const [rideHistoryData, setRideHistoryData] = useState([]);
   const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
   const toggleDocumentViewer = () =>
     setModalDocumentViewer(!modalDocumentViewer);
@@ -73,6 +74,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
     }
   }
 
+  
+
   const calculateSuspensionDuration = () => {
 
     let difference = +new Date(`${suspensionInfo.suspensionDate}`) - +new Date();
@@ -105,6 +108,26 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   }, [rider])
 
 
+  const getRideHistory = async () => {
+    try {
+      const response = await fetch(`http://localhost:5180/api/RideHistory/GetUserRideHistory?id=${rider.riderId}&usertype=Rider`);
+      if (response.ok) {
+        const data = await response.json();
+        setRideHistoryData(data); // Set the ride history data to a state variable
+      } else {
+        console.error('Failed to fetch ride history data');
+      }
+    } catch (error) {
+      console.error('Error fetching ride history data:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (rider && rider.riderId) {
+      getRideHistory();
+      console.log("Ride History: ", rideHistoryData)
+    }
+  }, [rider]);
 
   useEffect(() => {
     if (rider.suspensionStatus === true) {
@@ -117,60 +140,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
     }
   })
 
-  const data = [
-    {
-      id: 1,
-      name: "John Doe",
-      status: "Active",
-      dropOffDate: "March 11, 2024",
-      dropOFfTime: "07: 00 PM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00445",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      status: "Inactive",
-      dropOffDate: "March 12, 2024",
-      dropOFfTime: "01: 37 PM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 3,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    }
-   
-  ];
-
-
   if (rider == null) {
     return <></>;
   }
-
 
   const getRequirements = async () => {
     if (!rider.riderId) {
@@ -374,17 +346,17 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                     maxHeight: "500px",
                   }}
                 >
-                  {data.map((item) => (
-                    <AccordionItem key={item.id}>
+                  {rideHistoryData.map((item) => (
+                    <AccordionItem key={item.rideHistoryId}>
                       <AccordionHeader
                         className="accordionHeader"
                         id="accordionHeaderStyle"
-                        targetId={item.id.toString()}
+                        targetId={item.rideHistoryId.toString()}
                       >
-                        <Col md={3}>{item.dropOffDate}</Col>
-                        <Col>&emsp;|&emsp; {item.dropOFfTime}</Col>
+                        <Col md={5}>{formatDateTime(item.startingTime)}</Col>
+                        <Col md={6}>&emsp;|&emsp;{formatDateTime(item.endTime)}</Col>
                       </AccordionHeader>
-                      <AccordionBody accordionId={item.id.toString()}>
+                      <AccordionBody accordionId={item.rideHistoryId.toString()}>
                         <Row>
                           <Col md={4}>
                             <span className="riderHistoryLabelInfo">
@@ -418,7 +390,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           <Col md={3}>
                             <span className="riderHistoryTextInfo">
                               {" "}
-                              : &emsp;{item.riderName}
+                              : &emsp;{item.firstName}
                             </span>
                           </Col>
                           <Col md={3} style={{ marginLeft: "20px" }}>
@@ -429,7 +401,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           <Col md={3}>
                             <span className="riderHistoryTextInfo">
                               {" "}
-                              : &emsp;{item.startingTime}
+                              : &emsp;{formatDateTime(item.startingTime)}
                             </span>
                           </Col>
                         </Row>
@@ -440,10 +412,10 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                             </span>
                           </Col>
                           <Col md={3}>
-                            <span className="riderHistoryTextInfo">
+                            {/* <span className="riderHistoryTextInfo">
                               {" "}
-                              : &emsp;{item.riderID}
-                            </span>
+                              : &emsp;{item.riderId}
+                            </span> */}
                           </Col>
                           <Col md={3} style={{ marginLeft: "20px" }}>
                             <span className="riderHistoryLabelInfo">
@@ -453,7 +425,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           <Col md={3}>
                             <span className="riderHistoryTextInfo">
                               {" "}
-                              : &emsp;{item.dropOFfTime}
+                              : &emsp;{formatDateTime(item.endTime)}
                             </span>
                           </Col>
                         </Row>
@@ -466,7 +438,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           <Col md={3}>
                             <span className="riderHistoryTextInfo">
                               {" "}
-                              : &emsp;{item.vehicleType}
+                              : &emsp;{item.vehicleNumber}
                             </span>
                           </Col>
                           <Col md={2} style={{ marginLeft: "20px" }}>
@@ -488,7 +460,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           <Col md={3}>
                             <span className="riderHistoryTextInfo">
                               {" "}
-                              : &emsp;{item.vehiclePlate}
+                              : &emsp;{item.vehicleNumber}
                             </span>
                           </Col>
                           <Col md={2} style={{ marginLeft: "20px" }}>
@@ -504,7 +476,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                                 }`}
                             >
                               {" "}
-                              : &emsp;2.7
+                              : &emsp;{item.rate}
                             </span>
                           </Col>
                         </Row>
