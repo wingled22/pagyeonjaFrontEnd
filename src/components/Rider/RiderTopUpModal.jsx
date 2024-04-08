@@ -8,7 +8,7 @@ import {
   Input,
   Col,
   Row,
-  Container
+  Container,
 } from "reactstrap";
 
 import {
@@ -17,113 +17,55 @@ import {
   AccordionHeader,
   AccordionItem,
 } from "reactstrap";
-//   import "../../assets/css/RiderTopUpModal.css";
-import "../../assets/css/RiderSuspensionModal.css";
 import "../../assets/css/RiderTopUpModal.css";
 import { useState } from "react";
 
-const RiderTopUpModal = ({
-  isOpen,
-  untoggle,
-  rider,
-
-}) => {
-
+const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
   const [open, setOpen] = useState("0");
 
   const data = [
     {
-      id: 1,
-      name: "John Doe",
-      status: "Active",
-      dropOffDate: "March 11, 2024",
-      dropOFfTime: "07: 00 PM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00445",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      status: "Inactive",
-      dropOffDate: "March 12, 2024",
-      dropOFfTime: "01: 37 PM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 3,
-      name: "Bob Smith",
-      status: "Active",
+      id: 1111,
+      BalanceBeforeTopup: 0.0,
+      BalanceAfterTopup: 100.0,
+      TopupAmount: 100.0,
+      Status: "Success",
       dropOffDate: "March 13, 2024",
       dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
     },
     {
-      id: 4,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 5,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 6,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
+        id: 11,
+        BalanceBeforeTopup: 0.0,
+        BalanceAfterTopup: 100.0,
+        TopupAmount: 100.0,
+        Status: "Failed",
+        dropOffDate: "March 13, 2024",
+        dropOFfTime: "08: 54 AM",
+      }, {
+        id: 111,
+        BalanceBeforeTopup: 0.0,
+        BalanceAfterTopup: 100.0,
+        TopupAmount: 100.0,
+        Status: "Pending",
+        dropOffDate: "March 13, 2024",
+        dropOFfTime: "08: 54 AM",
+      },
+    // {
+    //   id: 1,
+    //   name: "John Doe",
+    //   status: "Active",
+    //   dropOffDate: "March 11, 2024",
+    //   dropOFfTime: "07: 00 PM",
+    //   startingPoint: "Dela Vina St., Bogo City, Cebu",
+    //   endDestination: "San Vicente St., Bogo City, Cebu",
+    //   riderName: "Juan Parat",
+    //   riderID: "00445",
+    //   vehicleType: "Tricycle",
+    //   vehiclePlate: "06X77V",
+    //   startingTime: "06: 00PM",
+    //   fare: "₱15.00",
+    // },
   ];
-
 
   const toggleAct = (id) => {
     if (open === id) {
@@ -149,10 +91,7 @@ const RiderTopUpModal = ({
                 </strong>
               </h5>
             </center>{" "}
-
-
-            <hr />
-
+        
             <Container
               style={{
                 overflow: "hidden",
@@ -192,123 +131,71 @@ const RiderTopUpModal = ({
                       <Row>
                         <Col md={4}>
                           <span className="riderHistoryLabelInfo">
-                            Starting Point{" "}
+                            Balance before Top-up{" "}
                           </span>
                         </Col>
                         <Col md={8}>
                           <span className="riderHistoryTextInfo">
                             {" "}
-                            : &emsp;{item.startingPoint}
+                            : &emsp;
+                            <span className="h5 fw-bold">P</span>
+                            <span className="h6 fw-bold">
+                              {" "}
+                              {item.BalanceBeforeTopup.toFixed(2)}
+                            </span>
                           </span>
                         </Col>
                       </Row>
                       <Row>
                         <Col md={4}>
                           <span className="riderHistoryLabelInfo">
-                            End Destination
+                            Balance after Top-up
                           </span>
                         </Col>
                         <Col md={8}>
-                          <span className="riderHistoryTextInfo">
+                          <span className="riderHistoryTextInfo ">
                             {" "}
-                            : &emsp;{item.endDestination}
+                            : &emsp;
+                            <span className="h5 fw-bold">P</span>
+                            <span className="h6 fw-bold">
+                              {" "}
+                              {item.BalanceAfterTopup.toFixed(2)}
+                            </span>
                           </span>
                         </Col>
                       </Row>
-                      <Row className="newlineInfo">
-                        <Col md={2}>
-                          <span className="riderHistoryLabelInfo">Rider</span>
-                        </Col>
-                        <Col md={3}>
-                          <span className="riderHistoryTextInfo">
-                            {" "}
-                            : &emsp;{item.riderName}
-                          </span>
-                        </Col>
-                        <Col md={3} style={{ marginLeft: "20px" }}>
+
+                      <Row className="mt-5">
+                        <Col md={4}>
                           <span className="riderHistoryLabelInfo">
-                            Starting Time
+                            Top-up Amount
                           </span>
                         </Col>
-                        <Col md={3}>
-                          <span className="riderHistoryTextInfo">
-                            {" "}
-                            : &emsp;{item.startingTime}
-                          </span>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={2}>
-                          <span className="riderHistoryLabelInfo">
-                            Rider ID
-                          </span>
-                        </Col>
-                        <Col md={3}>
-                          <span className="riderHistoryTextInfo">
-                            {" "}
-                            : &emsp;{item.riderID}
-                          </span>
-                        </Col>
-                        <Col md={3} style={{ marginLeft: "20px" }}>
-                          <span className="riderHistoryLabelInfo">
-                            End Time
-                          </span>
-                        </Col>
-                        <Col md={3}>
-                          <span className="riderHistoryTextInfo">
-                            {" "}
-                            : &emsp;{item.dropOFfTime}
-                          </span>
-                        </Col>
-                      </Row>
-                      <Row className="newlineInfo">
-                        <Col md={3}>
-                          <span className="riderHistoryLabelInfo">
-                            Vehicle
-                          </span>
-                        </Col>
-                        <Col md={3}>
-                          <span className="riderHistoryTextInfo">
-                            {" "}
-                            : &emsp;{item.vehicleType}
-                          </span>
-                        </Col>
-                        <Col md={2} style={{ marginLeft: "20px" }}>
-                          <span className="riderHistoryLabelInfo">Fare</span>
-                        </Col>
-                        <Col md={3}>
+                        <Col md={4}>
                           <span className="riderHistoryTextInfo text-success">
                             {" "}
-                            : &emsp;{item.fare}
+                            : &emsp;
+                            <span className="h4 fw-bold">P</span>
+                            <span className="h5 fw-bold">
+                              {" "}
+                              {item.TopupAmount.toFixed(2)}
+                            </span>
                           </span>
                         </Col>
-                      </Row>
-                      <Row>
-                        <Col md={3}>
-                          <span className="riderHistoryLabelInfo">
-                            Plate Number
-                          </span>
+
+                        <Col md={1} className="ms-5">
+                          <span className="riderHistoryLabelInfo">Status</span>
                         </Col>
-                        <Col md={3}>
-                          <span className="riderHistoryTextInfo">
+                        <Col md={2}>
+                          <span  className={`riderHistoryTextInfo fw-bold ${item.Status == "Failed"
+                                ? "text-danger"
+                                : item.Status == "Pending"
+                                  ? "text-warning"
+                                  : "text-success"
+                                }`}>
+                            
                             {" "}
-                            : &emsp;{item.vehiclePlate}
-                          </span>
-                        </Col>
-                        <Col md={2} style={{ marginLeft: "20px" }}>
-                          <span className="riderHistoryLabelInfo">Rate</span>
-                        </Col>
-                        <Col md={3}>
-                          <span
-                            className={`riderHistoryTextInfo ${2.7 >= 1.0 && 2.7 <= 2.9
-                              ? "text-danger"
-                              : 2.7 >= 3.0 && 2.7 <= 3.9
-                                ? "text-warning"
-                                : "text-success"
-                              }`}
-                          >
-                            {" "}
-                            : &emsp;2.7
+                            : &emsp;{item.Status}
                           </span>
                         </Col>
                       </Row>
@@ -317,7 +204,6 @@ const RiderTopUpModal = ({
                 ))}
               </Accordion>
             </Container>
-
           </ModalBody>
           <ModalFooter className="topup-footer-modal">
 
