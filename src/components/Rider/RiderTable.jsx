@@ -210,7 +210,7 @@ const RiderTable = ({ onSelectRider }) => {
       );
 
       clearSuspensionEntry();
-      fetchRiders();
+      updateRidersTable(selectedRider, false);
       toggleSuspension();
       toast.success("Rider Suspension Revoked");
 
