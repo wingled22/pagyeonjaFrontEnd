@@ -23,7 +23,6 @@ const RiderTable = ({ onSelectRider }) => {
   const [selectedRider, setSelectedRider] = useState([]);
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isComponentLoaded, setIsComponentLoaded] = useState(true);
 
   const [riderSuspensionStatus, setRiderSuspensionStatus] = useState(null);
 
@@ -75,21 +74,21 @@ const RiderTable = ({ onSelectRider }) => {
   };
 
   const toggleModal = (rider) => {
-    setModalOpen(!modalOpen);
+    setModalOpen((modalOpen) => !modalOpen);
     setSelectedRider(rider);
   };
 
   const toggleTopUpModal = (rider) => {
-    setModalTopUpRider(!modalTopUpRider);
+    setModalTopUpRider((modalTopUpRider) => !modalTopUpRider);
     setSelectedRider(rider);
   };
   const toggleSuspension = (rider) => {
-    setModalSuspension(!modalSuspension);
+    setModalSuspension((modalSuspension) => !modalSuspension);
     setSelectedRider(rider);
   };
 
   const toggleUpdateModal = (rider) => {
-    setModalUpdateRider(!modalUpdateRider);
+    setModalUpdateRider((modalUpdateRider) => !modalUpdateRider);
     setSelectedRider(rider);
     console.log("Rider Data:", rider); // Logging rider data
   };
@@ -226,13 +225,18 @@ const RiderTable = ({ onSelectRider }) => {
     setFilteredRiders(filtered);
     console.log(riders);
   }, [riders, searchTerm]);
-  console.log();
+
   useEffect(() => {
     // only run fetchRiders if component is loaded
+    let isComponentLoaded = true;
     if (isComponentLoaded) {
       fetchRiders();
+      console.log(isComponentLoaded);
     }
-    return () => setIsComponentLoaded((prev) => !prev);
+    return () => {
+      isComponentLoaded = false;
+      console.log(isComponentLoaded);
+    };
   }, []);
   return (
     <>
