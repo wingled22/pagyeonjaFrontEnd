@@ -42,11 +42,17 @@ const RiderTable = ({ onSelectRider }) => {
     }
   };
 
-  const updateRidersTable = (rider) => {
+  // Dynamic update for the riders state
+  const updateRidersTable = (rider, isForDetailsUpdate = true) => {
     setRiders((prevRiders) => {
       return prevRiders.map((item) => {
         if (rider.riderId === item.riderId) {
-          return { ...item, ...rider };
+          if (isForDetailsUpdate) return { ...item, ...rider };
+          return {
+            ...item,
+            ...rider,
+            suspensionStatus: !rider.suspensionStatus,
+          };
         }
         return item;
       });
@@ -158,7 +164,7 @@ const RiderTable = ({ onSelectRider }) => {
           }
         );
         toast.success("Rider Suspended");
-      } else if (suspendStatus === true) {
+      } else if (suspendStatus) {
         //update instead
         const response = await fetch(
           "http://localhost:5180/api/Suspension/UpdateSuspension?id=" +
@@ -173,7 +179,7 @@ const RiderTable = ({ onSelectRider }) => {
       }
 
       clearSuspensionEntry();
-      fetchRiders();
+      updateRidersTable(selectedRider, false);
       toggleSuspension();
 
       //toggle so that the suspension status is true
