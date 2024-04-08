@@ -42,6 +42,17 @@ const RiderTable = ({ onSelectRider }) => {
     }
   };
 
+  const updateRidersTable = (rider) => {
+    setRiders((prevRiders) => {
+      return prevRiders.map((item) => {
+        if (rider.riderId === item.riderId) {
+          return { ...item, ...rider };
+        }
+        return item;
+      });
+    });
+  };
+
   const onChangeSelectedRider = async (rider) => {
     onSelectRider(rider);
   };
@@ -207,6 +218,7 @@ const RiderTable = ({ onSelectRider }) => {
   useEffect(() => {
     const filtered = riders.filter((rider) => riderMatchesSearchTerm(rider));
     setFilteredRiders(filtered);
+    console.log(riders);
   }, [riders, searchTerm]);
   console.log();
   useEffect(() => {
@@ -246,7 +258,7 @@ const RiderTable = ({ onSelectRider }) => {
         isOpen={modalUpdateRider}
         toggle={toggleUpdateModal}
         rider={selectedRider}
-        fetchRiders={fetchRiders}
+        updateRidersTable={updateRidersTable}
         onSelectRider={onChangeSelectedRider}
       />
       {selectedRider ? (
