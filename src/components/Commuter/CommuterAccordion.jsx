@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
-import {
-    Accordion,
-    AccordionBody,
-    AccordionHeader,
-    AccordionItem,
-} from 'reactstrap';
-
+import React, { useState, useEffect } from 'react';
+import { Accordion, AccordionBody, AccordionHeader, AccordionItem } from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 
-
-
-const CommuterAccordion = () => {
-
+const CommuterAccordion = ({selectedCommuter}) => {
+    const [commuterRideInfo, setCommuterRideInfo] = useState([]);
     const [open, setOpen] = useState('0');
+
     const toggle = (id) => {
         if (open === id) {
             setOpen("0");
@@ -20,28 +13,56 @@ const CommuterAccordion = () => {
             setOpen(id);
         }
     };
+    
+ 
+function formatDateTime(dateTimeString) {
+    const dateTime = new Date(dateTimeString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    return dateTime.toLocaleDateString('en-US', options);
+  }
 
-    const data = [
-        { id: 1, name: 'John Doe', status: 'Active', dropOffDate: 'March 11, 2024', dropOFfTime: '07: 00 PM', startingPoint: 'Dela Vina St., Bogo City, Cebu', endDestination: 'San Vicente St., Bogo City, Cebu', riderName: 'Juan Parat', riderID: '00445', vehicleType: 'Tricycle', vehiclePlate: '06X77V', startingTime: '06: 00PM', fare: '₱15.00', rating: '1.6'  },
-        { id: 2, name: 'Jane Doe', status: 'Inactive', dropOffDate: 'March 12, 2024', dropOFfTime: '01: 37 PM', startingPoint: 'Dela Vina St., Bogo City, Cebu', endDestination: 'San Vicente St., Bogo City, Cebu', riderName: 'Juan Parat', riderID: '00669', vehicleType: 'Tricycle', vehiclePlate: '06X77V', startingTime: '06: 00PM', fare: '₱15.00', rating: '3.2'  },
-        { id: 3, name: 'Bob Smith', status: 'Active', dropOffDate: 'March 13, 2024', dropOFfTime: '08: 54 AM', startingPoint: 'Dela Vina St., Bogo City, Cebu', endDestination: 'San Vicente St., Bogo City, Cebu', riderName: 'Juan Parat', riderID: '00669', vehicleType: 'Tricycle', vehiclePlate: '06X77V', startingTime: '06: 00PM', fare: '₱15.00', rating: '4.8'  },
-    ];
+    const getRideHistory = async () => {
+        try {
+            const response = await fetch(`http://localhost:5180/api/RideHistory/GetUserRideHistory?id=${selectedCommuter}&usertype=Commuter`);
+            if (response.ok) {
+                console.log('Ride history data fetched successfully.');
+                const data = await response.json();
+                console.log('Ride history data:', data);
+                setCommuterRideInfo(data); // Set the ride history data to a state variable
+            } else {
+                console.error('Failed to fetch ride history data. HTTP status:', response.status);
+            }
+        } catch (error) {
+            console.error('Error fetching ride history data:', error);
+        }
+    };
+    
+    
+
+    useEffect(() => {
+        // Assuming you have a commuterId stored somewhere in your ride history data
+        if (selectedCommuter.length > 0) {
+            const commuterId = selectedCommuter[0].commuterId; // Get the commuterId from the first ride history object
+            getRideHistory(commuterId);
+        }
+       
+    }, [selectedCommuter]);
+    
 
     return (
         <>
             <Accordion flush open={open} toggle={toggle} id='accordionContainer'>
-
-                {data.map((item) => (
-                    <AccordionItem key={item.id}>
-                        <AccordionHeader id='accordionHeaderStyle' targetId={item.id.toString()}>
+                {commuterRideInfo.map((item) => (
+                    <AccordionItem key={item.rideHistoryId}>
+                        <AccordionHeader id='accordionHeaderStyle' targetId={item.rideHistoryId.toString()}>
                             <Col md={4} sm={4} xs={4}>
-                                <span className='headerText'>{item.dropOffDate}</span>
+                                <span className='headerText'>{formatDateTime(item.startingTime)}</span>
                             </Col>
                             <Col>
-                                <span className='headerText'>&emsp;|&emsp; {item.dropOFfTime} </span>
+                                <span className='headerText'>&emsp;|&emsp; {formatDateTime(item.endTime)}</span>
                             </Col>
                         </AccordionHeader>
-                        <AccordionBody accordionId={item.id.toString()}>
+                        <AccordionBody accordionId={item.rideHistoryId.toString()}>
                             <Row>
                                 <Col md={12} sm={12} xs={12}>
                                     <span className="riderHistoryLabelInfo">Starting Point </span>
@@ -57,30 +78,30 @@ const CommuterAccordion = () => {
                             <Row className='newlineInfo'>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className="riderHistoryLabelInfo">Rider</span>
-                                    <span className='riderHistoryTextInfo'> : &emsp;{item.riderName}</span>
+                                    <span className='riderHistoryTextInfo'> : &emsp;{item.firstName}</span>
                                 </Col>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className="riderHistoryLabelInfo">Rider ID</span>
-                                    <span className='riderHistoryTextInfo'> : &emsp;{item.riderID}</span>
+                                    {/* <span className='riderHistoryTextInfo'> : &emsp;{item.riderId}</span> */}
                                 </Col>
                             </Row>
                             <Row>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className='riderHistoryLabelInfo'>Starting Time</span>
-                                    <span className='riderHistoryTextInfo'> : &emsp;{item.startingTime}</span>
+                                    <span className='riderHistoryTextInfo'> : &emsp;{formatDateTime(item.startingTime)}</span>
                                 </Col>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className='riderHistoryLabelInfo'>End Time</span>
-                                    <span className='riderHistoryTextInfo'> : &emsp;{item.dropOFfTime}</span>
+                                    <span className='riderHistoryTextInfo'> : &emsp;{formatDateTime(item.endTime)}</span>
                                 </Col>
                             </Row>
                             <Row className='newlineInfo'>
                                 <Col md={6} sm={6} xs={12}>
-                                    <span className="riderHistoryLabelInfo">Vehicle</span><span className='riderHistoryTextInfo'> : &emsp;{item.vehicleType}</span>
+                                    <span className="riderHistoryLabelInfo">Vehicle</span><span className='riderHistoryTextInfo'> : &emsp;{}</span>
                                 </Col>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className="riderHistoryLabelInfo">Plate Number</span>
-                                    <span className='riderHistoryTextInfo'> : &emsp;{item.vehiclePlate}</span>
+                                    <span className='riderHistoryTextInfo'> : &emsp;{item.vehicleNumber}</span>
                                 </Col>
                             </Row>
                             <Row>
@@ -90,14 +111,15 @@ const CommuterAccordion = () => {
                                 </Col>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className='riderHistoryLabelInfo'>Rating</span>
-                                    <span className={`riderHistoryTextInfo ${item.rating >= 1.0 && item.rating <= 2.9 ? 'text-danger' : item.rating >= 3.0  && item.rating <= 3.9? 'text-warning' : 'text-success'}`}> : &emsp; <strong>{item.rating}</strong></span>
+                                    <span className={`riderHistoryTextInfo ${item.rate >= 1.0 && item.rate <= 2.9 ? 'text-danger' : item.rate >= 3.0 && item.rating <= 3.9 ? 'text-warning' : 'text-success'}`}> : &emsp; <strong>{item.rate}</strong></span>
                                 </Col>
                             </Row>
                         </AccordionBody>
                     </AccordionItem>
                 ))}
             </Accordion>
-        </>);
-}
+        </>
+    );
+};
 
 export default CommuterAccordion;
