@@ -23,7 +23,7 @@ const RiderTable = ({ onSelectRider }) => {
   const [selectedRider, setSelectedRider] = useState([]);
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isComponentLoaded, setIsComponentLoaded] = useState(false);
+  const [isComponentLoaded, setIsComponentLoaded] = useState(true);
 
   const [riderSuspensionStatus, setRiderSuspensionStatus] = useState(null);
 
@@ -208,9 +208,13 @@ const RiderTable = ({ onSelectRider }) => {
     const filtered = riders.filter((rider) => riderMatchesSearchTerm(rider));
     setFilteredRiders(filtered);
   }, [riders, searchTerm]);
-
+  console.log();
   useEffect(() => {
-    fetchRiders();
+    // only run fetchRiders if component is loaded
+    if (isComponentLoaded) {
+      fetchRiders();
+    }
+    return () => setIsComponentLoaded((prev) => !prev);
   }, []);
   return (
     <>
