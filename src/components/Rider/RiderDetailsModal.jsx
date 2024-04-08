@@ -74,7 +74,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
     }
   }
 
-  
+
 
   const calculateSuspensionDuration = () => {
 
@@ -125,7 +125,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   useEffect(() => {
     if (rider && rider.riderId) {
       getRideHistory();
-      console.log("Ride History: ", rideHistoryData)
+      // console.log("Ride History: ", rideHistoryData)
     }
   }, [rider]);
 
@@ -363,7 +363,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                               Starting Point{" "}
                             </span>
                           </Col>
-                          <Col md={8}>
+                          <Col md={4}>
                             <span className="riderHistoryTextInfo">
                               {" "}
                               : &emsp;{item.startingPoint}
@@ -376,7 +376,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                               End Destination
                             </span>
                           </Col>
-                          <Col md={8}>
+                          <Col md={5}>
                             <span className="riderHistoryTextInfo">
                               {" "}
                               : &emsp;{item.endDestination}
@@ -384,75 +384,57 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           </Col>
                         </Row>
                         <Row className="newlineInfo">
-                          <Col md={2}>
+                          <Col md={4}>
                             <span className="riderHistoryLabelInfo">Rider</span>
                           </Col>
-                          <Col md={3}>
+                          <Col md={4}>
                             <span className="riderHistoryTextInfo">
                               {" "}
-                              : &emsp;{item.firstName}
+                              : &emsp;{item.firstName} {item.middleName[0]}. {item.lastName}
                             </span>
                           </Col>
-                          <Col md={3} style={{ marginLeft: "20px" }}>
-                            <span className="riderHistoryLabelInfo">
-                              Starting Time
-                            </span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{formatDateTime(item.startingTime)}
-                            </span>
-                          </Col>
+                          <Row>
+                            <Col md={4}>
+                              <span className="riderHistoryLabelInfo">
+                                Starting Time
+                              </span>
+                            </Col>
+                            <Col md={5} style={{ marginLeft: "8px" }}>
+                              <span className="riderHistoryTextInfo">
+                                {" "}
+                                : &emsp;{formatDateTime(item.startingTime)}
+                              </span>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col md={4}>
+                              <span className="riderHistoryLabelInfo">
+                                End Time
+                              </span>
+                            </Col>
+                            <Col md={5} style={{ marginLeft: "8px" }}>
+                              <span className="riderHistoryTextInfo">
+                                {" "}
+                                : &emsp;{formatDateTime(item.endTime)}
+                              </span>
+                            </Col>
+                          </Row>
                         </Row>
-                        <Row>
-                          <Col md={2}>
-                            <span className="riderHistoryLabelInfo">
-                              Rider ID
-                            </span>
-                          </Col>
-                          <Col md={3}>
-                            {/* <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.riderId}
-                            </span> */}
-                          </Col>
-                          <Col md={3} style={{ marginLeft: "20px" }}>
-                            <span className="riderHistoryLabelInfo">
-                              End Time
-                            </span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{formatDateTime(item.endTime)}
-                            </span>
-                          </Col>
-                        </Row>
+
                         <Row className="newlineInfo">
-                          <Col md={3}>
-                            <span className="riderHistoryLabelInfo">
-                              Vehicle
-                            </span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.vehicleNumber}
-                            </span>
-                          </Col>
-                          <Col md={2} style={{ marginLeft: "20px" }}>
+                        
+                          <Col md={3} >
                             <span className="riderHistoryLabelInfo">Fare</span>
                           </Col>
                           <Col md={3}>
-                            <span className="riderHistoryTextInfo text-success">
+                            <span className="riderHistoryTextInfo text-success" style={{ marginLeft: "39px" }}>
                               {" "}
                               : &emsp;{item.fare}
                             </span>
                           </Col>
                         </Row>
                         <Row>
-                          <Col md={3}>
+                          <Col md={4}>
                             <span className="riderHistoryLabelInfo">
                               Plate Number
                             </span>
@@ -463,7 +445,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                               : &emsp;{item.vehicleNumber}
                             </span>
                           </Col>
-                          <Col md={2} style={{ marginLeft: "20px" }}>
+                          <Col md={1} style={{ marginLeft: "20px" }}>
                             <span className="riderHistoryLabelInfo">Rate</span>
                           </Col>
                           <Col md={3}>
