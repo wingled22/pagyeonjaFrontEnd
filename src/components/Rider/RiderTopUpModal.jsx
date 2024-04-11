@@ -120,7 +120,7 @@ function formatTime(dateTimeString) {
                   maxHeight: "500px",
                 }}
               >
-                  {TopUpHistory.length === 0 && <center>No Record of Topup History</center>}
+                {TopUpHistory.length === 0 && <center>No Record of Topup History</center>}
                 {TopUpHistory.map((item) => (
                   <AccordionItem key={item.id}>
                     <AccordionHeader
