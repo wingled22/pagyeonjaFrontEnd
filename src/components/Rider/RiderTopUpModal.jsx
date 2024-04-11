@@ -120,7 +120,7 @@ function formatTime(dateTimeString) {
                   maxHeight: "500px",
                 }}
               >
-                  {TopUpHistory.length === 0 && <center>No Record of Topup History</center>}
+                {TopUpHistory.length === 0 && <center>No Record of Topup History</center>}
                 {TopUpHistory.map((item) => (
                   <AccordionItem key={item.id}>
                     <AccordionHeader
@@ -192,15 +192,16 @@ function formatTime(dateTimeString) {
                           <span className="riderHistoryLabelInfo">Status</span>
                         </Col>
                         <Col md={2}>
-                          <span  className={`riderHistoryTextInfo fw-bold ${item.status == "Failed"
+                          :
+                          <span  className={`riderHistoryTextInfo fw-bold ${item.status.toLowerCase() == "failed"
                                 ? "text-danger"
-                                : item.status == "Pending"
+                                :  item.status.toLowerCase() == "pending"
                                   ? "text-warning"
                                   : "text-success"
                                 }`}>
                             
                             {" "}
-                            : &emsp;{item.status}
+                             &emsp;{item.status.charAt(0).toUpperCase() + item.status.slice(1)}
                           </span>
                         </Col>
                       </Row>
