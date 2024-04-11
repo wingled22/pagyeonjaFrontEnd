@@ -30,8 +30,6 @@ const CommuterAccordion = ({ selectedCommuter }) => {
         }
     };
 
-
-
     useEffect(() => {
         // Assuming you have a commuterId stored somewhere in your ride history data
         if (selectedCommuter.length > 0) {
