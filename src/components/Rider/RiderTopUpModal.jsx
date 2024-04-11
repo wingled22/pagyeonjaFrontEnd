@@ -23,6 +23,8 @@ import { useState } from "react";
 const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
   const [open, setOpen] = useState("0");
 
+ 
+
   const data = [
     {
       id: 1111,
@@ -34,22 +36,23 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
       dropOFfTime: "08: 54 AM",
     },
     {
-        id: 11,
-        BalanceBeforeTopup: 0.0,
-        BalanceAfterTopup: 100.0,
-        TopupAmount: 100.0,
-        Status: "Failed",
-        dropOffDate: "March 13, 2024",
-        dropOFfTime: "08: 54 AM",
-      }, {
-        id: 111,
-        BalanceBeforeTopup: 0.0,
-        BalanceAfterTopup: 100.0,
-        TopupAmount: 100.0,
-        Status: "Pending",
-        dropOffDate: "March 13, 2024",
-        dropOFfTime: "08: 54 AM",
-      },
+      id: 11,
+      BalanceBeforeTopup: 0.0,
+      BalanceAfterTopup: 100.0,
+      TopupAmount: 100.0,
+      Status: "Failed",
+      dropOffDate: "March 13, 2024",
+      dropOFfTime: "08: 54 AM",
+    },
+    {
+      id: 111,
+      BalanceBeforeTopup: 0.0,
+      BalanceAfterTopup: 100.0,
+      TopupAmount: 100.0,
+      Status: "Pending",
+      dropOffDate: "March 13, 2024",
+      dropOFfTime: "08: 54 AM",
+    },
     // {
     //   id: 1,
     //   name: "John Doe",
@@ -91,7 +94,6 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                 </strong>
               </h5>
             </center>{" "}
-        
             <Container
               style={{
                 overflow: "hidden",
@@ -187,13 +189,15 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                           <span className="riderHistoryLabelInfo">Status</span>
                         </Col>
                         <Col md={2}>
-                          <span  className={`riderHistoryTextInfo fw-bold ${item.Status == "Failed"
+                          <span
+                            className={`riderHistoryTextInfo fw-bold ${
+                              item.Status == "Failed"
                                 ? "text-danger"
                                 : item.Status == "Pending"
-                                  ? "text-warning"
-                                  : "text-success"
-                                }`}>
-                            
+                                ? "text-warning"
+                                : "text-success"
+                            }`}
+                          >
                             {" "}
                             : &emsp;{item.Status}
                           </span>
@@ -205,9 +209,7 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
               </Accordion>
             </Container>
           </ModalBody>
-          <ModalFooter className="topup-footer-modal">
-
-          </ModalFooter>
+          <ModalFooter className="topup-footer-modal"></ModalFooter>
         </Form>
       </Modal>
     </>
