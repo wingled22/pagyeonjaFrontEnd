@@ -18,10 +18,36 @@ import {
   AccordionItem,
 } from "reactstrap";
 import "../../assets/css/RiderTopUpModal.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
+
+
+  // console.log("Id sa rider ni siya: ", rider)
   const [open, setOpen] = useState("0");
+
+  const [TopUpHistory, setTopUpHistory] = useState([]);
+
+  const getsetTopUpHistoryList = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/TopupHistory/GetRiderTopupHistory?id=${rider.riderId}`
+      );
+      const data = await response.json();
+      setTopUpHistory(data);
+
+      console.log("data nis getsetTopUpHistoryList rider: ",data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getsetTopUpHistoryList();
+  }, []);
+
+
+
 
   const data = [
     {
