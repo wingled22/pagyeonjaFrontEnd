@@ -51,50 +51,24 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
 
 
 
+  function formatDate(dateTimeString) {
+    const dateTime = new Date(dateTimeString);
+    const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    };
+    return dateTime.toLocaleDateString("en-US", options);
+}
 
-  const data = [
-    {
-      id: 1111,
-      BalanceBeforeTopup: 0.0,
-      BalanceAfterTopup: 100.0,
-      TopupAmount: 100.0,
-      Status: "Success",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-    },
-    {
-        id: 11,
-        BalanceBeforeTopup: 0.0,
-        BalanceAfterTopup: 100.0,
-        TopupAmount: 100.0,
-        Status: "Failed",
-        dropOffDate: "March 13, 2024",
-        dropOFfTime: "08: 54 AM",
-      }, {
-        id: 111,
-        BalanceBeforeTopup: 0.0,
-        BalanceAfterTopup: 100.0,
-        TopupAmount: 100.0,
-        Status: "Pending",
-        dropOffDate: "March 13, 2024",
-        dropOFfTime: "08: 54 AM",
-      },
-    // {
-    //   id: 1,
-    //   name: "John Doe",
-    //   status: "Active",
-    //   dropOffDate: "March 11, 2024",
-    //   dropOFfTime: "07: 00 PM",
-    //   startingPoint: "Dela Vina St., Bogo City, Cebu",
-    //   endDestination: "San Vicente St., Bogo City, Cebu",
-    //   riderName: "Juan Parat",
-    //   riderID: "00445",
-    //   vehicleType: "Tricycle",
-    //   vehiclePlate: "06X77V",
-    //   startingTime: "06: 00PM",
-    //   fare: "₱15.00",
-    // },
-  ];
+function formatTime(dateTimeString) {
+    const dateTime = new Date(dateTimeString);
+    const options = {
+        hour: "numeric",
+        minute: "numeric",
+    };
+    return dateTime.toLocaleTimeString("en-US", options);
+}
 
   const toggleAct = (id) => {
     if (open === id) {
@@ -146,17 +120,18 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                   maxHeight: "500px",
                 }}
               >
+                  {TopUpHistory.length === 0 && <center>No Record of Topup History</center>}
                 {TopUpHistory.map((item) => (
                   <AccordionItem key={item.id}>
                     <AccordionHeader
                       className="accordionHeader"
                       id="accordionHeaderStyle"
-                      targetId={item.riderId}
+                      targetId={item.topupId}
                     >
-                      <Col md={3}>{item.topupDate}</Col>
-                      {/* <Col>&emsp;|&emsp; {item.dropOFfTime}</Col> */}
+                      <Col md={3}>{formatDate(item.topupDate)}</Col>
+                      <Col>&emsp;|&emsp; {formatTime(item.topupDate)}</Col>
                     </AccordionHeader>
-                    <AccordionBody accordionId={item.riderId}>
+                    <AccordionBody accordionId={item.topupId}>
                  
                       <Row>
                         <Col md={4}>
