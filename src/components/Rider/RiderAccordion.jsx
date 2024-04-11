@@ -10,7 +10,6 @@ import {
 import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
 
-
 const RiderAccordion = ({ rider }) => {
     // console.log("Rider Object:", rider);
     const [open, setOpen] = useState("0");

@@ -9,12 +9,7 @@ import {
   Button,
   Container,
 } from "reactstrap";
-import {
-  Accordion,
-  AccordionBody,
-  AccordionHeader,
-  AccordionItem,
-} from "reactstrap";
+
 import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
 import RiderDocumentViewerModal from "./RiderDocumentViewerModal";
@@ -23,9 +18,7 @@ import RiderAccordion from "./RiderAccordion";
 
 const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   // console.log("Rider Object:", rider);
-  const [open, setOpen] = useState("0");
   const [document, setDocument] = useState([]);
-  const [rideHistoryData, setRideHistoryData] = useState([]);
   const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
   // const [isComponentLoaded, setIsComponentLoaded] = useState(true);
   const toggleDocumentViewer = () =>
@@ -91,26 +84,6 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
 
   const [timeLeft, setTimeLeft] = useState([]);
 
-  const getRideHistory = async () => {
-
-    if (!rider.riderId) {
-
-      return;
-    }
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/RideHistory/GetUserRideHistory?id=${rider.riderId}&usertype=Rider`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setRideHistoryData(data); // Set the ride history data to a state variable
-      } else {
-        console.error("Failed to fetch ride history data");
-      }
-    } catch (error) {
-      console.error("Error fetching ride history data:", error);
-    }
-  };
 
   const getRequirements = async () => {
     if (!rider.riderId) {
@@ -335,11 +308,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 {" "}
                 Ride History
               </p>
-              <RiderAccordion
-             
-                rider={rider}
-         
-              />
+              <RiderAccordion rider={rider} />
             </Col>
           </Row>
         </ModalBody>
