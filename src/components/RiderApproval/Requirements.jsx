@@ -89,7 +89,6 @@ const Requirements = ({ userId, getApprovals }) => {
         }
       );
       if (response.ok) {
-        toast.success('Rider approval successfully.');
         toggleApprovaModal();
         getRequirements();
         getApprovals();
@@ -98,9 +97,12 @@ const Requirements = ({ userId, getApprovals }) => {
           response: approvalResponse,
           message: rejectionMessage,
         });
-      } else {
-        // This will show a rejection toast if the response is not OK
-        toast.error('Rider was rejected.');
+        if (approvalResponse) {
+          toast.success('Request successfully approved Rider!');
+        } else {
+      
+          toast.error('Request rejected!');
+        }
       }
     } catch (err) {
       console.error(err);
