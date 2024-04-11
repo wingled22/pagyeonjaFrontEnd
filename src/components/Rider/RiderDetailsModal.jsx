@@ -21,8 +21,14 @@ import RiderDocumentViewerModal from "./RiderDocumentViewerModal";
 
 function formatDateTime(dateTimeString) {
   const dateTime = new Date(dateTimeString);
-  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-  return dateTime.toLocaleDateString('en-US', options);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+  return dateTime.toLocaleDateString("en-US", options);
 }
 
 const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
@@ -31,6 +37,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   const [document, setDocument] = useState([]);
   const [rideHistoryData, setRideHistoryData] = useState([]);
   const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
+  // const [isComponentLoaded, setIsComponentLoaded] = useState(true);
   const toggleDocumentViewer = () =>
     setModalDocumentViewer(!modalDocumentViewer);
   const toggleAct = (id) => {
@@ -44,15 +51,15 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   function ProfileImage({ rider }) {
     const [imageFailed, setImageFailed] = useState(false);
 
-    return (
-      imageFailed ?
-        <Icon icon={faCircleUser} color='white' className="modal-icon-img" /> :
-        <img
-          className="modal-profile-img"
-          src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`}
-          alt="Rider Profile"
-          onError={() => setImageFailed(true)}
-        />
+    return imageFailed ? (
+      <Icon icon={faCircleUser} color="white" className="modal-icon-img" />
+    ) : (
+      <img
+        className="modal-profile-img"
+        src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`}
+        alt="Rider Profile"
+        onError={() => setImageFailed(true)}
+      />
     );
   }
 
@@ -62,23 +69,21 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
     try {
       if (rider.suspensionStatus === true) {
         //If suspended, then get the latest end date suspension
-        const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${rider.riderId}&usertype=Rider`)
+        const response = await fetch(
+          `http://localhost:5180/api/Suspension/GetSuspension?userid=${rider.riderId}&usertype=Rider`
+        );
         const data = await response.json();
 
-        setSuspensionInfo(data);
+        setSuspensionInfo(() => data);
       }
-
-    }
-    catch (error) {
+    } catch (error) {
       setSuspensionInfo([]);
     }
-  }
-
-
+  };
 
   const calculateSuspensionDuration = () => {
-
-    let difference = +new Date(`${suspensionInfo.suspensionDate}`) - +new Date();
+    let difference =
+      +new Date(`${suspensionInfo.suspensionDate}`) - +new Date();
     let timeLeft = {};
 
     if (difference > 0) {
@@ -86,63 +91,37 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60)
+        seconds: Math.floor((difference / 1000) % 60),
       };
-    }
-    else {
+    } else {
       timeLeft = {
         days: 0,
         hours: 0,
         minutes: 0,
-        seconds: 0
+        seconds: 0,
       };
     }
 
-    setTimeLeft(timeLeft)
-  }
+    setTimeLeft(() => timeLeft);
+  };
 
   const [timeLeft, setTimeLeft] = useState([]);
 
-  useEffect(() => {
-    getLatestSuspension();
-  }, [rider])
-
-
   const getRideHistory = async () => {
     try {
-      const response = await fetch(`http://localhost:5180/api/RideHistory/GetUserRideHistory?id=${rider.riderId}&usertype=Rider`);
+      const response = await fetch(
+        `http://localhost:5180/api/RideHistory/GetUserRideHistory?id=${rider.riderId}&usertype=Rider`
+      );
       if (response.ok) {
         const data = await response.json();
         setRideHistoryData(data); // Set the ride history data to a state variable
       } else {
-        console.error('Failed to fetch ride history data');
+        console.error("Failed to fetch ride history data");
       }
     } catch (error) {
-      console.error('Error fetching ride history data:', error);
+      console.error("Error fetching ride history data:", error);
     }
   };
-
-  useEffect(() => {
-    if (rider && rider.riderId) {
-      getRideHistory();
-      // console.log("Ride History: ", rideHistoryData)
-    }
-  }, [rider]);
-
-  useEffect(() => {
-    if (rider.suspensionStatus === true) {
-
-      const timer = setTimeout(() => {
-        calculateSuspensionDuration();
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  })
-
-  if (rider == null) {
-    return <></>;
-  }
 
   const getRequirements = async () => {
     if (!rider.riderId) {
@@ -153,19 +132,31 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
         `http://localhost:5180/api/document/getdocuments?id=${rider.riderId}&usertype=Rider`
       );
       if (response.ok) {
-        const data = await response.json()
+        const data = await response.json();
         setDocument(data);
-        console.log(data)
+        console.log(data);
       }
-
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      calculateSuspensionDuration();
+    }, 1000);
 
-    getRequirements();
+    return () => clearTimeout(timer);
+  });
+
+  useEffect(() => {
+    let isComponentLoaded = true;
+    if (isComponentLoaded) {
+      getRequirements();
+      getLatestSuspension();
+      getRideHistory();
+    }
+    return () => (isComponentLoaded = false);
   }, [rider]);
   return (
     <>
@@ -175,8 +166,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
           untoggle={toggleDocumentViewer}
           rider={rider}
           document={document.documents}
-          userName={`${document.firstName} ${document.middleName && document.middleName[0]
-            }. ${document.lastName}`}
+          userName={`${document.firstName} ${
+            document.middleName && document.middleName[0]
+          }. ${document.lastName}`}
         />
       )}
 
@@ -194,8 +186,17 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
             <div className="profile-container">
               <Row>
                 <Col style={{ padding: "25px" }} md={2}>
-                  {rider.profilePath === "" || rider.profilePath === null || !rider.profilePath ? <Icon icon={faCircleUser} color='white' className="modal-icon-img"></Icon> : <ProfileImage rider={rider} />
-                  }
+                  {rider.profilePath === "" ||
+                  rider.profilePath === null ||
+                  !rider.profilePath ? (
+                    <Icon
+                      icon={faCircleUser}
+                      color="white"
+                      className="modal-icon-img"
+                    ></Icon>
+                  ) : (
+                    <ProfileImage rider={rider} />
+                  )}
                 </Col>
                 <Col md={7}>
                   <Row>
@@ -216,7 +217,6 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                     className="btn btn-warning"
                     onClick={() => {
                       toggleDocumentViewer();
-
                     }}
                   >
                     View Documents
@@ -296,17 +296,39 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 <div className="label-text">
                   Status:{" "}
                   <span
-                    className={`text-value ${rider.suspensionStatus === true
-                      ? "text-danger"
-                      : "text-success"
-                      }`}
+                    className={`text-value ${
+                      rider.suspensionStatus === true
+                        ? "text-danger"
+                        : "text-success"
+                    }`}
                   >
                     {rider.suspensionStatus === true ? "Suspended" : "Active"}
                   </span>
                 </div>
-                {timeLeft.length === 0 ? '' : <div style={{ display: rider.suspensionStatus === true ? 'block' : 'none' }} className="label-text">
-                  Duration: <span style={{ fontSize: "17px" }} className={`textInfo ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}m: {timeLeft.seconds}s</span>
-                </div>}
+                {timeLeft.length === 0 ? (
+                  ""
+                ) : (
+                  <div
+                    style={{
+                      display:
+                        rider.suspensionStatus === true ? "block" : "none",
+                    }}
+                    className="label-text"
+                  >
+                    Duration:{" "}
+                    <span
+                      style={{ fontSize: "17px" }}
+                      className={`textInfo ${
+                        rider.suspensionStatus === true
+                          ? "text-danger"
+                          : "text-success"
+                      }`}
+                    >
+                      {timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}
+                      m: {timeLeft.seconds}s
+                    </span>
+                  </div>
+                )}
               </Container>
             </Col>
             <Col md={7}>
@@ -354,9 +376,13 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                         targetId={item.rideHistoryId.toString()}
                       >
                         <Col md={5}>{formatDateTime(item.startingTime)}</Col>
-                        <Col md={6}>&emsp;|&emsp;{formatDateTime(item.endTime)}</Col>
+                        <Col md={6}>
+                          &emsp;|&emsp;{formatDateTime(item.endTime)}
+                        </Col>
                       </AccordionHeader>
-                      <AccordionBody accordionId={item.rideHistoryId.toString()}>
+                      <AccordionBody
+                        accordionId={item.rideHistoryId.toString()}
+                      >
                         <Row>
                           <Col md={4}>
                             <span className="riderHistoryLabelInfo">
@@ -390,7 +416,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           <Col md={4}>
                             <span className="riderHistoryTextInfo">
                               {" "}
-                              : &emsp;{item.firstName} {item.middleName[0]}. {item.lastName}
+                              : &emsp;{item.firstName} {item.middleName[0]}.{" "}
+                              {item.lastName}
                             </span>
                           </Col>
                           <Row>
@@ -422,12 +449,14 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                         </Row>
 
                         <Row className="newlineInfo">
-                        
-                          <Col md={3} >
+                          <Col md={3}>
                             <span className="riderHistoryLabelInfo">Fare</span>
                           </Col>
                           <Col md={3}>
-                            <span className="riderHistoryTextInfo text-success" style={{ marginLeft: "39px" }}>
+                            <span
+                              className="riderHistoryTextInfo text-success"
+                              style={{ marginLeft: "39px" }}
+                            >
                               {" "}
                               : &emsp;{item.fare}
                             </span>
@@ -450,12 +479,13 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           </Col>
                           <Col md={3}>
                             <span
-                              className={`riderHistoryTextInfo ${2.7 >= 1.0 && 2.7 <= 2.9
-                                ? "text-danger"
-                                : 2.7 >= 3.0 && 2.7 <= 3.9
+                              className={`riderHistoryTextInfo ${
+                                2.7 >= 1.0 && 2.7 <= 2.9
+                                  ? "text-danger"
+                                  : 2.7 >= 3.0 && 2.7 <= 3.9
                                   ? "text-warning"
                                   : "text-success"
-                                }`}
+                              }`}
                             >
                               {" "}
                               : &emsp;{item.rate}
