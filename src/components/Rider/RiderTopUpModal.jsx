@@ -18,10 +18,39 @@ import {
   AccordionItem,
 } from "reactstrap";
 import "../../assets/css/RiderTopUpModal.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
+
+
+  
   const [open, setOpen] = useState("0");
+
+  const [TopUpHistory, setTopUpHistory] = useState([]);
+
+
+  const getsetTopUpHistoryList = async () => {
+
+    if(!rider.riderId) return;
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/TopupHistory/GetRiderTopupHistory?id=${rider.riderId}`
+      );
+      const data = await response.json();
+      setTopUpHistory(data);
+
+      console.log("data nis getsetTopUpHistoryList rider: ",data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getsetTopUpHistoryList();
+  }, [rider.riderId]);
+
+
+
 
   const data = [
     {
@@ -117,17 +146,18 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                   maxHeight: "500px",
                 }}
               >
-                {data.map((item) => (
+                {TopUpHistory.map((item) => (
                   <AccordionItem key={item.id}>
                     <AccordionHeader
                       className="accordionHeader"
                       id="accordionHeaderStyle"
-                      targetId={item.id.toString()}
+                      targetId={item.riderId}
                     >
-                      <Col md={3}>{item.dropOffDate}</Col>
-                      <Col>&emsp;|&emsp; {item.dropOFfTime}</Col>
+                      <Col md={3}>{item.topupDate}</Col>
+                      {/* <Col>&emsp;|&emsp; {item.dropOFfTime}</Col> */}
                     </AccordionHeader>
-                    <AccordionBody accordionId={item.id.toString()}>
+                    <AccordionBody accordionId={item.riderId}>
+                 
                       <Row>
                         <Col md={4}>
                           <span className="riderHistoryLabelInfo">
@@ -141,7 +171,7 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                             <span className="h5 fw-bold">P</span>
                             <span className="h6 fw-bold">
                               {" "}
-                              {item.BalanceBeforeTopup.toFixed(2)}
+                              {item.topupBefore.toFixed(2)}
                             </span>
                           </span>
                         </Col>
@@ -159,7 +189,7 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                             <span className="h5 fw-bold">P</span>
                             <span className="h6 fw-bold">
                               {" "}
-                              {item.BalanceAfterTopup.toFixed(2)}
+                              {item.topupAfter.toFixed(2)}
                             </span>
                           </span>
                         </Col>
@@ -178,7 +208,7 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                             <span className="h4 fw-bold">P</span>
                             <span className="h5 fw-bold">
                               {" "}
-                              {item.TopupAmount.toFixed(2)}
+                              {item.topupAmount.toFixed(2)}
                             </span>
                           </span>
                         </Col>
@@ -187,15 +217,15 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                           <span className="riderHistoryLabelInfo">Status</span>
                         </Col>
                         <Col md={2}>
-                          <span  className={`riderHistoryTextInfo fw-bold ${item.Status == "Failed"
+                          <span  className={`riderHistoryTextInfo fw-bold ${item.status == "Failed"
                                 ? "text-danger"
-                                : item.Status == "Pending"
+                                : item.status == "Pending"
                                   ? "text-warning"
                                   : "text-success"
                                 }`}>
                             
                             {" "}
-                            : &emsp;{item.Status}
+                            : &emsp;{item.status}
                           </span>
                         </Col>
                       </Row>
