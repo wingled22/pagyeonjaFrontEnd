@@ -66,15 +66,27 @@ const CommuterTable = ({
   };
 
   // for updating the commuter state
-  const updateCommuterTable = (commuter, isForDetailsUpdate = true) => {
+  const updateCommuterTable = (
+    commuter,
+    isForDetailsUpdate = true,
+    isForRevoke = false
+  ) => {
     setCommuters((prevCommuters) => {
       return prevCommuters.map((item) => {
         if (item.commuterId === commuter.commuterId) {
-          if (isForDetailsUpdate) return { ...item, ...commuter };
+          if (isForDetailsUpdate && !isForRevoke) {
+            return { ...item, ...commuter };
+          } else if (!isForDetailsUpdate && !isForRevoke) {
+            return {
+              ...item,
+              ...commuter,
+              suspensionStatus: commuter.suspensionStatus,
+            };
+          }
           return {
             ...item,
             ...commuter,
-            suspensionStatus: !commuter.suspendStatus,
+            suspensionStatus: !commuter.suspensionStatus,
           };
         }
         return item;
@@ -159,11 +171,13 @@ const CommuterTable = ({
             body: JSON.stringify(updateFormData),
           }
         );
-        toast.success("Commuter Suspended Updated");
+        toast.success("Commuter suspension updated");
       }
 
+      selectedCommuter.suspensionStatus
+        ? updateCommuterTable(selectedCommuter, false)
+        : updateCommuterTable(selectedCommuter, false, true);
       clearSuspensionEntry();
-      getCommuters();
       toggleSuspension();
       toggleTriggerChanges();
 
@@ -194,8 +208,8 @@ const CommuterTable = ({
         }
       );
 
+      updateCommuterTable(selectedCommuter, false, true);
       clearSuspensionEntry();
-      getCommuters();
       toggleSuspension();
       toggleTriggerChanges();
       toast.success("Commuter Suspension Revoked");
@@ -216,16 +230,19 @@ const CommuterTable = ({
   }, []);
 
   const [modalSuspension, setModalSuspension] = useState(false);
-  const toggleSuspension = () => setModalSuspension(!modalSuspension);
+  const toggleSuspension = (commuter) => {
+    setModalSuspension((modalSuspension) => !modalSuspension);
+    setSelectedCommuter(() => commuter);
+  };
 
   const [selectedCommuter, setSelectedCommuter] = useState([]);
   const [modalupdate, setModalUpdate] = useState(false);
   const toggleUpdate = (CommuterUpdate) => {
-    setModalUpdate(!modalupdate);
-    setSelectedCommuter(CommuterUpdate);
+    setModalUpdate((modalupdate) => !modalupdate);
+    setSelectedCommuter(() => CommuterUpdate);
     console.log("Update selected", CommuterUpdate);
   };
-
+  console.log(selectedCommuter);
   return (
     <>
       <CommuterUpdateModal
@@ -357,7 +374,7 @@ const CommuterTable = ({
                   <button
                     className="btn btn-danger btnSuspendCommuter"
                     onClick={() => {
-                      toggleSuspension();
+                      toggleSuspension(commuterUpdate);
                       setCommuterID(commuterUpdate.commuterId);
                       getSuspension(
                         commuterUpdate.suspensionStatus,
