@@ -18,7 +18,8 @@ import { auto } from "@popperjs/core";
 // import ViewRequirements from "./RequirementsCards";
 import CommuterDocumentViewerModal from "../Commuter/CommuterDocumentViewerModal";
 import ApprovalResponseConfirmationModal from "../RiderApproval/ApprovalResponseConfirmationModal";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import CommuterApprovalViewRequirements from "./CommuterApprovalRequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
@@ -70,28 +71,36 @@ const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
   };
 
   // approve or reject the rider approval request
-  const onResponseRiderApproval = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/Approval/UserApprovalResponse?usertype=Commuter&userid=${userId}&response=${approvalResponse}&rejectionmessage=${rejectionMessage}`,
-        {
-          method: "PUT",
-        }
-      );
-      if (response.ok) {
-        toggleApprovaModal();
-        getRequirements();
-        getApprovals();
-        console.log({
-          commuterId: userId,
-          response: approvalResponse,
-          message: rejectionMessage,
-        });
+  
+const onResponseRiderApproval = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:5180/api/Approval/UserApprovalResponse?usertype=Commuter&userid=${userId}&response=${approvalResponse}&rejectionmessage=${rejectionMessage}`,
+      {
+        method: "PUT",
       }
-    } catch (err) {
-      console.error(err);
+    );
+    if (response.ok) {
+      toggleApprovaModal();
+      getRequirements();
+      getApprovals();
+      console.log({
+        commuterId: userId,
+        response: approvalResponse,
+        message: rejectionMessage,
+      });
+      if (approvalResponse) {
+        toast.success('Request successfully approved Commuter!');
+      } else {
+    
+        toast.error('Request rejected!');
+      }
+
     }
-  };
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   const getCommuter = async () => {
     try {
