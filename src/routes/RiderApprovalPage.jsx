@@ -15,8 +15,8 @@ import { useState, useEffect } from "react";
 import "../assets/css/RiderApproval/RiderApprovalDashboard.css";
 import RiderApprovalTablePage from "../components/RiderApproval/Rider_Approval_Table";
 import Requirements from "../components/RiderApproval/Requirements";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const RiderApprovalDashboard = () => {
   const [selectedUser, setSelectedUser] = useState(null); // reciever from rider table approval
   const [approvals, setApprovals] = useState([]);
@@ -32,6 +32,20 @@ const RiderApprovalDashboard = () => {
       console.error(error);
     }
   };
+
+  // Changes the approvals state without fetching the approvals
+  const updateApprovalTable = (userId, isApprove) => {
+    setApprovals((prevApprovals) => {
+      if (isApprove) {
+        return prevApprovals.filter((item) => item.userId !== userId);
+      }
+      return prevApprovals.map((item) => {
+        if (item.userId === userId)
+          return { ...item, approvalStatus: isApprove };
+      });
+    });
+  };
+
   const setChangeUserID = (userId) => {
     setSelectedUser(userId);
     console.log(userId, "rider page");
@@ -64,14 +78,13 @@ const RiderApprovalDashboard = () => {
             approvals={approvals}
           />
           <ToastContainer />
-
         </Col>
 
         {selectedUser && (
           <Col sm={1} md={6} lg={5}>
             <Requirements
               userId={selectedUser}
-              getApprovals={getApprovalList}
+              updateApprovalTable={updateApprovalTable}
             />
           </Col>
         )}
