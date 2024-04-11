@@ -192,15 +192,16 @@ function formatTime(dateTimeString) {
                           <span className="riderHistoryLabelInfo">Status</span>
                         </Col>
                         <Col md={2}>
-                          <span  className={`riderHistoryTextInfo fw-bold ${item.status == "Failed"
+                          :
+                          <span  className={`riderHistoryTextInfo fw-bold ${item.status.toLowerCase() == "failed"
                                 ? "text-danger"
-                                : item.status == "Pending"
+                                :  item.status.toLowerCase() == "pending"
                                   ? "text-warning"
                                   : "text-success"
                                 }`}>
                             
                             {" "}
-                            : &emsp;{item.status}
+                             &emsp;{item.status}
                           </span>
                         </Col>
                       </Row>
