@@ -90,7 +90,7 @@ const CommuterTable = ({
 
   const onChangeSelectedCommuter = async (commuter) => {
     onSelectCommuter(commuter);
-    console.log("OnselectCommuter", commuter);
+    // console.log("OnselectCommuter", commuter);
   };
 
   const [reason, setReason] = useState("");
@@ -234,9 +234,9 @@ const CommuterTable = ({
   const toggleUpdate = (CommuterUpdate) => {
     setModalUpdate((modalupdate) => !modalupdate);
     setSelectedCommuter(() => CommuterUpdate);
-    console.log("Update selected", CommuterUpdate);
+    // console.log("Update selected", CommuterUpdate);
   };
-  console.log(selectedCommuter);
+  //console.log(selectedCommuter);
   return (
     <>
       <CommuterUpdateModal

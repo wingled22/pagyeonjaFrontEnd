@@ -7,7 +7,7 @@ import {
   Container,
 } from "reactstrap";
 import "../../assets/css/CommuterDocumentViewerModal.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ViewImageModal from "../../components/Commuter/ViewImageModal.jsx";
 
 const CommuterDocumentViewerModal = ({ isOpen, untoggle, document, userName }) => {
