@@ -3,7 +3,6 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Container,
 } from "reactstrap";
 import "../../assets/css/CommuterDocumentViewerModal.css";
@@ -85,7 +84,6 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle, document, userName }) =
               </tbody>
             </table>
           </Container>}
-          
         </ModalBody>
       </Modal>
 
