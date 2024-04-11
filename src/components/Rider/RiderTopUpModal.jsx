@@ -201,7 +201,7 @@ function formatTime(dateTimeString) {
                                 }`}>
                             
                             {" "}
-                             &emsp;{item.status}
+                             &emsp;{item.status.charAt(0).toUpperCase() + item.status.slice(1)}
                           </span>
                         </Col>
                       </Row>
