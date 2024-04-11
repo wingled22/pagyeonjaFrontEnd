@@ -60,6 +60,7 @@ const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
       console.error(error);
     }
   };
+   
 
   const onDocumentButtonClick = (documentType) => {
     setDocumentFiles(
