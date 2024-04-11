@@ -20,9 +20,9 @@ import ViewRequirements from "./RequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-const Requirements = ({ userId, getApprovals }) => {
+const Requirements = ({ userId, updateApprovalTable }) => {
   console.log("requirements", userId);
 
   const [document, setDocument] = useState([]);
@@ -67,7 +67,7 @@ const Requirements = ({ userId, getApprovals }) => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   // Dynamic selection of documents
   const onDocumentButtonClick = (documentType) => {
@@ -90,23 +90,21 @@ const Requirements = ({ userId, getApprovals }) => {
       );
       if (response.ok) {
         toggleApprovaModal();
-        getRequirements();
-        getApprovals();
+        updateApprovalTable(userId, approvalResponse);
         console.log({
           riderId: userId,
           response: approvalResponse,
           message: rejectionMessage,
         });
         if (approvalResponse) {
-          toast.success('Request successfully approved Rider!');
+          toast.success("Request successfully approved Rider!");
         } else {
-      
-          toast.error('Request rejected!');
+          toast.error("Request rejected!");
         }
       }
     } catch (err) {
       console.error(err);
-      toast.error('An error occurred while recording rider approval response.');
+      toast.error("An error occurred while recording rider approval response.");
     }
   };
   useEffect(() => {
@@ -117,15 +115,16 @@ const Requirements = ({ userId, getApprovals }) => {
     getApproval();
   }, [userId]);
 
-  console.log("approval", approval.approvalStatus)
+  console.log("approval", approval.approvalStatus);
   return (
     <>
       <RiderDocumentViewerModal
         isOpen={isOpen}
         untoggle={toggle}
         document={documentFiles}
-        userName={`${document.firstName} ${document.middleName && document.middleName[0]
-          }. ${document.lastName}`}
+        userName={`${document.firstName} ${
+          document.middleName && document.middleName[0]
+        }. ${document.lastName}`}
       />
       <ApprovalResponseConfirmationModal
         isOpen={approvalModalIsOpen}
@@ -141,10 +140,11 @@ const Requirements = ({ userId, getApprovals }) => {
           <Row>
             <div
               style={{
-                backgroundImage: `url(${document.profilePath != null
+                backgroundImage: `url(${
+                  document.profilePath != null
                     ? `http://localhost:5180/img/rider_profile/${document.profilePath}`
                     : images1
-                  })`, // use default image if profilePath is null
+                })`, // use default image if profilePath is null
                 backgroundSize: "cover", // this will make sure the image covers the whole div
               }}
               className="rider-profile d-flex ms-auto me-auto mt-3"
@@ -191,19 +191,21 @@ const Requirements = ({ userId, getApprovals }) => {
           </Row>
 
           <div className="btnAppRej">
-            {approval.approvalStatus === '' || approval.approvalStatus === null ?
-              <><Button
-                className="btn-rider-approval"
-                color="success"
-                style={{ borderRadius: 50, fontWeight: "bold" }}
-                onClick={() => {
-                  setApprovalResponse(true);
-                  toggleApprovaModal();
-                }}
-              >
-                {" "}
-                <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
-              </Button>
+            {approval.approvalStatus === "" ||
+            approval.approvalStatus === null ? (
+              <>
+                <Button
+                  className="btn-rider-approval"
+                  color="success"
+                  style={{ borderRadius: 50, fontWeight: "bold" }}
+                  onClick={() => {
+                    setApprovalResponse(true);
+                    toggleApprovaModal();
+                  }}
+                >
+                  {" "}
+                  <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
+                </Button>
                 <Button
                   className="btn-rider-approval"
                   color="danger"
@@ -214,8 +216,9 @@ const Requirements = ({ userId, getApprovals }) => {
                   }}
                 >
                   <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
-                </Button></>
-              :
+                </Button>
+              </>
+            ) : (
               <Button
                 className="btn-rider-approval"
                 color="success"
@@ -228,12 +231,10 @@ const Requirements = ({ userId, getApprovals }) => {
                 {" "}
                 <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
               </Button>
-            }
-
+            )}
           </div>
         </>
       </div>
-      
     </>
   );
 };
