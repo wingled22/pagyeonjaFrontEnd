@@ -13,12 +13,22 @@ const CommuterAccordion = ({selectedCommuter}) => {
             setOpen(id);
         }
     };
-    
- 
-function formatDateTime(dateTimeString) {
+
+  function formatDate(dateTimeString){
     const dateTime = new Date(dateTimeString);
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return dateTime.toLocaleDateString('en-US', options);
+    const options = {year : "numeric", month: "long", day: "numeric",}
+    return dateTime.toLocaleDateString("en-US", options);
+  }
+
+  function formatTime(dateTimeString)
+  {
+    const dateTime = new Date(dateTimeString);
+    const options = {
+        hour : "numeric",
+        minute : "numeric",
+    }
+
+    return dateTime.toLocaleTimeString("en-US", options);
   }
 
     const getRideHistory = async () => {
@@ -52,14 +62,15 @@ function formatDateTime(dateTimeString) {
     return (
         <>
             <Accordion flush open={open} toggle={toggle} id='accordionContainer'>
+                {commuterRideInfo.length === 0 && <center>No ride history</center>}
                 {commuterRideInfo.map((item) => (
                     <AccordionItem key={item.rideHistoryId}>
                         <AccordionHeader id='accordionHeaderStyle' targetId={item.rideHistoryId.toString()}>
                             <Col md={4} sm={4} xs={4}>
-                                <span className='headerText'>{formatDateTime(item.startingTime)}</span>
+                                <span className='headerText'>{formatDate(item.endTime)}</span>
                             </Col>
                             <Col>
-                                <span className='headerText'>&emsp;|&emsp; {formatDateTime(item.endTime)}</span>
+                                <span className='headerText'>&emsp;|&emsp; {formatTime(item.endTime)}</span>
                             </Col>
                         </AccordionHeader>
                         <AccordionBody accordionId={item.rideHistoryId.toString()}>
@@ -78,27 +89,12 @@ function formatDateTime(dateTimeString) {
                             <Row className='newlineInfo'>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className="riderHistoryLabelInfo">Rider</span>
-                                    <span className='riderHistoryTextInfo'> : &emsp;{item.firstName}</span>
+                                    <span className='riderHistoryTextInfo'> : &emsp;{item.firstName} {item.middleName ? item.middleName[0] + "." : ""}{" "} {item.lastName}</span>
                                 </Col>
-                                <Col md={6} sm={6} xs={12}>
+                                {/* <Col md={6} sm={6} xs={12}>
                                     <span className="riderHistoryLabelInfo">Rider ID</span>
-                                    {/* <span className='riderHistoryTextInfo'> : &emsp;{item.riderId}</span> */}
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md={6} sm={6} xs={12}>
-                                    <span className='riderHistoryLabelInfo'>Starting Time</span>
-                                    <span className='riderHistoryTextInfo'> : &emsp;{formatDateTime(item.startingTime)}</span>
-                                </Col>
-                                <Col md={6} sm={6} xs={12}>
-                                    <span className='riderHistoryLabelInfo'>End Time</span>
-                                    <span className='riderHistoryTextInfo'> : &emsp;{formatDateTime(item.endTime)}</span>
-                                </Col>
-                            </Row>
-                            <Row className='newlineInfo'>
-                                <Col md={6} sm={6} xs={12}>
-                                    <span className="riderHistoryLabelInfo">Vehicle</span><span className='riderHistoryTextInfo'> : &emsp;{}</span>
-                                </Col>
+                                    <span className='riderHistoryTextInfo'> : &emsp;{item.riderId}</span>
+                                </Col> */}
                                 <Col md={6} sm={6} xs={12}>
                                     <span className="riderHistoryLabelInfo">Plate Number</span>
                                     <span className='riderHistoryTextInfo'> : &emsp;{item.vehicleNumber}</span>
@@ -106,12 +102,22 @@ function formatDateTime(dateTimeString) {
                             </Row>
                             <Row>
                                 <Col md={6} sm={6} xs={12}>
+                                    <span className='riderHistoryLabelInfo'>Starting Time</span>
+                                    <span className='riderHistoryTextInfo'> : &emsp;{formatTime(item.startingTime)}</span>
+                                </Col>
+                                <Col md={6} sm={6} xs={12}>
+                                    <span className='riderHistoryLabelInfo'>End Time</span>
+                                    <span className='riderHistoryTextInfo'> : &emsp;{formatTime(item.endTime)}</span>
+                                </Col>
+                            </Row> <br />
+                            <Row>
+                                <Col md={6} sm={6} xs={12}>
                                     <span className='riderHistoryLabelInfo'>Fare</span>
-                                    <span className='riderHistoryTextInfo text-success'> : &emsp;<strong>{item.fare}</strong></span>
+                                    <span className='riderHistoryTextInfo text-success'> : &emsp;<strong>₱{parseFloat(item.fare).toFixed(2)}</strong></span>
                                 </Col>
                                 <Col md={6} sm={6} xs={12}>
                                     <span className='riderHistoryLabelInfo'>Rating</span>
-                                    <span className={`riderHistoryTextInfo ${item.rate >= 1.0 && item.rate <= 2.9 ? 'text-danger' : item.rate >= 3.0 && item.rating <= 3.9 ? 'text-warning' : 'text-success'}`}> : &emsp; <strong>{item.rate}</strong></span>
+                                    <span className={`riderHistoryTextInfo ${item.rate >= 1.0 && item.rate <= 2.9 ? 'text-danger' : item.rate >= 3.0 && item.rate <= 3.9 ? 'text-warning' : item.rate >= 4.0 && item.rate <= 5.0 ? 'text-success' : 'text-danger'}`}> : &emsp; <strong>{item.rate ? parseFloat(item.rate).toFixed(1) : "N/A"}</strong></span>
                                 </Col>
                             </Row>
                         </AccordionBody>
