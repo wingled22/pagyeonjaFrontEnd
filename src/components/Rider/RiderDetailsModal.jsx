@@ -19,16 +19,23 @@ import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
 import RiderDocumentViewerModal from "./RiderDocumentViewerModal";
 
-function formatDateTime(dateTimeString) {
+function formatDate(dateTimeString) {
   const dateTime = new Date(dateTimeString);
   const options = {
     year: "numeric",
     month: "long",
     day: "numeric",
+  };
+  return dateTime.toLocaleDateString("en-US", options);
+}
+
+function formatTime(dateTimeString) {
+  const dateTime = new Date(dateTimeString);
+  const options = {
     hour: "numeric",
     minute: "numeric",
   };
-  return dateTime.toLocaleDateString("en-US", options);
+  return dateTime.toLocaleTimeString("en-US", options);
 }
 
 const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
@@ -108,6 +115,11 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   const [timeLeft, setTimeLeft] = useState([]);
 
   const getRideHistory = async () => {
+
+    if (!rider.riderId) {
+
+      return;
+    }
     try {
       const response = await fetch(
         `http://localhost:5180/api/RideHistory/GetUserRideHistory?id=${rider.riderId}&usertype=Rider`
@@ -166,9 +178,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
           untoggle={toggleDocumentViewer}
           rider={rider}
           document={document.documents}
-          userName={`${document.firstName} ${
-            document.middleName && document.middleName[0]
-          }. ${document.lastName}`}
+          userName={`${document.firstName} ${document.middleName ? document.middleName[0] + "."
+            : ""
+            } ${document.lastName}`}
         />
       )}
 
@@ -187,8 +199,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
               <Row>
                 <Col style={{ padding: "25px" }} md={2}>
                   {rider.profilePath === "" ||
-                  rider.profilePath === null ||
-                  !rider.profilePath ? (
+                    rider.profilePath === null ||
+                    !rider.profilePath ? (
                     <Icon
                       icon={faCircleUser}
                       color="white"
@@ -201,7 +213,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 <Col md={7}>
                   <Row>
                     <p className="ridername">
-                      {rider.firstName} {isOpen ? rider.middleName[0] : ""}.{" "}
+                      {rider.firstName}  {rider.middleName
+                        ? rider.middleName[0] + "."
+                        : ""}{" "}
                       {rider.lastName}
                     </p>
                   </Row>
@@ -296,11 +310,10 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 <div className="label-text">
                   Status:{" "}
                   <span
-                    className={`text-value ${
-                      rider.suspensionStatus === true
-                        ? "text-danger"
-                        : "text-success"
-                    }`}
+                    className={`text-value ${rider.suspensionStatus === true
+                      ? "text-danger"
+                      : "text-success"
+                      }`}
                   >
                     {rider.suspensionStatus === true ? "Suspended" : "Active"}
                   </span>
@@ -318,11 +331,10 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                     Duration:{" "}
                     <span
                       style={{ fontSize: "17px" }}
-                      className={`textInfo ${
-                        rider.suspensionStatus === true
-                          ? "text-danger"
-                          : "text-success"
-                      }`}
+                      className={`textInfo ${rider.suspensionStatus === true
+                        ? "text-danger"
+                        : "text-success"
+                        }`}
                     >
                       {timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}
                       m: {timeLeft.seconds}s
@@ -368,6 +380,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                     maxHeight: "500px",
                   }}
                 >
+                  {rideHistoryData.length === 0 && <center>No ride history</center>}
                   {rideHistoryData.map((item) => (
                     <AccordionItem key={item.rideHistoryId}>
                       <AccordionHeader
@@ -375,9 +388,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                         id="accordionHeaderStyle"
                         targetId={item.rideHistoryId.toString()}
                       >
-                        <Col md={5}>{formatDateTime(item.startingTime)}</Col>
-                        <Col md={6}>
-                          &emsp;|&emsp;{formatDateTime(item.endTime)}
+                        <Col md={4}>{formatDate(item.endTime)}</Col>
+                        <Col md={4}>
+                          &emsp;|&emsp;{formatTime(item.endTime)}
                         </Col>
                       </AccordionHeader>
                       <AccordionBody
@@ -416,7 +429,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           <Col md={4}>
                             <span className="riderHistoryTextInfo">
                               {" "}
-                              : &emsp;{item.firstName} {item.middleName[0]}.{" "}
+                              : &emsp;{item.firstName}   {rider.middleName
+                                ? rider.middleName[0] + "."
+                                : ""}{" "}
                               {item.lastName}
                             </span>
                           </Col>
@@ -429,7 +444,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                             <Col md={5} style={{ marginLeft: "8px" }}>
                               <span className="riderHistoryTextInfo">
                                 {" "}
-                                : &emsp;{formatDateTime(item.startingTime)}
+                                : &emsp;{formatTime(item.startingTime)}
                               </span>
                             </Col>
                           </Row>
@@ -442,7 +457,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                             <Col md={5} style={{ marginLeft: "8px" }}>
                               <span className="riderHistoryTextInfo">
                                 {" "}
-                                : &emsp;{formatDateTime(item.endTime)}
+                                : &emsp;{formatTime(item.endTime)}
                               </span>
                             </Col>
                           </Row>
@@ -468,7 +483,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                               Plate Number
                             </span>
                           </Col>
-                          <Col md={3}>
+                          <Col md={4}>
                             <span className="riderHistoryTextInfo">
                               {" "}
                               : &emsp;{item.vehicleNumber}
@@ -477,19 +492,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                           <Col md={1} style={{ marginLeft: "20px" }}>
                             <span className="riderHistoryLabelInfo">Rate</span>
                           </Col>
-                          <Col md={3}>
-                            <span
-                              className={`riderHistoryTextInfo ${
-                                2.7 >= 1.0 && 2.7 <= 2.9
-                                  ? "text-danger"
-                                  : 2.7 >= 3.0 && 2.7 <= 3.9
-                                  ? "text-warning"
-                                  : "text-success"
-                              }`}
-                            >
-                              {" "}
-                              : &emsp;{item.rate}
-                            </span>
+                          <Col md={2}>
+                            <span className={`riderHistoryTextInfo ${item.rate >= 1.0 && item.rate <= 2.9 ? 'text-danger' : item.rate >= 3.0 && item.rate <= 3.9 ? 'text-warning' : item.rate >= 4.0 && item.rate <= 5.0 ? 'text-success' : 'text-danger'}`}> : &emsp; <strong>{item.rate ? parseFloat(item.rate).toFixed(1) : "N/A"}</strong></span>
                           </Col>
                         </Row>
                       </AccordionBody>
