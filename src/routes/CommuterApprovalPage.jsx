@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import CommuterApprovalSearchAndFilter from "../components/CommuterApproval/CommuterApprovalSearchFilter";
 import CommuterApprovalTablePage from "../components/CommuterApproval/CommuterApprovalTablePage";
 import CommuterApprovalRequirements from "../components/CommuterApproval/CommuterApprovalRequirements";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const CommuterApprovalPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [approvals, setApprovals] = useState([]);
@@ -59,6 +61,7 @@ const CommuterApprovalPage = () => {
             changeUserID={setChangeUserID}
             approvals={approvals}
           />
+
         </Col>
 
         {selectedUser && (
@@ -67,6 +70,7 @@ const CommuterApprovalPage = () => {
               userId={selectedUser}
               getApprovals={getApprovalList}
             />
+          <ToastContainer />
           </Col>
         )}
       </Row>

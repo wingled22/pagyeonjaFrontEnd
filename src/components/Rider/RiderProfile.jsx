@@ -30,8 +30,8 @@ const RiderProfile = ({ rider }) => {
             className="prof-col"
           >
             {rider.profilePath === "" ||
-            rider.profilePath === null ||
-            !rider.profilePath ? (
+              rider.profilePath === null ||
+              !rider.profilePath ? (
               <Icon
                 icon={faCircleUser}
                 color="black"
@@ -45,7 +45,13 @@ const RiderProfile = ({ rider }) => {
           <Col style={{ padding: "20px" }} md={7} lg={8} sm={7} xs={10}>
             <Row className="name-row mt-5">
               <p className="text-ridername">
-                {rider.firstName} {rider.middleName[0]}. {rider.lastName}
+                {rider.firstName}
+                {" "}
+                {rider.middleName
+                  ? rider.middleName[0] + "."
+                  : ""}
+                {" "}
+                {rider.lastName}
               </p>
             </Row>
             <Row className="mt-2">

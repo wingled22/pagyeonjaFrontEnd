@@ -42,11 +42,23 @@ const RiderTable = ({ onSelectRider }) => {
   };
 
   // Dynamic update for the riders state
-  const updateRidersTable = (rider, isForDetailsUpdate = true) => {
+  const updateRidersTable = (
+    rider,
+    isForDetailsUpdate = true,
+    isForRevoke = false
+  ) => {
     setRiders((prevRiders) => {
       return prevRiders.map((item) => {
         if (rider.riderId === item.riderId) {
-          if (isForDetailsUpdate) return { ...item, ...rider };
+          if (isForDetailsUpdate && !isForRevoke) {
+            return { ...item, ...rider };
+          } else if (!isForDetailsUpdate && !isForRevoke) {
+            return {
+              ...item,
+              ...rider,
+              suspensionStatus: rider.suspensionStatus,
+            };
+          }
           return {
             ...item,
             ...rider,
@@ -174,11 +186,13 @@ const RiderTable = ({ onSelectRider }) => {
             body: JSON.stringify(updateFormData),
           }
         );
-        toast.success("Rider Suspended Updated");
+        toast.success("Rider suspension updated");
       }
 
       clearSuspensionEntry();
-      updateRidersTable(selectedRider, false);
+      selectedRider.suspensionStatus
+        ? updateRidersTable(selectedRider, false)
+        : updateRidersTable(selectedRider, false, true);
       toggleSuspension();
 
       //toggle so that the suspension status is true
@@ -209,9 +223,9 @@ const RiderTable = ({ onSelectRider }) => {
       );
 
       clearSuspensionEntry();
-      updateRidersTable(selectedRider, false);
+      updateRidersTable(selectedRider, false, true);
       toggleSuspension();
-      toast.success("Rider Suspension Revoked");
+      toast.success("Rider suspension revoked");
 
       //toggle so that the suspension status is true
       // suspensionStatus(false);
