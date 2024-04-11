@@ -37,7 +37,7 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle, document, userName }) =
               </strong>
             </h5>
           </center>
-          {document.length === 0 ? <center>No document</center> : <Container className="documentViewerContainer">
+          {document.length === 0 ? <center><br/>No document</center> : <Container className="documentViewerContainer">
             <table style={{ width: "100%" }}>
               <thead
                 style={{
