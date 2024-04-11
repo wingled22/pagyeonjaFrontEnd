@@ -237,7 +237,7 @@ const RiderTable = ({ onSelectRider }) => {
   useEffect(() => {
     const filtered = riders.filter((rider) => riderMatchesSearchTerm(rider));
     setFilteredRiders(filtered);
-    console.log(riders);
+    // console.log(riders);
   }, [riders, searchTerm]);
 
   useEffect(() => {
@@ -371,6 +371,7 @@ const RiderTable = ({ onSelectRider }) => {
                     className="btn btn-primary"
                     onClick={() => {
                       toggleTopUpModal(rider);
+                      // console.log("rider.riderId",rider.riderId)
                     }}
                   >
                     <Icon icon={faWallet} color="white" />
