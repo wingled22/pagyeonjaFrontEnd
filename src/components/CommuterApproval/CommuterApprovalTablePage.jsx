@@ -7,9 +7,8 @@ import CommuterApprovalSearchAndFilter from "./CommuterApprovalSearchFilter";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
-const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
-
-  console.log("approval value nis table: ",approvals)
+const CommuterApprovalTablePage = ({ changeUserID, approvals }) => {
+  console.log("approval value nis table: ", approvals);
 
   const callChangeUserID = (id) => {
     changeUserID(id);
@@ -53,10 +52,6 @@ const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
       item.approvalStatus == filterCommuterApproval
   );
 
-  
-
-  
-
   return (
     <>
       <Row sm={11}>
@@ -79,11 +74,9 @@ const CommuterApprovalTablePage = ({changeUserID , approvals }) => {
                   <div
                     style={{
                       backgroundImage: `url(${
-                        item.profilePath != "" && item.profilePath != null ? (
-                          `http://localhost:5180/img/commuter_profile/${item.profilePath}`
-                        ) : (
-                         images1
-                        )
+                        item.profilePath != "" && item.profilePath != null
+                          ? `http://localhost:5180/img/commuter_profile/${item.profilePath}`
+                          : images1
                       })`,
                       backgroundSize: "cover",
                       height: "100px",
