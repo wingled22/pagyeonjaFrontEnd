@@ -1,16 +1,10 @@
-import { Table, Button, Badge } from "reactstrap";
 import "../../assets/css/CommuterTable.css";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import {
-  faPenToSquare,
-  faCirclePause,
-} from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Row, Col, Container } from "reactstrap";
 import CommuterSuspensionModal from "../../components/Commuter/CommuterSuspensionModal.jsx";
 import { useState, useEffect } from "react";
 import CommuterUpdateModal from "../../components/Commuter/CommuterUpdateModal.jsx";
+import CommuterTableList from "../../components/Commuter/CommuterTableList.jsx";
 
 const CommuterTable = ({
   selectUser,
@@ -96,7 +90,7 @@ const CommuterTable = ({
 
   const onChangeSelectedCommuter = async (commuter) => {
     onSelectCommuter(commuter);
-    console.log("OnselectCommuter", commuter);
+    // console.log("OnselectCommuter", commuter);
   };
 
   const [reason, setReason] = useState("");
@@ -240,9 +234,9 @@ const CommuterTable = ({
   const toggleUpdate = (CommuterUpdate) => {
     setModalUpdate((modalupdate) => !modalupdate);
     setSelectedCommuter(() => CommuterUpdate);
-    console.log("Update selected", CommuterUpdate);
+    // console.log("Update selected", CommuterUpdate);
   };
-  console.log(selectedCommuter);
+  //console.log(selectedCommuter);
   return (
     <>
       <CommuterUpdateModal
@@ -315,77 +309,16 @@ const CommuterTable = ({
               </tr>
             )}
             {filteredCommuters.map((commuterUpdate) => (
-              <tr
-                className="commuterRow"
-                key={commuterUpdate.commuterId}
-                onClick={() => {
-                  selectUser(commuterUpdate.commuterId),
-                    suspensionStatus(commuterUpdate.suspensionStatus),
-                    onSelectCommuter(commuterUpdate);
-                }}
-              >
-                <td
-                  className="commuterName"
-                  style={{
-                    borderBottom: "groove",
-                    padding: "20px",
-                    fontSize: "0.8rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {commuterUpdate.firstName}{" "}
-                  {commuterUpdate.middleName
-                    ? commuterUpdate.middleName[0] + "."
-                    : ""}{" "}
-                  {commuterUpdate.lastName}
-                </td>
-                <td style={{ borderBottom: "groove", padding: "20px" }}>
-                  <Badge
-                    className="badgeStatusCommuter"
-                    color={
-                      commuterUpdate.suspensionStatus === false
-                        ? "success"
-                        : "danger"
-                    }
-                  >
-                    <span className="statusName">
-                      {commuterUpdate.suspensionStatus === false
-                        ? "Active"
-                        : "Suspended"}
-                    </span>
-                  </Badge>
-                </td>
-                <td
-                  style={{
-                    borderBottom: "groove",
-                    padding: "20px",
-                    textAlign: "center",
-                  }}
-                >
-                  <button
-                    className="btn btn-success btnAction"
-                    onClick={() => {
-                      toggleUpdate(commuterUpdate);
-                      console.log("Commuters: ", commuterUpdate);
-                    }}
-                  >
-                    <Icon icon={faPenToSquare} color="white" />
-                  </button>
-                  <button
-                    className="btn btn-danger btnSuspendCommuter"
-                    onClick={() => {
-                      toggleSuspension(commuterUpdate);
-                      setCommuterID(commuterUpdate.commuterId);
-                      getSuspension(
-                        commuterUpdate.suspensionStatus,
-                        commuterUpdate.commuterId
-                      );
-                    }}
-                  >
-                    <Icon icon={faCirclePause} color="white" />
-                  </button>
-                </td>
-              </tr>
+              <CommuterTableList key={commuterUpdate.commuterId}
+               commuterUpdate={commuterUpdate}
+               selectUser={selectUser}
+               suspensionStatus={suspensionStatus}
+               onSelectCommuter={onSelectCommuter}
+               toggleUpdate={toggleUpdate}
+               toggleSuspension={toggleSuspension}
+               setCommuterID={setCommuterID}
+               getSuspension={getSuspension}
+               />
             ))}
           </tbody>
         </table>

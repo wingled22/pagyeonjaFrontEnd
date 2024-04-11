@@ -3,11 +3,10 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Container,
 } from "reactstrap";
 import "../../assets/css/CommuterDocumentViewerModal.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ViewImageModal from "../../components/Commuter/ViewImageModal.jsx";
 
 const CommuterDocumentViewerModal = ({ isOpen, untoggle, document, userName }) => {
@@ -37,7 +36,7 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle, document, userName }) =
               </strong>
             </h5>
           </center>
-          <Container className="documentViewerContainer">
+          {document.length === 0 ? <center><br/>No document</center> : <Container className="documentViewerContainer">
             <table style={{ width: "100%" }}>
               <thead
                 style={{
@@ -56,6 +55,7 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle, document, userName }) =
                 </tr>
               </thead>
               <tbody>
+                {/* {document.length === 0 && <tr><td></td><td>No document</td></tr>} */}
                 {document &&
                   document.map((item) => (
                     <tr key={item.id}>
@@ -83,7 +83,7 @@ const CommuterDocumentViewerModal = ({ isOpen, untoggle, document, userName }) =
        
               </tbody>
             </table>
-          </Container>
+          </Container>}
         </ModalBody>
       </Modal>
 
