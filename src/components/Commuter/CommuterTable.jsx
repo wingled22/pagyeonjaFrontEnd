@@ -303,7 +303,7 @@ const CommuterTable = ({
             </tr>
           </thead>
           <tbody>
-            {commuters.length === 0 && (
+            {filteredCommuters.length === 0 && (
               <tr>
                 <td>No commuters on the list</td>
               </tr>

@@ -50,7 +50,7 @@ const CommuterSuspensionModal = ({
       );
       const data = await response.json();
       setCommuterInfo(data);
-      console.log(commuterSuspensionStatus);
+      // console.log(commuterSuspensionStatus);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -105,7 +105,7 @@ const CommuterSuspensionModal = ({
                 placeholder="date placeholder"
                 type="date"
                 min={formattedTomorrow}
-                value={formatDate(suspensionDate)}
+                value={suspensionDate ? formatDate(suspensionDate) : ''}
                 onChange={(e) => updateSuspensionDate(e.target.value)}
               />
             </div>

@@ -58,7 +58,7 @@ const CommuterTableList = ({commuterUpdate, selectUser, suspensionStatus, onSele
                     className="btn btn-success btnAction"
                     onClick={() => {
                       toggleUpdate(commuterUpdate);
-                      console.log("Commuters: ", commuterUpdate);
+                      // console.log("Commuters: ", commuterUpdate);
                     }}
                   >
                     <Icon icon={faPenToSquare} color="white" />

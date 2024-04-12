@@ -108,14 +108,12 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
                 const data = await response.json()
                 setDocument(data);
             }
-
         } catch (error) {
             console.error(error);
         }
     };
 
     useEffect(() => {
-
         getRequirements();
     }, [commuterInfo, triggerChanges]);
 
@@ -135,8 +133,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
     return (<>
 
         {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} document={document.documents}
-            userName={`${document.firstName} ${document.middleName && document.middleName[0]
-                }. ${document.lastName}`} />}
+            userName={`${document.firstName} ${document.middleName ? document.middleName[0] + "." : ""} ${document.lastName}`} />}
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
