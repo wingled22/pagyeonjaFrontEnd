@@ -178,7 +178,7 @@ const onResponseRiderApproval = async () => {
               <><Button
                 className="btn-rider-approval"
                 color="success"
-                style={{ borderRadius: 50, fontWeight: "bold" }}
+                style={{ borderRadius: 50, fontWeight: "bold", marginTop: "220px" }}
                 onClick={() => {
                   setApprovalResponse(true);
                   toggleApprovaModal();
@@ -190,7 +190,7 @@ const onResponseRiderApproval = async () => {
                 <Button
                   className="btn-rider-approval"
                   color="danger"
-                  style={{ borderRadius: 50, fontWeight: "bold" }}
+                  style={{ borderRadius: 50, fontWeight: "bold",  marginTop: "220px"  }}
                   onClick={() => {
                     setApprovalResponse(false);
                     toggleApprovaModal();
@@ -202,7 +202,7 @@ const onResponseRiderApproval = async () => {
               <Button
                 className="btn-rider-approval"
                 color="success"
-                style={{ borderRadius: 50, fontWeight: "bold" }}
+                style={{ borderRadius: 50, fontWeight: "bold",  marginTop: "220px"}}
                 onClick={() => {
                   setApprovalResponse(true);
                   toggleApprovaModal();
