@@ -20,18 +20,20 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
 
   const handleFilter = (value) => {
     let newValue;
-    if (value === "pending") {
+    if (value.toLowerCase() === "pending") {
       newValue = null;
-    } else if (value === "rejected") {
+    } else if (value.toLowerCase() === "rejected") {
       newValue = false;
-    } else if (value === "approved") {
+    } else if (value.toLowerCase() === "approved") {
       newValue = true;
     }
 
     setfilterRiderApproval(newValue);
 
-    // console.log(newValue,"mao ni siya ang new value")
+   
   };
+
+   console.log("approvals ni siya: ",approvals)
 
   const filteredData = approvals.filter(
     (item) =>
@@ -94,9 +96,9 @@ const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
                   <Badge
                     text={
                       item.approvalStatus === true
-                        ? "approved"
+                        ? "Approved"
                         : item.approvalStatus == false
-                        ? "rejected"
+                        ? "Rejected"
                         : "Pending"
                     }
                   />
