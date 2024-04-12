@@ -165,34 +165,10 @@ const onResponseRiderApproval = async () => {
         </Row>
         <Row>
           <CommuterApprovalViewRequirements
-            viewText={"View OR file"}
+            viewText={"View Valid ID file"}
             viewFileText={"View the uploaded files from commuter"}
             onDocumentButtonClick={onDocumentButtonClick}
-            documentType={"or"}
-            toggle={toggle}
-          />
-
-          <CommuterApprovalViewRequirements
-            viewText={"View CR file"}
-            viewFileText={"View the uploaded files from commuter"}
-            onDocumentButtonClick={onDocumentButtonClick}
-            documentType={"cr"}
-            toggle={toggle}
-          />
-
-          <CommuterApprovalViewRequirements
-            viewText={"View Driver's License file"}
-            viewFileText={"View the uploaded files from commuter"}
-            onDocumentButtonClick={onDocumentButtonClick}
-            documentType={"license"}
-            toggle={toggle}
-          />
-
-          <CommuterApprovalViewRequirements
-            viewText={"View NBI clearance file"}
-            viewFileText={"Select and upload the files of your choice"}
-            onDocumentButtonClick={onDocumentButtonClick}
-            documentType={"nbi"}
+            documentType={"valid ID"}
             toggle={toggle}
           />
         </Row>

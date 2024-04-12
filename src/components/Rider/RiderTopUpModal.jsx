@@ -151,12 +151,12 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
                     <AccordionHeader
                       className="accordionHeader"
                       id="accordionHeaderStyle"
-                      targetId={item.riderId}
+                      targetId={item.topupId}
                     >
                       <Col md={3}>{item.topupDate}</Col>
                       {/* <Col>&emsp;|&emsp; {item.dropOFfTime}</Col> */}
                     </AccordionHeader>
-                    <AccordionBody accordionId={item.riderId}>
+                    <AccordionBody accordionId={item.topupId}>
                  
                       <Row>
                         <Col md={4}>
