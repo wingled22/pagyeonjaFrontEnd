@@ -18,8 +18,8 @@ import { auto } from "@popperjs/core";
 // import ViewRequirements from "./RequirementsCards";
 import CommuterDocumentViewerModal from "../Commuter/CommuterDocumentViewerModal";
 import ApprovalResponseConfirmationModal from "../RiderApproval/ApprovalResponseConfirmationModal";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import CommuterApprovalViewRequirements from "./CommuterApprovalRequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
@@ -27,7 +27,7 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 import "../../assets/css/CommuterApproval/CommuterApprovalRequirements.css";
 
-const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
+const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
   console.log("requirements", userId);
   const [document, setDocument] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
@@ -60,7 +60,6 @@ const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
       console.error(error);
     }
   };
-   
 
   const onDocumentButtonClick = (documentType) => {
     setDocumentFiles(
@@ -72,36 +71,34 @@ const CommuterApprovalRequirements = ({ userId, getApprovals }) => {
   };
 
   // approve or reject the rider approval request
-  
-const onResponseRiderApproval = async () => {
-  try {
-    const response = await fetch(
-      `http://localhost:5180/api/Approval/UserApprovalResponse?usertype=Commuter&userid=${userId}&response=${approvalResponse}&rejectionmessage=${rejectionMessage}`,
-      {
-        method: "PUT",
-      }
-    );
-    if (response.ok) {
-      toggleApprovaModal();
-      getRequirements();
-      getApprovals();
-      console.log({
-        commuterId: userId,
-        response: approvalResponse,
-        message: rejectionMessage,
-      });
-      if (approvalResponse) {
-        toast.success('Request successfully approved Commuter!');
-      } else {
-    
-        toast.error('Request rejected!');
-      }
 
+  const onResponseRiderApproval = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/Approval/UserApprovalResponse?usertype=Commuter&userid=${userId}&response=${approvalResponse}&rejectionmessage=${rejectionMessage}`,
+        {
+          method: "PUT",
+        }
+      );
+      if (response.ok) {
+        toggleApprovaModal();
+        updateApprovalTable(userId, approvalResponse);
+        // getApprovals();
+        console.log({
+          commuterId: userId,
+          response: approvalResponse,
+          message: rejectionMessage,
+        });
+        if (approvalResponse) {
+          toast.success("Request successfully approved Commuter!");
+        } else {
+          toast.error("Request rejected!");
+        }
+      }
+    } catch (err) {
+      console.error(err);
     }
-  } catch (err) {
-    console.error(err);
-  }
-};
+  };
 
   const getCommuter = async () => {
     try {
@@ -114,16 +111,12 @@ const onResponseRiderApproval = async () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
     getRequirements();
-  }, [userId]);
-
-  useEffect(() => {
     getCommuter();
   }, [userId]);
-
 
   return (
     <>
@@ -174,8 +167,10 @@ const onResponseRiderApproval = async () => {
         </Row>
 
         <div className="btnAppRej">
-        {approval.approvalStatus === '' || approval.approvalStatus === null ?
-              <><Button
+          {approval.approvalStatus === "" ||
+          approval.approvalStatus === null ? (
+            <>
+              <Button
                 className="btn-rider-approval"
                 color="success"
                 style={{ borderRadius: 50, fontWeight: "bold", marginTop: "220px" }}

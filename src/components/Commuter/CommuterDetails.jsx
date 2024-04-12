@@ -1,7 +1,6 @@
 import "../../assets/css/CommuterDetails.css"
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
-    faCircle,
     faCircleUser
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -25,8 +24,6 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
     const [commuterInfo, setCommuterInfo] = useState([]);
     const [suspensionInfo, setSuspensionInfo] = useState([]);
     const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
-
-    const [startTime, setStartTime] = useState(true);
 
     const getCommuter = async () => {
         try {
