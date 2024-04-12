@@ -53,6 +53,7 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle, document, userName }) => {
                 </tr>
               </thead>
               <tbody>
+              {document.length === 0 && <center>No Document Attached</center>}
                 {document &&
                   document.map((item) => (
                     <tr key={item.id}>
