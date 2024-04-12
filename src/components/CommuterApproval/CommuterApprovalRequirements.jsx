@@ -158,34 +158,10 @@ const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
         </Row>
         <Row>
           <CommuterApprovalViewRequirements
-            viewText={"View OR file"}
+            viewText={"View Valid ID file"}
             viewFileText={"View the uploaded files from commuter"}
             onDocumentButtonClick={onDocumentButtonClick}
-            documentType={"or"}
-            toggle={toggle}
-          />
-
-          <CommuterApprovalViewRequirements
-            viewText={"View CR file"}
-            viewFileText={"View the uploaded files from commuter"}
-            onDocumentButtonClick={onDocumentButtonClick}
-            documentType={"cr"}
-            toggle={toggle}
-          />
-
-          <CommuterApprovalViewRequirements
-            viewText={"View Driver's License file"}
-            viewFileText={"View the uploaded files from commuter"}
-            onDocumentButtonClick={onDocumentButtonClick}
-            documentType={"license"}
-            toggle={toggle}
-          />
-
-          <CommuterApprovalViewRequirements
-            viewText={"View NBI clearance file"}
-            viewFileText={"Select and upload the files of your choice"}
-            onDocumentButtonClick={onDocumentButtonClick}
-            documentType={"nbi"}
+            documentType={"valid ID"}
             toggle={toggle}
           />
         </Row>
@@ -197,7 +173,7 @@ const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
               <Button
                 className="btn-rider-approval"
                 color="success"
-                style={{ borderRadius: 50, fontWeight: "bold" }}
+                style={{ borderRadius: 50, fontWeight: "bold", marginTop: "220px" }}
                 onClick={() => {
                   setApprovalResponse(true);
                   toggleApprovaModal();
@@ -206,32 +182,34 @@ const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
                 {" "}
                 <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
               </Button>
+                <Button
+                  className="btn-rider-approval"
+                  color="danger"
+                  style={{ borderRadius: 50, fontWeight: "bold",  marginTop: "220px"  }}
+                  onClick={() => {
+                    setApprovalResponse(false);
+                    toggleApprovaModal();
+                  }}
+                >
+                  <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
+                </Button></>
+          )
+          :
               <Button
                 className="btn-rider-approval"
-                color="danger"
-                style={{ borderRadius: 50, fontWeight: "bold" }}
+                color="success"
+                style={{ borderRadius: 50, fontWeight: "bold",  marginTop: "220px"}}
                 onClick={() => {
-                  setApprovalResponse(false);
+                  setApprovalResponse(true);
                   toggleApprovaModal();
                 }}
               >
-                <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
+                {" "}
+                <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
               </Button>
-            </>
-          ) : (
-            <Button
-              className="btn-rider-approval"
-              color="success"
-              style={{ borderRadius: 50, fontWeight: "bold" }}
-              onClick={() => {
-                setApprovalResponse(true);
-                toggleApprovaModal();
-              }}
-            >
-              {" "}
-              <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
-            </Button>
-          )}
+            }
+
+
         </div>
       </div>
     </>
