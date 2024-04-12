@@ -9,35 +9,36 @@ import {
   Button,
   Container,
 } from "reactstrap";
-import {
-  Accordion,
-  AccordionBody,
-  AccordionHeader,
-  AccordionItem,
-} from "reactstrap";
+
 import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
 import RiderDocumentViewerModal from "./RiderDocumentViewerModal";
+import RiderAccordion from "./RiderAccordion";
 
-function formatDate(dateString) {
-  const newDate = new Date(dateString);
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return newDate.toLocaleDateString('en-US', options);
-}
 
 const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   // console.log("Rider Object:", rider);
-  const [open, setOpen] = useState("0");
+  const [document, setDocument] = useState([]);
   const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
+  // const [isComponentLoaded, setIsComponentLoaded] = useState(true);
   const toggleDocumentViewer = () =>
     setModalDocumentViewer(!modalDocumentViewer);
-  const toggleAct = (id) => {
-    if (open === id) {
-      setOpen();
-    } else {
-      setOpen(id);
-    }
-  };
+
+
+  function ProfileImage({ rider }) {
+    const [imageFailed, setImageFailed] = useState(false);
+
+    return imageFailed ? (
+      <Icon icon={faCircleUser} color="white" className="modal-icon-img" />
+    ) : (
+      <img
+        className="modal-profile-img"
+        src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`}
+        alt="Rider Profile"
+        onError={() => setImageFailed(true)}
+      />
+    );
+  }
 
   const [suspensionInfo, setSuspensionInfo] = useState([]);
 
@@ -45,20 +46,21 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
     try {
       if (rider.suspensionStatus === true) {
         //If suspended, then get the latest end date suspension
-        const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${rider.riderId}&usertype=Rider`)
+        const response = await fetch(
+          `http://localhost:5180/api/Suspension/GetSuspension?userid=${rider.riderId}&usertype=Rider`
+        );
         const data = await response.json();
 
-        setSuspensionInfo(data);
+        setSuspensionInfo(() => data);
       }
-    }
-    catch (error) {
+    } catch (error) {
       setSuspensionInfo([]);
     }
-  }
+  };
 
   const calculateSuspensionDuration = () => {
-
-    let difference = +new Date(`${suspensionInfo.suspensionDate}`) - +new Date();
+    let difference =
+      +new Date(`${suspensionInfo.suspensionDate}`) - +new Date();
     let timeLeft = {};
 
     if (difference > 0) {
@@ -66,137 +68,70 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60)
+        seconds: Math.floor((difference / 1000) % 60),
       };
-    }
-    else {
+    } else {
       timeLeft = {
         days: 0,
         hours: 0,
         minutes: 0,
-        seconds: 0
+        seconds: 0,
       };
     }
 
-    setTimeLeft(timeLeft)
-  }
+    setTimeLeft(() => timeLeft);
+  };
 
   const [timeLeft, setTimeLeft] = useState([]);
 
-  useEffect(() => {
-    getLatestSuspension();
-  }, [rider])
 
-  useEffect(() => {
-    if (rider.suspensionStatus === true) {
-
-      const timer = setTimeout(() => {
-        calculateSuspensionDuration();
-      }, 1000);
-
-      return () => clearTimeout(timer);
+  const getRequirements = async () => {
+    if (!rider.riderId) {
+      return;
     }
-  })
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/document/getdocuments?id=${rider.riderId}&usertype=Rider`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setDocument(data);
+        console.log(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  const data = [
-    {
-      id: 1,
-      name: "John Doe",
-      status: "Active",
-      dropOffDate: "March 11, 2024",
-      dropOFfTime: "07: 00 PM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00445",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      status: "Inactive",
-      dropOffDate: "March 12, 2024",
-      dropOFfTime: "01: 37 PM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 3,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 4,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 5,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-    {
-      id: 6,
-      name: "Bob Smith",
-      status: "Active",
-      dropOffDate: "March 13, 2024",
-      dropOFfTime: "08: 54 AM",
-      startingPoint: "Dela Vina St., Bogo City, Cebu",
-      endDestination: "San Vicente St., Bogo City, Cebu",
-      riderName: "Juan Parat",
-      riderID: "00669",
-      vehicleType: "Tricycle",
-      vehiclePlate: "06X77V",
-      startingTime: "06: 00PM",
-      fare: "₱15.00",
-    },
-  ];
-  
-  if (rider == null) {
-    return <></>;
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      calculateSuspensionDuration();
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  });
+
+  useEffect(() => {
+    let isComponentLoaded = true;
+    if (isComponentLoaded) {
+      getRequirements();
+      getLatestSuspension();
+    }
+    return () => (isComponentLoaded = false);
+  }, [rider]);
   return (
     <>
-      {rider.riderId && modalDocumentViewer && <RiderDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} rider={rider} />}
+      {rider.riderId && modalDocumentViewer && (
+        <RiderDocumentViewerModal
+          isOpen={modalDocumentViewer}
+          untoggle={toggleDocumentViewer}
+          rider={rider}
+          document={document.documents}
+          userName={`${document.firstName} ${document.middleName ? document.middleName[0] + "."
+            : ""
+            } ${document.lastName}`}
+        />
+      )}
 
       <Modal
         className="rider-modal-dialog"
@@ -212,27 +147,30 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
             <div className="profile-container">
               <Row>
                 <Col style={{ padding: "25px" }} md={2}>
-                  {rider.profilePath === "" || rider.profilePath === null || !rider.profilePath ? (
+                  {rider.profilePath === "" ||
+                    rider.profilePath === null ||
+                    !rider.profilePath ? (
                     <Icon
-                      className="modal-icon-img"
                       icon={faCircleUser}
                       color="white"
-                      style={{ height: "90px", width: "90px" }}
+                      className="modal-icon-img"
                     ></Icon>
                   ) : (
-                    <img
-                      className="modal-profile-img"
-                      src={`http://localhost:5180/img/rider_profile/${rider.profilePath}`}
-                      alt=""
-                    />
+                    <ProfileImage rider={rider} />
                   )}
                 </Col>
                 <Col md={7}>
                   <Row>
                     <p className="ridername">
-                      {rider.firstName} {isOpen ? rider.middleName[0] : ""}.{" "}
+                      {rider.firstName}  {rider.middleName
+                        ? rider.middleName[0] + "."
+                        : ""}{" "}
                       {rider.lastName}
                     </p>
+                  </Row>
+                  <Row>
+                    <span style={{ marginLeft: "40px", fontSize: "22px", color: "white" }}>Balance:
+                      <span style={{ marginLeft: "10px", color: "lightgreen" }}>₱{rider.balance}</span></span>
                   </Row>
                 </Col>
                 <Col md={3}>
@@ -271,7 +209,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 style={{
                   borderRadius: "10px",
                   boxShadow: "0px 2px 4px 1.5px #00000080",
-                  maxWidth: "449px",
+                  maxWidth: "410px",
                   margin: "auto",
                   height: "70%",
 
@@ -333,9 +271,29 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                     {rider.suspensionStatus === true ? "Suspended" : "Active"}
                   </span>
                 </div>
-                {timeLeft.length === 0 ? '' : <div style={{ display: rider.suspensionStatus === true ? 'block' : 'none' }} className="label-text">
-                  Duration: <span style={{fontSize:"17px"}}className={`textInfo ${rider.suspensionStatus === true ? 'text-danger' : 'text-success'}`}>{timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}m: {timeLeft.seconds}s</span>
-                </div>}
+                {timeLeft.length === 0 ? (
+                  ""
+                ) : (
+                  <div
+                    style={{
+                      display:
+                        rider.suspensionStatus === true ? "block" : "none",
+                    }}
+                    className="label-text"
+                  >
+                    Duration:{" "}
+                    <span
+                      style={{ fontSize: "17px" }}
+                      className={`textInfo ${rider.suspensionStatus === true
+                        ? "text-danger"
+                        : "text-success"
+                        }`}
+                    >
+                      {timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}
+                      m: {timeLeft.seconds}s
+                    </span>
+                  </div>
+                )}
               </Container>
             </Col>
             <Col md={7}>
@@ -350,170 +308,7 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 {" "}
                 Ride History
               </p>
-              <Container
-                style={{
-                  overflow: "hidden",
-                  overflowY: "auto",
-                  marginTop: "20px",
-                  borderRadius: "30px",
-                  background: "#DDDBDB",
-                  maxHeight: "100%",
-                  width: "90%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Accordion
-                  flush
-                  open={open}
-                  toggle={toggleAct}
-                  id="accordionContainer"
-                  style={{
-                    padding: "20px",
-                    width: "100%",
-                    height: "100%",
-                  }}
-                >
-                  {data.map((item) => (
-                    <AccordionItem key={item.id}>
-                      <AccordionHeader
-                        className="accordionHeader"
-                        id="accordionHeaderStyle"
-                        targetId={item.id.toString()}
-                      >
-                        <Col md={3}>{item.dropOffDate}</Col>
-                        <Col>&emsp;|&emsp; {item.dropOFfTime}</Col>
-                      </AccordionHeader>
-                      <AccordionBody accordionId={item.id.toString()}>
-                        <Row>
-                          <Col md={4}>
-                            <span className="riderHistoryLabelInfo">
-                              Starting Point{" "}
-                            </span>
-                          </Col>
-                          <Col md={8}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.startingPoint}
-                            </span>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md={4}>
-                            <span className="riderHistoryLabelInfo">
-                              End Destination
-                            </span>
-                          </Col>
-                          <Col md={8}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.endDestination}
-                            </span>
-                          </Col>
-                        </Row>
-                        <Row className="newlineInfo">
-                          <Col md={2}>
-                            <span className="riderHistoryLabelInfo">Rider</span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.riderName}
-                            </span>
-                          </Col>
-                          <Col md={3} style={{ marginLeft: "20px" }}>
-                            <span className="riderHistoryLabelInfo">
-                              Starting Time
-                            </span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.startingTime}
-                            </span>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md={2}>
-                            <span className="riderHistoryLabelInfo">
-                              Rider ID
-                            </span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.riderID}
-                            </span>
-                          </Col>
-                          <Col md={3} style={{ marginLeft: "20px" }}>
-                            <span className="riderHistoryLabelInfo">
-                              End Time
-                            </span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.dropOFfTime}
-                            </span>
-                          </Col>
-                        </Row>
-                        <Row className="newlineInfo">
-                          <Col md={3}>
-                            <span className="riderHistoryLabelInfo">
-                              Vehicle
-                            </span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.vehicleType}
-                            </span>
-                          </Col>
-                          <Col md={2} style={{ marginLeft: "20px" }}>
-                            <span className="riderHistoryLabelInfo">Fare</span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo text-success">
-                              {" "}
-                              : &emsp;{item.fare}
-                            </span>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md={3}>
-                            <span className="riderHistoryLabelInfo">
-                              Plate Number
-                            </span>
-                          </Col>
-                          <Col md={3}>
-                            <span className="riderHistoryTextInfo">
-                              {" "}
-                              : &emsp;{item.vehiclePlate}
-                            </span>
-                          </Col>
-                          <Col md={2} style={{ marginLeft: "20px" }}>
-                            <span className="riderHistoryLabelInfo">Rate</span>
-                          </Col>
-                          <Col md={3}>
-                            <span
-                              className={`riderHistoryTextInfo ${2.7 >= 1.0 && 2.7 <= 2.9
-                                ? "text-danger"
-                                : 2.7 >= 3.0 && 2.7 <= 3.9
-                                  ? "text-warning"
-                                  : "text-success"
-                                }`}
-                            >
-                              {" "}
-                              : &emsp;2.7
-                            </span>
-                          </Col>
-                        </Row>
-                      </AccordionBody>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </Container>
+              <RiderAccordion rider={rider} />
             </Col>
           </Row>
         </ModalBody>

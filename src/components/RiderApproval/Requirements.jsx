@@ -12,20 +12,19 @@ import {
   Col,
 } from "reactstrap";
 import images1 from "../../assets/image/carlo.jpg";
-import images2 from "../../assets/image/cliff.jpg";
-import images3 from "../../assets/image/cs3.png";
-import { auto } from "@popperjs/core";
 
 import RiderDocumentViewerModal from "../Rider/RiderDocumentViewerModal";
-import RiderApprovalResponseConfirmationModal from "./ApprovalResponseConfirmationModal";
+import ApprovalResponseConfirmationModal from "./ApprovalResponseConfirmationModal";
 
 import ViewRequirements from "./RequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
 
-const Requirements = ({ userId, getApprovals }) => {
+const Requirements = ({ userId, updateApprovalTable }) => {
   console.log("requirements", userId);
+
   const [document, setDocument] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
   const [approvalResponse, setApprovalResponse] = useState(null);
@@ -33,10 +32,16 @@ const Requirements = ({ userId, getApprovals }) => {
   // states for document modal
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const [approval, setApproval] = useState([]);
 
   // states for approval modal
   const [approvalModalIsOpen, setApprovalModalIsOpen] = useState(false);
   const toggleApprovaModal = () => setApprovalModalIsOpen(!approvalModalIsOpen);
+  const [rejectionMessage, setRejectionMessage] = useState("");
+  const onSetRejectionMessage = (message) => {
+    setRejectionMessage(() => message);
+    console.log(message);
+  };
 
   const getRequirements = async () => {
     try {
@@ -45,6 +50,19 @@ const Requirements = ({ userId, getApprovals }) => {
       );
       if (response.ok) {
         setDocument(await response.json());
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getApproval = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5180/api/riderregistration/getrider?id=${userId}`
+      );
+      if (response.ok) {
+        setApproval(await response.json());
       }
     } catch (error) {
       console.error(error);
@@ -65,24 +83,39 @@ const Requirements = ({ userId, getApprovals }) => {
   const onResponseRiderApproval = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5180/api/RiderRegistration/RiderApprovalResponse?riderId=${userId}&response=${approvalResponse}`,
+        `http://localhost:5180/api/Approval/UserApprovalResponse?usertype=Rider&userid=${userId}&response=${approvalResponse}&rejectionmessage=${rejectionMessage}`,
         {
           method: "PUT",
         }
       );
       if (response.ok) {
         toggleApprovaModal();
-        getRequirements();
-        getApprovals();
-        console.log({ riderId: userId, response: approvalResponse });
+        updateApprovalTable(userId, approvalResponse);
+        console.log({
+          riderId: userId,
+          response: approvalResponse,
+          message: rejectionMessage,
+        });
+        if (approvalResponse) {
+          toast.success("Request successfully approved Rider!");
+        } else {
+          toast.error("Request rejected!");
+        }
       }
     } catch (err) {
       console.error(err);
+      toast.error("An error occurred while recording rider approval response.");
     }
   };
   useEffect(() => {
     getRequirements();
   }, [userId]);
+
+  useEffect(() => {
+    getApproval();
+  }, [userId]);
+
+  console.log("approval", approval.approvalStatus);
   return (
     <>
       <RiderDocumentViewerModal
@@ -93,11 +126,14 @@ const Requirements = ({ userId, getApprovals }) => {
           document.middleName && document.middleName[0]
         }. ${document.lastName}`}
       />
-      <RiderApprovalResponseConfirmationModal
+      <ApprovalResponseConfirmationModal
         isOpen={approvalModalIsOpen}
         toggle={toggleApprovaModal}
         response={approvalResponse}
         onResponse={onResponseRiderApproval}
+        setRejectionMessage={onSetRejectionMessage}
+        rejectionMessage={rejectionMessage}
+        userType={"Rider"}
       />
       <div className="rectangle-requiment">
         <>
@@ -155,29 +191,47 @@ const Requirements = ({ userId, getApprovals }) => {
           </Row>
 
           <div className="btnAppRej">
-            <Button
-              className="btn-rider-approval"
-              color="success"
-              style={{ borderRadius: 50, fontWeight: "bold" }}
-              onClick={() => {
-                setApprovalResponse(true);
-                toggleApprovaModal();
-              }}
-            >
-              {" "}
-              <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
-            </Button>
-            <Button
-              className="btn-rider-approval"
-              color="danger"
-              style={{ borderRadius: 50, fontWeight: "bold" }}
-              onClick={() => {
-                setApprovalResponse(false);
-                toggleApprovaModal();
-              }}
-            >
-              <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
-            </Button>
+            {approval.approvalStatus === "" ||
+            approval.approvalStatus === null ? (
+              <>
+                <Button
+                  className="btn-rider-approval"
+                  color="success"
+                  style={{ borderRadius: 50, fontWeight: "bold" }}
+                  onClick={() => {
+                    setApprovalResponse(true);
+                    toggleApprovaModal();
+                  }}
+                >
+                  {" "}
+                  <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
+                </Button>
+                <Button
+                  className="btn-rider-approval"
+                  color="danger"
+                  style={{ borderRadius: 50, fontWeight: "bold" }}
+                  onClick={() => {
+                    setApprovalResponse(false);
+                    toggleApprovaModal();
+                  }}
+                >
+                  <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
+                </Button>
+              </>
+            ) : (
+              <Button
+                className="btn-rider-approval"
+                color="success"
+                style={{ borderRadius: 50, fontWeight: "bold" }}
+                onClick={() => {
+                  setApprovalResponse(true);
+                  toggleApprovaModal();
+                }}
+              >
+                {" "}
+                <FontAwesomeIcon icon={faCircleCheck} /> &nbsp; Approve
+              </Button>
+            )}
           </div>
         </>
       </div>

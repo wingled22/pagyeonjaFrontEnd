@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/RiderPage.css";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faPenToSquare, faCirclePause } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleInfo,
+  faPenToSquare,
+  faCirclePause,
+  faWallet,
+} from "@fortawesome/free-solid-svg-icons";
 import { Table } from "reactstrap";
 import RiderDetailsModal from "./RiderDetailsModal";
 import RiderSuspensionModal from "./RiderSuspensionModal";
 import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
+import RiderTopUpModal from "./RiderTopUpModal.jsx";
+import { toast } from "react-toastify";
 
 const RiderTable = ({ onSelectRider }) => {
   const [riders, setRiders] = useState([]);
   const [filteredRiders, setFilteredRiders] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSuspension, setModalSuspension] = useState(false);
+  const [modalTopUpRider, setModalTopUpRider] = useState(false);
   const [selectedRider, setSelectedRider] = useState([]);
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,101 +28,142 @@ const RiderTable = ({ onSelectRider }) => {
 
   const fetchRiders = async () => {
     try {
-      const response = await fetch("http://localhost:5180/api/RiderRegistration/GetRidersApproved");
+      const response = await fetch(
+        "http://localhost:5180/api/RiderRegistration/GetRidersApproved"
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch riders");
       }
       const data = await response.json();
-      setRiders(currentData=>data);
+      setRiders((currentData) => data);
     } catch (error) {
       console.error("Error fetching riders:", error);
     }
   };
 
-  const onChangeSelectedRider = async (rider)=>{
-    onSelectRider(rider)
-  }
+  // Dynamic update for the riders state
+  const updateRidersTable = (
+    rider,
+    isForDetailsUpdate = true,
+    isForRevoke = false
+  ) => {
+    setRiders((prevRiders) => {
+      return prevRiders.map((item) => {
+        if (rider.riderId === item.riderId) {
+          if (isForDetailsUpdate && !isForRevoke) {
+            return { ...item, ...rider };
+          } else if (!isForDetailsUpdate && !isForRevoke) {
+            return {
+              ...item,
+              ...rider,
+              suspensionStatus: rider.suspensionStatus,
+            };
+          }
+          return {
+            ...item,
+            ...rider,
+            suspensionStatus: !rider.suspensionStatus,
+          };
+        }
+        return item;
+      });
+    });
+  };
+
+  const onChangeSelectedRider = async (rider) => {
+    onSelectRider(rider);
+  };
 
   const riderMatchesSearchTerm = (rider) => {
     if (!searchTerm) return true;
-    const fullName = `${rider.firstName} ${rider.middleName} ${rider.lastName}`.toLowerCase();
-    const status = rider.suspensionStatus === false ? 'active' : 'suspended';
-    return fullName.includes(searchTerm.toLowerCase()) || status.includes(searchTerm.toLowerCase());
+    const fullName =
+      `${rider.firstName} ${rider.middleName} ${rider.lastName}`.toLowerCase();
+    const status = rider.suspensionStatus === false ? "active" : "suspended";
+    return (
+      fullName.includes(searchTerm.toLowerCase()) ||
+      status.includes(searchTerm.toLowerCase())
+    );
   };
 
   const toggleModal = (rider) => {
-    setModalOpen(!modalOpen);
+    setModalOpen((modalOpen) => !modalOpen);
     setSelectedRider(rider);
   };
 
+  const toggleTopUpModal = (rider) => {
+    setModalTopUpRider((modalTopUpRider) => !modalTopUpRider);
+    setSelectedRider(rider);
+  };
   const toggleSuspension = (rider) => {
-    setModalSuspension(!modalSuspension);
+    setModalSuspension((modalSuspension) => !modalSuspension);
     setSelectedRider(rider);
   };
 
   const toggleUpdateModal = (rider) => {
-    setModalUpdateRider(!modalUpdateRider);
+    setModalUpdateRider((modalUpdateRider) => !modalUpdateRider);
     setSelectedRider(rider);
-    console.log("Rider Data:",rider); // Logging rider data
+    console.log("Rider Data:", rider); // Logging rider data
   };
- 
+
   const getStatusColor = (status) => {
     return status === false ? "#38A843" : "#EA5943";
   };
 
-  const [reason, setReason] = useState('');
+  const [reason, setReason] = useState("");
   const [suspensionDate, setSuspensionDate] = useState("");
   const [suspensionId, setSuspensionId] = useState(null);
 
-  const updateReason = (e) => { setReason(e) }
-  const updateSuspensionDate = (e) => { setSuspensionDate(e) }
+  const updateReason = (e) => {
+    setReason(e);
+  };
+  const updateSuspensionDate = (e) => {
+    setSuspensionDate(e);
+  };
 
   const getSuspension = async (suspendStatus, riderId) => {
     try {
       setRiderSuspensionStatus(suspendStatus);
       if (suspendStatus === true) {
         //If suspended, then get the latest end date suspension
-        const response = await fetch(`http://localhost:5180/api/Suspension/GetSuspension?userid=${riderId}&usertype=Rider`)
+        const response = await fetch(
+          `http://localhost:5180/api/Suspension/GetSuspension?userid=${riderId}&usertype=Rider`
+        );
         const data = await response.json();
 
         setReason(data.reason);
         setSuspensionDate(data.suspensionDate);
         setSuspensionId(data.suspensionId);
-      }
-      else {
+      } else {
         clearSuspensionEntry();
       }
-    }
-    catch (error) {
+    } catch (error) {
       clearSuspensionEntry();
     }
-  }
+  };
 
   const clearSuspensionEntry = () => {
     setReason("");
     setSuspensionDate("");
-  }
+  };
 
   const handleUpdateSuspensionRider = async (suspendStatus) => {
     try {
       //Add a condition here that if the suspension status is already true then update the data instead
-      const formData =
-      {
+      const formData = {
         userId: selectedRider.riderId,
         userType: "Rider",
         reason: reason,
-        suspensionDate: suspensionDate
-      }
+        suspensionDate: suspensionDate,
+      };
 
-      const updateFormData =
-      {
+      const updateFormData = {
         suspensionId: suspensionId,
         userId: selectedRider.riderId,
         userType: "Rider",
         reason: reason,
         suspensionDate: suspensionDate,
-        status : true
-      }
+        status: true,
+      };
 
       if (suspendStatus === false) {
         const response = await fetch(
@@ -122,83 +171,130 @@ const RiderTable = ({ onSelectRider }) => {
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData),
           }
         );
-      }
-      else if (suspendStatus === true) //update instead
-      {
+        toast.success("Rider Suspended");
+      } else if (suspendStatus) {
+        //update instead
         const response = await fetch(
-          "http://localhost:5180/api/Suspension/UpdateSuspension?id=" + suspensionId,
+          "http://localhost:5180/api/Suspension/UpdateSuspension?id=" +
+            suspensionId,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updateFormData)
+            body: JSON.stringify(updateFormData),
           }
         );
+        toast.success("Rider suspension updated");
       }
 
       clearSuspensionEntry();
-      fetchRiders();
+      selectedRider.suspensionStatus
+        ? updateRidersTable(selectedRider, false)
+        : updateRidersTable(selectedRider, false, true);
       toggleSuspension();
 
       //toggle so that the suspension status is true
       // suspensionStatus(true);
-
     } catch (error) {
-      console.error("Error fetching data: ", error)
+      console.error("Error fetching data: ", error);
     }
-  }
+  };
 
   const handleRevokeSuspension = async () => {
     try {
+      const formData = {
+        suspensionId: suspensionId,
+        userId: selectedRider.riderId,
+        userType: "Rider",
+        reason: reason,
+        suspensionDate: suspensionDate,
+        status: false,
+      };
 
-        const formData =
+      const response = await fetch(
+        "http://localhost:5180/api/Suspension/RevokeSuspension",
         {
-          suspensionId: suspensionId,
-          userId: selectedRider.riderId,
-          userType: "Rider",
-          reason: reason,
-          suspensionDate: suspensionDate,
-          status: false
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
         }
+      );
 
-        const response = await fetch(
-            "http://localhost:5180/api/Suspension/RevokeSuspension",
-            {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-            }
-        );
+      clearSuspensionEntry();
+      updateRidersTable(selectedRider, false, true);
+      toggleSuspension();
+      toast.success("Rider suspension revoked");
 
-        clearSuspensionEntry();
-        fetchRiders();
-        toggleSuspension();
-
-        //toggle so that the suspension status is true
-        // suspensionStatus(false);
-
+      //toggle so that the suspension status is true
+      // suspensionStatus(false);
     } catch (error) {
-        console.error("Error fetching data: ", error);
+      console.error("Error fetching data: ", error);
     }
-}
+  };
 
   useEffect(() => {
-    const filtered = riders.filter((rider) =>
-      riderMatchesSearchTerm(rider)
-    );
+    const filtered = riders.filter((rider) => riderMatchesSearchTerm(rider));
     setFilteredRiders(filtered);
+    // console.log(riders);
   }, [riders, searchTerm]);
 
   useEffect(() => {
-    fetchRiders();
+    // only run fetchRiders if component is loaded
+    let isComponentLoaded = true;
+    if (isComponentLoaded) {
+      fetchRiders();
+      console.log(isComponentLoaded);
+    }
+    return () => {
+      isComponentLoaded = false;
+      console.log(isComponentLoaded);
+    };
   }, []);
   return (
     <>
-      {selectedRider ? <RiderDetailsModal isOpen={modalOpen} toggle={() => toggleModal()} rider={selectedRider} /> : ''}
-      {selectedRider ? <RiderSuspensionModal isOpen={modalSuspension} untoggle={toggleSuspension} rider={selectedRider} reason={reason} suspensionDate={suspensionDate} updateReason={updateReason} updateSuspensionDate={updateSuspensionDate} handleUpdateSuspensionRider={handleUpdateSuspensionRider} handleRevokeSuspension={handleRevokeSuspension} /> : ''}
-      <RiderUpdateModal isOpen={modalUpdateRider} toggle={toggleUpdateModal} rider={selectedRider} fetchRiders={fetchRiders} onSelectRider={onChangeSelectedRider} />
+      {selectedRider ? (
+        <RiderDetailsModal
+          isOpen={modalOpen}
+          toggle={() => toggleModal()}
+          rider={selectedRider}
+        />
+      ) : (
+        ""
+      )}
+      {selectedRider ? (
+        <RiderSuspensionModal
+          isOpen={modalSuspension}
+          untoggle={toggleSuspension}
+          rider={selectedRider}
+          reason={reason}
+          suspensionDate={suspensionDate}
+          updateReason={updateReason}
+          updateSuspensionDate={updateSuspensionDate}
+          handleUpdateSuspensionRider={handleUpdateSuspensionRider}
+          handleRevokeSuspension={handleRevokeSuspension}
+        />
+      ) : (
+        ""
+      )}
+      <RiderUpdateModal
+        isOpen={modalUpdateRider}
+        toggle={toggleUpdateModal}
+        rider={selectedRider}
+        updateRidersTable={updateRidersTable}
+        onSelectRider={onChangeSelectedRider}
+      />
+      {selectedRider ? (
+        <RiderTopUpModal
+          isOpen={modalTopUpRider}
+          untoggle={toggleTopUpModal}
+          rider={selectedRider}
+        />
+      ) : (
+        ""
+      )}
+
       <div className="search-box">
         <input
           type="text"
@@ -219,9 +315,17 @@ const RiderTable = ({ onSelectRider }) => {
           </thead>
           <tbody className="rider-tbody">
             {filteredRiders.map((rider) => (
-              <tr className="rider-table-row" key={rider.riderId} onClick={() => onSelectRider(rider)}>
-                <td style={{ padding: "17px" }} className="rider-td">{rider.firstName} {rider.middleName} {rider.lastName}</td>
-                <td style={{ padding: "17px" }} className="rider-td">{rider.occupation}</td>
+              <tr
+                className="rider-table-row"
+                key={rider.riderId}
+                onClick={() => onSelectRider(rider)}
+              >
+                <td style={{ padding: "17px" }} className="rider-td">
+                  {rider.firstName} {rider.middleName} {rider.lastName}
+                </td>
+                <td style={{ padding: "17px" }} className="rider-td">
+                  {rider.occupation}
+                </td>
                 <td className="rider-td">
                   <p
                     className="status-circle"
@@ -238,18 +342,39 @@ const RiderTable = ({ onSelectRider }) => {
                       color: "white",
                     }}
                   >
-                    {rider.suspensionStatus === false ? 'Active' : 'Suspended'}
+                    {rider.suspensionStatus === false ? "Active" : "Suspended"}
                   </p>
                 </td>
                 <td className="rider-td">
-                <button className="btn btn-primary" onClick={() => toggleModal(rider)}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => toggleModal(rider)}
+                  >
                     <Icon icon={faCircleInfo} color="white" />
                   </button>
-                  <button className="btn btn-success" onClick={() => toggleUpdateModal(rider)}>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => toggleUpdateModal(rider)}
+                  >
                     <Icon icon={faPenToSquare} color="white" />
                   </button>
-                  <button className="btn btn-danger" onClick={() => { toggleSuspension(rider), getSuspension(rider.suspensionStatus, rider.riderId) }}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                      toggleSuspension(rider),
+                        getSuspension(rider.suspensionStatus, rider.riderId);
+                    }}
+                  >
                     <Icon icon={faCirclePause} color="white" />
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      toggleTopUpModal(rider);
+                      // console.log("rider.riderId",rider.riderId)
+                    }}
+                  >
+                    <Icon icon={faWallet} color="white" />
                   </button>
                 </td>
               </tr>

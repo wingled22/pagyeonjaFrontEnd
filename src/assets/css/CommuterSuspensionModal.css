@@ -1,47 +1,39 @@
-.commuterSuspensionHeader
-{
-    background-color: #52459F !important;
-    color: white;
+.commuterSuspensionHeader {
+  background-color: #52459f !important;
+  color: white;
 }
 
-.commuterSuspensionFooter
-{
-    background-color: #52459F !important;
+.commuterSuspensionFooter {
+  background-color: #52459f !important;
 }
 
-button.btn-close
-{
-    color: white !important;
-    background-color: white;
+button.btn-close {
+  color: white !important;
+  background-color: white;
 }
 
-.btnConfirmSuspension
-{
-    border-radius: 20px;
-    background-color: #38A843;
+.btnConfirmSuspension {
+  border-radius: 20px;
+  background-color: #38a843;
 
-    border: none;
+  border: none;
 }
 
-.btnRevokeSuspension
-{
-    border-radius: 20px;
+.btnRevokeSuspension {
+  border-radius: 20px;
 }
 
-.btnConfirmSuspension:hover
-{
-    background-color: #3d9d46;
+.btnConfirmSuspension:hover {
+  background-color: #3d9d46;
 }
 
-.inputReason
-{
-    border-radius: 10px;
-    background-color: #d1d1d1 !important;
+.inputReason {
+  border-radius: 10px;
+  background-color: #d1d1d1 !important;
 
-    height: 120px;
+  height: 120px;
 }
 
-.inputReason:focus
-{
-    /* color: black !important; */
+.inputReason:focus {
+  /* color: black !important; */
 }

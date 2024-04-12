@@ -34,7 +34,7 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle, document, userName }) => {
               <strong>{userName}</strong>
             </h5>
           </center>
-          <Container className="documentViewerContainer">
+          {document.length === 0 ? <center><br />No document attached</center> : <Container className="documentViewerContainer">
             <table style={{ width: "100%" }}>
               <thead
                 style={{
@@ -53,6 +53,7 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle, document, userName }) => {
                 </tr>
               </thead>
               <tbody>
+              {document.length === 0 && <center>No Document Attached</center>}
                 {document &&
                   document.map((item) => (
                     <tr key={item.id}>
@@ -80,7 +81,7 @@ const RiderDocumentViewerModal = ({ isOpen, untoggle, document, userName }) => {
                 {/* Add more rows as needed */}
               </tbody>
             </table>
-          </Container>
+          </Container>}
         </ModalBody>
       </Modal>
 

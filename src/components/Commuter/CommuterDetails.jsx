@@ -1,7 +1,6 @@
 import "../../assets/css/CommuterDetails.css"
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
-    faCircle,
     faCircleUser
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,14 +17,13 @@ function formatDate(dateString) {
     return newDate.toLocaleDateString('en-US', options);
 }
 
-const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
+const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges }) => {
 
     const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
+    const [document, setDocument] = useState([]);
     const [commuterInfo, setCommuterInfo] = useState([]);
     const [suspensionInfo, setSuspensionInfo] = useState([]);
     const toggleDocumentViewer = () => setModalDocumentViewer(!modalDocumentViewer);
-
-    const [startTime, setStartTime] = useState(true);
 
     const getCommuter = async () => {
         try {
@@ -66,8 +64,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
                 seconds: Math.floor((difference / 1000) % 60)
             };
         }
-        else
-        {
+        else {
             timeLeft = {
                 days: 0,
                 hours: 0,
@@ -85,7 +82,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
     useEffect(() => {
         getCommuter();
         getLatestSuspension();
-    }, [selectedCommuter, suspensionStatus])
+    }, [selectedCommuter, suspensionStatus, triggerChanges])
 
     useEffect(() => {
         if (suspensionStatus === true) {
@@ -99,16 +96,50 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
         }
     })
 
+    const getRequirements = async () => {
+        if (!commuterInfo.commuterId) {
+            return;
+        }
+        try {
+            const response = await fetch(
+                `http://localhost:5180/api/document/getdocuments?id=${commuterInfo.commuterId}&usertype=Commuter`
+            );
+            if (response.ok) {
+                const data = await response.json()
+                setDocument(data);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        getRequirements();
+    }, [commuterInfo, triggerChanges]);
+
+    function ProfileImage({ commuterInfo }) {
+        const [imageFailed, setImageFailed] = useState(false);
+
+        return (
+            imageFailed ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> :
+                <img
+                    className="imageContainer"
+                    src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`}
+                    alt=""
+                />
+        );
+    }
+
     return (<>
 
-        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} commuterInfo={commuterInfo} />}
+        {commuterInfo.commuterId && modalDocumentViewer && <CommuterDocumentViewerModal isOpen={modalDocumentViewer} untoggle={toggleDocumentViewer} document={document.documents}
+            userName={`${document.firstName} ${document.middleName ? document.middleName[0] + "." : ""} ${document.lastName}`} />}
 
         <Container className="commuterDetailsContainer" fluid>
             <Row>
                 <Col md="2" sm="2" xs={12}>
-
-                    {commuterInfo.profilePath === "" || commuterInfo.profilePath === null ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <img className="imageContainer" src={`http://localhost:5180/img/commuter_profile/${commuterInfo.profilePath}`} alt="" />}
-
+                    {commuterInfo.profilePath === "" || commuterInfo.profilePath === null || !commuterInfo.profilePath ? <Icon icon={faCircleUser} color='black' className="iconContainer"></Icon> : <ProfileImage commuterInfo={commuterInfo} />
+                    }
                 </Col>
                 <Col md="6" sm="6" xs={12} id="textInfoContainer">
                     <div className="text-name">{commuterInfo.firstName} {commuterInfo.lastName}</div>
@@ -143,7 +174,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus }) => {
             <span className="labelRideHistory">Ride History</span>
             <Row>
                 <Col className="containerRideHistory" md={11} sm="11" xs="11">
-                    <CommuterAccordion />
+                    <CommuterAccordion selectedCommuter={selectedCommuter} />
                 </Col>
             </Row>
         </Container>
