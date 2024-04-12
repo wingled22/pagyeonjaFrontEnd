@@ -174,7 +174,7 @@ const CommuterDetails = ({ selectedCommuter, suspensionStatus, triggerChanges })
             <span className="labelRideHistory">Ride History</span>
             <Row>
                 <Col className="containerRideHistory" md={11} sm="11" xs="11">
-                    <CommuterAccordion selectedCommuter={selectedCommuter}/>
+                    <CommuterAccordion selectedCommuter={selectedCommuter} />
                 </Col>
             </Row>
         </Container>

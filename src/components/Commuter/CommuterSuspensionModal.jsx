@@ -46,7 +46,7 @@ const CommuterSuspensionModal = ({
     try {
       const response = await fetch(
         "http://localhost:5180/api/CommuterRegistration/GetCommuter?id=" +
-          commuterID
+        commuterID
       );
       const data = await response.json();
       setCommuterInfo(data);

@@ -23,9 +23,8 @@ const CommuterTable = ({
 
   const commuterMatchesSearchTerm = (commuter) => {
     if (!searchValueCommuter) return true;
-    const fullName = `${commuter.firstName} ${
-      commuter.middleName ? commuter.middleName + " " : ""
-    }${commuter.lastName}`.toLowerCase();
+    const fullName = `${commuter.firstName} ${commuter.middleName ? commuter.middleName + " " : ""
+      }${commuter.lastName}`.toLowerCase();
     const status = commuter.suspensionStatus === false ? "active" : "suspended";
     const fullNameWords = fullName.split(" ");
     const searchWords = searchValueCommuter
@@ -310,15 +309,15 @@ const CommuterTable = ({
             )}
             {filteredCommuters.map((commuterUpdate) => (
               <CommuterTableList key={commuterUpdate.commuterId}
-               commuterUpdate={commuterUpdate}
-               selectUser={selectUser}
-               suspensionStatus={suspensionStatus}
-               onSelectCommuter={onSelectCommuter}
-               toggleUpdate={toggleUpdate}
-               toggleSuspension={toggleSuspension}
-               setCommuterID={setCommuterID}
-               getSuspension={getSuspension}
-               />
+                commuterUpdate={commuterUpdate}
+                selectUser={selectUser}
+                suspensionStatus={suspensionStatus}
+                onSelectCommuter={onSelectCommuter}
+                toggleUpdate={toggleUpdate}
+                toggleSuspension={toggleSuspension}
+                setCommuterID={setCommuterID}
+                getSuspension={getSuspension}
+              />
             ))}
           </tbody>
         </table>
