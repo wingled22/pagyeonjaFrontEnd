@@ -108,28 +108,11 @@ const CommuterUpdateModal = ({
                     id="firstName"
                     name="firstName"
                     placeholder="Enter First Name"
-                    value={formDatas.firstName}
+                    value={formDatas.firstName ? formDatas.firstName : ""}
                     onChange={handleChange}
                   />
                 </FormGroup>
               </Col>
-              <Col>
-                <FormGroup>
-                  <Label for="lastName">
-                    <strong>Last Name:</strong>
-                  </Label>
-                  <Input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Enter Last Name"
-                    value={formDatas.lastName}
-                    onChange={handleChange}
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
               <Col>
                 <FormGroup>
                   <Label for="middleName">
@@ -140,7 +123,24 @@ const CommuterUpdateModal = ({
                     id="middleName"
                     name="middleName"
                     placeholder="Enter Middle Name"
-                    value={formDatas.middleName}
+                    value={formDatas.middleName ? formDatas.middleName : ""}
+                    onChange={handleChange}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <Label for="lastName">
+                    <strong>Last Name:</strong>
+                  </Label>
+                  <Input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Enter Last Name"
+                    value={formDatas.lastName ? formDatas.lastName : ""}
                     onChange={handleChange}
                   />
                 </FormGroup>
@@ -155,7 +155,7 @@ const CommuterUpdateModal = ({
                     id="civilStatus"
                     name="civilStatus"
                     placeholder="Enter Civil Status"
-                    value={formDatas.civilStatus}
+                    value={formDatas.civilStatus ? formDatas.civilStatus : ""}
                     onChange={handleChange}
                   />
                 </FormGroup>
@@ -172,7 +172,7 @@ const CommuterUpdateModal = ({
                     id="occupation"
                     name="occupation"
                     placeholder="Enter Occupation"
-                    value={formDatas.occupation}
+                    value={formDatas.occupation ? formDatas.occupation : ""}
                     onChange={handleChange}
                   />
                 </FormGroup>
@@ -187,7 +187,7 @@ const CommuterUpdateModal = ({
                     id="age"
                     name="age"
                     placeholder="Enter Age"
-                    value={formDatas.age}
+                    value={formDatas.age ? formDatas.age : ""}
                     onChange={handleChange}
                   />
                 </FormGroup>
@@ -204,7 +204,7 @@ const CommuterUpdateModal = ({
                     id="contactNumber"
                     name="contactNumber"
                     placeholder="Enter Contact Number"
-                    value={formDatas.contactNumber}
+                    value={formDatas.contactNumber ? formDatas.contactNumber : ""}
                     onChange={handleChange}
                   />
                 </FormGroup>
@@ -238,7 +238,7 @@ const CommuterUpdateModal = ({
                     id="emailAddress"
                     name="emailAddress"
                     placeholder="Enter Email Address"
-                    value={formDatas.emailAddress}
+                    value={formDatas.emailAddress ? formDatas.emailAddress : ""}
                     onChange={handleChange}
                   />
                 </FormGroup>
@@ -253,7 +253,7 @@ const CommuterUpdateModal = ({
                     id="sex"
                     name="sex"
                     placeholder="Enter Sex"
-                    value={formDatas.sex}
+                    value={formDatas.sex ? formDatas.sex : ""}
                     onChange={handleChange}
                   />
                 </FormGroup>
@@ -270,7 +270,7 @@ const CommuterUpdateModal = ({
                     id="address"
                     name="address"
                     placeholder="Enter Address"
-                    value={formDatas.address}
+                    value={formDatas.address ? formDatas.address : ""}
                     onChange={handleChange}
                   />
                 </FormGroup>

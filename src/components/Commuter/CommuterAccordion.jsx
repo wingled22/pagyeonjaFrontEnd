@@ -39,7 +39,6 @@ const CommuterAccordion = ({ selectedCommuter }) => {
 
     }, [selectedCommuter]);
 
-
     return (
         <>
             <Accordion flush open={open} toggle={toggle} id='accordionContainer'>
