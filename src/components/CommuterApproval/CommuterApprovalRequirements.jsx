@@ -193,7 +193,8 @@ const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
                 >
                   <FontAwesomeIcon icon={faCircleXmark} /> &nbsp;Reject
                 </Button></>
-              :
+          )
+          :
               <Button
                 className="btn-rider-approval"
                 color="success"
