@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import riderReducer from "./riders/riderSlice";
+import approvedRiderReducer from "./riders/approvedRiderSlice";
 
 export const store = configureStore({
   reducer: {
-    riders: riderReducer,
+    approvedRiders: approvedRiderReducer,
   },
 });

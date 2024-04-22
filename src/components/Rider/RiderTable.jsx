@@ -13,9 +13,10 @@ import RiderSuspensionModal from "./RiderSuspensionModal";
 import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
 import RiderTopUpModal from "./RiderTopUpModal.jsx";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const RiderTable = ({ onSelectRider }) => {
-  const [riders, setRiders] = useState([]);
+  // const [riders, setRiders] = useState([]);
   const [filteredRiders, setFilteredRiders] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSuspension, setModalSuspension] = useState(false);
@@ -26,6 +27,8 @@ const RiderTable = ({ onSelectRider }) => {
 
   const [riderSuspensionStatus, setRiderSuspensionStatus] = useState(null);
 
+  // accessing global state for riders
+  const { approvedRiders } = useSelector((state) => state.approvedRiders);
   const fetchRiders = async () => {
     try {
       const response = await fetch(
@@ -47,27 +50,27 @@ const RiderTable = ({ onSelectRider }) => {
     isForDetailsUpdate = true,
     isForRevoke = false
   ) => {
-    setRiders((prevRiders) => {
-      return prevRiders.map((item) => {
-        if (rider.riderId === item.riderId) {
-          if (isForDetailsUpdate && !isForRevoke) {
-            return { ...item, ...rider };
-          } else if (!isForDetailsUpdate && !isForRevoke) {
-            return {
-              ...item,
-              ...rider,
-              suspensionStatus: rider.suspensionStatus,
-            };
-          }
-          return {
-            ...item,
-            ...rider,
-            suspensionStatus: !rider.suspensionStatus,
-          };
-        }
-        return item;
-      });
-    });
+    // setRiders((prevRiders) => {
+    //   return prevRiders.map((item) => {
+    //     if (rider.riderId === item.riderId) {
+    //       if (isForDetailsUpdate && !isForRevoke) {
+    //         return { ...item, ...rider };
+    //       } else if (!isForDetailsUpdate && !isForRevoke) {
+    //         return {
+    //           ...item,
+    //           ...rider,
+    //           suspensionStatus: rider.suspensionStatus,
+    //         };
+    //       }
+    //       return {
+    //         ...item,
+    //         ...rider,
+    //         suspensionStatus: !rider.suspensionStatus,
+    //       };
+    //     }
+    //     return item;
+    //   });
+    // });
   };
 
   const onChangeSelectedRider = async (rider) => {
@@ -235,23 +238,20 @@ const RiderTable = ({ onSelectRider }) => {
   };
 
   useEffect(() => {
-    const filtered = riders.filter((rider) => riderMatchesSearchTerm(rider));
-    setFilteredRiders(filtered);
-    // console.log(riders);
-  }, [riders, searchTerm]);
-
-  useEffect(() => {
     // only run fetchRiders if component is loaded
     let isComponentLoaded = true;
     if (isComponentLoaded) {
-      fetchRiders();
-      console.log(isComponentLoaded);
+      // fetchRiders();
+      const filtered = approvedRiders.filter((rider) =>
+        riderMatchesSearchTerm(rider)
+      );
+      setFilteredRiders(filtered);
+      console.log(approvedRiders);
     }
     return () => {
       isComponentLoaded = false;
-      console.log(isComponentLoaded);
     };
-  }, []);
+  }, [approvedRiders, searchTerm]);
   return (
     <>
       {selectedRider ? (

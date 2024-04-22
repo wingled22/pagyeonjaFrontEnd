@@ -1,15 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { riderService } from "./riderService";
+import { riderService } from "./approvedRiderService.js";
 
 const initialState = {
-  riders: [],
+  approvedRiders: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
 };
 
-// create global state for approved riders
 export const getApproveRiders = createAsyncThunk(
   "riders/approved",
   async (_, thunkAPI) => {
@@ -27,6 +26,7 @@ export const getApproveRiders = createAsyncThunk(
   }
 );
 
+// create global state for approved riders
 export const riderSlice = createSlice({
   name: "approvedRiders",
   initialState,
@@ -40,14 +40,14 @@ export const riderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // topic creation
+      // getting riders
       .addCase(getApproveRiders.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getApproveRiders.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.materials.push(action.payload);
+        state.approvedRiders = action.payload;
       })
       .addCase(getApproveRiders.rejected, (state, action) => {
         state.isLoading = false;
