@@ -10,10 +10,27 @@ const initialState = {
 };
 
 export const getApproveRiders = createAsyncThunk(
-  "riders/approved",
+  "approvedRiders/approved",
   async (_, thunkAPI) => {
     try {
       return await riderService.getRidersApproved();
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
+export const updateApprovedRiders = createAsyncThunk(
+  "approvedRiders/update",
+  async (rider, thunkAPI) => {
+    try {
+      return await riderService.updateRidersApproved(rider);
     } catch (error) {
       const messsage =
         (error.response &&
@@ -39,6 +56,8 @@ export const riderSlice = createSlice({
     },
     updateRiders: (state, action) => {
       const { rider, isForDetailsUpdate, isForRevoke } = action.payload;
+
+      // pag update sa approved riders global state
       state.approvedRiders = state.approvedRiders.map((item) => {
         if (rider.riderId === item.riderId) {
           if (isForDetailsUpdate && !isForRevoke) {
