@@ -37,6 +37,28 @@ export const riderSlice = createSlice({
       state.isError = false;
       state.message = "";
     },
+    updateRiders: (state, action) => {
+      const { rider, isForDetailsUpdate, isForRevoke } = action.payload;
+      state.approvedRiders = state.approvedRiders.map((item) => {
+        if (rider.riderId === item.riderId) {
+          if (isForDetailsUpdate && !isForRevoke) {
+            return { ...item, ...rider };
+          } else if (!isForDetailsUpdate && !isForRevoke) {
+            return {
+              ...item,
+              ...rider,
+              suspensionStatus: rider.suspensionStatus,
+            };
+          }
+          return {
+            ...item,
+            ...rider,
+            suspensionStatus: !rider.suspensionStatus,
+          };
+        }
+        return item;
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -57,5 +79,5 @@ export const riderSlice = createSlice({
   },
 });
 
-export const { reset } = riderSlice.actions;
+export const { reset, updateRiders } = riderSlice.actions;
 export default riderSlice.reducer;

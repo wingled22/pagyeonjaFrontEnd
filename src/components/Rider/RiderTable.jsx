@@ -14,9 +14,10 @@ import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
 import RiderTopUpModal from "./RiderTopUpModal.jsx";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { updateRiders } from "../../utils/riders/approvedRiderSlice.js";
+import { useDispatch } from "react-redux";
 
 const RiderTable = ({ onSelectRider }) => {
-  // const [riders, setRiders] = useState([]);
   const [filteredRiders, setFilteredRiders] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSuspension, setModalSuspension] = useState(false);
@@ -24,25 +25,12 @@ const RiderTable = ({ onSelectRider }) => {
   const [selectedRider, setSelectedRider] = useState([]);
   const [modalUpdateRider, setModalUpdateRider] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const dispatch = useDispatch();
 
   const [riderSuspensionStatus, setRiderSuspensionStatus] = useState(null);
 
   // accessing global state for riders
   const { approvedRiders } = useSelector((state) => state.approvedRiders);
-  const fetchRiders = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/RiderRegistration/GetRidersApproved"
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch riders");
-      }
-      const data = await response.json();
-      setRiders((currentData) => data);
-    } catch (error) {
-      console.error("Error fetching riders:", error);
-    }
-  };
 
   // Dynamic update for the riders state
   const updateRidersTable = (
@@ -50,27 +38,7 @@ const RiderTable = ({ onSelectRider }) => {
     isForDetailsUpdate = true,
     isForRevoke = false
   ) => {
-    // setRiders((prevRiders) => {
-    //   return prevRiders.map((item) => {
-    //     if (rider.riderId === item.riderId) {
-    //       if (isForDetailsUpdate && !isForRevoke) {
-    //         return { ...item, ...rider };
-    //       } else if (!isForDetailsUpdate && !isForRevoke) {
-    //         return {
-    //           ...item,
-    //           ...rider,
-    //           suspensionStatus: rider.suspensionStatus,
-    //         };
-    //       }
-    //       return {
-    //         ...item,
-    //         ...rider,
-    //         suspensionStatus: !rider.suspensionStatus,
-    //       };
-    //     }
-    //     return item;
-    //   });
-    // });
+    dispatch(updateRiders({ rider, isForDetailsUpdate, isForRevoke }));
   };
 
   const onChangeSelectedRider = async (rider) => {
@@ -246,12 +214,11 @@ const RiderTable = ({ onSelectRider }) => {
         riderMatchesSearchTerm(rider)
       );
       setFilteredRiders(filtered);
-      console.log(approvedRiders);
     }
     return () => {
       isComponentLoaded = false;
     };
-  }, [approvedRiders, searchTerm]);
+  }, [approvedRiders, searchTerm, dispatch]);
   return (
     <>
       {selectedRider ? (
