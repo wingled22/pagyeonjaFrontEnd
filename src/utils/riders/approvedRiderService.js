@@ -8,7 +8,7 @@ const getRidersApproved = async () => {
 };
 
 const updateRidersApproved = async (formData) => {
-  await axios.put(
+  const res = await axios.put(
     `http://localhost:5180/api/RiderRegistration/UpdateRider`,
     formData,
     {
@@ -17,6 +17,7 @@ const updateRidersApproved = async (formData) => {
       },
     }
   );
+  return res.data;
 };
 
 export const getRiderSuspension = async (riderId) => {
@@ -26,8 +27,36 @@ export const getRiderSuspension = async (riderId) => {
   return res.data;
 };
 
+export const addRiderSuspension = async (formData) => {
+  const res = await axios.post(
+    "http://localhost:5180/api/Suspension/RegisterSuspension",
+    formData,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return res.data;
+};
+
+export const updateRiderSuspension = async (updateFormData, suspensionId) => {
+  const res = axios.put(
+    "http://localhost:5180/api/Suspension/UpdateSuspension?id=" + suspensionId,
+    updateFormData,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return res.data;
+};
+
 export const riderService = {
   getRidersApproved,
   updateRidersApproved,
   getRiderSuspension,
+  addRiderSuspension,
+  updateRiderSuspension,
 };

@@ -17,6 +17,8 @@ import { useSelector } from "react-redux";
 import {
   updateRiders,
   getApprovedRiderSuspension,
+  addRiderSuspension,
+  updateRiderSuspension,
 } from "../../utils/riders/approvedRiderSlice.js";
 import { useDispatch } from "react-redux";
 
@@ -113,60 +115,40 @@ const RiderTable = ({ onSelectRider }) => {
     setSuspensionDate("");
   };
 
-  const handleUpdateSuspensionRider = async (suspendStatus) => {
-    try {
-      //Add a condition here that if the suspension status is already true then update the data instead
-      const formData = {
-        userId: selectedRider.riderId,
-        userType: "Rider",
-        reason: reason,
-        suspensionDate: suspensionDate,
-      };
+  const handleUpdateSuspensionRider = (suspendStatus) => {
+    const formData = {
+      userId: selectedRider.riderId,
+      userType: "Rider",
+      reason: reason,
+      suspensionDate: suspensionDate,
+    };
 
-      const updateFormData = {
-        suspensionId: suspensionId,
-        userId: selectedRider.riderId,
-        userType: "Rider",
-        reason: reason,
-        suspensionDate: suspensionDate,
-        status: true,
-      };
+    const updateFormData = {
+      suspensionId: suspensionId,
+      userId: selectedRider.riderId,
+      userType: "Rider",
+      reason: reason,
+      suspensionDate: suspensionDate,
+      status: true,
+    };
 
-      if (suspendStatus === false) {
-        const response = await fetch(
-          "http://localhost:5180/api/Suspension/RegisterSuspension",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-          }
-        );
-        toast.success("Rider Suspended");
-      } else if (suspendStatus) {
-        //update instead
-        const response = await fetch(
-          "http://localhost:5180/api/Suspension/UpdateSuspension?id=" +
-            suspensionId,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updateFormData),
-          }
-        );
-        toast.success("Rider suspension updated");
-      }
-
-      clearSuspensionEntry();
-      selectedRider.suspensionStatus
-        ? updateRidersTable(selectedRider, false)
-        : updateRidersTable(selectedRider, false, true);
-      toggleSuspension();
-
-      //toggle so that the suspension status is true
-      // suspensionStatus(true);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
+    if (suspendStatus === false) {
+      dispatch(addRiderSuspension(formData));
+      isSuccess
+        ? toast.success("Rider Suspended")
+        : toast.error("Rider suspension failed");
+    } else {
+      dispatch(updateRiderSuspension({ updateFormData, suspensionId }));
+      isSuccess
+        ? toast.success("Rider suspension updated")
+        : toast.error("Rider suspension update fail");
     }
+
+    clearSuspensionEntry();
+    selectedRider.suspensionStatus
+      ? updateRidersTable(selectedRider, false)
+      : updateRidersTable(selectedRider, false, true);
+    toggleSuspension();
   };
 
   const handleRevokeSuspension = async () => {

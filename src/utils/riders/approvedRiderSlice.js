@@ -60,6 +60,43 @@ export const getApprovedRiderSuspension = createAsyncThunk(
   }
 );
 
+export const addRiderSuspension = createAsyncThunk(
+  "approvedRiders/addSuspension",
+  async (rider, thunkAPI) => {
+    try {
+      return await riderService.addRiderSuspension(rider);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
+export const updateRiderSuspension = createAsyncThunk(
+  "approvedRiders/updateSuspension",
+  async ({ updateFormData, suspensionId }, thunkAPI) => {
+    try {
+      return await riderService.updateRiderSuspension(
+        updateFormData,
+        suspensionId
+      );
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
 // create global state for approved riders
 export const riderSlice = createSlice({
   name: "approvedRiders",
@@ -135,6 +172,32 @@ export const riderSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(getApprovedRiderSuspension.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+
+      // add rider suspension
+      .addCase(addRiderSuspension.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addRiderSuspension.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(addRiderSuspension.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+
+      // update rider suspension
+      .addCase(updateRiderSuspension.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateRiderSuspension.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(updateRiderSuspension.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       });
