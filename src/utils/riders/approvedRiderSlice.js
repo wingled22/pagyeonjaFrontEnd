@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { riderService } from "./approvedRiderService.js";
+import { fas } from "@fortawesome/free-solid-svg-icons";
 
 const initialState = {
   approvedRiders: [],
-  isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
@@ -97,6 +97,23 @@ export const updateRiderSuspension = createAsyncThunk(
   }
 );
 
+export const revokeRiderSuspension = createAsyncThunk(
+  "approvedRiders/revokeSuspension",
+  async (formData, thunkAPI) => {
+    try {
+      return await riderService.revokeRiderSuspension(formData);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
 // create global state for approved riders
 export const riderSlice = createSlice({
   name: "approvedRiders",
@@ -146,7 +163,7 @@ export const riderSlice = createSlice({
       })
       .addCase(getApproveRiders.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = true;
+        state.isSuccess = false;
         state.message = action.payload;
       })
 
@@ -160,7 +177,7 @@ export const riderSlice = createSlice({
       })
       .addCase(updateApprovedRiders.rejected, (state) => {
         state.isLoading = false;
-        state.isError = true;
+        state.isSuccess = false;
       })
 
       // get rider suspension
@@ -173,7 +190,7 @@ export const riderSlice = createSlice({
       })
       .addCase(getApprovedRiderSuspension.rejected, (state) => {
         state.isLoading = false;
-        state.isError = true;
+        state.isSuccess = false;
       })
 
       // add rider suspension
@@ -186,7 +203,7 @@ export const riderSlice = createSlice({
       })
       .addCase(addRiderSuspension.rejected, (state) => {
         state.isLoading = false;
-        state.isError = true;
+        state.isSuccess = false;
       })
 
       // update rider suspension
@@ -199,7 +216,20 @@ export const riderSlice = createSlice({
       })
       .addCase(updateRiderSuspension.rejected, (state) => {
         state.isLoading = false;
-        state.isError = true;
+        state.isSuccess = false;
+      })
+
+      // revoke rider suspension
+      .addCase(revokeRiderSuspension.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(revokeRiderSuspension.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(revokeRiderSuspension.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
       });
   },
 });

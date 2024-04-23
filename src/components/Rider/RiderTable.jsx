@@ -19,6 +19,7 @@ import {
   getApprovedRiderSuspension,
   addRiderSuspension,
   updateRiderSuspension,
+  revokeRiderSuspension,
 } from "../../utils/riders/approvedRiderSlice.js";
 import { useDispatch } from "react-redux";
 
@@ -32,10 +33,8 @@ const RiderTable = ({ onSelectRider }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
 
-  const [riderSuspensionStatus, setRiderSuspensionStatus] = useState(null);
-
   // accessing global state for riders
-  const { approvedRiders, isSuccess, isError } = useSelector(
+  const { approvedRiders, isSuccess } = useSelector(
     (state) => state.approvedRiders
   );
   const [reason, setReason] = useState("");
@@ -151,36 +150,24 @@ const RiderTable = ({ onSelectRider }) => {
     toggleSuspension();
   };
 
-  const handleRevokeSuspension = async () => {
-    try {
-      const formData = {
-        suspensionId: suspensionId,
-        userId: selectedRider.riderId,
-        userType: "Rider",
-        reason: reason,
-        suspensionDate: suspensionDate,
-        status: false,
-      };
+  const handleRevokeSuspension = () => {
+    const formData = {
+      suspensionId: suspensionId,
+      userId: selectedRider.riderId,
+      userType: "Rider",
+      reason: reason,
+      suspensionDate: suspensionDate,
+      status: false,
+    };
 
-      const response = await fetch(
-        "http://localhost:5180/api/Suspension/RevokeSuspension",
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+    dispatch(revokeRiderSuspension(formData));
+    isSuccess
+      ? toast.success("Rider suspension revoked")
+      : toast.success("Rider suspension revoked failed");
 
-      clearSuspensionEntry();
-      updateRidersTable(selectedRider, false, true);
-      toggleSuspension();
-      toast.success("Rider suspension revoked");
-
-      //toggle so that the suspension status is true
-      // suspensionStatus(false);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    }
+    clearSuspensionEntry();
+    updateRidersTable(selectedRider, false, true);
+    toggleSuspension();
   };
 
   useEffect(() => {
