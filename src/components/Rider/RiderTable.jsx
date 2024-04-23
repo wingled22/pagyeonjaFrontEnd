@@ -14,7 +14,10 @@ import RiderUpdateModal from "../Rider/RiderUpdateModal.jsx";
 import RiderTopUpModal from "./RiderTopUpModal.jsx";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { updateRiders } from "../../utils/riders/approvedRiderSlice.js";
+import {
+  updateRiders,
+  getApprovedRiderSuspension,
+} from "../../utils/riders/approvedRiderSlice.js";
 import { useDispatch } from "react-redux";
 
 const RiderTable = ({ onSelectRider }) => {
@@ -30,7 +33,12 @@ const RiderTable = ({ onSelectRider }) => {
   const [riderSuspensionStatus, setRiderSuspensionStatus] = useState(null);
 
   // accessing global state for riders
-  const { approvedRiders } = useSelector((state) => state.approvedRiders);
+  const { approvedRiders, isSuccess, isError } = useSelector(
+    (state) => state.approvedRiders
+  );
+  const [reason, setReason] = useState("");
+  const [suspensionDate, setSuspensionDate] = useState("");
+  const [suspensionId, setSuspensionId] = useState(null);
 
   // Dynamic update for the riders state
   const updateRidersTable = (
@@ -80,10 +88,6 @@ const RiderTable = ({ onSelectRider }) => {
     return status === false ? "#38A843" : "#EA5943";
   };
 
-  const [reason, setReason] = useState("");
-  const [suspensionDate, setSuspensionDate] = useState("");
-  const [suspensionId, setSuspensionId] = useState(null);
-
   const updateReason = (e) => {
     setReason(e);
   };
@@ -92,22 +96,14 @@ const RiderTable = ({ onSelectRider }) => {
   };
 
   const getSuspension = async (suspendStatus, riderId) => {
-    try {
-      setRiderSuspensionStatus(suspendStatus);
-      if (suspendStatus === true) {
-        //If suspended, then get the latest end date suspension
-        const response = await fetch(
-          `http://localhost:5180/api/Suspension/GetSuspension?userid=${riderId}&usertype=Rider`
-        );
-        const data = await response.json();
-
-        setReason(data.reason);
-        setSuspensionDate(data.suspensionDate);
-        setSuspensionId(data.suspensionId);
-      } else {
-        clearSuspensionEntry();
+    if (suspendStatus === true) {
+      const { payload } = await dispatch(getApprovedRiderSuspension(riderId));
+      if (isSuccess) {
+        setReason(payload.reason);
+        setSuspensionDate(payload.suspensionDate);
+        setSuspensionId(payload.suspensionId);
       }
-    } catch (error) {
+    } else {
       clearSuspensionEntry();
     }
   };
@@ -206,10 +202,8 @@ const RiderTable = ({ onSelectRider }) => {
   };
 
   useEffect(() => {
-    // only run fetchRiders if component is loaded
     let isComponentLoaded = true;
     if (isComponentLoaded) {
-      // fetchRiders();
       const filtered = approvedRiders.filter((rider) =>
         riderMatchesSearchTerm(rider)
       );

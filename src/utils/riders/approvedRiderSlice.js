@@ -43,6 +43,23 @@ export const updateApprovedRiders = createAsyncThunk(
   }
 );
 
+export const getApprovedRiderSuspension = createAsyncThunk(
+  "approvedRiders/suspension",
+  async (riderId, thunkAPI) => {
+    try {
+      return await riderService.getRiderSuspension(riderId);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
 // create global state for approved riders
 export const riderSlice = createSlice({
   name: "approvedRiders",
@@ -94,6 +111,32 @@ export const riderSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+
+      // update rider
+      .addCase(updateApprovedRiders.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateApprovedRiders.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(updateApprovedRiders.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+
+      // get rider suspension
+      .addCase(getApprovedRiderSuspension.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getApprovedRiderSuspension.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(getApprovedRiderSuspension.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
       });
   },
 });

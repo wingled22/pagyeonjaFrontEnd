@@ -8,7 +8,7 @@ const getRidersApproved = async () => {
 };
 
 const updateRidersApproved = async (formData) => {
-  const response = await axios.put(
+  await axios.put(
     `http://localhost:5180/api/RiderRegistration/UpdateRider`,
     formData,
     {
@@ -19,7 +19,15 @@ const updateRidersApproved = async (formData) => {
   );
 };
 
+export const getRiderSuspension = async (riderId) => {
+  const res = await axios.get(
+    `http://localhost:5180/api/Suspension/GetSuspension?userid=${riderId}&usertype=Rider`
+  );
+  return res.data;
+};
+
 export const riderService = {
   getRidersApproved,
   updateRidersApproved,
+  getRiderSuspension,
 };
