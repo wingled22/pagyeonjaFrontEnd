@@ -7,6 +7,7 @@ import CommuterUpdateModal from "../../components/Commuter/CommuterUpdateModal.j
 import CommuterTableList from "../../components/Commuter/CommuterTableList.jsx";
 
 import { useDispatch, useSelector } from "react-redux";
+import { updateCommuters } from "../../utils/commuter/approvedCommuterSlice.js";
 
 const CommuterTable = ({
   selectUser,
@@ -15,7 +16,6 @@ const CommuterTable = ({
   onSelectCommuter,
   toggleTriggerChanges,
 }) => {
-  // const [commuters, setCommuters] = useState([]);
   const [filteredCommuters, setFilteredCommuters] = useState([]);
 
   const [commuterID, setCommuterID] = useState(null);
@@ -55,45 +55,13 @@ const CommuterTable = ({
     setFilteredCommuters(filtered);
   }, [approvedCommuters, searchValueCommuter, dispatch]);
 
-  const getCommuters = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/CommuterRegistration/GetCommutersApproved"
-      );
-      const data = await response.json();
-      setCommuters(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // for updating the commuter state
   const updateCommuterTable = (
     commuter,
     isForDetailsUpdate = true,
     isForRevoke = false
   ) => {
-    // setCommuters((prevCommuters) => {
-    //   return prevCommuters.map((item) => {
-    //     if (item.commuterId === commuter.commuterId) {
-    //       if (isForDetailsUpdate && !isForRevoke) {
-    //         return { ...item, ...commuter };
-    //       } else if (!isForDetailsUpdate && !isForRevoke) {
-    //         return {
-    //           ...item,
-    //           ...commuter,
-    //           suspensionStatus: commuter.suspensionStatus,
-    //         };
-    //       }
-    //       return {
-    //         ...item,
-    //         ...commuter,
-    //         suspensionStatus: !commuter.suspensionStatus,
-    //       };
-    //     }
-    //     return item;
-    //   });
-    // });
+    dispatch(updateCommuters({ commuter, isForDetailsUpdate, isForRevoke }));
   };
 
   const onChangeSelectedCommuter = async (commuter) => {

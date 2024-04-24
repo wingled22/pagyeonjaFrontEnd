@@ -7,6 +7,20 @@ const getCommutersApproved = async () => {
   return res.data;
 };
 
+const updateApprovedCommuters = async (formDatas) => {
+  const res = await axios.put(
+    "http://localhost:5180/api/CommuterRegistration/UpdateCommuter",
+    formDatas,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return res.data;
+};
+
 export const commuterService = {
   getCommutersApproved,
+  updateApprovedCommuters,
 };
