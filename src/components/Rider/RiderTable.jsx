@@ -143,11 +143,13 @@ const RiderTable = ({ onSelectRider }) => {
         : toast.error("Rider suspension update fail");
     }
 
-    clearSuspensionEntry();
-    selectedRider.suspensionStatus
-      ? updateRidersTable(selectedRider, false)
-      : updateRidersTable(selectedRider, false, true);
-    toggleSuspension();
+    if (isSuccess) {
+      clearSuspensionEntry();
+      selectedRider.suspensionStatus
+        ? updateRidersTable(selectedRider, false)
+        : updateRidersTable(selectedRider, false, true);
+      toggleSuspension();
+    }
   };
 
   const handleRevokeSuspension = () => {
@@ -161,13 +163,15 @@ const RiderTable = ({ onSelectRider }) => {
     };
 
     dispatch(revokeRiderSuspension(formData));
-    isSuccess
-      ? toast.success("Rider suspension revoked")
-      : toast.success("Rider suspension revoked failed");
 
-    clearSuspensionEntry();
-    updateRidersTable(selectedRider, false, true);
-    toggleSuspension();
+    if (isSuccess) {
+      toast.success("Rider suspension revoked");
+      clearSuspensionEntry();
+      updateRidersTable(selectedRider, false, true);
+      toggleSuspension();
+    } else {
+      toast.error("Rider suspension revoked failed");
+    }
   };
 
   useEffect(() => {

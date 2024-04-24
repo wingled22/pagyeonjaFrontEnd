@@ -66,6 +66,13 @@ const revokeRiderSuspension = async (formData) => {
   return res.data;
 };
 
+const getApprovedRiderDocuments = async (riderId) => {
+  const res = await axios.get(
+    `http://localhost:5180/api/document/getdocuments?id=${riderId}&usertype=Rider`
+  );
+  return res.data;
+};
+
 const getTopUpHistory = async (riderId) => {
   const res = await axios.get(
     `http://localhost:5180/api/TopupHistory/GetRiderTopupHistory?id=${riderId}`
@@ -81,4 +88,5 @@ export const riderService = {
   updateRiderSuspension,
   revokeRiderSuspension,
   getTopUpHistory,
+  getApprovedRiderDocuments,
 };
