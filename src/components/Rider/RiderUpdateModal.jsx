@@ -36,7 +36,7 @@ const RiderUpdateModal = ({
   onSelectRider,
 }) => {
   const dispatch = useDispatch();
-  const { isSuccess, isError } = useSelector((state) => state.approvedRiders);
+  const { isSuccess } = useSelector((state) => state.approvedRiders);
 
   const [formData, setFormData] = useState({
     riderId: "",
