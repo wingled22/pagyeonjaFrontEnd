@@ -46,7 +46,6 @@ const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
   const [TopUpHistory, setTopUpHistory] = useState([]);
 
   const dispatch = useDispatch();
-  const { isSucces } = useSelector((state) => state.approvedRiders);
 
   const getsetTopUpHistoryList = async () => {
     if (!rider.riderId) return;
