@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import CommuterUpdateModal from "../../components/Commuter/CommuterUpdateModal.jsx";
 import CommuterTableList from "../../components/Commuter/CommuterTableList.jsx";
 
+import { useDispatch, useSelector } from "react-redux";
+
 const CommuterTable = ({
   selectUser,
   searchValueCommuter,
@@ -13,7 +15,7 @@ const CommuterTable = ({
   onSelectCommuter,
   toggleTriggerChanges,
 }) => {
-  const [commuters, setCommuters] = useState([]);
+  // const [commuters, setCommuters] = useState([]);
   const [filteredCommuters, setFilteredCommuters] = useState([]);
 
   const [commuterID, setCommuterID] = useState(null);
@@ -21,10 +23,17 @@ const CommuterTable = ({
     useState(null);
   // const updateSuspensionStatus = () => setCommuterSuspensionStatus(!commuterSuspensionStatus);
 
+  const dispatch = useDispatch();
+  const { approvedCommuters, isSuccess } = useSelector(
+    (state) => state.approvedCommuters
+  );
+  console.log(approvedCommuters);
+
   const commuterMatchesSearchTerm = (commuter) => {
     if (!searchValueCommuter) return true;
-    const fullName = `${commuter.firstName} ${commuter.middleName ? commuter.middleName + " " : ""
-      }${commuter.lastName}`.toLowerCase();
+    const fullName = `${commuter.firstName} ${
+      commuter.middleName ? commuter.middleName + " " : ""
+    }${commuter.lastName}`.toLowerCase();
     const status = commuter.suspensionStatus === false ? "active" : "suspended";
     const fullNameWords = fullName.split(" ");
     const searchWords = searchValueCommuter
@@ -40,11 +49,11 @@ const CommuterTable = ({
   };
 
   useEffect(() => {
-    const filtered = commuters.filter((commuter) =>
+    const filtered = approvedCommuters.filter((commuter) =>
       commuterMatchesSearchTerm(commuter)
     );
     setFilteredCommuters(filtered);
-  }, [commuters, searchValueCommuter]);
+  }, [approvedCommuters, searchValueCommuter, dispatch]);
 
   const getCommuters = async () => {
     try {
@@ -64,27 +73,27 @@ const CommuterTable = ({
     isForDetailsUpdate = true,
     isForRevoke = false
   ) => {
-    setCommuters((prevCommuters) => {
-      return prevCommuters.map((item) => {
-        if (item.commuterId === commuter.commuterId) {
-          if (isForDetailsUpdate && !isForRevoke) {
-            return { ...item, ...commuter };
-          } else if (!isForDetailsUpdate && !isForRevoke) {
-            return {
-              ...item,
-              ...commuter,
-              suspensionStatus: commuter.suspensionStatus,
-            };
-          }
-          return {
-            ...item,
-            ...commuter,
-            suspensionStatus: !commuter.suspensionStatus,
-          };
-        }
-        return item;
-      });
-    });
+    // setCommuters((prevCommuters) => {
+    //   return prevCommuters.map((item) => {
+    //     if (item.commuterId === commuter.commuterId) {
+    //       if (isForDetailsUpdate && !isForRevoke) {
+    //         return { ...item, ...commuter };
+    //       } else if (!isForDetailsUpdate && !isForRevoke) {
+    //         return {
+    //           ...item,
+    //           ...commuter,
+    //           suspensionStatus: commuter.suspensionStatus,
+    //         };
+    //       }
+    //       return {
+    //         ...item,
+    //         ...commuter,
+    //         suspensionStatus: !commuter.suspensionStatus,
+    //       };
+    //     }
+    //     return item;
+    //   });
+    // });
   };
 
   const onChangeSelectedCommuter = async (commuter) => {
@@ -218,9 +227,9 @@ const CommuterTable = ({
     setSuspensionDate("");
   };
 
-  useEffect(() => {
-    getCommuters();
-  }, []);
+  // useEffect(() => {
+  //   getCommuters();
+  // }, []);
 
   const [modalSuspension, setModalSuspension] = useState(false);
   const toggleSuspension = (commuter) => {
@@ -308,7 +317,8 @@ const CommuterTable = ({
               </tr>
             )}
             {filteredCommuters.map((commuterUpdate) => (
-              <CommuterTableList key={commuterUpdate.commuterId}
+              <CommuterTableList
+                key={commuterUpdate.commuterId}
                 commuterUpdate={commuterUpdate}
                 selectUser={selectUser}
                 suspensionStatus={suspensionStatus}

@@ -1,16 +1,26 @@
 import { Row, Col } from "reactstrap";
 import NavigationBar from "./components/NavigationBar";
 import { Outlet } from "react-router-dom";
-import { reset, getApproveRiders } from "./utils/riders/approvedRiderSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+
+import {
+  reset as resetRiders,
+  getApproveRiders,
+} from "./utils/riders/approvedRiderSlice";
+import {
+  reset as resetCommuters,
+  getApprovedCommuters,
+} from "./utils/commuter/approvedCommuterSlice";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getApproveRiders());
+    dispatch(getApprovedCommuters());
     return () => {
-      dispatch(reset());
+      dispatch(resetRiders());
+      dispatch(resetCommuters());
     };
   }, []);
   return (

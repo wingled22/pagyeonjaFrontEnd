@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { riderService } from "./approvedRiderService.js";
-import { fas } from "@fortawesome/free-solid-svg-icons";
 
 const initialState = {
   approvedRiders: [],
@@ -156,7 +155,6 @@ export const riderSlice = createSlice({
     reset: (state) => {
       state.isLoading = false;
       state.isSuccess = false;
-      state.isError = false;
       state.message = "";
     },
     updateRiders: (state, action) => {
