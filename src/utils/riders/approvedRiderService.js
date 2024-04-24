@@ -41,7 +41,7 @@ const addRiderSuspension = async (formData) => {
 };
 
 const updateRiderSuspension = async (updateFormData, suspensionId) => {
-  const res = axios.put(
+  const res = await axios.put(
     "http://localhost:5180/api/Suspension/UpdateSuspension?id=" + suspensionId,
     updateFormData,
     {
@@ -54,7 +54,7 @@ const updateRiderSuspension = async (updateFormData, suspensionId) => {
 };
 
 const revokeRiderSuspension = async (formData) => {
-  const res = axios.put(
+  const res = await axios.put(
     "http://localhost:5180/api/Suspension/RevokeSuspension",
     formData,
     {
@@ -66,6 +66,13 @@ const revokeRiderSuspension = async (formData) => {
   return res.data;
 };
 
+const getTopUpHistory = async (riderId) => {
+  const res = await axios.get(
+    `http://localhost:5180/api/TopupHistory/GetRiderTopupHistory?id=${riderId}`
+  );
+  return res.data;
+};
+
 export const riderService = {
   getRidersApproved,
   updateRidersApproved,
@@ -73,4 +80,5 @@ export const riderService = {
   addRiderSuspension,
   updateRiderSuspension,
   revokeRiderSuspension,
+  getTopUpHistory,
 };
