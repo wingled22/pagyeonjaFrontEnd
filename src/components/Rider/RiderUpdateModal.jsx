@@ -70,8 +70,7 @@ const RiderUpdateModal = ({
       updateRidersTable(formData);
       onSelectRider(formData);
       toggle();
-    }
-    if (isError) {
+    } else {
       toast.error("Update rider unsuccessful");
     }
   };
@@ -90,7 +89,7 @@ const RiderUpdateModal = ({
         <ModalHeader toggle={toggle} className="commuterSuspensionHeader">
           Rider Update Info
         </ModalHeader>
-        <Form onSubmit={handleSubmit} form="true">
+        <Form onSubmit={handleSubmit}>
           <ModalBody>
             <Input
               type="date"
@@ -101,7 +100,7 @@ const RiderUpdateModal = ({
               onChange={handleChange}
             />
 
-            <Row form>
+            <Row>
               <Col className="col-6 col-sm-4">
                 <FormGroup>
                   <Label for="firstName">
@@ -148,7 +147,7 @@ const RiderUpdateModal = ({
                 </FormGroup>
               </Col>
             </Row>
-            <Row form>
+            <Row>
               <Col className="col-6 col-sm-4">
                 <FormGroup>
                   <Label for="sex">
