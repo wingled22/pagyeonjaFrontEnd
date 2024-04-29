@@ -76,23 +76,6 @@ export const getCommuterSuspension = createAsyncThunk(
   }
 );
 
-export const getLatestCommuterSuspension = createAsyncThunk(
-  "approvedCommuters/getLatestCommuterSuspension",
-  async (commuterId, thunkAPI) => {
-    try {
-      return await commuterService.getLatestCommuterSuspension(commuterId);
-    } catch (error) {
-      const messsage =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(messsage);
-    }
-  }
-);
-
 export const addCommuterSuspension = createAsyncThunk(
   "approvedCommuters/addCommuterSuspension",
   async (formData, thunkAPI) => {
@@ -265,19 +248,6 @@ export const commuterSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(getCommuterSuspension.rejected, (state) => {
-        state.isLoading = false;
-        state.isSuccess = false;
-      })
-
-      // get commuter latest suspension
-      .addCase(getLatestCommuterSuspension.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getLatestCommuterSuspension.fulfilled, (state) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-      })
-      .addCase(getLatestCommuterSuspension.rejected, (state) => {
         state.isLoading = false;
         state.isSuccess = false;
       })

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getApprovedCommuter,
   getCommuterDocuments,
-  getLatestCommuterSuspension,
+  getCommuterSuspension,
 } from "../../utils/commuter/approvedCommuterSlice.js";
 
 const formatDate = (dateString) => {
@@ -43,9 +43,7 @@ const CommuterDetails = ({
   };
 
   const getLatestSuspension = async () => {
-    const { payload } = await dispatch(
-      getLatestCommuterSuspension(selectedCommuter)
-    );
+    const { payload } = await dispatch(getCommuterSuspension(selectedCommuter));
     if (isSuccess) {
       setSuspensionInfo(payload);
     }
@@ -78,23 +76,6 @@ const CommuterDetails = ({
   //This must be after calculateSuspensionDuration. This must be initialize after the calculateSuspensionDuration
   const [timeLeft, setTimeLeft] = useState([]);
 
-  useEffect(() => {
-    getCommuter();
-    getLatestSuspension();
-  }, [selectedCommuter, suspensionStatus, triggerChanges]);
-
-  useEffect(() => {
-    if (suspensionStatus === true) {
-      // calculateSuspensionDuration();
-
-      const timer = setTimeout(() => {
-        calculateSuspensionDuration();
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  });
-
   const getRequirements = async () => {
     if (!commuterInfo.commuterId) {
       return;
@@ -107,6 +88,21 @@ const CommuterDetails = ({
       setDocument(payload);
     }
   };
+
+  useEffect(() => {
+    if (suspensionStatus === true) {
+      const timer = setTimeout(() => {
+        calculateSuspensionDuration();
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  });
+
+  useEffect(() => {
+    getCommuter();
+    getLatestSuspension();
+  }, [selectedCommuter, suspensionStatus, triggerChanges, dispatch]);
 
   useEffect(() => {
     getRequirements();
