@@ -147,6 +147,23 @@ export const getTopUpHistory = createAsyncThunk(
   }
 );
 
+export const getRiderRideHistory = createAsyncThunk(
+  "approvedRiders/getRiderRideHistory",
+  async (riderId, thunkAPI) => {
+    try {
+      return await riderService.getRiderRideHistory(riderId);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
 // create global state for approved riders
 export const riderSlice = createSlice({
   name: "approvedRiders",
@@ -286,6 +303,19 @@ export const riderSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(getTopUpHistory.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+      })
+
+      // get ride history
+      .addCase(getRiderRideHistory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getRiderRideHistory.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(getRiderRideHistory.rejected, (state) => {
         state.isLoading = false;
         state.isSuccess = false;
       });

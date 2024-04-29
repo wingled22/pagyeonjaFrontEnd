@@ -80,6 +80,13 @@ const getTopUpHistory = async (riderId) => {
   return res.data;
 };
 
+const getRiderRideHistory = async (riderId) => {
+  const res = await axios.get(
+    `http://localhost:5180/api/RideHistory/GetUserRideHistory?id=${riderId}&usertype=Rider`
+  );
+  return res.data;
+};
+
 export const riderService = {
   getRidersApproved,
   updateRidersApproved,
@@ -89,4 +96,5 @@ export const riderService = {
   revokeRiderSuspension,
   getTopUpHistory,
   getApprovedRiderDocuments,
+  getRiderRideHistory,
 };

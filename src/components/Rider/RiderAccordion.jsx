@@ -9,10 +9,33 @@ import {
 } from "reactstrap";
 import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getRiderRideHistory } from "../../utils/riders/approvedRiderSlice";
+
+const formatDate = (dateTimeString) => {
+  const dateTime = new Date(dateTimeString);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return dateTime.toLocaleDateString("en-US", options);
+};
+
+const formatTime = (dateTimeString) => {
+  const dateTime = new Date(dateTimeString);
+  const options = {
+    hour: "numeric",
+    minute: "numeric",
+  };
+  return dateTime.toLocaleTimeString("en-US", options);
+};
 
 const RiderAccordion = ({ rider }) => {
   // console.log("Rider Object:", rider);
   const [open, setOpen] = useState("0");
+  const dispatch = useDispatch();
+  const { isSuccess } = useSelector((state) => state.approvedRiders);
 
   const [rideHistoryData, setRideHistoryData] = useState([]);
   const toggleAct = (id) => {
@@ -22,41 +45,15 @@ const RiderAccordion = ({ rider }) => {
       setOpen(id);
     }
   };
-  function formatDate(dateTimeString) {
-    const dateTime = new Date(dateTimeString);
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return dateTime.toLocaleDateString("en-US", options);
-  }
-
-  function formatTime(dateTimeString) {
-    const dateTime = new Date(dateTimeString);
-    const options = {
-      hour: "numeric",
-      minute: "numeric",
-    };
-    return dateTime.toLocaleTimeString("en-US", options);
-  }
 
   const getRideHistory = async () => {
     if (!rider.riderId) {
       return;
     }
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/RideHistory/GetUserRideHistory?id=${rider.riderId}&usertype=Rider`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setRideHistoryData(data); // Set the ride history data to a state variable
-      } else {
-        console.error("Failed to fetch ride history data");
-      }
-    } catch (error) {
-      console.error("Error fetching ride history data:", error);
+    const { payload } = await dispatch(getRiderRideHistory(rider.riderId));
+    console.log(payload);
+    if (isSuccess) {
+      setRideHistoryData(payload);
     }
   };
 
@@ -135,7 +132,7 @@ const RiderAccordion = ({ rider }) => {
                 </Row>
                 <Row className="newlineInfo">
                   <Col md={4}>
-                    <span className="riderHistoryLabelInfo">Rider</span>
+                    <span className="riderHistoryLabelInfo">Commuter</span>
                   </Col>
                   <Col md={4}>
                     <span className="riderHistoryTextInfo">
