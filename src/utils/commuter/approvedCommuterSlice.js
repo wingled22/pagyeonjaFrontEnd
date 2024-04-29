@@ -25,6 +25,23 @@ export const getApprovedCommuters = createAsyncThunk(
   }
 );
 
+export const getApprovedCommuter = createAsyncThunk(
+  "approvedCommuters/getApprovedCommuter",
+  async (commuterId, thunkAPI) => {
+    try {
+      return await commuterService.getApprovedCommuter(commuterId);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
 export const updateApprovedCommuter = createAsyncThunk(
   "approvedCommuters/updateApprovedCommuter",
   async (formData, thunkAPI) => {
@@ -144,6 +161,23 @@ export const getCommuterDocuments = createAsyncThunk(
   }
 );
 
+export const getCommuterRideHistory = createAsyncThunk(
+  "approvedCommuters/getCommuterRideHistory",
+  async (commuterId, thunkAPI) => {
+    try {
+      return await commuterService.getCommuterRideHistory(commuterId);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
 // create global state for approved commuters
 export const commuterSlice = createSlice({
   name: "approvedCommuters",
@@ -194,6 +228,19 @@ export const commuterSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = false;
         state.message = action.payload;
+      })
+
+      // get approved commuter
+      .addCase(getApprovedCommuter.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getApprovedCommuter.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(getApprovedCommuter.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
       })
 
       // update commuter
@@ -283,6 +330,19 @@ export const commuterSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(getCommuterDocuments.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+      })
+
+      // get ride history
+      .addCase(getCommuterRideHistory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCommuterRideHistory.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(getCommuterRideHistory.rejected, (state) => {
         state.isLoading = false;
         state.isSuccess = false;
       });

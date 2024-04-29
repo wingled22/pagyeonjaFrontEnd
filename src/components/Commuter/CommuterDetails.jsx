@@ -8,6 +8,7 @@ import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocum
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getApprovedCommuter,
   getCommuterDocuments,
   getLatestCommuterSuspension,
 } from "../../utils/commuter/approvedCommuterSlice.js";
@@ -35,15 +36,9 @@ const CommuterDetails = ({
     setModalDocumentViewer(!modalDocumentViewer);
 
   const getCommuter = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/CommuterRegistration/GetCommuter?id=" +
-          selectedCommuter
-      );
-      const data = await response.json();
-      setCommuterInfo(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    const { payload } = await dispatch(getApprovedCommuter(selectedCommuter));
+    if (isSuccess) {
+      setCommuterInfo(payload);
     }
   };
 

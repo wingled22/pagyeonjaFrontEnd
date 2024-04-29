@@ -7,6 +7,14 @@ const getCommutersApproved = async () => {
   return res.data;
 };
 
+const getApprovedCommuter = async (commuterId) => {
+  const res = await axios.get(
+    "http://localhost:5180/api/CommuterRegistration/GetCommuter?id=" +
+      commuterId
+  );
+  return res.data;
+};
+
 const updateApprovedCommuters = async (formDatas) => {
   const res = await axios.put(
     "http://localhost:5180/api/CommuterRegistration/UpdateCommuter",
@@ -80,8 +88,16 @@ const getCommuterDocuments = async (commuterId) => {
   return res.data;
 };
 
+const getCommuterRideHistory = async (commuterId) => {
+  const res = await axios.get(
+    `http://localhost:5180/api/RideHistory/GetUserRideHistory?id=${commuterId}&usertype=Commuter`
+  );
+  return res.data;
+};
+
 export const commuterService = {
   getCommutersApproved,
+  getApprovedCommuter,
   updateApprovedCommuters,
   getCommuterSuspension,
   getLatestCommuterSuspension,
@@ -89,4 +105,5 @@ export const commuterService = {
   updateCommuterSuspension,
   revokeCommuterSuspension,
   getCommuterDocuments,
+  getCommuterRideHistory,
 };
