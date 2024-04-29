@@ -27,6 +27,13 @@ const getCommuterSuspension = async (commuterId) => {
   return res.data;
 };
 
+const getLatestCommuterSuspension = async (commuterId) => {
+  const res = await axios.get(
+    `http://localhost:5180/api/Suspension/GetSuspension?userid=${commuterId}&usertype=Commuter`
+  );
+  return res.data;
+};
+
 const addCommuterSuspension = async (formData) => {
   const res = await axios.post(
     "http://localhost:5180/api/Suspension/RegisterSuspension",
@@ -77,6 +84,7 @@ export const commuterService = {
   getCommutersApproved,
   updateApprovedCommuters,
   getCommuterSuspension,
+  getLatestCommuterSuspension,
   addCommuterSuspension,
   updateCommuterSuspension,
   revokeCommuterSuspension,

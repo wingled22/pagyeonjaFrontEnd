@@ -7,7 +7,10 @@ import CommuterDocumentViewerModal from "../../components/Commuter/CommuterDocum
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommuterDocuments } from "../../utils/commuter/approvedCommuterSlice.js";
+import {
+  getCommuterDocuments,
+  getLatestCommuterSuspension,
+} from "../../utils/commuter/approvedCommuterSlice.js";
 
 const formatDate = (dateString) => {
   const newDate = new Date(dateString);
@@ -45,18 +48,11 @@ const CommuterDetails = ({
   };
 
   const getLatestSuspension = async () => {
-    try {
-      if (suspensionStatus === true) {
-        //If suspended, then get the latest end date suspension
-        const response = await fetch(
-          `http://localhost:5180/api/Suspension/GetSuspension?userid=${selectedCommuter}&usertype=Commuter`
-        );
-        const data = await response.json();
-
-        setSuspensionInfo(data);
-      }
-    } catch (error) {
-      setSuspensionInfo([]);
+    const { payload } = await dispatch(
+      getLatestCommuterSuspension(selectedCommuter)
+    );
+    if (isSuccess) {
+      setSuspensionInfo(payload);
     }
   };
 
