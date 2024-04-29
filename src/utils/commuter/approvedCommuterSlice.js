@@ -42,6 +42,23 @@ export const updateApprovedCommuter = createAsyncThunk(
   }
 );
 
+export const getCommuterSuspension = createAsyncThunk(
+  "approvedCommuters/getCommuterSuspension",
+  async (commuterId, thunkAPI) => {
+    try {
+      return await commuterService.getCommuterSuspension(commuterId);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
 export const addCommuterSuspension = createAsyncThunk(
   "approvedCommuters/addCommuterSuspension",
   async (formData, thunkAPI) => {
@@ -64,6 +81,40 @@ export const updateCommuterSuspension = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       return await commuterService.updateCommuterSuspension(formData);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
+export const revokeCommuterSuspension = createAsyncThunk(
+  "approvedCommuters/revokeCommuterSuspension",
+  async (formData, thunkAPI) => {
+    try {
+      return await commuterService.revokeCommuterSuspension(formData);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
+export const getCommuterDocuments = createAsyncThunk(
+  "approvedCommuters/getCommuterDocuments",
+  async (commuterId, thunkAPI) => {
+    try {
+      return await commuterService.getCommuterDocuments(commuterId);
     } catch (error) {
       const messsage =
         (error.response &&
@@ -141,18 +192,18 @@ export const commuterSlice = createSlice({
         state.isSuccess = false;
       })
 
-      // // get rider suspension
-      // .addCase(getApprovedRiderSuspension.pending, (state) => {
-      //   state.isLoading = true;
-      // })
-      // .addCase(getApprovedRiderSuspension.fulfilled, (state) => {
-      //   state.isLoading = false;
-      //   state.isSuccess = true;
-      // })
-      // .addCase(getApprovedRiderSuspension.rejected, (state) => {
-      //   state.isLoading = false;
-      //   state.isSuccess = false;
-      // })
+      // get commuter suspension
+      .addCase(getCommuterSuspension.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCommuterSuspension.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(getCommuterSuspension.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+      })
 
       // add rider suspension
       .addCase(addCommuterSuspension.pending, (state) => {
@@ -178,46 +229,33 @@ export const commuterSlice = createSlice({
       .addCase(updateCommuterSuspension.rejected, (state) => {
         state.isLoading = false;
         state.isSuccess = false;
+      })
+
+      // revoke rider suspension
+      .addCase(revokeCommuterSuspension.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(revokeCommuterSuspension.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(revokeCommuterSuspension.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+      })
+
+      // get documents
+      .addCase(getCommuterDocuments.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCommuterDocuments.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(getCommuterDocuments.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
       });
-
-    // // revoke rider suspension
-    // .addCase(revokeRiderSuspension.pending, (state) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(revokeRiderSuspension.fulfilled, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = true;
-    // })
-    // .addCase(revokeRiderSuspension.rejected, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = false;
-    // })
-
-    // // get documents
-    // .addCase(getApprovedRiderDocuments.pending, (state) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(getApprovedRiderDocuments.fulfilled, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = true;
-    // })
-    // .addCase(getApprovedRiderDocuments.rejected, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = false;
-    // })
-
-    // // get topup history
-    // .addCase(getTopUpHistory.pending, (state) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(getTopUpHistory.fulfilled, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = true;
-    // })
-    // .addCase(getTopUpHistory.rejected, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = false;
-    // });
   },
 });
 

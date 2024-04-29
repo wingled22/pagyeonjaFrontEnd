@@ -9,8 +9,10 @@ import CommuterTableList from "../../components/Commuter/CommuterTableList.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateCommuters,
+  getCommuterSuspension,
   addCommuterSuspension,
   updateCommuterSuspension,
+  revokeCommuterSuspension,
 } from "../../utils/commuter/approvedCommuterSlice.js";
 
 const CommuterTable = ({
@@ -25,13 +27,11 @@ const CommuterTable = ({
   const [commuterID, setCommuterID] = useState(null);
   const [commuterSuspensionStatus, setCommuterSuspensionStatus] =
     useState(null);
-  // const updateSuspensionStatus = () => setCommuterSuspensionStatus(!commuterSuspensionStatus);
 
   const dispatch = useDispatch();
   const { approvedCommuters, isSuccess } = useSelector(
     (state) => state.approvedCommuters
   );
-  console.log(approvedCommuters);
 
   const commuterMatchesSearchTerm = (commuter) => {
     if (!searchValueCommuter) return true;
@@ -78,23 +78,16 @@ const CommuterTable = ({
   };
 
   const getSuspension = async (suspendStatus, commuterId) => {
-    try {
-      setCommuterSuspensionStatus(suspendStatus);
-      if (suspendStatus === true) {
-        //If suspended, then get the latest end date suspension
-        const response = await fetch(
-          `http://localhost:5180/api/Suspension/GetSuspension?userid=${commuterId}&usertype=Commuter`
-        );
-        const data = await response.json();
-
-        setReason(data.reason);
-        setSuspensionDate(data.suspensionDate);
-        setSuspensionId(data.suspensionId);
-      } else {
-        clearSuspensionEntry();
+    setCommuterSuspensionStatus(suspendStatus);
+    if (suspendStatus) {
+      //If suspended, then get the latest end date suspension
+      const { payload } = await dispatch(getCommuterSuspension(commuterId));
+      if (isSuccess) {
+        setReason(payload.reason);
+        setSuspensionDate(payload.suspensionDate);
+        setSuspensionId(payload.suspensionId);
       }
-    } catch (error) {
-      // console.error("Error fetching data:", error);
+    } else {
       clearSuspensionEntry();
     }
   };
@@ -120,13 +113,13 @@ const CommuterTable = ({
       dispatch(addCommuterSuspension(formData));
       isSuccess
         ? toast.success("Commuter suspended")
-        : toast.success("Commuter suspension failed");
-    } else if (suspendStatus) {
+        : toast.error("Commuter suspension failed");
+    } else {
       //update instead
       dispatch(updateCommuterSuspension(updateFormData));
       isSuccess
         ? toast.success("Commuter suspension updated")
-        : toast.success("Commuter suspension update failed");
+        : toast.error("Commuter suspension update failed");
     }
 
     if (isSuccess) {
@@ -136,41 +129,30 @@ const CommuterTable = ({
       clearSuspensionEntry();
       toggleSuspension();
       toggleTriggerChanges();
-
-      //toggle so that the suspension status is true
       suspensionStatus(true);
     }
   };
 
-  const handleRevokeSuspension = async () => {
-    try {
-      const formData = {
-        suspensionId: suspensionId,
-        userId: commuterID,
-        userType: "Commuter",
-        reason: reason,
-        suspensionDate: suspensionDate,
-        status: false,
-      };
+  const handleRevokeSuspension = () => {
+    const formData = {
+      suspensionId: suspensionId,
+      userId: commuterID,
+      userType: "Commuter",
+      reason: reason,
+      suspensionDate: suspensionDate,
+      status: false,
+    };
 
-      const response = await fetch(
-        "http://localhost:5180/api/Suspension/RevokeSuspension",
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
-
+    dispatch(revokeCommuterSuspension(formData));
+    if (isSuccess) {
       updateCommuterTable(selectedCommuter, false, true);
       clearSuspensionEntry();
       toggleSuspension();
       toggleTriggerChanges();
       toast.success("Commuter Suspension Revoked");
-      //toggle so that the suspension status is true
       suspensionStatus(false);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
+    } else {
+      toast.error("Commuter Suspension revoking failed");
     }
   };
 
