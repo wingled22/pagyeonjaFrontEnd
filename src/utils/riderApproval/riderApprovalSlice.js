@@ -21,18 +21,18 @@ export const riderApprovalSlice = createSlice({
     updateRiderApprovalList: (state, action) => {
       const { userId, isApprove } = action.payload;
 
-      // pag update sa approved commuters global state
-      state.riderApprovalRequests = state.riderApprovalRequests.map(() => {
-        if (isApprove) {
-          return state.riderApprovalRequests.filter(
-            (item) => item.userId !== userId
-          );
-        }
-        return state.riderApprovalRequests.map((item) => {
-          if (item.userId === userId)
-            return { ...item, approvalStatus: isApprove };
-        });
-      });
+      if (isApprove) {
+        state.riderApprovalRequests = state.riderApprovalRequests.filter(
+          (item) => item.userId !== userId
+        );
+      } else {
+        state.riderApprovalRequests = state.riderApprovalRequests.map(
+          (item) => {
+            if (item.userId === userId)
+              return { ...item, approvalStatus: isApprove };
+          }
+        );
+      }
     },
   },
   extraReducers: (builder) => {
