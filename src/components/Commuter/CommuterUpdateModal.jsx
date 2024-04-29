@@ -14,6 +14,16 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { updateApprovedCommuter } from "../../utils/commuter/approvedCommuterSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+const formatDate = (dateString) => {
+  const newDate = new Date(dateString);
+  const month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = newDate.getDate().toString().padStart(2, "0");
+  const year = newDate.getFullYear();
+  return `${year}-${month}-${day}`;
+};
 
 const CommuterUpdateModal = ({
   isOpen,
@@ -23,13 +33,9 @@ const CommuterUpdateModal = ({
   onSelectCommuter,
   toggleTriggerChanges,
 }) => {
-  function formatDate(dateString) {
-    const newDate = new Date(dateString);
-    const month = (newDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = newDate.getDate().toString().padStart(2, "0");
-    const year = newDate.getFullYear();
-    return `${year}-${month}-${day}`;
-  }
+  const dispatch = useDispatch();
+  const { isSuccess } = useSelector((state) => state.approvedCommuters);
+
   const [formDatas, setformDatas] = useState({
     commuterId: "",
     firstName: "",
@@ -45,12 +51,6 @@ const CommuterUpdateModal = ({
     address: "",
   });
 
-  useEffect(() => {
-    if (CommuterUpdate) {
-      setformDatas(CommuterUpdate);
-    }
-  }, [CommuterUpdate]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setformDatas((prevData) => ({
@@ -59,35 +59,25 @@ const CommuterUpdateModal = ({
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission
-    // console.log(formData);
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/CommuterRegistration/UpdateCommuter",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formDatas),
-        }
-      );
-      if (response.ok) {
-        //    alert("Update na intawn",formDatas);
-        updateCommuterTable(formDatas);
-        toast.success("Update successful!");
-        onSelectCommuter(formDatas);
-        toggleTriggerChanges();
-        untoggle();
-      } else {
-        const errorData = await response.json();
-        console.error(`Error ${response.status}: ${errorData.message}`);
-      }
-    } catch (error) {
-      console.error("Error submitting form data:", error);
+    dispatch(updateApprovedCommuter(formDatas));
+    if (isSuccess) {
+      updateCommuterTable(formDatas);
+      toast.success("Update successful");
+      onSelectCommuter(formDatas);
+      toggleTriggerChanges();
+      untoggle();
+    } else {
+      toast.error("Something went wrong");
     }
   };
+
+  useEffect(() => {
+    if (CommuterUpdate) {
+      setformDatas(CommuterUpdate);
+    }
+  }, [CommuterUpdate]);
 
   return (
     <>
@@ -204,7 +194,9 @@ const CommuterUpdateModal = ({
                     id="contactNumber"
                     name="contactNumber"
                     placeholder="Enter Contact Number"
-                    value={formDatas.contactNumber ? formDatas.contactNumber : ""}
+                    value={
+                      formDatas.contactNumber ? formDatas.contactNumber : ""
+                    }
                     onChange={handleChange}
                   />
                 </FormGroup>

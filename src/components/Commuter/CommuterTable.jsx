@@ -7,7 +7,11 @@ import CommuterUpdateModal from "../../components/Commuter/CommuterUpdateModal.j
 import CommuterTableList from "../../components/Commuter/CommuterTableList.jsx";
 
 import { useDispatch, useSelector } from "react-redux";
-import { updateCommuters } from "../../utils/commuter/approvedCommuterSlice.js";
+import {
+  updateCommuters,
+  addCommuterSuspension,
+  updateCommuterSuspension,
+} from "../../utils/commuter/approvedCommuterSlice.js";
 
 const CommuterTable = ({
   selectUser,
@@ -47,13 +51,6 @@ const CommuterTable = ({
       ) || status.includes(searchValueCommuter.toLowerCase())
     );
   };
-
-  useEffect(() => {
-    const filtered = approvedCommuters.filter((commuter) =>
-      commuterMatchesSearchTerm(commuter)
-    );
-    setFilteredCommuters(filtered);
-  }, [approvedCommuters, searchValueCommuter, dispatch]);
 
   // for updating the commuter state
   const updateCommuterTable = (
@@ -102,48 +99,37 @@ const CommuterTable = ({
     }
   };
 
-  const handleUpdateSuspensionCommuter = async (suspendStatus) => {
-    try {
-      //Add a condition here that if the suspension status is already true then update the data instead
-      const formData = {
-        userId: commuterID,
-        userType: "Commuter",
-        reason: reason,
-        suspensionDate: suspensionDate,
-      };
+  const handleUpdateSuspensionCommuter = (suspendStatus) => {
+    const formData = {
+      userId: commuterID,
+      userType: "Commuter",
+      reason: reason,
+      suspensionDate: suspensionDate,
+    };
 
-      const updateFormData = {
-        suspensionId: suspensionId,
-        userId: commuterID,
-        userType: "Commuter",
-        reason: reason,
-        suspensionDate: suspensionDate,
-        status: true,
-      };
+    const updateFormData = {
+      suspensionId: suspensionId,
+      userId: commuterID,
+      userType: "Commuter",
+      reason: reason,
+      suspensionDate: suspensionDate,
+      status: true,
+    };
 
-      if (suspendStatus === false) {
-        const response = await fetch(
-          "http://localhost:5180/api/Suspension/RegisterSuspension",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-          }
-        );
-        toast.success("Commuter Suspended");
-      } else if (suspendStatus === true) {
-        //update instead
-        const response = await fetch(
-          "http://localhost:5180/api/Suspension/UpdateSuspension",
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updateFormData),
-          }
-        );
-        toast.success("Commuter suspension updated");
-      }
+    if (!suspendStatus) {
+      dispatch(addCommuterSuspension(formData));
+      isSuccess
+        ? toast.success("Commuter suspended")
+        : toast.success("Commuter suspension failed");
+    } else if (suspendStatus) {
+      //update instead
+      dispatch(updateCommuterSuspension(updateFormData));
+      isSuccess
+        ? toast.success("Commuter suspension updated")
+        : toast.success("Commuter suspension update failed");
+    }
 
+    if (isSuccess) {
       selectedCommuter.suspensionStatus
         ? updateCommuterTable(selectedCommuter, false)
         : updateCommuterTable(selectedCommuter, false, true);
@@ -153,8 +139,6 @@ const CommuterTable = ({
 
       //toggle so that the suspension status is true
       suspensionStatus(true);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
     }
   };
 
@@ -195,10 +179,6 @@ const CommuterTable = ({
     setSuspensionDate("");
   };
 
-  // useEffect(() => {
-  //   getCommuters();
-  // }, []);
-
   const [modalSuspension, setModalSuspension] = useState(false);
   const toggleSuspension = (commuter) => {
     setModalSuspension((modalSuspension) => !modalSuspension);
@@ -212,6 +192,14 @@ const CommuterTable = ({
     setSelectedCommuter(() => CommuterUpdate);
     // console.log("Update selected", CommuterUpdate);
   };
+
+  useEffect(() => {
+    const filtered = approvedCommuters.filter((commuter) =>
+      commuterMatchesSearchTerm(commuter)
+    );
+    setFilteredCommuters(filtered);
+  }, [approvedCommuters, searchValueCommuter, dispatch]);
+
   //console.log(selectedCommuter);
   return (
     <>
