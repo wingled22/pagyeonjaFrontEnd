@@ -21,6 +21,7 @@ import {
   getCommuterApprovalRequirements,
   respondCommuterApprovalRequest,
 } from "../../utils/commuterApproval/commuterApprovalSlice";
+import { addCommuter } from "../../utils/commuter/approvedCommuterSlice";
 
 const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
   const [document, setDocument] = useState([]);
@@ -72,17 +73,19 @@ const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
     if (isSuccess) {
       toggleApprovaModal();
       updateApprovalTable(userId, approvalResponse);
-      approvalResponse
-        ? toast.success("Successfully approved Commuter request!")
-        : toast.success("Request rejected!");
+      if (approvalResponse) {
+        toast.success("Successfully approved Commuter request!");
+        dispatch(addCommuter({ approval }));
+      } else {
+        toast.success("Request rejected!");
+      }
     } else {
       toast.error("Something went wrong");
     }
   };
-
+  // console.log(approval);
   const getApproval = async () => {
     const { payload } = await dispatch(getCommuter(userId));
-    console.log(payload);
     if (isSuccess) {
       setApproval(payload);
     }

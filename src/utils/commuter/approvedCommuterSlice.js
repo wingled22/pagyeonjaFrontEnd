@@ -171,6 +171,10 @@ export const commuterSlice = createSlice({
       state.isSuccess = false;
       state.message = "";
     },
+    addCommuter: (state, action) => {
+      const { approval } = action.payload;
+      state.approvedCommuters = state.approvedCommuters.push(approval);
+    },
     updateCommuters: (state, action) => {
       const { commuter, isForDetailsUpdate, isForRevoke } = action.payload;
 
@@ -319,5 +323,5 @@ export const commuterSlice = createSlice({
   },
 });
 
-export const { reset, updateCommuters } = commuterSlice.actions;
+export const { reset, addCommuter, updateCommuters } = commuterSlice.actions;
 export default commuterSlice.reducer;

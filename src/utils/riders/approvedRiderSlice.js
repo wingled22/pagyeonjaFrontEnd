@@ -174,6 +174,10 @@ export const riderSlice = createSlice({
       state.isSuccess = false;
       state.message = "";
     },
+    addRider: (state, action) => {
+      const { rider } = action.payload;
+      state.approvedRiders = state.approvedRiders.push(rider);
+    },
     updateRiders: (state, action) => {
       const { rider, isForDetailsUpdate, isForRevoke } = action.payload;
 
@@ -322,5 +326,5 @@ export const riderSlice = createSlice({
   },
 });
 
-export const { reset, updateRiders } = riderSlice.actions;
+export const { reset, addRider, updateRiders } = riderSlice.actions;
 export default riderSlice.reducer;
