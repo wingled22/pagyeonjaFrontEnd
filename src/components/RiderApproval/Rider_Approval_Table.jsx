@@ -8,7 +8,7 @@ import images3 from "../../assets/image/cs3.png";
 import RiderApprovalSearchFilter from "./RiderApprovalSearchAndFilter";
 import { Row } from "reactstrap";
 
-const RiderApprovalTablePage = ({ text, color, changeUserID, approvals }) => {
+const RiderApprovalTablePage = ({ changeUserID, approvals }) => {
   const callChangeUserID = (id) => {
     changeUserID(id);
   };
