@@ -6,42 +6,27 @@ import CommuterApprovalTablePage from "../components/CommuterApproval/CommuterAp
 import CommuterApprovalRequirements from "../components/CommuterApproval/CommuterApprovalRequirements";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  getCommuterApprovalRequests,
-  updateCommuterApprovalList,
-} from "../utils/commuterApproval/commuterApprovalSlice";
+import { updateCommuterApprovalList } from "../utils/commuterApproval/commuterApprovalSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const CommuterApprovalPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
-  const [approvals, setApprovals] = useState([]);
 
   //redux stuffs
   const dispatch = useDispatch();
-  const { isSuccess, commuterApprovalRequests } = useSelector(
+  const { commuterApprovalRequests } = useSelector(
     (state) => state.commuterApprovals
   );
 
   // Changes the approvals state without fetching the approvals
   const updateApprovalTable = (userId, isApprove) => {
-    setApprovals((prevApprovals) => {
-      if (isApprove) {
-        return prevApprovals.filter((item) => item.userId !== userId);
-      }
-      return prevApprovals.map((item) => {
-        if (item.userId === userId)
-          return { ...item, approvalStatus: isApprove };
-      });
-    });
+    dispatch(updateCommuterApprovalList({ userId, isApprove }));
   };
 
   const setChangeUserID = (userId) => {
     setSelectedUser(userId);
-    console.log(userId, "commuter page");
   };
-  useEffect(() => {
-    // getApprovalList();
-  }, [dispatch]);
+  useEffect(() => {}, [dispatch]);
 
   return (
     <>

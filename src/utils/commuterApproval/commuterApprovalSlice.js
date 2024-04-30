@@ -25,43 +25,43 @@ export const getCommuterApprovalRequests = createAsyncThunk(
   }
 );
 
-// export const getRider = createAsyncThunk(
-//   "commuterApproval/getRider",
-//   async (userId, thunkAPI) => {
-//     try {
-//       return await commuterApprovalService.getRider(userId);
-//     } catch (error) {
-//       const messsage =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(messsage);
-//     }
-//   }
-// );
+export const getCommuter = createAsyncThunk(
+  "commuterApproval/getCommuter",
+  async (userId, thunkAPI) => {
+    try {
+      return await commuterApprovalService.getCommuter(userId);
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
 
-// export const respondcommuterApprovalRequest = createAsyncThunk(
-//   "commuterApproval/respondcommuterApprovalRequest",
-//   async ({ userId, approvalResponse, rejectionMessage }, thunkAPI) => {
-//     try {
-//       return await commuterApprovalService.respondcommuterApprovalRequest(
-//         userId,
-//         approvalResponse,
-//         rejectionMessage
-//       );
-//     } catch (error) {
-//       const messsage =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(messsage);
-//     }
-//   }
-// );
+export const respondCommuterApprovalRequest = createAsyncThunk(
+  "commuterApproval/respondCommuterApprovalRequest",
+  async ({ userId, approvalResponse, rejectionMessage }, thunkAPI) => {
+    try {
+      return await commuterApprovalService.respondCommuterApprovalRequest(
+        userId,
+        approvalResponse,
+        rejectionMessage
+      );
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
 
 // export const getcommuterApprovalRequirements = createAsyncThunk(
 //   "commuterApproval/getcommuterApprovalRequirements",
@@ -122,33 +122,33 @@ export const commuterApprovalSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = false;
         state.message = action.payload;
+      })
+
+      // get commuter
+      .addCase(getCommuter.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCommuter.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(getCommuter.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+      })
+
+      // respond commuter approval request
+      .addCase(respondCommuterApprovalRequest.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(respondCommuterApprovalRequest.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(respondCommuterApprovalRequest.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
       });
-
-    // get rider
-    // .addCase(getRider.pending, (state) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(getRider.fulfilled, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = true;
-    // })
-    // .addCase(getRider.rejected, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = false;
-    // })
-
-    // // respond rider approval request
-    // .addCase(respondcommuterApprovalRequest.pending, (state) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(respondcommuterApprovalRequest.fulfilled, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = true;
-    // })
-    // .addCase(respondcommuterApprovalRequest.rejected, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = false;
-    // })
 
     // // get rider approval requiremnts
     // .addCase(getcommuterApprovalRequirements.pending, (state) => {
