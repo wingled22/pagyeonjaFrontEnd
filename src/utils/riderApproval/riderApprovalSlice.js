@@ -8,6 +8,23 @@ const initialState = {
   message: "",
 };
 
+export const getRiderApprovalRequests = createAsyncThunk(
+  "riderApproval/getRiderApprovalRequests",
+  async (_, thunkAPI) => {
+    try {
+      return await riderApprovalService.getRiderApprovalRequests();
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
+
 // create global state for approved commuters
 export const riderApprovalSlice = createSlice({
   name: "riderApproval",
@@ -36,21 +53,21 @@ export const riderApprovalSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // builder
-    //   // getting commuters
-    //   .addCase(getApprovedCommuters.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(getApprovedCommuters.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.isSuccess = true;
-    //     state.approvedCommuters = action.payload;
-    //   })
-    //   .addCase(getApprovedCommuters.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.isSuccess = false;
-    //     state.message = action.payload;
-    //   })
+    builder
+      // getting rider approval requests
+      .addCase(getRiderApprovalRequests.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getRiderApprovalRequests.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.riderApprovalRequests = action.payload;
+      })
+      .addCase(getRiderApprovalRequests.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+        state.message = action.payload;
+      });
     // // get approved commuter
     // .addCase(getApprovedCommuter.pending, (state) => {
     //   state.isLoading = true;

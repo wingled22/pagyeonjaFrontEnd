@@ -12,15 +12,21 @@ import {
   reset as resetCommuters,
   getApprovedCommuters,
 } from "./utils/commuter/approvedCommuterSlice";
+import {
+  getRiderApprovalRequests,
+  reset as resetRiderApprovalRequests,
+} from "./utils/riderApproval/riderApprovalSlice";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getApproveRiders());
     dispatch(getApprovedCommuters());
+    dispatch(getRiderApprovalRequests());
     return () => {
       dispatch(resetRiders());
       dispatch(resetCommuters());
+      dispatch(resetRiderApprovalRequests());
     };
   }, []);
   return (
