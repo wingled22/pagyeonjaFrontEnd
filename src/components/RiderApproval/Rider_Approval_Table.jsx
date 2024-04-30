@@ -29,8 +29,6 @@ const RiderApprovalTablePage = ({ changeUserID, approvals }) => {
     }
 
     setfilterRiderApproval(newValue);
-
-    // console.log(newValue,"mao ni siya ang new value")
   };
 
   const filteredData = approvals.filter(
@@ -52,7 +50,6 @@ const RiderApprovalTablePage = ({ changeUserID, approvals }) => {
   if (filteredData == null) {
     return <></>;
   }
-  console.log(approvals);
 
   return (
     <>
