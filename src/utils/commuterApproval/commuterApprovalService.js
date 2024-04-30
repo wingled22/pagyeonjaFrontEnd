@@ -25,8 +25,16 @@ const respondCommuterApprovalRequest = async (
   return res.data;
 };
 
+const getCommuterApprovalRequirements = async (userId) => {
+  const res = await axios.get(
+    `http://localhost:5180/api/document/getdocuments?id=${userId}&usertype=Commuter`
+  );
+  return res.data;
+};
+
 export const commuterApprovalService = {
   getCommuterApprovalRequests,
   getCommuter,
   respondCommuterApprovalRequest,
+  getCommuterApprovalRequirements,
 };

@@ -18,6 +18,7 @@ import "../../assets/css/CommuterApproval/CommuterApprovalRequirements.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCommuter,
+  getCommuterApprovalRequirements,
   respondCommuterApprovalRequest,
 } from "../../utils/commuterApproval/commuterApprovalSlice";
 
@@ -44,15 +45,9 @@ const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
   const { isSuccess } = useSelector((state) => state.commuterApprovals);
 
   const getRequirements = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/document/getdocuments?id=${userId}&usertype=Commuter`
-      );
-      if (response.ok) {
-        setDocument(await response.json());
-      }
-    } catch (error) {
-      console.error(error);
+    const { payload } = await dispatch(getCommuterApprovalRequirements(userId));
+    if (isSuccess) {
+      setDocument(payload);
     }
   };
 
@@ -87,6 +82,7 @@ const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
 
   const getApproval = async () => {
     const { payload } = await dispatch(getCommuter(userId));
+    console.log(payload);
     if (isSuccess) {
       setApproval(payload);
     }

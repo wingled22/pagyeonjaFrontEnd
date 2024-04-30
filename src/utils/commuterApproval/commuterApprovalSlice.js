@@ -63,22 +63,24 @@ export const respondCommuterApprovalRequest = createAsyncThunk(
   }
 );
 
-// export const getcommuterApprovalRequirements = createAsyncThunk(
-//   "commuterApproval/getcommuterApprovalRequirements",
-//   async (userId, thunkAPI) => {
-//     try {
-//       return await commuterApprovalService.getcommuterApprovalRequirements(userId);
-//     } catch (error) {
-//       const messsage =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       return thunkAPI.rejectWithValue(messsage);
-//     }
-//   }
-// );
+export const getCommuterApprovalRequirements = createAsyncThunk(
+  "commuterApproval/getCommuterApprovalRequirements",
+  async (userId, thunkAPI) => {
+    try {
+      return await commuterApprovalService.getCommuterApprovalRequirements(
+        userId
+      );
+    } catch (error) {
+      const messsage =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(messsage);
+    }
+  }
+);
 
 // create global state for approved commuters
 export const commuterApprovalSlice = createSlice({
@@ -148,20 +150,20 @@ export const commuterApprovalSlice = createSlice({
       .addCase(respondCommuterApprovalRequest.rejected, (state) => {
         state.isLoading = false;
         state.isSuccess = false;
-      });
+      })
 
-    // // get rider approval requiremnts
-    // .addCase(getcommuterApprovalRequirements.pending, (state) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(getcommuterApprovalRequirements.fulfilled, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = true;
-    // })
-    // .addCase(getcommuterApprovalRequirements.rejected, (state) => {
-    //   state.isLoading = false;
-    //   state.isSuccess = false;
-    // });
+      // get commuter approval requiremnts
+      .addCase(getCommuterApprovalRequirements.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCommuterApprovalRequirements.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(getCommuterApprovalRequirements.rejected, (state) => {
+        state.isLoading = false;
+        state.isSuccess = false;
+      });
   },
 });
 
