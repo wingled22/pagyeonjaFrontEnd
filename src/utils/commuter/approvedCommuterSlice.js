@@ -173,7 +173,7 @@ export const commuterSlice = createSlice({
     },
     addCommuter: (state, action) => {
       const { approval } = action.payload;
-      state.approvedCommuters = state.approvedCommuters.push(approval);
+      state.approvedCommuters = [...state.approvedCommuters, approval];
     },
     updateCommuters: (state, action) => {
       const { commuter, isForDetailsUpdate, isForRevoke } = action.payload;
