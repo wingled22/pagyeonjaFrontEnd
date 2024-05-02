@@ -8,19 +8,25 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { updateCommuterApprovalList } from "../utils/commuterApproval/commuterApprovalSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { addCommuter } from "../utils/commuter/approvedCommuterSlice";
 
 const CommuterApprovalPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
 
   //redux stuffs
   const dispatch = useDispatch();
-  const { commuterApprovalRequests } = useSelector(
+  const { commuterApprovalRequests, isSuccess } = useSelector(
     (state) => state.commuterApprovals
   );
 
   // Changes the approvals state without fetching the approvals
   const updateApprovalTable = (userId, isApprove) => {
     dispatch(updateCommuterApprovalList({ userId, isApprove }));
+  };
+
+  const insertCommuterToTable = (commuter) => {
+    const approval = { ...commuter, approvalStatus: true };
+    dispatch(addCommuter({ approval }));
   };
 
   const setChangeUserID = (userId) => {
@@ -61,6 +67,7 @@ const CommuterApprovalPage = () => {
             <CommuterApprovalRequirements
               userId={selectedUser}
               updateApprovalTable={updateApprovalTable}
+              addCommuter={insertCommuterToTable}
             />
             <ToastContainer />
           </Col>

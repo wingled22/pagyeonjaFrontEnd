@@ -102,6 +102,7 @@ export const riderApprovalSlice = createSlice({
           (item) => {
             if (item.userId === userId)
               return { ...item, approvalStatus: isApprove };
+            return item;
           }
         );
       }

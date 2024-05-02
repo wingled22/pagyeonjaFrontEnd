@@ -104,6 +104,7 @@ export const commuterApprovalSlice = createSlice({
           (item) => {
             if (item.userId === userId)
               return { ...item, approvalStatus: isApprove };
+            return item;
           }
         );
       }

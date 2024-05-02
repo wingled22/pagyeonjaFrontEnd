@@ -176,7 +176,7 @@ export const riderSlice = createSlice({
     },
     addRider: (state, action) => {
       const { rider } = action.payload;
-      state.approvedRiders = state.approvedRiders.push(rider);
+      state.approvedRiders = [...state.approvedRiders, rider];
     },
     updateRiders: (state, action) => {
       const { rider, isForDetailsUpdate, isForRevoke } = action.payload;

@@ -21,9 +21,12 @@ import {
   getCommuterApprovalRequirements,
   respondCommuterApprovalRequest,
 } from "../../utils/commuterApproval/commuterApprovalSlice";
-import { addCommuter } from "../../utils/commuter/approvedCommuterSlice";
 
-const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
+const CommuterApprovalRequirements = ({
+  userId,
+  updateApprovalTable,
+  addCommuter,
+}) => {
   const [document, setDocument] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
   const [approvalResponse, setApprovalResponse] = useState(null);
@@ -75,7 +78,7 @@ const CommuterApprovalRequirements = ({ userId, updateApprovalTable }) => {
       updateApprovalTable(userId, approvalResponse);
       if (approvalResponse) {
         toast.success("Successfully approved Commuter request!");
-        dispatch(addCommuter({ approval }));
+        addCommuter(approval);
       } else {
         toast.success("Request rejected!");
       }

@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateRiderApprovalList } from "../utils/riderApproval/riderApprovalSlice";
+import { addRider } from "../utils/riders/approvedRiderSlice";
 
 const RiderApprovalDashboard = () => {
   const [selectedUser, setSelectedUser] = useState(null); // reciever from rider table approval
@@ -20,6 +21,11 @@ const RiderApprovalDashboard = () => {
   // Changes the approvals state without fetching the approvals
   const updateApprovalTable = (userId, isApprove) => {
     dispatch(updateRiderApprovalList({ userId, isApprove }));
+  };
+
+  const addRiderToTable = (approval) => {
+    const rider = { ...approval, approvalStatus: true };
+    dispatch(addRider({ rider }));
   };
 
   const setChangeUserID = (userId) => {
@@ -58,6 +64,7 @@ const RiderApprovalDashboard = () => {
             <Requirements
               userId={selectedUser}
               updateApprovalTable={updateApprovalTable}
+              addRider={addRiderToTable}
             />
           </Col>
         )}

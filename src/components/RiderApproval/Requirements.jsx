@@ -17,7 +17,7 @@ import {
 } from "../../utils/riderApproval/riderApprovalSlice";
 import { toast } from "react-toastify";
 
-const Requirements = ({ userId, updateApprovalTable }) => {
+const Requirements = ({ userId, updateApprovalTable, addRider }) => {
   const [document, setDocument] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
   const [approvalResponse, setApprovalResponse] = useState(null);
@@ -74,9 +74,12 @@ const Requirements = ({ userId, updateApprovalTable }) => {
     if (isSuccess) {
       toggleApprovaModal();
       updateApprovalTable(userId, approvalResponse);
-      approvalResponse
-        ? toast.success("Successfully approved rider!")
-        : toast.success("Successfully rejected rider");
+      if (approvalResponse) {
+        toast.success("Successfully approved rider!");
+        addRider(approval);
+      } else {
+        toast.success("Successfully rejected rider");
+      }
     } else {
       toast.error("Something went wrong!");
     }
