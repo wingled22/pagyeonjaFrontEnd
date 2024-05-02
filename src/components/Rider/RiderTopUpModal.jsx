@@ -19,56 +19,44 @@ import {
 } from "reactstrap";
 import "../../assets/css/RiderTopUpModal.css";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getTopUpHistory } from "../../utils/riders/approvedRiderSlice";
+
+const formatDate = (dateTimeString) => {
+  const dateTime = new Date(dateTimeString);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return dateTime.toLocaleDateString("en-US", options);
+};
+
+const formatTime = (dateTimeString) => {
+  const dateTime = new Date(dateTimeString);
+  const options = {
+    hour: "numeric",
+    minute: "numeric",
+  };
+  return dateTime.toLocaleTimeString("en-US", options);
+};
 
 const RiderTopUpModal = ({ isOpen, untoggle, rider }) => {
-
-
-  
   const [open, setOpen] = useState("0");
-
   const [TopUpHistory, setTopUpHistory] = useState([]);
 
+  const dispatch = useDispatch();
 
   const getsetTopUpHistoryList = async () => {
-
-    if(!rider.riderId) return;
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/TopupHistory/GetRiderTopupHistory?id=${rider.riderId}`
-      );
-      const data = await response.json();
-      setTopUpHistory(data);
-
-      console.log("data nis getsetTopUpHistoryList rider: ",data)
-    } catch (error) {
-      console.error(error);
-    }
+    if (!rider.riderId) return;
+    const { payload } = await dispatch(getTopUpHistory(rider.riderId));
+    setTopUpHistory(payload);
+    console.log("data nis getsetTopUpHistoryList rider: ", payload);
   };
 
   useEffect(() => {
     getsetTopUpHistoryList();
   }, [rider.riderId]);
-
-
-
-  function formatDate(dateTimeString) {
-    const dateTime = new Date(dateTimeString);
-    const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    };
-    return dateTime.toLocaleDateString("en-US", options);
-}
-
-function formatTime(dateTimeString) {
-    const dateTime = new Date(dateTimeString);
-    const options = {
-        hour: "numeric",
-        minute: "numeric",
-    };
-    return dateTime.toLocaleTimeString("en-US", options);
-}
 
   const toggleAct = (id) => {
     if (open === id) {
@@ -94,7 +82,6 @@ function formatTime(dateTimeString) {
                 </strong>
               </h5>
             </center>{" "}
-        
             <Container
               style={{
                 overflow: "hidden",
@@ -120,9 +107,11 @@ function formatTime(dateTimeString) {
                   maxHeight: "500px",
                 }}
               >
-                {TopUpHistory.length === 0 && <center>No Record of Topup History</center>}
+                {TopUpHistory.length === 0 && (
+                  <center>No Record of Topup History</center>
+                )}
                 {TopUpHistory.map((item) => (
-                  <AccordionItem key={item.id}>
+                  <AccordionItem key={item.topupId}>
                     <AccordionHeader
                       className="accordionHeader"
                       id="accordionHeaderStyle"
@@ -132,7 +121,6 @@ function formatTime(dateTimeString) {
                       <Col>&emsp;|&emsp; {formatTime(item.topupDate)}</Col>
                     </AccordionHeader>
                     <AccordionBody accordionId={item.topupId}>
-                 
                       <Row>
                         <Col md={4}>
                           <span className="riderHistoryLabelInfo">
@@ -193,15 +181,19 @@ function formatTime(dateTimeString) {
                         </Col>
                         <Col md={2}>
                           :
-                          <span  className={`riderHistoryTextInfo fw-bold ${item.status.toLowerCase() == "failed"
+                          <span
+                            className={`riderHistoryTextInfo fw-bold ${
+                              item.status.toLowerCase() == "failed"
                                 ? "text-danger"
-                                :  item.status.toLowerCase() == "pending"
-                                  ? "text-warning"
-                                  : "text-success"
-                                }`}>
-                            
+                                : item.status.toLowerCase() == "pending"
+                                ? "text-warning"
+                                : "text-success"
+                            }`}
+                          >
                             {" "}
-                             &emsp;{item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+                            &emsp;
+                            {item.status.charAt(0).toUpperCase() +
+                              item.status.slice(1)}
                           </span>
                         </Col>
                       </Row>
@@ -211,9 +203,7 @@ function formatTime(dateTimeString) {
               </Accordion>
             </Container>
           </ModalBody>
-          <ModalFooter className="topup-footer-modal">
-
-          </ModalFooter>
+          <ModalFooter className="topup-footer-modal"></ModalFooter>
         </Form>
       </Modal>
     </>

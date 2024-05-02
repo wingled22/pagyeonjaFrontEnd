@@ -1,58 +1,31 @@
 import React from "react";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  FormGroup,
-  Label,
-  Input,
-  Row,
-  Col,
-} from "reactstrap";
+import { Row, Col } from "reactstrap";
 import { useState, useEffect } from "react";
 import "../assets/css/RiderApproval/RiderApprovalDashboard.css";
 import RiderApprovalTablePage from "../components/RiderApproval/Rider_Approval_Table";
 import Requirements from "../components/RiderApproval/Requirements";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { updateRiderApprovalList } from "../utils/riderApproval/riderApprovalSlice";
+
 const RiderApprovalDashboard = () => {
   const [selectedUser, setSelectedUser] = useState(null); // reciever from rider table approval
-  const [approvals, setApprovals] = useState([]);
-
-  const getApprovalList = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/Approval/GetApprovals?userType=Rider"
-      );
-      const data = await response.json();
-      setApprovals(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const [approvals, setApprovals] = useState([]);
+  const dispatch = useDispatch();
+  const { riderApprovalRequests } = useSelector(
+    (state) => state.riderApprovals
+  );
 
   // Changes the approvals state without fetching the approvals
   const updateApprovalTable = (userId, isApprove) => {
-    setApprovals((prevApprovals) => {
-      if (isApprove) {
-        return prevApprovals.filter((item) => item.userId !== userId);
-      }
-      return prevApprovals.map((item) => {
-        if (item.userId === userId)
-          return { ...item, approvalStatus: isApprove };
-      });
-    });
+    dispatch(updateRiderApprovalList({ userId, isApprove }));
   };
 
   const setChangeUserID = (userId) => {
     setSelectedUser(userId);
-    console.log(userId, "rider page");
   };
-  useEffect(() => {
-    getApprovalList();
-  }, []);
+  useEffect(() => {}, [dispatch]);
   return (
     <>
       <div className="rider-approval-text-wrapper">Rider Approval List</div>
@@ -75,7 +48,7 @@ const RiderApprovalDashboard = () => {
         >
           <RiderApprovalTablePage
             changeUserID={setChangeUserID}
-            approvals={approvals}
+            approvals={riderApprovalRequests}
           />
           <ToastContainer />
         </Col>

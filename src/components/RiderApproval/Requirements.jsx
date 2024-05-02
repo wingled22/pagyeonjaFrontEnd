@@ -1,16 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  FormGroup,
-  Label,
-  Input,
-  Row,
-  Col,
-} from "reactstrap";
+import { Button, Row } from "reactstrap";
 import images1 from "../../assets/image/carlo.jpg";
 
 import RiderDocumentViewerModal from "../Rider/RiderDocumentViewerModal";
@@ -20,15 +9,18 @@ import ViewRequirements from "./RequirementsCards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  respondRiderApprovalRequest,
+  getRider,
+  getRiderApprovalRequirements,
+} from "../../utils/riderApproval/riderApprovalSlice";
 import { toast } from "react-toastify";
 
 const Requirements = ({ userId, updateApprovalTable }) => {
-  console.log("requirements", userId);
-
   const [document, setDocument] = useState([]);
   const [documentFiles, setDocumentFiles] = useState([]);
   const [approvalResponse, setApprovalResponse] = useState(null);
-  console.log(approvalResponse);
   // states for document modal
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -40,32 +32,23 @@ const Requirements = ({ userId, updateApprovalTable }) => {
   const [rejectionMessage, setRejectionMessage] = useState("");
   const onSetRejectionMessage = (message) => {
     setRejectionMessage(() => message);
-    console.log(message);
   };
 
+  // redux stuffs
+  const dispatch = useDispatch();
+  const { isSuccess } = useSelector((state) => state.riderApprovals);
+
   const getRequirements = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/document/getdocuments?id=${userId}&usertype=Rider`
-      );
-      if (response.ok) {
-        setDocument(await response.json());
-      }
-    } catch (error) {
-      console.error(error);
+    const { payload } = await dispatch(getRiderApprovalRequirements(userId));
+    if (isSuccess) {
+      setDocument(payload);
     }
   };
 
   const getApproval = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/riderregistration/getrider?id=${userId}`
-      );
-      if (response.ok) {
-        setApproval(await response.json());
-      }
-    } catch (error) {
-      console.error(error);
+    const { payload } = await dispatch(getRider(userId));
+    if (isSuccess) {
+      setApproval(payload);
     }
   };
 
@@ -80,42 +63,30 @@ const Requirements = ({ userId, updateApprovalTable }) => {
   };
 
   // approve or reject the rider approval request
-  const onResponseRiderApproval = async () => {
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/Approval/UserApprovalResponse?usertype=Rider&userid=${userId}&response=${approvalResponse}&rejectionmessage=${rejectionMessage}`,
-        {
-          method: "PUT",
-        }
-      );
-      if (response.ok) {
-        toggleApprovaModal();
-        updateApprovalTable(userId, approvalResponse);
-        console.log({
-          riderId: userId,
-          response: approvalResponse,
-          message: rejectionMessage,
-        });
-        if (approvalResponse) {
-          toast.success("Request successfully approved Rider!");
-        } else {
-          toast.error("Request rejected!");
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("An error occurred while recording rider approval response.");
+  const onResponseRiderApproval = () => {
+    dispatch(
+      respondRiderApprovalRequest({
+        userId,
+        approvalResponse,
+        rejectionMessage,
+      })
+    );
+    if (isSuccess) {
+      toggleApprovaModal();
+      updateApprovalTable(userId, approvalResponse);
+      approvalResponse
+        ? toast.success("Successfully approved rider!")
+        : toast.success("Successfully rejected rider");
+    } else {
+      toast.error("Something went wrong!");
     }
   };
+
   useEffect(() => {
     getRequirements();
-  }, [userId]);
-
-  useEffect(() => {
     getApproval();
-  }, [userId]);
+  }, [userId, dispatch]);
 
-  console.log("approval", approval.approvalStatus);
   return (
     <>
       <RiderDocumentViewerModal

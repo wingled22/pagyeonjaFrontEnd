@@ -14,17 +14,22 @@ import { Row, Col } from "reactstrap";
 import "../../assets/css/RiderDetailsModal.css";
 import RiderDocumentViewerModal from "./RiderDocumentViewerModal";
 import RiderAccordion from "./RiderAccordion";
-
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getApprovedRiderSuspension,
+  getApprovedRiderDocuments,
+} from "../../utils/riders/approvedRiderSlice";
 
 const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
-  // console.log("Rider Object:", rider);
   const [document, setDocument] = useState([]);
   const [modalDocumentViewer, setModalDocumentViewer] = useState(false);
-  // const [isComponentLoaded, setIsComponentLoaded] = useState(true);
   const toggleDocumentViewer = () =>
     setModalDocumentViewer(!modalDocumentViewer);
 
+  const dispatch = useDispatch();
+  const { isSuccess } = useSelector((state) => state.approvedRiders);
 
+  // for image handling
   function ProfileImage({ rider }) {
     const [imageFailed, setImageFailed] = useState(false);
 
@@ -43,18 +48,13 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
   const [suspensionInfo, setSuspensionInfo] = useState([]);
 
   const getLatestSuspension = async () => {
-    try {
-      if (rider.suspensionStatus === true) {
-        //If suspended, then get the latest end date suspension
-        const response = await fetch(
-          `http://localhost:5180/api/Suspension/GetSuspension?userid=${rider.riderId}&usertype=Rider`
-        );
-        const data = await response.json();
-
-        setSuspensionInfo(() => data);
+    if (rider.suspensionStatus === true) {
+      const { payload } = await dispatch(
+        getApprovedRiderSuspension(rider.riderId)
+      );
+      if (isSuccess) {
+        setSuspensionInfo(() => payload);
       }
-    } catch (error) {
-      setSuspensionInfo([]);
     }
   };
 
@@ -84,22 +84,15 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
 
   const [timeLeft, setTimeLeft] = useState([]);
 
-
   const getRequirements = async () => {
     if (!rider.riderId) {
       return;
     }
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/document/getdocuments?id=${rider.riderId}&usertype=Rider`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setDocument(data);
-        console.log(data);
-      }
-    } catch (error) {
-      console.error(error);
+    const { payload } = await dispatch(
+      getApprovedRiderDocuments(rider.riderId)
+    );
+    if (isSuccess) {
+      setDocument(payload);
     }
   };
 
@@ -127,9 +120,9 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
           untoggle={toggleDocumentViewer}
           rider={rider}
           document={document.documents}
-          userName={`${document.firstName} ${document.middleName ? document.middleName[0] + "."
-            : ""
-            } ${document.lastName}`}
+          userName={`${document.firstName} ${
+            document.middleName ? document.middleName[0] + "." : ""
+          } ${document.lastName}`}
         />
       )}
 
@@ -148,8 +141,8 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
               <Row>
                 <Col style={{ padding: "25px" }} md={2}>
                   {rider.profilePath === "" ||
-                    rider.profilePath === null ||
-                    !rider.profilePath ? (
+                  rider.profilePath === null ||
+                  !rider.profilePath ? (
                     <Icon
                       icon={faCircleUser}
                       color="white"
@@ -162,15 +155,24 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 <Col md={7}>
                   <Row>
                     <p className="ridername">
-                      {rider.firstName}  {rider.middleName
-                        ? rider.middleName[0] + "."
-                        : ""}{" "}
+                      {rider.firstName}{" "}
+                      {rider.middleName ? rider.middleName[0] + "." : ""}{" "}
                       {rider.lastName}
                     </p>
                   </Row>
                   <Row>
-                    <span style={{ marginLeft: "40px", fontSize: "22px", color: "white" }}>Balance:
-                      <span style={{ marginLeft: "10px", color: "lightgreen" }}>₱{rider.balance}</span></span>
+                    <span
+                      style={{
+                        marginLeft: "40px",
+                        fontSize: "22px",
+                        color: "white",
+                      }}
+                    >
+                      Balance:
+                      <span style={{ marginLeft: "10px", color: "lightgreen" }}>
+                        ₱{rider.balance}
+                      </span>
+                    </span>
                   </Row>
                 </Col>
                 <Col md={3}>
@@ -263,10 +265,11 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                 <div className="label-text">
                   Status:{" "}
                   <span
-                    className={`text-value ${rider.suspensionStatus === true
-                      ? "text-danger"
-                      : "text-success"
-                      }`}
+                    className={`text-value ${
+                      rider.suspensionStatus === true
+                        ? "text-danger"
+                        : "text-success"
+                    }`}
                   >
                     {rider.suspensionStatus === true ? "Suspended" : "Active"}
                   </span>
@@ -284,10 +287,11 @@ const RiderDetailsModal = ({ isOpen, toggle, rider }) => {
                     Duration:{" "}
                     <span
                       style={{ fontSize: "17px" }}
-                      className={`textInfo ${rider.suspensionStatus === true
-                        ? "text-danger"
-                        : "text-success"
-                        }`}
+                      className={`textInfo ${
+                        rider.suspensionStatus === true
+                          ? "text-danger"
+                          : "text-success"
+                      }`}
                     >
                       {timeLeft.days}D: {timeLeft.hours}hrs: {timeLeft.minutes}
                       m: {timeLeft.seconds}s

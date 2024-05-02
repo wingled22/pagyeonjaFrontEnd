@@ -6,6 +6,15 @@ import { useState, useEffect } from "react";
 import CommuterUpdateModal from "../../components/Commuter/CommuterUpdateModal.jsx";
 import CommuterTableList from "../../components/Commuter/CommuterTableList.jsx";
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateCommuters,
+  getCommuterSuspension,
+  addCommuterSuspension,
+  updateCommuterSuspension,
+  revokeCommuterSuspension,
+} from "../../utils/commuter/approvedCommuterSlice.js";
+
 const CommuterTable = ({
   selectUser,
   searchValueCommuter,
@@ -13,18 +22,22 @@ const CommuterTable = ({
   onSelectCommuter,
   toggleTriggerChanges,
 }) => {
-  const [commuters, setCommuters] = useState([]);
   const [filteredCommuters, setFilteredCommuters] = useState([]);
 
   const [commuterID, setCommuterID] = useState(null);
   const [commuterSuspensionStatus, setCommuterSuspensionStatus] =
     useState(null);
-  // const updateSuspensionStatus = () => setCommuterSuspensionStatus(!commuterSuspensionStatus);
+
+  const dispatch = useDispatch();
+  const { approvedCommuters, isSuccess } = useSelector(
+    (state) => state.approvedCommuters
+  );
 
   const commuterMatchesSearchTerm = (commuter) => {
     if (!searchValueCommuter) return true;
-    const fullName = `${commuter.firstName} ${commuter.middleName ? commuter.middleName + " " : ""
-      }${commuter.lastName}`.toLowerCase();
+    const fullName = `${commuter.firstName} ${
+      commuter.middleName ? commuter.middleName + " " : ""
+    }${commuter.lastName}`.toLowerCase();
     const status = commuter.suspensionStatus === false ? "active" : "suspended";
     const fullNameWords = fullName.split(" ");
     const searchWords = searchValueCommuter
@@ -39,52 +52,13 @@ const CommuterTable = ({
     );
   };
 
-  useEffect(() => {
-    const filtered = commuters.filter((commuter) =>
-      commuterMatchesSearchTerm(commuter)
-    );
-    setFilteredCommuters(filtered);
-  }, [commuters, searchValueCommuter]);
-
-  const getCommuters = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5180/api/CommuterRegistration/GetCommutersApproved"
-      );
-      const data = await response.json();
-      setCommuters(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // for updating the commuter state
   const updateCommuterTable = (
     commuter,
     isForDetailsUpdate = true,
     isForRevoke = false
   ) => {
-    setCommuters((prevCommuters) => {
-      return prevCommuters.map((item) => {
-        if (item.commuterId === commuter.commuterId) {
-          if (isForDetailsUpdate && !isForRevoke) {
-            return { ...item, ...commuter };
-          } else if (!isForDetailsUpdate && !isForRevoke) {
-            return {
-              ...item,
-              ...commuter,
-              suspensionStatus: commuter.suspensionStatus,
-            };
-          }
-          return {
-            ...item,
-            ...commuter,
-            suspensionStatus: !commuter.suspensionStatus,
-          };
-        }
-        return item;
-      });
-    });
+    dispatch(updateCommuters({ commuter, isForDetailsUpdate, isForRevoke }));
   };
 
   const onChangeSelectedCommuter = async (commuter) => {
@@ -104,112 +78,81 @@ const CommuterTable = ({
   };
 
   const getSuspension = async (suspendStatus, commuterId) => {
-    try {
-      setCommuterSuspensionStatus(suspendStatus);
-      if (suspendStatus === true) {
-        //If suspended, then get the latest end date suspension
-        const response = await fetch(
-          `http://localhost:5180/api/Suspension/GetSuspension?userid=${commuterId}&usertype=Commuter`
-        );
-        const data = await response.json();
-
-        setReason(data.reason);
-        setSuspensionDate(data.suspensionDate);
-        setSuspensionId(data.suspensionId);
-      } else {
-        clearSuspensionEntry();
+    setCommuterSuspensionStatus(suspendStatus);
+    if (suspendStatus) {
+      //If suspended, then get the latest end date suspension
+      const { payload } = await dispatch(getCommuterSuspension(commuterId));
+      if (isSuccess) {
+        setReason(payload.reason);
+        setSuspensionDate(payload.suspensionDate);
+        setSuspensionId(payload.suspensionId);
       }
-    } catch (error) {
-      // console.error("Error fetching data:", error);
+    } else {
       clearSuspensionEntry();
     }
   };
 
-  const handleUpdateSuspensionCommuter = async (suspendStatus) => {
-    try {
-      //Add a condition here that if the suspension status is already true then update the data instead
-      const formData = {
-        userId: commuterID,
-        userType: "Commuter",
-        reason: reason,
-        suspensionDate: suspensionDate,
-      };
+  const handleUpdateSuspensionCommuter = (suspendStatus) => {
+    const formData = {
+      userId: commuterID,
+      userType: "Commuter",
+      reason: reason,
+      suspensionDate: suspensionDate,
+    };
 
-      const updateFormData = {
-        suspensionId: suspensionId,
-        userId: commuterID,
-        userType: "Commuter",
-        reason: reason,
-        suspensionDate: suspensionDate,
-        status: true,
-      };
+    const updateFormData = {
+      suspensionId: suspensionId,
+      userId: commuterID,
+      userType: "Commuter",
+      reason: reason,
+      suspensionDate: suspensionDate,
+      status: true,
+    };
 
-      if (suspendStatus === false) {
-        const response = await fetch(
-          "http://localhost:5180/api/Suspension/RegisterSuspension",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-          }
-        );
-        toast.success("Commuter Suspended");
-      } else if (suspendStatus === true) {
-        //update instead
-        const response = await fetch(
-          "http://localhost:5180/api/Suspension/UpdateSuspension",
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updateFormData),
-          }
-        );
-        toast.success("Commuter suspension updated");
-      }
+    if (!suspendStatus) {
+      dispatch(addCommuterSuspension(formData));
+      isSuccess
+        ? toast.success("Commuter suspended")
+        : toast.error("Commuter suspension failed");
+    } else {
+      //update instead
+      dispatch(updateCommuterSuspension(updateFormData));
+      isSuccess
+        ? toast.success("Commuter suspension updated")
+        : toast.error("Commuter suspension update failed");
+    }
 
+    if (isSuccess) {
       selectedCommuter.suspensionStatus
         ? updateCommuterTable(selectedCommuter, false)
         : updateCommuterTable(selectedCommuter, false, true);
       clearSuspensionEntry();
       toggleSuspension();
       toggleTriggerChanges();
-
-      //toggle so that the suspension status is true
       suspensionStatus(true);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
     }
   };
 
-  const handleRevokeSuspension = async () => {
-    try {
-      const formData = {
-        suspensionId: suspensionId,
-        userId: commuterID,
-        userType: "Commuter",
-        reason: reason,
-        suspensionDate: suspensionDate,
-        status: false,
-      };
+  const handleRevokeSuspension = () => {
+    const formData = {
+      suspensionId: suspensionId,
+      userId: commuterID,
+      userType: "Commuter",
+      reason: reason,
+      suspensionDate: suspensionDate,
+      status: false,
+    };
 
-      const response = await fetch(
-        "http://localhost:5180/api/Suspension/RevokeSuspension",
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
-
+    dispatch(revokeCommuterSuspension(formData));
+    if (isSuccess) {
       updateCommuterTable(selectedCommuter, false, true);
       clearSuspensionEntry();
       toggleSuspension();
       toggleTriggerChanges();
       toast.success("Commuter Suspension Revoked");
-      //toggle so that the suspension status is true
       suspensionStatus(false);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
+    } else {
+      toast.error("Commuter Suspension revoking failed");
     }
   };
 
@@ -217,10 +160,6 @@ const CommuterTable = ({
     setReason("");
     setSuspensionDate("");
   };
-
-  useEffect(() => {
-    getCommuters();
-  }, []);
 
   const [modalSuspension, setModalSuspension] = useState(false);
   const toggleSuspension = (commuter) => {
@@ -235,6 +174,14 @@ const CommuterTable = ({
     setSelectedCommuter(() => CommuterUpdate);
     // console.log("Update selected", CommuterUpdate);
   };
+
+  useEffect(() => {
+    const filtered = approvedCommuters.filter((commuter) =>
+      commuterMatchesSearchTerm(commuter)
+    );
+    setFilteredCommuters(filtered);
+  }, [approvedCommuters, searchValueCommuter, dispatch]);
+
   //console.log(selectedCommuter);
   return (
     <>
@@ -308,7 +255,8 @@ const CommuterTable = ({
               </tr>
             )}
             {filteredCommuters.map((commuterUpdate) => (
-              <CommuterTableList key={commuterUpdate.commuterId}
+              <CommuterTableList
+                key={commuterUpdate.commuterId}
                 commuterUpdate={commuterUpdate}
                 selectUser={selectUser}
                 suspensionStatus={suspensionStatus}

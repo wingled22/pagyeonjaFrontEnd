@@ -18,6 +18,16 @@ import {
 } from "reactstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { updateApprovedRiders } from "../../utils/riders/approvedRiderSlice";
+
+const formatDate = (dateString) => {
+  const newDate = new Date(dateString);
+  const month = (newDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = newDate.getDate().toString().padStart(2, "0");
+  const year = newDate.getFullYear();
+  return `${year}-${month}-${day}`;
+};
 const RiderUpdateModal = ({
   isOpen,
   toggle,
@@ -25,13 +35,8 @@ const RiderUpdateModal = ({
   updateRidersTable,
   onSelectRider,
 }) => {
-  function formatDate(dateString) {
-    const newDate = new Date(dateString);
-    const month = (newDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = newDate.getDate().toString().padStart(2, "0");
-    const year = newDate.getFullYear();
-    return `${year}-${month}-${day}`;
-  }
+  const dispatch = useDispatch();
+  const { isSuccess } = useSelector((state) => state.approvedRiders);
 
   const [formData, setFormData] = useState({
     riderId: "",
@@ -49,12 +54,6 @@ const RiderUpdateModal = ({
     dateApplied: "",
   });
 
-  useEffect(() => {
-    if (rider) {
-      setFormData(rider);
-    }
-  }, [rider]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -64,46 +63,33 @@ const RiderUpdateModal = ({
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-    // console.log(formData);
-    try {
-      const response = await fetch(
-        `http://localhost:5180/api/RiderRegistration/UpdateRider`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-      if (response.ok) {
-        toast.success("Update successful!"); // Show success toast
-        console.log("Update na intawn");
-        updateRidersTable(formData);
-        onSelectRider(formData);
-        toggle();
-      } else {
-        const errorData = await response.json();
-        toast.error(`Error ${response.status}: ${errorData.message}`); // Show error toast
-        console.error(`Error ${response.status}: ${errorData.message}`);
-      }
-    } catch (error) {
-      toast.error("Error submitting form data: " + error.message); // Show error toast
-      console.error("Error submitting form data:", error);
+    e.preventDefault();
+    dispatch(updateApprovedRiders(formData));
+    if (isSuccess) {
+      toast.success("Update rider successful!");
+      updateRidersTable(formData);
+      onSelectRider(formData);
+      toggle();
+    } else {
+      toast.error("Update rider unsuccessful");
     }
   };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
 
+  useEffect(() => {
+    if (rider) {
+      setFormData(rider);
+    }
+  }, [dispatch, rider]);
   return (
     <>
       <Modal isOpen={isOpen} toggle={toggle} centered>
         <ModalHeader toggle={toggle} className="commuterSuspensionHeader">
           Rider Update Info
         </ModalHeader>
-        <Form onSubmit={handleSubmit} form="true">
+        <Form onSubmit={handleSubmit}>
           <ModalBody>
             <Input
               type="date"
@@ -114,7 +100,7 @@ const RiderUpdateModal = ({
               onChange={handleChange}
             />
 
-            <Row form>
+            <Row>
               <Col className="col-6 col-sm-4">
                 <FormGroup>
                   <Label for="firstName">
@@ -161,7 +147,7 @@ const RiderUpdateModal = ({
                 </FormGroup>
               </Col>
             </Row>
-            <Row form>
+            <Row>
               <Col className="col-6 col-sm-4">
                 <FormGroup>
                   <Label for="sex">
