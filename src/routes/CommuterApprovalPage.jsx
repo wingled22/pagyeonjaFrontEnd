@@ -15,7 +15,7 @@ const CommuterApprovalPage = () => {
 
   //redux stuffs
   const dispatch = useDispatch();
-  const { commuterApprovalRequests } = useSelector(
+  const { commuterApprovalRequests, isSuccess } = useSelector(
     (state) => state.commuterApprovals
   );
 
